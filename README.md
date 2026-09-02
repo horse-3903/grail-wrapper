@@ -19,8 +19,8 @@ A local, faster, organized index for the grail.moe 'A' Level exam paper library
 **grail-wrapper** is a local wrapper around the [grail.moe](https://grail.moe/library) exam
 paper library. Instead of clicking through hundreds of paginated listing pages, it scrapes the
 library's metadata once, enriches it with Claude subagents (school, paper info, review flags,
-answer-booklet links), and serves a fast local search UI that downloads and caches PDFs on
-demand. The core question it answers: can a messy, freeform-named crowd-uploaded document
+answer-booklet links), and serves a fast local search UI where every title opens the PDF
+directly. The core question it answers: can a messy, freeform-named crowd-uploaded document
 library be turned into a clean, browsable, correctly-grouped index without manually touching
 every one of its thousands of entries.
 
@@ -28,8 +28,8 @@ every one of its thousands of entries.
 
 - **Fast local search** - filter by subject, school, year, document type, and paper number over
   the full scraped index, no page-by-page browsing on the live site
-- **On-demand PDF caching** - PDFs download and cache locally only when you open them, not in a
-  bulk upfront download
+- **Direct PDF links** - every title links straight to grail.moe's stable static PDF URL, opening
+  inline in a new tab instead of forcing a download, with no bulk upfront download
 - **Automatic tagging** - Claude Haiku subagents extract school and paper info from freeform
   filenames and flag entries whose name looks inconsistent with the site's structured fields
 - **Exam-set grouping** - question papers and their answer booklets are grouped into one
@@ -97,18 +97,21 @@ Claude Code session using the subagents defined in `.claude/agents/`, not a sing
 
 ```
 grail-wrapper/
-├── scrape.py             # metadata scraper -> data/raw.json, CLI-configurable
-├── server.py              # Flask app: serves the UI, proxies/caches PDF downloads
-├── start_server.bat        # Windows launcher: starts the server and opens the browser
+├── scrape.py               # metadata scraper -> data/raw.json, CLI-configurable
+├── fetch_inline_urls.py     # fills in each note's stable document.grail.moe PDF URL
+├── server.py                # Flask app: serves the UI and the index over /api/notes
+├── start_server.bat          # Windows launcher: starts the server and opens the browser
 ├── static/
-│   └── index.html          # search/filter/grouping UI (single-page, no build step)
+│   └── index.html            # local-server UI (single-page, no build step)
+├── web/
+│   ├── index.html             # static build for free hosting (Vercel/Netlify/GitHub Pages)
+│   └── data.json               # snapshot of data/tagged.json bundled for the static build
 ├── data/
-│   ├── raw.json             # scraped metadata, no enrichment
-│   └── tagged.json          # raw.json + school/paper_info/year_resolved/display_name/group_id
-├── downloads/               # cached PDFs, populated on demand (gitignored)
+│   ├── raw.json               # scraped metadata, no enrichment
+│   └── tagged.json            # raw.json + tags/year_resolved/display_name/group_id/inline_url
 ├── .claude/agents/
-│   ├── note-tagger.md        # subagent: tags school/paper_info, flags inconsistencies
-│   └── answer-linker.md      # subagent: fuzzy-links question papers to answer booklets
+│   ├── note-tagger.md          # subagent: tags school/paper_info, flags inconsistencies
+│   └── answer-linker.md        # subagent: fuzzy-links question papers to answer booklets
 ├── LICENSE
 └── README.md
 ```
@@ -120,6 +123,9 @@ grail-wrapper/
 Beyond the raw scraped fields (`name`, `category`, `subject`, `doc_type`, `note_url`,
 `download_url`, `uploaded_by`, `uploaded_on`), each entry has:
 
+- `inline_url` - the stable `document.grail.moe` URL for the file (a CloudFront link with no
+  `Content-Disposition: attachment` header, so it opens inline instead of forcing a download);
+  every title in the UI links here, falling back to `download_url` for the rare entry without one
 - `school` - JC abbreviation extracted from the name, or `null`
 - `paper_info` / `paper_info_base` / `paper_info_role` - e.g. "Prelim P1 Answers" splits into
   base "Prelim P1" (used for grouping) and role "Answers" (used for the badge in a group)
