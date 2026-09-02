@@ -90,7 +90,7 @@
   }
   .col-headers {
     flex-shrink: 0;
-    display: grid; grid-template-columns: 2.6fr 0.6fr 0.8fr 0.45fr 0.6fr 0.5fr;
+    display: grid; grid-template-columns: 2.1fr 0.55fr 0.7fr 0.55fr 0.75fr 0.4fr 0.6fr 0.5fr;
     gap: 12px; padding: 10px 16px; font-family: var(--font-mono); font-size: 10.5px; color: var(--text-faint);
     text-transform: uppercase; letter-spacing: .04em; font-weight: 600;
     background: var(--background); border-bottom: 1px solid var(--border);
@@ -98,7 +98,7 @@
   .results-scroll { flex: 1; min-height: 0; overflow-y: auto; padding-bottom: 48px; }
 
   .row {
-    display: grid; grid-template-columns: 2.6fr 0.6fr 0.8fr 0.45fr 0.6fr 0.5fr;
+    display: grid; grid-template-columns: 2.1fr 0.55fr 0.7fr 0.55fr 0.75fr 0.4fr 0.6fr 0.5fr;
     gap: 12px; align-items: center; padding: 13px 16px; border-radius: var(--r-card);
     margin: 6px 0; background: var(--card); border: 1px solid var(--border);
     box-shadow: 0 1px 2px rgba(17, 24, 39, 0.03);
@@ -108,17 +108,16 @@
   .row:not(.group-row):hover { border-color: #D8D3E8; }
 
   .title-cell { display: flex; align-items: center; gap: 9px; min-width: 0; }
-  .chev {
-    flex-shrink: 0; width: 13px; color: var(--text-faint); font-size: 11px;
-    transition: transform .12s;
-  }
-  .chev.open { transform: rotate(90deg); color: var(--primary); }
+  .col-badges { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; min-width: 0; }
   .doc-link {
     text-decoration: none; color: var(--text-primary); font-size: 14.5px; font-weight: 500;
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
   .doc-link:hover { color: var(--accent); text-decoration: underline; }
-  .group-title { font-weight: 600; }
+  .group-title {
+    color: var(--text-primary); font-size: 14.5px; font-weight: 600;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
   .member-count {
     flex-shrink: 0; font-family: var(--font-mono); font-size: 10.5px; color: #fff;
     background: var(--primary); border-radius: var(--r-pill); padding: 2px 9px; font-weight: 600;
@@ -156,19 +155,20 @@
   }
 
   .actions { display: flex; gap: 6px; justify-content: flex-end; }
-  .actions a {
+  .actions a, .actions button {
     font-size: 11px; font-family: var(--font-mono); padding: 5px 10px; border-radius: var(--r-control);
     border: 1px solid var(--border); background: var(--card-alt); color: var(--text-secondary);
-    text-decoration: none; font-weight: 600;
+    text-decoration: none; font-weight: 600; cursor: pointer;
   }
-  .actions a:hover { border-color: var(--accent); color: var(--accent); }
+  .actions a:hover, .actions button:hover { border-color: var(--accent); color: var(--accent); }
 
   .members { padding: 0 0 4px 0; margin-top: -2px; }
   .member-row {
-    display: grid; grid-template-columns: 2.6fr 0.6fr 0.8fr 0.45fr 0.6fr 0.5fr;
-    gap: 12px; align-items: center; padding: 10px 16px 10px 40px; border-radius: var(--r-card);
-    margin: 3px 0 3px 12px; background: var(--card-alt); border: 1px dashed var(--border);
+    display: grid; grid-template-columns: 2.1fr 0.55fr 0.7fr 0.55fr 0.75fr 0.4fr 0.6fr 0.5fr;
+    gap: 12px; align-items: center; padding: 10px 16px; border-radius: var(--r-card);
+    margin: 3px 0; background: var(--card-alt); border: 1px dashed var(--border);
   }
+  .row-indent { flex-shrink: 0; width: 24px; }
   .member-title-wrap { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
   .member-orig {
     font-size: 11px; color: var(--text-faint);
@@ -234,6 +234,8 @@
   <div class="results">
     <div class="col-headers">
       <div>Document</div>
+      <div>Paper</div>
+      <div>Status</div>
       <div>School</div>
       <div>Subject</div>
       <div>Year</div>
@@ -291,11 +293,14 @@ function buildGroups(data) {
 
 function populateSelect(id, values) {
   const el = $(id);
+  const current = el.value;
+  while (el.options.length > 1) el.remove(1);  // keep the "All ..." placeholder
   for (const v of values) {
     const opt = document.createElement("option");
     opt.value = v; opt.textContent = v;
     el.appendChild(opt);
   }
+  if ([...el.options].some(o => o.value === current)) el.value = current;
 }
 
 function matchesFilters(e) {
@@ -342,9 +347,7 @@ function roleClass(role) {
 }
 
 function roleLabel(m) {
-  const rawRole = m.paper_info_role || m.doc_type;
-  const role = classifyRole(rawRole);
-  return m.paper_label ? `${role} (${m.paper_label})` : role;
+  return classifyRole(m.paper_info_role || m.doc_type);
 }
 
 function paperBadgeHtml(e) {
@@ -389,17 +392,17 @@ function renderRows(groups) {
       row.className = "row group-row";
       row.innerHTML = `
         <div class="title-cell">
-          <span class="chev ${isOpen ? "open" : ""}">&#9656;</span>
           <div class="member-title-wrap">
-            <span class="doc-link group-title">${esc(g.primary.display_name)}</span>
+            <span class="group-title">${esc(g.primary.display_name)}</span>
             <span class="member-orig">${esc(g.primary.original_name)}</span>
           </div>
-          ${paperBadgeHtml(g.primary)}
-          ${groupFlagBadgeHtml(g.members)}
-          <span class="member-count">${g.members.length} files</span>
         </div>
+        <div class="col-badges"><span class="member-count">${g.members.length} files</span></div>
+        <div class="col-badges">${groupFlagBadgeHtml(g.members)}</div>
         ${rowMetaHtml(g.primary)}
-        <div class="actions"><a href="${g.primary.note_url}" target="_blank" onclick="event.stopPropagation()">Source</a></div>`;
+        <div class="actions">
+          <a href="${g.primary.note_url}" target="_blank" onclick="event.stopPropagation()">Source</a>
+        </div>`;
       row.addEventListener("click", () => {
         if (openGroups.has(g.key)) openGroups.delete(g.key); else openGroups.add(g.key);
         applyFilters();
@@ -414,11 +417,15 @@ function renderRows(groups) {
           mrow.className = "member-row";
           mrow.innerHTML = `
             <div class="title-cell">
-              <span class="role-badge ${roleClass(m.paper_info_role)}">${esc(roleLabel(m))}</span>
+              <span class="row-indent"></span>
               <div class="member-title-wrap">
                 <a class="doc-link" href="/api/download/${m.id}" target="_blank">${esc(m.display_name)}</a>
                 <span class="member-orig">${esc(m.original_name)}</span>
               </div>
+            </div>
+            <div class="col-badges">${paperBadgeHtml(m)}</div>
+            <div class="col-badges">
+              <span class="role-badge ${roleClass(m.paper_info_role)}">${esc(roleLabel(m))}</span>
               ${flagBadgeHtml(m)}
             </div>
             ${rowMetaHtml(m)}
@@ -437,7 +444,10 @@ function renderRows(groups) {
             <a class="doc-link" href="/api/download/${e.id}" target="_blank">${esc(e.display_name)}</a>
             <span class="member-orig">${esc(e.original_name)}</span>
           </div>
-          ${paperBadgeHtml(e)}
+        </div>
+        <div class="col-badges">${paperBadgeHtml(e)}</div>
+        <div class="col-badges">
+          <span class="role-badge ${roleClass(e.paper_info_role)}">${esc(roleLabel(e))}</span>
           ${flagBadgeHtml(e)}
         </div>
         ${rowMetaHtml(e)}
@@ -462,7 +472,10 @@ $("f-reset").addEventListener("click", () => {
   applyFilters();
 });
 
-fetch("/api/notes").then(r => r.json()).then(data => {
+// manual grouping UI disabled for now (server endpoints in server.py still work if re-enabled)
+
+async function loadData() {
+  const data = await fetch("/api/notes").then(r => r.json());
   DATA = data;
   GROUPS = buildGroups(data);
   populateSelect("f-subject", uniq(data.map(d => d.subject)));
@@ -471,7 +484,9 @@ fetch("/api/notes").then(r => r.json()).then(data => {
   populateSelect("f-doctype", uniq(data.map(d => d.doc_type)));
   populateSelect("f-paper", uniq(data.map(d => d.paper_number)).sort((a,b) => a - b).map(n => String(n)));
   applyFilters();
-});
+}
+
+loadData();
 </script>
 
 </body>
