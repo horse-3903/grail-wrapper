@@ -87,9 +87,34 @@ python scrape.py --category "GCE 'O' Levels" --subject "E Math" --subject "A Mat
 python scrape.py --doc-type "Exam Papers" --year 2023 --out data/econs_2023.json
 ```
 
-Re-running the tagging/grouping/linking enrichment pass (school and paper-info tagging, year
-resolution, naming, exam-set grouping, answer-booklet linking) after a fresh scrape is a manual
-Claude Code session using the subagents defined in `.claude/agents/`, not a single script.
+After a fresh scrape, `fetch_inline_urls.py` fills in each entry's stable `document.grail.moe`
+PDF link (fetching every note's detail page, since that link isn't on the listing pages):
+
+```bash
+python fetch_inline_urls.py
+```
+
+It's safe to re-run; it only fetches entries missing `inline_url`. The rest of the
+tagging/grouping/linking enrichment pass (school and paper-info tagging, year resolution, naming,
+exam-set grouping, answer-booklet linking) is a manual Claude Code session using the subagents
+defined in `.claude/agents/`, not a single script.
+
+---
+
+## Deploying the static build
+
+`web/` is a self-contained static copy of the UI (no server, no download proxy - every title
+links straight to `inline_url`/`download_url`) for free hosting on Vercel, Netlify, or GitHub
+Pages. On Vercel: import the repo, set **Root Directory** to `web`, framework preset **Other**,
+deploy - no `vercel.json` needed.
+
+To refresh the deployed data after re-scraping or re-tagging:
+
+```bash
+cp data/tagged.json web/data.json
+```
+
+then commit and push (or redeploy) `web/`.
 
 ---
 
