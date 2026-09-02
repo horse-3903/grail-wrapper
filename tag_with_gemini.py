@@ -115,6 +115,7 @@ def main():
     ap.add_argument("--in", dest="in_path", type=Path, default=Path("data/tagged.json"))
     ap.add_argument("--out", dest="out_path", type=Path, default=None, help="defaults to --in (in place)")
     ap.add_argument("--force", action="store_true", help="re-tag entries that already have tags")
+    ap.add_argument("--include-flagged", action="store_true", help="also re-tag entries currently flagged for review")
     ap.add_argument("--no-backup", action="store_true", help="skip archiving out_path before overwriting it")
     args = ap.parse_args()
     out_path = args.out_path or args.in_path
@@ -134,7 +135,11 @@ def main():
     if args.force:
         todo = data
     else:
-        todo = [e for e in data if e.get("school") is None and e.get("paper_info") is None and not e.get("flagged")]
+        todo = [
+            e for e in data
+            if (e.get("school") is None and e.get("paper_info") is None)
+            or (args.include_flagged and e.get("flagged"))
+        ]
     print(f"{len(data)} entries total, {len(todo)} to tag", flush=True)
 
     by_id = {e["id"]: e for e in data}
