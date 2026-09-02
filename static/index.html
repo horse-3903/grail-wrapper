@@ -138,6 +138,12 @@
     font-weight: 600;
   }
 
+  .paper-badge {
+    flex-shrink: 0; display: inline-flex; align-items: center; font-size: 11px; font-family: var(--font-mono);
+    color: var(--accent); background: #EBF0FC; border: 1px solid #D3DEF8; padding: 2px 8px;
+    border-radius: var(--r-control); font-weight: 600; white-space: nowrap;
+  }
+
   .actions { display: flex; gap: 6px; justify-content: flex-end; }
   .actions a {
     font-size: 11px; font-family: var(--font-mono); padding: 5px 10px; border-radius: var(--r-control);
@@ -164,7 +170,6 @@
   }
   .role-badge.answers { color: var(--answers); border-color: #CDE9D9; background: var(--answers-soft); }
   .role-badge.questions { color: var(--accent); border-color: #D3DEF8; background: #EBF0FC; }
-  .role-badge.insert { color: var(--primary); border-color: #E3D4F3; background: #F5EEFB; }
 
   .empty { color: var(--text-faint); padding: 64px 20px; text-align: center; font-size: 14.5px; }
 
@@ -240,14 +245,14 @@ const $ = (id) => document.getElementById(id);
 const esc = (s) => (s ?? "").toString().replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const uniq = (arr) => [...new Set(arr.filter(Boolean))].sort();
 
-// Collapses the many raw paper_info_role variants (QP, Solution, TYS Answers, Essay Solutions Q3, ...)
-// into a small fixed set of badges: Answers, Insert, Questions, Other.
+// Collapses the many raw paper_info_role variants (QP, Solution, TYS Answers, Essay Solutions Q3,
+// Insert, Guide, ...) into exactly two badges: Answers or Questions. Anything that isn't clearly
+// an answer/solution/mark scheme (including inserts, which accompany the question paper) counts
+// as Questions.
 function classifyRole(role) {
   const r = (role || "").trim().toLowerCase();
-  if (r.includes("answer") || r.includes("solution")) return "Answers";
-  if (r.includes("insert")) return "Insert";
-  if (r === "questions" || r.includes("qp") || r.includes("question")) return "Questions";
-  return "Other";
+  if (r.includes("answer") || r.includes("solution") || r.includes("mark scheme")) return "Answers";
+  return "Questions";
 }
 
 function isQuestionsRole(role) {
@@ -322,17 +327,19 @@ function applyFilters() {
 }
 
 function roleClass(role) {
-  const bucket = classifyRole(role);
-  if (bucket === "Answers") return "answers";
-  if (bucket === "Questions") return "questions";
-  if (bucket === "Insert") return "insert";
-  return "";
+  return classifyRole(role) === "Answers" ? "answers" : "questions";
 }
 
 function roleLabel(m) {
   const rawRole = m.paper_info_role || m.doc_type;
   const role = classifyRole(rawRole);
   return m.paper_label ? `${role} (${m.paper_label})` : role;
+}
+
+function paperBadgeHtml(e) {
+  if (!e.paper_number) return "";
+  const title = e.paper_label ? ` title="${esc(e.paper_label)}"` : "";
+  return `<span class="paper-badge"${title}>Paper ${e.paper_number}</span>`;
 }
 
 function rowMetaHtml(e) {
@@ -357,7 +364,11 @@ function renderRows(groups) {
       row.innerHTML = `
         <div class="title-cell">
           <span class="chev ${isOpen ? "open" : ""}">&#9656;</span>
-          <span class="doc-link group-title">${esc(g.primary.display_name)}</span>
+          <div class="member-title-wrap">
+            <span class="doc-link group-title">${esc(g.primary.display_name)}</span>
+            <span class="member-orig">${esc(g.primary.original_name)}</span>
+          </div>
+          ${paperBadgeHtml(g.primary)}
           <span class="member-count">${g.members.length} files</span>
         </div>
         ${rowMetaHtml(g.primary)}
@@ -395,7 +406,11 @@ function renderRows(groups) {
       row.className = "row";
       row.innerHTML = `
         <div class="title-cell">
-          <a class="doc-link" href="/api/download/${e.id}" target="_blank">${esc(e.display_name)}</a>
+          <div class="member-title-wrap">
+            <a class="doc-link" href="/api/download/${e.id}" target="_blank">${esc(e.display_name)}</a>
+            <span class="member-orig">${esc(e.original_name)}</span>
+          </div>
+          ${paperBadgeHtml(e)}
           ${e.flagged ? `<span class="flag-badge" title="${esc(e.flag_reason||"")}">! review</span>` : ""}
         </div>
         ${rowMetaHtml(e)}
