@@ -1,7 +1,8 @@
 """Tag scraped grail.moe notes using the free Gemini API, as an unattended alternative
 to dispatching the note-tagger Claude Code subagent interactively.
 
-Get a free API key at https://aistudio.google.com/apikey, then either:
+Get a free API key at https://aistudio.google.com/apikey, then either put it in a local
+.env file (GEMINI_API_KEY=your-key-here, gitignored) or set it directly:
     setx GEMINI_API_KEY "your-key-here"      (Windows, new shells)
     $env:GEMINI_API_KEY = "your-key-here"    (current PowerShell session)
     export GEMINI_API_KEY=your-key-here      (bash)
@@ -18,9 +19,11 @@ import time
 from pathlib import Path
 
 import requests
+from dotenv import load_dotenv
 
+load_dotenv()
 API_KEY = os.environ.get("GEMINI_API_KEY")
-MODEL = "gemini-2.0-flash"
+MODEL = "gemini-3.6-flash"
 API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent"
 
 BATCH_SIZE = 150
@@ -112,11 +115,20 @@ def main():
     ap.add_argument("--in", dest="in_path", type=Path, default=Path("data/tagged.json"))
     ap.add_argument("--out", dest="out_path", type=Path, default=None, help="defaults to --in (in place)")
     ap.add_argument("--force", action="store_true", help="re-tag entries that already have tags")
+    ap.add_argument("--no-backup", action="store_true", help="skip archiving out_path before overwriting it")
     args = ap.parse_args()
     out_path = args.out_path or args.in_path
 
     if not API_KEY:
         sys.exit("Set GEMINI_API_KEY first (free key at https://aistudio.google.com/apikey)")
+
+    if out_path.exists() and not args.no_backup:
+        backup_dir = Path("data/backups")
+        backup_dir.mkdir(parents=True, exist_ok=True)
+        stamp = time.strftime("%Y%m%d_%H%M%S")
+        backup_path = backup_dir / f"{out_path.stem}_{stamp}{out_path.suffix}"
+        backup_path.write_bytes(out_path.read_bytes())
+        print(f"Backed up {out_path} -> {backup_path}", flush=True)
 
     data = json.load(open(args.in_path, encoding="utf-8"))
     if args.force:

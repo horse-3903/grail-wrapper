@@ -55,14 +55,14 @@ every one of its thousands of entries.
 ### Prerequisites
 
 - Python 3.10+
-- `pip install flask requests beautifulsoup4`
+- `pip install flask requests beautifulsoup4 python-dotenv`
 
 ### Installation
 
 ```bash
 git clone https://github.com/horse-3903/grail-wrapper.git
 cd grail-wrapper
-pip install flask requests beautifulsoup4
+pip install flask requests beautifulsoup4 python-dotenv
 ```
 
 ### Run locally
@@ -94,10 +94,19 @@ PDF link (fetching every note's detail page, since that link isn't on the listin
 python fetch_inline_urls.py
 ```
 
-It's safe to re-run; it only fetches entries missing `inline_url`. The rest of the
-tagging/grouping/linking enrichment pass (school and paper-info tagging, year resolution, naming,
-exam-set grouping, answer-booklet linking) is a manual Claude Code session using the subagents
-defined in `.claude/agents/`, not a single script.
+It's safe to re-run; it only fetches entries missing `inline_url`. School/paper-info tagging can
+run unattended too, via the free Gemini API instead of a manual Claude Code subagent session
+(get a free key at [aistudio.google.com/apikey](https://aistudio.google.com/apikey), put it in a
+local `.env` as `GEMINI_API_KEY=...`):
+
+```bash
+python tag_with_gemini.py                # tags entries in data/tagged.json missing school/paper_info
+python tag_with_gemini.py --force         # re-tags everything (e.g. after a prompt change)
+```
+
+It backs up the file it's about to overwrite to `data/backups/` first. Year resolution, naming,
+exam-set grouping, and answer-booklet linking are still a manual Claude Code session using the
+subagents defined in `.claude/agents/`.
 
 ---
 
@@ -167,4 +176,6 @@ Beyond the raw scraped fields (`name`, `category`, `subject`, `doc_type`, `note_
 
 | Variable | Default | Description |
 |---|---|---|
-| - | - | None required. The server port (`8765`) is set directly in `server.py`. |
+| `GEMINI_API_KEY` | none | Only needed for `tag_with_gemini.py`. Free key from [aistudio.google.com/apikey](https://aistudio.google.com/apikey); put it in a local `.env` file (gitignored) or export it directly. |
+
+The server port (`8765`) is set directly in `server.py`; no other environment variables are used.
