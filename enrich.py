@@ -16,7 +16,7 @@ from pathlib import Path
 
 DEFAULT_PATH = Path(__file__).parent / "data" / "tagged.json"
 
-YEAR_RE = re.compile(r"\b(19[5-9]\d|20[0-4]\d)\b")
+YEAR_RE = re.compile(r"(?<![A-Za-z0-9])(19[5-9]\d|20[0-4]\d)(?![A-Za-z0-9])")
 
 KNOWN_SCHOOLS = ["ACJC", "ASRJC", "EJC", "TMJC", "NYJC", "RVHS", "JPJC", "YIJC", "HCI", "DHS",
                  "RI", "NJC", "VJC", "CJC", "TJC", "SAJC", "MI", "IJC", "MJC", "AJC", "SRJC",
