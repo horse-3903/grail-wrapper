@@ -48,10 +48,6 @@
   header h1 {
     font-size: 26px; font-weight: 600; margin: 0; letter-spacing: -0.01em;
   }
-  header .count {
-    color: var(--text-secondary); font-size: 12px; font-family: var(--font-mono); font-weight: 500;
-  }
-
   .layout { display: flex; flex: 1; min-height: 0; }
 
   .filters {
@@ -90,15 +86,15 @@
   }
   .col-headers {
     flex-shrink: 0;
-    display: grid; grid-template-columns: 2.1fr 0.55fr 0.7fr 0.55fr 0.75fr 0.4fr 0.6fr 0.5fr;
+    display: grid; grid-template-columns: 2.6fr 0.7fr 0.55fr 0.75fr 0.4fr 0.6fr 0.5fr;
     gap: 12px; padding: 10px 16px; font-family: var(--font-mono); font-size: 10.5px; color: var(--text-faint);
     text-transform: uppercase; letter-spacing: .04em; font-weight: 600;
     background: var(--background); border-bottom: 1px solid var(--border);
   }
-  .results-scroll { flex: 1; min-height: 0; overflow-y: auto; padding-bottom: 48px; }
+  .results-scroll { flex: 1; min-height: 0; overflow-y: auto; padding: 0 12px 48px 0; }
 
   .row {
-    display: grid; grid-template-columns: 2.1fr 0.55fr 0.7fr 0.55fr 0.75fr 0.4fr 0.6fr 0.5fr;
+    display: grid; grid-template-columns: 2.6fr 0.7fr 0.55fr 0.75fr 0.4fr 0.6fr 0.5fr;
     gap: 12px; align-items: center; padding: 13px 16px; border-radius: var(--r-card);
     margin: 6px 0; background: var(--card); border: 1px solid var(--border);
     box-shadow: 0 1px 2px rgba(17, 24, 39, 0.03);
@@ -118,11 +114,6 @@
     color: var(--text-primary); font-size: 14.5px; font-weight: 600;
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
-  .member-count {
-    flex-shrink: 0; font-family: var(--font-mono); font-size: 10.5px; color: #fff;
-    background: var(--primary); border-radius: var(--r-pill); padding: 2px 9px; font-weight: 600;
-  }
-
   .tag {
     display: inline-block; padding: 2px 8px; border-radius: var(--r-control); font-family: var(--font-mono);
     font-size: 11px; background: var(--card-alt); color: var(--text-secondary); border: 1px solid var(--border);
@@ -148,18 +139,6 @@
   }
   .flag-badge:hover::after { opacity: 1; visibility: visible; }
 
-  .paper-badge {
-    flex-shrink: 0; display: inline-flex; align-items: center; font-size: 11px; font-family: var(--font-mono);
-    padding: 2px 8px; border-radius: var(--r-control); font-weight: 600; white-space: nowrap;
-    border: 1px solid transparent;
-  }
-  /* distinct per paper number, deliberately not reusing the Questions (blue) or Answers (green) colors */
-  .paper-badge.p1 { color: #B45309; background: #FEF3E2; border-color: #F3D9A6; }
-  .paper-badge.p2 { color: #334155; background: #EEF2F6; border-color: #CBD5E1; }
-  .paper-badge.p3 { color: #BE185D; background: #FCE7F1; border-color: #F5B7D3; }
-  .paper-badge.p4 { color: #0F766E; background: #E4F6F4; border-color: #A9E1DA; }
-  .paper-badge.p-other { color: var(--text-secondary); background: var(--card-alt); border-color: var(--border); }
-
   .actions { display: flex; gap: 6px; justify-content: flex-end; }
   .actions a, .actions button {
     font-size: 11px; font-family: var(--font-mono); padding: 5px 10px; border-radius: var(--r-control);
@@ -170,7 +149,7 @@
 
   .members { padding: 0 0 4px 0; margin-top: -2px; }
   .member-row {
-    display: grid; grid-template-columns: 2.1fr 0.55fr 0.7fr 0.55fr 0.75fr 0.4fr 0.6fr 0.5fr;
+    display: grid; grid-template-columns: 2.6fr 0.7fr 0.55fr 0.75fr 0.4fr 0.6fr 0.5fr;
     gap: 12px; align-items: center; padding: 10px 16px; border-radius: var(--r-card);
     margin: 3px 0; background: var(--card-alt); border: 1px dashed var(--border);
   }
@@ -187,6 +166,7 @@
   }
   .role-badge.answers { color: var(--answers); border-color: #CDE9D9; background: var(--answers-soft); }
   .role-badge.questions { color: var(--accent); border-color: #D3DEF8; background: #EBF0FC; }
+  .role-badge.exam-paper { color: #0E7CA8; border-color: #A9D6E9; background: #E3F3FA; }
 
   .empty { color: var(--text-faint); padding: 64px 20px; text-align: center; font-size: 14.5px; }
 
@@ -200,7 +180,6 @@
 
 <header>
   <h1>Grail Local Index</h1>
-  <span class="count" id="count"></span>
 </header>
 
 <div class="layout">
@@ -240,7 +219,6 @@
   <div class="results">
     <div class="col-headers">
       <div>Document</div>
-      <div>Paper</div>
       <div>Status</div>
       <div>School</div>
       <div>Subject</div>
@@ -290,7 +268,8 @@ function buildGroups(data) {
       groups.push({ isGroup: false, key: gid, primary: members[0], members });
     } else {
       const primary = members.find(m => isQuestionsRole(m.paper_info_role)) || members[0];
-      members.sort((a, b) => (a.paper_number || 0) - (b.paper_number || 0) || (a.paper_info_role || "").localeCompare(b.paper_info_role || ""));
+      members.sort((a, b) => (a.paper_number || 0) - (b.paper_number || 0)
+        || (isQuestionsRole(a.paper_info_role) === isQuestionsRole(b.paper_info_role) ? 0 : isQuestionsRole(a.paper_info_role) ? -1 : 1));
       groups.push({ isGroup: true, key: gid, primary, members });
     }
   }
@@ -342,10 +321,9 @@ function applyFilters() {
       if (matchesFilters(g.primary)) visible.push(g);
     }
   }
+  visible.sort((a, b) => (Number(b.primary.year_resolved) || 0) - (Number(a.primary.year_resolved) || 0)
+    || a.primary.display_name.localeCompare(b.primary.display_name));
   renderRows(visible);
-  const totalDocs = DATA.length;
-  const shownDocs = visible.reduce((n, g) => n + g.members.length, 0);
-  $("count").textContent = `${shownDocs} / ${totalDocs} documents`;
 }
 
 function roleClass(role) {
@@ -362,13 +340,6 @@ function pdfUrl(e) {
   return e.inline_url || e.download_url;
 }
 
-function paperBadgeHtml(e) {
-  if (!e.paper_number) return "";
-  const title = e.paper_label ? ` title="${esc(e.paper_label)}"` : "";
-  const cls = e.paper_number >= 1 && e.paper_number <= 4 ? `p${e.paper_number}` : "p-other";
-  return `<span class="paper-badge ${cls}"${title}>Paper ${e.paper_number}</span>`;
-}
-
 function flagBadgeHtml(e) {
   if (!e.flagged) return "";
   return `<span class="flag-badge" data-tooltip="${esc(e.flag_reason || "Flagged for review")}">! review</span>`;
@@ -382,15 +353,6 @@ function groupFlagBadgeHtml(members) {
     ? (flagged[0].flag_reason || "Flagged for review")
     : `${flagged.length} files flagged:\n` + flagged.map(m => `- ${m.flag_reason || "Flagged for review"}`).join("\n");
   return `<span class="flag-badge" data-tooltip="${esc(tooltip)}">! ${flagged.length} flagged</span>`;
-}
-
-// which papers (1-4) this exam-paper set covers, shown compactly in the group's Status column
-function groupPaperBadgesHtml(members) {
-  const nums = [...new Set(members.map(m => m.paper_number).filter(Boolean))].sort((a, b) => a - b);
-  return nums.map(n => {
-    const cls = n >= 1 && n <= 4 ? `p${n}` : "p-other";
-    return `<span class="paper-badge ${cls}">P${n}</span>`;
-  }).join("");
 }
 
 function rowMetaHtml(e) {
@@ -419,8 +381,10 @@ function renderRows(groups) {
             <span class="member-orig">${esc(g.primary.original_name)}</span>
           </div>
         </div>
-        <div class="col-badges"><span class="member-count">${g.members.length} files</span></div>
-        <div class="col-badges">${groupPaperBadgesHtml(g.members)}${groupFlagBadgeHtml(g.members)}</div>
+        <div class="col-badges">
+          <span class="role-badge exam-paper">Exam Paper</span>
+          ${groupFlagBadgeHtml(g.members)}
+        </div>
         ${rowMetaHtml(g.primary)}
         <div class="actions">
           <a href="${g.primary.note_url}" target="_blank" onclick="event.stopPropagation()">Source</a>
@@ -445,7 +409,6 @@ function renderRows(groups) {
                 <span class="member-orig">${esc(m.original_name)}</span>
               </div>
             </div>
-            <div class="col-badges">${paperBadgeHtml(m)}</div>
             <div class="col-badges">
               <span class="role-badge ${roleClass(m.paper_info_role)}">${esc(roleLabel(m))}</span>
               ${flagBadgeHtml(m)}
@@ -467,7 +430,6 @@ function renderRows(groups) {
             <span class="member-orig">${esc(e.original_name)}</span>
           </div>
         </div>
-        <div class="col-badges">${paperBadgeHtml(e)}</div>
         <div class="col-badges">
           <span class="role-badge ${roleClass(e.paper_info_role)}">${esc(roleLabel(e))}</span>
           ${flagBadgeHtml(e)}
