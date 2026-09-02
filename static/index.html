@@ -101,6 +101,12 @@
     content: ""; position: absolute; top: -2px; left: -5px; width: 13px; height: 13px;
     border-radius: 50%; background: #2B2A33;
   }
+  .toggle-sun {
+    position: absolute; top: 50%; left: 9px; width: 14px; height: 14px;
+    transform: translateY(-50%); z-index: 1; background: #fff;
+    clip-path: polygon(50% 0%, 61% 25%, 88% 12%, 76% 38%, 100% 50%, 76% 62%, 88% 88%, 61% 75%,
+      50% 100%, 39% 75%, 12% 88%, 24% 62%, 0% 50%, 24% 38%, 12% 12%, 39% 25%);
+  }
   .layout { display: flex; flex-direction: column; flex: 1; min-height: 0; }
 
   .filterbar {
@@ -324,6 +330,7 @@
   <h1>Holy Grail Mk 6 Index</h1>
   <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to dark mode" aria-pressed="false">
     <span class="toggle-track">
+      <span class="toggle-sun"></span>
       <span class="toggle-knob"></span>
       <span class="toggle-moon"></span>
     </span>
