@@ -42,6 +42,11 @@ entries.
   before their answers, instead of scattered disconnected entries
 - **Per-subject paper labels** - Paper 1/2/3/4 are labeled with what they actually are for each
   subject (e.g. H2 Economics P1 = Case Study Questions, H2 Computing P2 = Practical)
+- **Dark mode** - toggle in the header, remembered across visits, defaulting to the OS/browser
+  preference on first load
+- **In-browser metadata editing** (local server only) - fix a row's school, paper info, subject,
+  document type, year, paper number, or which exam-set group it belongs to directly from the UI;
+  every save backs up `data/tagged.json` to `data/backups/` first
 - **Configurable scraping** - target any category, subject, document type, or year via CLI flags,
   not hardcoded to the default subjects
 

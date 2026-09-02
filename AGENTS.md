@@ -138,6 +138,43 @@ Key JS internals worth knowing before touching filtering/rendering:
   the viewport in practice since the filter bar sits near the top of the page. Don't "fix" it by
   loosening `body { overflow: hidden }`, which is load-bearing for the app's fixed-viewport
   layout (header + filter bar + internally-scrolling results).
+- **Do not verify UI changes with a browser tool** - lint with impeccable and reason about the
+  code instead. This is an explicit standing preference, not a one-off.
+
+### Dark mode
+
+Theming is CSS custom properties on `:root`, overridden under `:root[data-theme="dark"]`. Every
+color used more than once (or that needs a dark counterpart) is a variable - if you hardcode a
+new hex color anywhere in the row/badge/filter CSS, dark mode will look wrong for it. The
+`#theme-toggle` button in the header flips `data-theme` on `<html>` and persists the choice to
+`localStorage["grail-theme"]`; on first load (`initTheme()`), it falls back to
+`prefers-color-scheme` if nothing is stored. Both `localStorage` calls are wrapped in `try/catch`
+since some browser privacy modes throw on access.
+
+## Editing metadata/grouping from the UI (local server only)
+
+`static/index.html` has a per-row "Edit" button (next to "Source", on expanded group members and
+on ungrouped rows - not on collapsed group headers, since a group can have multiple members and
+editing "the group" would be ambiguous) that opens a modal for School, Paper Info, Subject,
+Document Type, Year, Paper Number, and Group ID. Saving sends a `PATCH /api/note/<id>` to
+`server.py`, which:
+
+1. **Backs up `data/tagged.json` to `data/backups/`** before writing (same `backup_tagged()`
+   pattern the CLI scripts use - every write path into this file backs up first, no exceptions).
+2. Applies the edited fields directly, recomputes only the display-cosmetic derived fields
+   (`display_name`, `paper_info_base`, `paper_info_role`, `paper_label`) via `enrich.py`'s
+   `base_of()`/`role_of()`/`SUBJECT_PAPER_LABELS`/`SUBJ_ABBR` helpers - it does **not** re-run
+   `enrich.py`'s year-resolution, school-sweep, or auto-grouping logic on the whole dataset, so
+   editing one row can't have side effects on unrelated entries.
+3. If `group_id` was edited and doesn't already start with `manual|`/`linked|`, it gets prefixed
+   with `manual|` - the same convention `enrich.py` already respects to avoid stomping on
+   subagent-linked or now UI-edited groups on its next run. To merge two documents into one exam
+   set, edit either one's Group ID to match the other's (or to any shared new string) - it'll
+   pick up the `manual|` prefix automatically.
+
+**This feature is `static/index.html` + `server.py` only.** `web/index.html` is a static build
+with nowhere to persist a PATCH, so it deliberately does not get the Edit button or modal - only
+mirror the dark-mode CSS/JS changes there, not the editor.
 
 ## Environment quirks (this machine)
 
