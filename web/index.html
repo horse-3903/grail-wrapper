@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Grail Local Index</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #A268CF;
+    --accent: #5984EA;
+    --background: #F1EFF7;
+    --surface: #111827;
+    --surface-2: #1B2333;
+    --card: #FFFFFF;
+    --card-alt: #F7F5FB;
+    --text-primary: #111827;
+    --text-secondary: #4B5563;
+    --text-faint: #5F6779;
+    --border: #E5E7EB;
+    --danger: #C2504F;
+    --danger-soft: #FBEAEA;
+    --answers: #2F8F5B;
+    --answers-soft: #E9F6EE;
+    --font-body: "Hanken Grotesk", -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+    --r-card: 4px;
+    --r-control: 3px;
+    --r-pill: 9999px;
+    --sp: 8px;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0; font-family: var(--font-body); background: var(--background);
+    color: var(--text-primary); font-size: 15px; line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    display: flex; flex-direction: column; height: 100vh; overflow: hidden;
+  }
+  a { color: inherit; }
+
+  header {
+    flex-shrink: 0;
+    padding: 20px 32px; border-bottom: 1px solid var(--border); background: var(--card);
+    display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap;
+  }
+  header h1 {
+    font-size: 26px; font-weight: 600; margin: 0; letter-spacing: -0.01em;
+  }
+  header .count {
+    color: var(--text-secondary); font-size: 12px; font-family: var(--font-mono); font-weight: 500;
+  }
+
+  .layout { display: flex; flex: 1; min-height: 0; }
+
+  .filters {
+    width: 264px; padding: 24px 20px; border-right: 1px solid var(--border);
+    overflow-y: auto; flex-shrink: 0;
+    background: linear-gradient(165deg, #171233 0%, #111827 55%);
+    color: #E7E9EF; position: relative;
+  }
+  .filters::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+  }
+  .filter-group { margin-bottom: 20px; }
+  .filter-group label {
+    display: block; font-family: var(--font-mono); font-size: 11px; color: #8892A6;
+    margin-bottom: 8px; text-transform: uppercase; letter-spacing: .04em; font-weight: 600;
+  }
+  .filters select, .filters input[type=text] {
+    width: 100%; padding: 9px 10px; background: var(--surface-2); border: 1px solid #2A3448;
+    color: #F2F4F8; border-radius: var(--r-control); font-size: 13.5px; outline: none;
+    font-family: var(--font-body); transition: border-color .12s;
+  }
+  .filters select:focus, .filters input[type=text]:focus { border-color: var(--primary); }
+  .checkbox-row { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: #C6CCDA; cursor: pointer; }
+  .checkbox-row input { accent-color: var(--primary); width: 15px; height: 15px; cursor: pointer; }
+  .reset-btn {
+    width: 100%; margin-top: 4px; padding: 9px; border-radius: var(--r-control); border: 1px solid #2A3448;
+    background: transparent; color: #A9B1C3; font-size: 13px; font-weight: 500; cursor: pointer;
+    font-family: var(--font-body);
+  }
+  .reset-btn:hover { border-color: var(--primary); color: #fff; }
+
+  .results {
+    flex: 1; min-height: 0; display: flex; flex-direction: column;
+    padding: 16px 28px 0;
+  }
+  .col-headers {
+    flex-shrink: 0;
+    display: grid; grid-template-columns: 2.1fr 0.55fr 0.7fr 0.55fr 0.75fr 0.4fr 0.6fr 0.5fr;
+    gap: 12px; padding: 10px 16px; font-family: var(--font-mono); font-size: 10.5px; color: var(--text-faint);
+    text-transform: uppercase; letter-spacing: .04em; font-weight: 600;
+    background: var(--background); border-bottom: 1px solid var(--border);
+  }
+  .results-scroll { flex: 1; min-height: 0; overflow-y: auto; padding-bottom: 48px; }
+
+  .row {
+    display: grid; grid-template-columns: 2.1fr 0.55fr 0.7fr 0.55fr 0.75fr 0.4fr 0.6fr 0.5fr;
+    gap: 12px; align-items: center; padding: 13px 16px; border-radius: var(--r-card);
+    margin: 6px 0; background: var(--card); border: 1px solid var(--border);
+    box-shadow: 0 1px 2px rgba(17, 24, 39, 0.03);
+  }
+  .row.group-row { cursor: pointer; }
+  .row.group-row:hover { border-color: var(--primary); }
+  .row:not(.group-row):hover { border-color: #D8D3E8; }
+
+  .title-cell { display: flex; align-items: center; gap: 9px; min-width: 0; }
+  .col-badges { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; min-width: 0; }
+  .doc-link {
+    text-decoration: none; color: var(--text-primary); font-size: 14.5px; font-weight: 500;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .doc-link:hover { color: var(--accent); text-decoration: underline; }
+  .group-title {
+    color: var(--text-primary); font-size: 14.5px; font-weight: 600;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .member-count {
+    flex-shrink: 0; font-family: var(--font-mono); font-size: 10.5px; color: #fff;
+    background: var(--primary); border-radius: var(--r-pill); padding: 2px 9px; font-weight: 600;
+  }
+
+  .tag {
+    display: inline-block; padding: 2px 8px; border-radius: var(--r-control); font-family: var(--font-mono);
+    font-size: 11px; background: var(--card-alt); color: var(--text-secondary); border: 1px solid var(--border);
+    font-weight: 600;
+  }
+  .tag.school { background: #F1EAFA; color: var(--primary); border-color: transparent; }
+  .cell-muted { color: var(--text-secondary); font-size: 13px; }
+
+  .flag-badge {
+    position: relative; display: inline-flex; align-items: center; gap: 4px; font-size: 11px;
+    font-family: var(--font-mono); color: var(--danger); background: var(--danger-soft);
+    padding: 2px 8px; border-radius: var(--r-control); font-weight: 600; cursor: help;
+  }
+  .flag-badge::after {
+    content: attr(data-tooltip);
+    position: absolute; bottom: calc(100% + 6px); left: 0; z-index: 30;
+    background: var(--surface); color: #F2F4F8; font-family: var(--font-body); font-weight: 400;
+    font-size: 12.5px; line-height: 1.4; padding: 8px 10px; border-radius: var(--r-control);
+    width: max-content; max-width: 280px; white-space: pre-line;
+    box-shadow: 0 6px 18px rgba(17, 24, 39, 0.25);
+    opacity: 0; visibility: hidden; transition: opacity .12s;
+    pointer-events: none;
+  }
+  .flag-badge:hover::after { opacity: 1; visibility: visible; }
+
+  .paper-badge {
+    flex-shrink: 0; display: inline-flex; align-items: center; font-size: 11px; font-family: var(--font-mono);
+    color: var(--accent); background: #EBF0FC; border: 1px solid #D3DEF8; padding: 2px 8px;
+    border-radius: var(--r-control); font-weight: 600; white-space: nowrap;
+  }
+
+  .actions { display: flex; gap: 6px; justify-content: flex-end; }
+  .actions a, .actions button {
+    font-size: 11px; font-family: var(--font-mono); padding: 5px 10px; border-radius: var(--r-control);
+    border: 1px solid var(--border); background: var(--card-alt); color: var(--text-secondary);
+    text-decoration: none; font-weight: 600; cursor: pointer;
+  }
+  .actions a:hover, .actions button:hover { border-color: var(--accent); color: var(--accent); }
+
+  .members { padding: 0 0 4px 0; margin-top: -2px; }
+  .member-row {
+    display: grid; grid-template-columns: 2.1fr 0.55fr 0.7fr 0.55fr 0.75fr 0.4fr 0.6fr 0.5fr;
+    gap: 12px; align-items: center; padding: 10px 16px; border-radius: var(--r-card);
+    margin: 3px 0; background: var(--card-alt); border: 1px dashed var(--border);
+  }
+  .row-indent { flex-shrink: 0; width: 24px; }
+  .member-title-wrap { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+  .member-orig {
+    font-size: 11px; color: var(--text-faint);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .role-badge {
+    font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; padding: 2px 8px;
+    border-radius: var(--r-control); background: var(--card); color: var(--text-secondary);
+    border: 1px solid var(--border); width: fit-content; white-space: nowrap;
+  }
+  .role-badge.answers { color: var(--answers); border-color: #CDE9D9; background: var(--answers-soft); }
+  .role-badge.questions { color: var(--accent); border-color: #D3DEF8; background: #EBF0FC; }
+
+  .empty { color: var(--text-faint); padding: 64px 20px; text-align: center; font-size: 14.5px; }
+
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb { background: #D9D4CB; border-radius: 6px; }
+  .filters::-webkit-scrollbar-thumb { background: #2A3448; }
+  ::-webkit-scrollbar-track { background: transparent; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Grail Local Index</h1>
+  <span class="count" id="count"></span>
+</header>
+
+<div class="layout">
+  <div class="filters">
+    <div class="filter-group">
+      <label>Search</label>
+      <input id="f-search" type="text" placeholder="e.g. RVHS prelim 2023">
+    </div>
+    <div class="filter-group">
+      <label>Subject</label>
+      <select id="f-subject"><option value="">All subjects</option></select>
+    </div>
+    <div class="filter-group">
+      <label>School</label>
+      <select id="f-school"><option value="">All schools</option></select>
+    </div>
+    <div class="filter-group">
+      <label>Year</label>
+      <select id="f-year"><option value="">All years</option></select>
+    </div>
+    <div class="filter-group">
+      <label>Document type</label>
+      <select id="f-doctype"><option value="">All types</option></select>
+    </div>
+    <div class="filter-group">
+      <label>Paper</label>
+      <select id="f-paper"><option value="">All papers</option></select>
+    </div>
+    <div class="filter-group">
+      <label class="checkbox-row" style="text-transform:none; margin-top:6px;">
+        <input type="checkbox" id="f-flagged"> Only flagged (needs review)
+      </label>
+    </div>
+    <button class="reset-btn" id="f-reset">Reset filters</button>
+  </div>
+
+  <div class="results">
+    <div class="col-headers">
+      <div>Document</div>
+      <div>Paper</div>
+      <div>Status</div>
+      <div>School</div>
+      <div>Subject</div>
+      <div>Year</div>
+      <div>Type</div>
+      <div style="text-align:right">Links</div>
+    </div>
+    <div class="results-scroll">
+      <div id="rows"></div>
+      <div class="empty" id="empty" style="display:none">No documents match these filters.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+let DATA = [];
+let GROUPS = [];       // one entry per group_id: {isGroup, key, members:[...]}
+const openGroups = new Set();
+
+const $ = (id) => document.getElementById(id);
+const esc = (s) => (s ?? "").toString().replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const uniq = (arr) => [...new Set(arr.filter(Boolean))].sort();
+
+// Collapses the many raw paper_info_role variants (QP, Solution, TYS Answers, Essay Solutions Q3,
+// Insert, Guide, ...) into exactly two badges: Answers or Questions. Anything that isn't clearly
+// an answer/solution/mark scheme (including inserts, which accompany the question paper) counts
+// as Questions.
+function classifyRole(role) {
+  const r = (role || "").trim().toLowerCase();
+  if (r.includes("answer") || r.includes("solution") || r.includes("mark scheme")) return "Answers";
+  return "Questions";
+}
+
+function isQuestionsRole(role) {
+  return classifyRole(role) === "Questions";
+}
+
+function buildGroups(data) {
+  const byId = new Map();
+  for (const e of data) {
+    if (!byId.has(e.group_id)) byId.set(e.group_id, []);
+    byId.get(e.group_id).push(e);
+  }
+  const groups = [];
+  for (const [gid, members] of byId) {
+    if (members.length === 1) {
+      groups.push({ isGroup: false, key: gid, primary: members[0], members });
+    } else {
+      const primary = members.find(m => isQuestionsRole(m.paper_info_role)) || members[0];
+      members.sort((a, b) => (a.paper_number || 0) - (b.paper_number || 0) || (a.paper_info_role || "").localeCompare(b.paper_info_role || ""));
+      groups.push({ isGroup: true, key: gid, primary, members });
+    }
+  }
+  return groups;
+}
+
+function populateSelect(id, values) {
+  const el = $(id);
+  const current = el.value;
+  while (el.options.length > 1) el.remove(1);  // keep the "All ..." placeholder
+  for (const v of values) {
+    const opt = document.createElement("option");
+    opt.value = v; opt.textContent = v;
+    el.appendChild(opt);
+  }
+  if ([...el.options].some(o => o.value === current)) el.value = current;
+}
+
+function matchesFilters(e) {
+  const search = $("f-search").value.toLowerCase();
+  const subject = $("f-subject").value;
+  const school = $("f-school").value;
+  const year = $("f-year").value;
+  const doctype = $("f-doctype").value;
+  const paper = $("f-paper").value;
+  const flaggedOnly = $("f-flagged").checked;
+
+  if (search) {
+    const hay = (e.display_name + " " + e.original_name).toLowerCase();
+    const words = search.split(/\s+/).filter(Boolean);
+    if (!words.every(w => hay.includes(w))) return false;
+  }
+  if (subject && e.subject !== subject) return false;
+  if (school && e.school !== school) return false;
+  if (year && String(e.year_resolved) !== year) return false;
+  if (doctype && e.doc_type !== doctype) return false;
+  if (paper && String(e.paper_number) !== paper) return false;
+  if (flaggedOnly && !e.flagged) return false;
+  return true;
+}
+
+function applyFilters() {
+  const visible = [];
+  for (const g of GROUPS) {
+    if (g.isGroup) {
+      const matched = g.members.filter(matchesFilters);
+      if (matched.length) visible.push({ ...g, members: matched });
+    } else {
+      if (matchesFilters(g.primary)) visible.push(g);
+    }
+  }
+  renderRows(visible);
+  const totalDocs = DATA.length;
+  const shownDocs = visible.reduce((n, g) => n + g.members.length, 0);
+  $("count").textContent = `${shownDocs} / ${totalDocs} documents`;
+}
+
+function roleClass(role) {
+  return classifyRole(role) === "Answers" ? "answers" : "questions";
+}
+
+function roleLabel(m) {
+  return classifyRole(m.paper_info_role || m.doc_type);
+}
+
+function paperBadgeHtml(e) {
+  if (!e.paper_number) return "";
+  const title = e.paper_label ? ` title="${esc(e.paper_label)}"` : "";
+  return `<span class="paper-badge"${title}>Paper ${e.paper_number}</span>`;
+}
+
+function flagBadgeHtml(e) {
+  if (!e.flagged) return "";
+  return `<span class="flag-badge" data-tooltip="${esc(e.flag_reason || "Flagged for review")}">! review</span>`;
+}
+
+// Group headers are collapsed by default, so a flagged member inside would otherwise be invisible
+function groupFlagBadgeHtml(members) {
+  const flagged = members.filter(m => m.flagged);
+  if (!flagged.length) return "";
+  const tooltip = flagged.length === 1
+    ? (flagged[0].flag_reason || "Flagged for review")
+    : `${flagged.length} files flagged:\n` + flagged.map(m => `- ${m.flag_reason || "Flagged for review"}`).join("\n");
+  return `<span class="flag-badge" data-tooltip="${esc(tooltip)}">! ${flagged.length} flagged</span>`;
+}
+
+function rowMetaHtml(e) {
+  return `
+    <div>${e.school ? `<span class="tag school">${esc(e.school)}</span>` : `<span class="cell-muted">-</span>`}</div>
+    <div class="cell-muted">${esc(e.subject || "")}</div>
+    <div class="cell-muted">${esc(e.year_resolved || "-")}</div>
+    <div class="cell-muted">${esc(e.doc_type || "")}</div>`;
+}
+
+function renderRows(groups) {
+  const container = $("rows");
+  container.innerHTML = "";
+  $("empty").style.display = groups.length ? "none" : "block";
+
+  const frag = document.createDocumentFragment();
+  for (const g of groups.slice(0, 600)) {
+    if (g.isGroup) {
+      const isOpen = openGroups.has(g.key);
+      const row = document.createElement("div");
+      row.className = "row group-row";
+      row.innerHTML = `
+        <div class="title-cell">
+          <div class="member-title-wrap">
+            <span class="group-title">${esc(g.primary.display_name)}</span>
+            <span class="member-orig">${esc(g.primary.original_name)}</span>
+          </div>
+        </div>
+        <div class="col-badges"><span class="member-count">${g.members.length} files</span></div>
+        <div class="col-badges">${groupFlagBadgeHtml(g.members)}</div>
+        ${rowMetaHtml(g.primary)}
+        <div class="actions">
+          <a href="${g.primary.note_url}" target="_blank" onclick="event.stopPropagation()">Source</a>
+        </div>`;
+      row.addEventListener("click", () => {
+        if (openGroups.has(g.key)) openGroups.delete(g.key); else openGroups.add(g.key);
+        applyFilters();
+      });
+      frag.appendChild(row);
+
+      if (isOpen) {
+        const membersWrap = document.createElement("div");
+        membersWrap.className = "members";
+        for (const m of g.members) {
+          const mrow = document.createElement("div");
+          mrow.className = "member-row";
+          mrow.innerHTML = `
+            <div class="title-cell">
+              <span class="row-indent"></span>
+              <div class="member-title-wrap">
+                <a class="doc-link" href="${m.download_url}" target="_blank">${esc(m.display_name)}</a>
+                <span class="member-orig">${esc(m.original_name)}</span>
+              </div>
+            </div>
+            <div class="col-badges">${paperBadgeHtml(m)}</div>
+            <div class="col-badges">
+              <span class="role-badge ${roleClass(m.paper_info_role)}">${esc(roleLabel(m))}</span>
+              ${flagBadgeHtml(m)}
+            </div>
+            ${rowMetaHtml(m)}
+            <div class="actions"><a href="${m.note_url}" target="_blank">Source</a></div>`;
+          membersWrap.appendChild(mrow);
+        }
+        frag.appendChild(membersWrap);
+      }
+    } else {
+      const e = g.primary;
+      const row = document.createElement("div");
+      row.className = "row";
+      row.innerHTML = `
+        <div class="title-cell">
+          <div class="member-title-wrap">
+            <a class="doc-link" href="${e.download_url}" target="_blank">${esc(e.display_name)}</a>
+            <span class="member-orig">${esc(e.original_name)}</span>
+          </div>
+        </div>
+        <div class="col-badges">${paperBadgeHtml(e)}</div>
+        <div class="col-badges">
+          <span class="role-badge ${roleClass(e.paper_info_role)}">${esc(roleLabel(e))}</span>
+          ${flagBadgeHtml(e)}
+        </div>
+        ${rowMetaHtml(e)}
+        <div class="actions"><a href="${e.note_url}" target="_blank">Source</a></div>`;
+      frag.appendChild(row);
+    }
+  }
+  container.appendChild(frag);
+}
+
+["f-search", "f-subject", "f-school", "f-year", "f-doctype", "f-paper", "f-flagged"].forEach(id => {
+  $(id).addEventListener("input", applyFilters);
+});
+$("f-reset").addEventListener("click", () => {
+  $("f-search").value = "";
+  $("f-subject").value = "";
+  $("f-school").value = "";
+  $("f-year").value = "";
+  $("f-doctype").value = "";
+  $("f-paper").value = "";
+  $("f-flagged").checked = false;
+  applyFilters();
+});
+
+// manual grouping UI disabled for now (server endpoints in server.py still work if re-enabled)
+
+async function loadData() {
+  const data = await fetch("./data.json").then(r => r.json());
+  DATA = data;
+  GROUPS = buildGroups(data);
+  populateSelect("f-subject", uniq(data.map(d => d.subject)));
+  populateSelect("f-school", uniq(data.map(d => d.school)));
+  populateSelect("f-year", uniq(data.map(d => d.year_resolved)).sort((a,b) => b - a));
+  populateSelect("f-doctype", uniq(data.map(d => d.doc_type)));
+  populateSelect("f-paper", uniq(data.map(d => d.paper_number)).sort((a,b) => a - b).map(n => String(n)));
+  applyFilters();
+}
+
+loadData();
+</script>
+
+</body>
+</html>
