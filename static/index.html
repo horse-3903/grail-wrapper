@@ -150,9 +150,15 @@
 
   .paper-badge {
     flex-shrink: 0; display: inline-flex; align-items: center; font-size: 11px; font-family: var(--font-mono);
-    color: var(--accent); background: #EBF0FC; border: 1px solid #D3DEF8; padding: 2px 8px;
-    border-radius: var(--r-control); font-weight: 600; white-space: nowrap;
+    padding: 2px 8px; border-radius: var(--r-control); font-weight: 600; white-space: nowrap;
+    border: 1px solid transparent;
   }
+  /* distinct per paper number, deliberately not reusing the Questions (blue) or Answers (green) colors */
+  .paper-badge.p1 { color: #B45309; background: #FEF3E2; border-color: #F3D9A6; }
+  .paper-badge.p2 { color: #7C3AED; background: #F2ECFC; border-color: #DCC9F7; }
+  .paper-badge.p3 { color: #BE185D; background: #FCE7F1; border-color: #F5B7D3; }
+  .paper-badge.p4 { color: #0F766E; background: #E4F6F4; border-color: #A9E1DA; }
+  .paper-badge.p-other { color: var(--text-secondary); background: var(--card-alt); border-color: var(--border); }
 
   .actions { display: flex; gap: 6px; justify-content: flex-end; }
   .actions a, .actions button {
@@ -353,7 +359,8 @@ function roleLabel(m) {
 function paperBadgeHtml(e) {
   if (!e.paper_number) return "";
   const title = e.paper_label ? ` title="${esc(e.paper_label)}"` : "";
-  return `<span class="paper-badge"${title}>Paper ${e.paper_number}</span>`;
+  const cls = e.paper_number >= 1 && e.paper_number <= 4 ? `p${e.paper_number}` : "p-other";
+  return `<span class="paper-badge ${cls}"${title}>Paper ${e.paper_number}</span>`;
 }
 
 function flagBadgeHtml(e) {
