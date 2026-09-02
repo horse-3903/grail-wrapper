@@ -316,7 +316,10 @@ function applyFilters() {
   for (const g of GROUPS) {
     if (g.isGroup) {
       const matched = g.members.filter(matchesFilters);
-      if (matched.length) visible.push({ ...g, members: matched });
+      if (matched.length) {
+        const primary = matched.find(m => isQuestionsRole(m.paper_info_role)) || matched[0];
+        visible.push({ ...g, primary, members: matched });
+      }
     } else {
       if (matchesFilters(g.primary)) visible.push(g);
     }
