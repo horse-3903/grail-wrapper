@@ -48,35 +48,37 @@
   header h1 {
     font-size: 26px; font-weight: 600; margin: 0; letter-spacing: -0.01em;
   }
-  .layout { display: flex; flex: 1; min-height: 0; }
+  .layout { display: flex; flex-direction: column; flex: 1; min-height: 0; }
 
-  .filters {
-    width: 264px; padding: 24px 20px; border-right: 1px solid var(--border);
-    overflow-y: auto; flex-shrink: 0;
-    background: linear-gradient(165deg, #171233 0%, #111827 55%);
+  .filterbar {
+    flex-shrink: 0; display: flex; align-items: flex-end; gap: 16px; flex-wrap: wrap;
+    padding: 16px 28px; background: linear-gradient(100deg, #171233 0%, #111827 60%);
     color: #E7E9EF; position: relative;
   }
-  .filters::before {
+  .filterbar::before {
     content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
     background: linear-gradient(90deg, var(--primary), var(--accent));
   }
-  .filter-group { margin-bottom: 20px; }
+  .filter-group { display: flex; flex-direction: column; gap: 7px; }
+  .filter-group.grow { flex: 1 1 220px; min-width: 180px; }
   .filter-group label {
     display: block; font-family: var(--font-mono); font-size: 11px; color: #8892A6;
-    margin-bottom: 8px; text-transform: uppercase; letter-spacing: .04em; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .04em; font-weight: 600;
   }
-  .filters select, .filters input[type=text] {
-    width: 100%; padding: 9px 10px; background: var(--surface-2); border: 1px solid #2A3448;
+  .filterbar select, .filterbar input[type=text] {
+    padding: 9px 10px; background: var(--surface-2); border: 1px solid #2A3448;
     color: #F2F4F8; border-radius: var(--r-control); font-size: 13.5px; outline: none;
     font-family: var(--font-body); transition: border-color .12s;
   }
-  .filters select:focus, .filters input[type=text]:focus { border-color: var(--primary); }
-  .checkbox-row { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: #C6CCDA; cursor: pointer; }
+  .filterbar select { min-width: 140px; }
+  .filterbar input[type=text] { width: 100%; }
+  .filterbar select:focus, .filterbar input[type=text]:focus { border-color: var(--primary); }
+  .checkbox-row { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: #C6CCDA; cursor: pointer; white-space: nowrap; padding: 9px 2px; }
   .checkbox-row input { accent-color: var(--primary); width: 15px; height: 15px; cursor: pointer; }
   .reset-btn {
-    width: 100%; margin-top: 4px; padding: 9px; border-radius: var(--r-control); border: 1px solid #2A3448;
+    margin-left: auto; padding: 9px 16px; border-radius: var(--r-control); border: 1px solid #2A3448;
     background: transparent; color: #A9B1C3; font-size: 13px; font-weight: 500; cursor: pointer;
-    font-family: var(--font-body);
+    font-family: var(--font-body); white-space: nowrap;
   }
   .reset-btn:hover { border-color: var(--primary); color: #fff; }
 
@@ -172,7 +174,6 @@
 
   ::-webkit-scrollbar { width: 10px; height: 10px; }
   ::-webkit-scrollbar-thumb { background: #D9D4CB; border-radius: 6px; }
-  .filters::-webkit-scrollbar-thumb { background: #2A3448; }
   ::-webkit-scrollbar-track { background: transparent; }
 </style>
 </head>
@@ -183,8 +184,8 @@
 </header>
 
 <div class="layout">
-  <div class="filters">
-    <div class="filter-group">
+  <div class="filterbar">
+    <div class="filter-group grow">
       <label>Search</label>
       <input id="f-search" type="text" placeholder="e.g. RVHS prelim 2023">
     </div>
@@ -208,11 +209,9 @@
       <label>Paper</label>
       <select id="f-paper"><option value="">All papers</option></select>
     </div>
-    <div class="filter-group">
-      <label class="checkbox-row" style="text-transform:none; margin-top:6px;">
-        <input type="checkbox" id="f-flagged"> Only flagged (needs review)
-      </label>
-    </div>
+    <label class="checkbox-row">
+      <input type="checkbox" id="f-flagged"> Only flagged (needs review)
+    </label>
     <button class="reset-btn" id="f-reset">Reset filters</button>
   </div>
 
@@ -288,40 +287,48 @@ function populateSelect(id, values) {
   if ([...el.options].some(o => o.value === current)) el.value = current;
 }
 
-function matchesFilters(e) {
-  const search = $("f-search").value.toLowerCase();
-  const subject = $("f-subject").value;
-  const school = $("f-school").value;
-  const year = $("f-year").value;
-  const doctype = $("f-doctype").value;
-  const paper = $("f-paper").value;
-  const flaggedOnly = $("f-flagged").checked;
+// Reads every filter control once per applyFilters() call instead of once per document -
+// with 3300+ documents, re-querying the DOM inside the per-entry predicate made every
+// keystroke redo thousands of getElementById/.value calls.
+function getFilterState() {
+  const search = $("f-search").value.trim().toLowerCase();
+  return {
+    searchWords: search ? search.split(/\s+/).filter(Boolean) : [],
+    subject: $("f-subject").value,
+    school: $("f-school").value,
+    year: $("f-year").value,
+    doctype: $("f-doctype").value,
+    paper: $("f-paper").value,
+    flaggedOnly: $("f-flagged").checked,
+  };
+}
 
-  if (search) {
+function matchesFilters(e, f) {
+  if (f.searchWords.length) {
     const hay = (e.display_name + " " + e.original_name).toLowerCase();
-    const words = search.split(/\s+/).filter(Boolean);
-    if (!words.every(w => hay.includes(w))) return false;
+    if (!f.searchWords.every(w => hay.includes(w))) return false;
   }
-  if (subject && e.subject !== subject) return false;
-  if (school && e.school !== school) return false;
-  if (year && String(e.year_resolved) !== year) return false;
-  if (doctype && e.doc_type !== doctype) return false;
-  if (paper && String(e.paper_number) !== paper) return false;
-  if (flaggedOnly && !e.flagged) return false;
+  if (f.subject && e.subject !== f.subject) return false;
+  if (f.school && e.school !== f.school) return false;
+  if (f.year && String(e.year_resolved) !== f.year) return false;
+  if (f.doctype && e.doc_type !== f.doctype) return false;
+  if (f.paper && String(e.paper_number) !== f.paper) return false;
+  if (f.flaggedOnly && !e.flagged) return false;
   return true;
 }
 
 function applyFilters() {
+  const f = getFilterState();
   const visible = [];
   for (const g of GROUPS) {
     if (g.isGroup) {
-      const matched = g.members.filter(matchesFilters);
+      const matched = g.members.filter(m => matchesFilters(m, f));
       if (matched.length) {
         const primary = matched.find(m => isQuestionsRole(m.paper_info_role)) || matched[0];
         visible.push({ ...g, primary, members: matched });
       }
     } else {
-      if (matchesFilters(g.primary)) visible.push(g);
+      if (matchesFilters(g.primary, f)) visible.push(g);
     }
   }
   visible.sort((a, b) => (Number(b.primary.year_resolved) || 0) - (Number(a.primary.year_resolved) || 0)
@@ -368,7 +375,6 @@ function rowMetaHtml(e) {
 
 function renderRows(groups) {
   const container = $("rows");
-  container.innerHTML = "";
   $("empty").style.display = groups.length ? "none" : "block";
 
   const frag = document.createDocumentFragment();
@@ -442,10 +448,15 @@ function renderRows(groups) {
       frag.appendChild(row);
     }
   }
-  container.appendChild(frag);
+  container.replaceChildren(frag);
 }
 
-["f-search", "f-subject", "f-school", "f-year", "f-doctype", "f-paper", "f-flagged"].forEach(id => {
+let searchDebounce;
+$("f-search").addEventListener("input", () => {
+  clearTimeout(searchDebounce);
+  searchDebounce = setTimeout(applyFilters, 100);
+});
+["f-subject", "f-school", "f-year", "f-doctype", "f-paper", "f-flagged"].forEach(id => {
   $(id).addEventListener("input", applyFilters);
 });
 $("f-reset").addEventListener("click", () => {
