@@ -81,11 +81,26 @@
     font-size: 26px; font-weight: 600; margin: 0; letter-spacing: -0.01em;
   }
   .theme-toggle {
-    margin-left: auto; padding: 8px 14px; border-radius: var(--r-control); border: 1px solid var(--border);
-    background: var(--card-alt); color: var(--text-secondary); font-size: 12.5px; font-weight: 600;
-    font-family: var(--font-mono); cursor: pointer; white-space: nowrap;
+    margin-left: auto; background: none; border: none; padding: 0; cursor: pointer;
+    display: inline-flex; align-items: center; flex-shrink: 0;
   }
-  .theme-toggle:hover { border-color: var(--primary); color: var(--primary); }
+  .toggle-track {
+    position: relative; width: 56px; height: 28px; border-radius: var(--r-pill);
+    background: #2B2A33; padding: 3px; box-sizing: border-box;
+  }
+  .toggle-knob {
+    position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; border-radius: 50%;
+    background: #fff; transition: transform .2s ease; z-index: 2;
+  }
+  :root[data-theme="dark"] .toggle-knob { transform: translateX(28px); }
+  .toggle-moon {
+    position: absolute; top: 50%; right: 9px; width: 13px; height: 13px; border-radius: 50%;
+    background: #fff; transform: translateY(-50%); z-index: 1;
+  }
+  .toggle-moon::after {
+    content: ""; position: absolute; top: -2px; left: -5px; width: 13px; height: 13px;
+    border-radius: 50%; background: #2B2A33;
+  }
   .layout { display: flex; flex-direction: column; flex: 1; min-height: 0; }
 
   .filterbar {
@@ -307,7 +322,12 @@
 
 <header>
   <h1>Holy Grail Mk 6 Index</h1>
-  <button type="button" class="theme-toggle" id="theme-toggle">Dark mode</button>
+  <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to dark mode" aria-pressed="false">
+    <span class="toggle-track">
+      <span class="toggle-knob"></span>
+      <span class="toggle-moon"></span>
+    </span>
+  </button>
 </header>
 
 <div class="layout">
@@ -446,7 +466,9 @@ const uniq = (arr) => [...new Set(arr.filter(Boolean))].sort();
 const THEME_KEY = "grail-theme";
 function applyTheme(theme) {
   document.documentElement.setAttribute("data-theme", theme);
-  $("theme-toggle").textContent = theme === "dark" ? "Light mode" : "Dark mode";
+  const btn = $("theme-toggle");
+  btn.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
+  btn.setAttribute("aria-label", theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
 }
 function initTheme() {
   let stored = null;
