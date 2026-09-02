@@ -99,6 +99,11 @@ def compute_group_id(e: dict, base: str, n: int | None) -> str:
 
 
 def enrich(data: list[dict]) -> list[dict]:
+    # 0. freshly-merged raw entries won't have original_name yet (normally set in step 4,
+    # too late for step 1's own use of it) - back-fill it first so every step can rely on it
+    for e in data:
+        e.setdefault("original_name", e["name"])
+
     # 1. detect answer/solution/mark-scheme keywords the tagger might have missed
     for e in data:
         if not ANSWER_KEYWORD_RE.search(e["original_name"]):
@@ -136,7 +141,6 @@ def enrich(data: list[dict]) -> list[dict]:
 
     # 4. naming, paper number/label, canonical grouping
     for e in data:
-        e.setdefault("original_name", e["name"])
         subj_abbr = SUBJ_ABBR.get(e["subject"], e["subject"] or "")
         base = base_of(e.get("paper_info"))
         e["paper_info_base"] = base
