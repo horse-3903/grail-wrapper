@@ -133,10 +133,21 @@
   .cell-muted { color: var(--text-secondary); font-size: 13px; }
 
   .flag-badge {
-    display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-family: var(--font-mono);
-    color: var(--danger); background: var(--danger-soft); padding: 2px 8px; border-radius: var(--r-control);
-    font-weight: 600;
+    position: relative; display: inline-flex; align-items: center; gap: 4px; font-size: 11px;
+    font-family: var(--font-mono); color: var(--danger); background: var(--danger-soft);
+    padding: 2px 8px; border-radius: var(--r-control); font-weight: 600; cursor: help;
   }
+  .flag-badge::after {
+    content: attr(data-tooltip);
+    position: absolute; bottom: calc(100% + 6px); left: 0; z-index: 30;
+    background: var(--surface); color: #F2F4F8; font-family: var(--font-body); font-weight: 400;
+    font-size: 12.5px; line-height: 1.4; padding: 8px 10px; border-radius: var(--r-control);
+    width: max-content; max-width: 280px; white-space: pre-line;
+    box-shadow: 0 6px 18px rgba(17, 24, 39, 0.25);
+    opacity: 0; visibility: hidden; transition: opacity .12s;
+    pointer-events: none;
+  }
+  .flag-badge:hover::after { opacity: 1; visibility: visible; }
 
   .paper-badge {
     flex-shrink: 0; display: inline-flex; align-items: center; font-size: 11px; font-family: var(--font-mono);
@@ -342,6 +353,21 @@ function paperBadgeHtml(e) {
   return `<span class="paper-badge"${title}>Paper ${e.paper_number}</span>`;
 }
 
+function flagBadgeHtml(e) {
+  if (!e.flagged) return "";
+  return `<span class="flag-badge" data-tooltip="${esc(e.flag_reason || "Flagged for review")}">! review</span>`;
+}
+
+// Group headers are collapsed by default, so a flagged member inside would otherwise be invisible
+function groupFlagBadgeHtml(members) {
+  const flagged = members.filter(m => m.flagged);
+  if (!flagged.length) return "";
+  const tooltip = flagged.length === 1
+    ? (flagged[0].flag_reason || "Flagged for review")
+    : `${flagged.length} files flagged:\n` + flagged.map(m => `- ${m.flag_reason || "Flagged for review"}`).join("\n");
+  return `<span class="flag-badge" data-tooltip="${esc(tooltip)}">! ${flagged.length} flagged</span>`;
+}
+
 function rowMetaHtml(e) {
   return `
     <div>${e.school ? `<span class="tag school">${esc(e.school)}</span>` : `<span class="cell-muted">-</span>`}</div>
@@ -369,6 +395,7 @@ function renderRows(groups) {
             <span class="member-orig">${esc(g.primary.original_name)}</span>
           </div>
           ${paperBadgeHtml(g.primary)}
+          ${groupFlagBadgeHtml(g.members)}
           <span class="member-count">${g.members.length} files</span>
         </div>
         ${rowMetaHtml(g.primary)}
@@ -392,7 +419,7 @@ function renderRows(groups) {
                 <a class="doc-link" href="/api/download/${m.id}" target="_blank">${esc(m.display_name)}</a>
                 <span class="member-orig">${esc(m.original_name)}</span>
               </div>
-              ${m.flagged ? `<span class="flag-badge" title="${esc(m.flag_reason||"")}">! review</span>` : ""}
+              ${flagBadgeHtml(m)}
             </div>
             ${rowMetaHtml(m)}
             <div class="actions"><a href="${m.note_url}" target="_blank">Source</a></div>`;
@@ -411,7 +438,7 @@ function renderRows(groups) {
             <span class="member-orig">${esc(e.original_name)}</span>
           </div>
           ${paperBadgeHtml(e)}
-          ${e.flagged ? `<span class="flag-badge" title="${esc(e.flag_reason||"")}">! review</span>` : ""}
+          ${flagBadgeHtml(e)}
         </div>
         ${rowMetaHtml(e)}
         <div class="actions"><a href="${e.note_url}" target="_blank">Source</a></div>`;
