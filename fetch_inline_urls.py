@@ -17,7 +17,8 @@ import requests
 
 DATA_PATH = Path(__file__).parent / "data" / "tagged.json"
 HEADERS = {"User-Agent": "Mozilla/5.0 (grail-local-index-scraper)"}
-INLINE_URL_RE = re.compile(r"https://document\.grail\.moe/[a-f0-9]+\.pdf")
+# not every note is a PDF - some (e.g. H2 Computing practicals) ship as .zip, so match any extension
+INLINE_URL_RE = re.compile(r"https://document\.grail\.moe/[a-f0-9]+\.[a-zA-Z0-9]+")
 
 
 def fetch_inline_url(note_url: str) -> str | None:
