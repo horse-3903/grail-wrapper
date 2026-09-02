@@ -350,6 +350,12 @@ function roleLabel(m) {
   return classifyRole(m.paper_info_role || m.doc_type);
 }
 
+// inline_url (document.grail.moe) opens the PDF in-tab; download_url (api.grail.moe)
+// forces a download via an S3 Content-Disposition:attachment header, so prefer inline_url
+function pdfUrl(e) {
+  return e.inline_url || e.download_url;
+}
+
 function paperBadgeHtml(e) {
   if (!e.paper_number) return "";
   const title = e.paper_label ? ` title="${esc(e.paper_label)}"` : "";
@@ -419,7 +425,7 @@ function renderRows(groups) {
             <div class="title-cell">
               <span class="row-indent"></span>
               <div class="member-title-wrap">
-                <a class="doc-link" href="${m.download_url}" target="_blank">${esc(m.display_name)}</a>
+                <a class="doc-link" href="${pdfUrl(m)}" target="_blank">${esc(m.display_name)}</a>
                 <span class="member-orig">${esc(m.original_name)}</span>
               </div>
             </div>
@@ -441,7 +447,7 @@ function renderRows(groups) {
       row.innerHTML = `
         <div class="title-cell">
           <div class="member-title-wrap">
-            <a class="doc-link" href="${e.download_url}" target="_blank">${esc(e.display_name)}</a>
+            <a class="doc-link" href="${pdfUrl(e)}" target="_blank">${esc(e.display_name)}</a>
             <span class="member-orig">${esc(e.original_name)}</span>
           </div>
         </div>

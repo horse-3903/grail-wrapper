@@ -88,9 +88,12 @@ def api_download(note_id):
     if cached.exists():
         return send_from_directory(CACHE_DIR, f"{note_id}.pdf", mimetype="application/pdf")
 
-    upstream = requests.get(
-        f"https://api.grail.moe/note/download/{note_id}", stream=True, timeout=30
-    )
+    # inline_url (document.grail.moe, stable CloudFront link) skips the extra redirect
+    # through api.grail.moe's short-lived presigned S3 URL when we already know it
+    entry = next((e for e in load_index() if e["id"] == note_id), None)
+    fetch_url = (entry and entry.get("inline_url")) or f"https://api.grail.moe/note/download/{note_id}"
+
+    upstream = requests.get(fetch_url, stream=True, timeout=30)
     if upstream.status_code != 200:
         return jsonify({"error": f"upstream returned {upstream.status_code}"}), 502
 
