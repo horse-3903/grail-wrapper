@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Grail Local Index</title>
+<title>Holy Grail Mk 6 Index</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -61,7 +61,7 @@
   }
   .filter-group { display: flex; flex-direction: column; gap: 7px; }
   .filter-group.grow { flex: 1 1 220px; min-width: 180px; }
-  .filter-group label {
+  .filter-group > label {
     display: block; font-family: var(--font-mono); font-size: 11px; color: var(--text-faint);
     text-transform: uppercase; letter-spacing: .04em; font-weight: 600;
   }
@@ -99,7 +99,8 @@
   .ms-options { max-height: 260px; overflow-y: auto; }
   .ms-option {
     display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: var(--r-control);
-    cursor: pointer; font-size: 13.5px; color: var(--text-primary);
+    cursor: pointer; font-size: 13.5px; font-family: var(--font-body); font-weight: 400;
+    text-transform: none; letter-spacing: normal; color: var(--text-primary);
   }
   .ms-option:hover { background: var(--card-alt); }
   .ms-option input { accent-color: var(--primary); cursor: pointer; }
@@ -113,14 +114,15 @@
   }
   .ms-actions button:hover { color: var(--primary); }
 
-  .year-panel { min-width: 240px; }
-  .year-panel input[type=text] {
-    width: 100%; padding: 8px 10px; border: 1px solid var(--border); border-radius: var(--r-control);
+  .year-panel { min-width: 220px; }
+  .year-range-inputs { display: flex; align-items: center; gap: 8px; }
+  .year-range-inputs input[type=text] {
+    width: 0; flex: 1 1 0; padding: 8px 10px; border: 1px solid var(--border); border-radius: var(--r-control);
     font-size: 13.5px; font-family: var(--font-body); background: var(--card-alt); color: var(--text-primary);
-    outline: none;
+    outline: none; text-align: center;
   }
-  .year-panel input[type=text]:focus { border-color: var(--primary); }
-  .year-panel .hint { font-size: 12px; color: var(--text-faint); margin-top: 6px; }
+  .year-range-inputs input[type=text]:focus { border-color: var(--primary); }
+  .year-range-sep { color: var(--text-faint); flex-shrink: 0; }
 
   .results {
     flex: 1; min-height: 0; display: flex; flex-direction: column;
@@ -227,7 +229,7 @@
 <body>
 
 <header>
-  <h1>Grail Local Index</h1>
+  <h1>Holy Grail Mk 6 Index</h1>
 </header>
 
 <div class="layout">
@@ -257,8 +259,11 @@
       <div class="ms" id="f-year-ms">
         <button type="button" class="ms-trigger" id="f-year-trigger">All years<span class="ms-caret">&#9662;</span></button>
         <div class="ms-panel year-panel" id="f-year-panel" hidden>
-          <input type="text" id="f-year-input" placeholder="e.g. 2023-2026, 2019">
-          <div class="hint">Comma-separated years or ranges</div>
+          <div class="year-range-inputs">
+            <input type="text" id="f-year-from" placeholder="From" inputmode="numeric" maxlength="4">
+            <span class="year-range-sep">&ndash;</span>
+            <input type="text" id="f-year-to" placeholder="To" inputmode="numeric" maxlength="4">
+          </div>
           <div class="ms-actions">
             <button type="button" id="f-year-clear">Clear</button>
             <button type="button" id="f-year-apply">Apply</button>
@@ -366,9 +371,9 @@ function populateSelect(id, values) {
 }
 
 // School/document-type/paper accept multiple selected values (checkbox dropdowns); year
-// accepts a typed comma-separated list of years and/or ranges (e.g. "2023-2026, 2019").
+// is a range with separate start/end inputs (either side may be left open-ended).
 const multiFilters = { school: new Set(), doctype: new Set(), paper: new Set() };
-let yearRanges = [];
+let yearMin = null, yearMax = null;
 
 const MULTI_LABELS = { school: "All schools", doctype: "All types", paper: "All papers" };
 
@@ -434,44 +439,40 @@ document.querySelectorAll("[data-clear]").forEach(btn => {
   });
 });
 
-// Parses "2023-2026, 2019" into [[2023,2026],[2019,2019]]; malformed parts are ignored.
-function parseYearRanges(text) {
-  const ranges = [];
-  for (const part of text.split(",").map(s => s.trim()).filter(Boolean)) {
-    const range = part.match(/^(\d{4})\s*-\s*(\d{4})$/);
-    if (range) {
-      let a = Number(range[1]), b = Number(range[2]);
-      if (a > b) [a, b] = [b, a];
-      ranges.push([a, b]);
-    } else if (/^\d{4}$/.test(part)) {
-      ranges.push([Number(part), Number(part)]);
-    }
-  }
-  return ranges;
+function parseYearInput(value) {
+  return /^\d{4}$/.test(value.trim()) ? Number(value.trim()) : null;
 }
 
-function updateYearTrigger(rawText) {
+function updateYearTrigger() {
   const trigger = $("f-year-trigger");
-  const label = rawText.trim() ? rawText.trim() : "All years";
+  let label = "All years";
+  if (yearMin != null && yearMax != null) label = `${yearMin}–${yearMax}`;
+  else if (yearMin != null) label = `${yearMin}+`;
+  else if (yearMax != null) label = `Up to ${yearMax}`;
   trigger.firstChild.textContent = label;
-  trigger.classList.toggle("active", yearRanges.length > 0);
+  trigger.classList.toggle("active", yearMin != null || yearMax != null);
 }
 
 function applyYearInput() {
-  yearRanges = parseYearRanges($("f-year-input").value);
-  updateYearTrigger($("f-year-input").value);
+  yearMin = parseYearInput($("f-year-from").value);
+  yearMax = parseYearInput($("f-year-to").value);
+  if (yearMin != null && yearMax != null && yearMin > yearMax) [yearMin, yearMax] = [yearMax, yearMin];
+  updateYearTrigger();
   applyFilters();
 }
 
 setupDropdown("year");
 $("f-year-apply").addEventListener("click", applyYearInput);
-$("f-year-input").addEventListener("keydown", (ev) => {
-  if (ev.key === "Enter") { applyYearInput(); $("f-year-panel").hidden = true; }
+["f-year-from", "f-year-to"].forEach(id => {
+  $(id).addEventListener("keydown", (ev) => {
+    if (ev.key === "Enter") { applyYearInput(); $("f-year-panel").hidden = true; }
+  });
 });
 $("f-year-clear").addEventListener("click", () => {
-  $("f-year-input").value = "";
-  yearRanges = [];
-  updateYearTrigger("");
+  $("f-year-from").value = "";
+  $("f-year-to").value = "";
+  yearMin = null; yearMax = null;
+  updateYearTrigger();
   applyFilters();
 });
 
@@ -484,7 +485,7 @@ function getFilterState() {
     searchWords: search ? search.split(/\s+/).filter(Boolean) : [],
     subject: $("f-subject").value,
     schools: multiFilters.school,
-    yearRanges,
+    yearMin, yearMax,
     doctypes: multiFilters.doctype,
     papers: multiFilters.paper,
   };
@@ -497,9 +498,11 @@ function matchesFilters(e, f) {
   }
   if (f.subject && e.subject !== f.subject) return false;
   if (f.schools.size && !f.schools.has(e.school)) return false;
-  if (f.yearRanges.length) {
+  if (f.yearMin != null || f.yearMax != null) {
     const y = Number(e.year_resolved);
-    if (!y || !f.yearRanges.some(([a, b]) => y >= a && y <= b)) return false;
+    if (!y) return false;
+    if (f.yearMin != null && y < f.yearMin) return false;
+    if (f.yearMax != null && y > f.yearMax) return false;
   }
   if (f.doctypes.size && !f.doctypes.has(e.doc_type)) return false;
   if (f.papers.size && !f.papers.has(String(e.paper_number))) return false;
@@ -654,9 +657,10 @@ $("f-reset").addEventListener("click", () => {
     $(`f-${key}-options`).querySelectorAll("input").forEach(i => i.checked = false);
     updateMultiTrigger(key);
   }
-  $("f-year-input").value = "";
-  yearRanges = [];
-  updateYearTrigger("");
+  $("f-year-from").value = "";
+  $("f-year-to").value = "";
+  yearMin = null; yearMax = null;
+  updateYearTrigger();
   applyFilters();
 });
 
