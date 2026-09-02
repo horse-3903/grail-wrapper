@@ -23,12 +23,43 @@
     --danger-soft: #FBEAEA;
     --answers: #2F8F5B;
     --answers-soft: #E9F6EE;
+    --row-hover-border: #D8D3E8;
+    --scrollbar-thumb: #D9D4CB;
+    --tag-school-bg: #F1EAFA;
+    --role-answers-border: #CDE9D9;
+    --role-questions-border: #D3DEF8;
+    --role-questions-bg: #EBF0FC;
+    --role-exam-color: #0E7CA8;
+    --role-exam-border: #A9D6E9;
+    --role-exam-bg: #E3F3FA;
     --font-body: "Hanken Grotesk", -apple-system, "Segoe UI", sans-serif;
     --font-mono: "JetBrains Mono", ui-monospace, monospace;
     --r-card: 4px;
     --r-control: 3px;
     --r-pill: 9999px;
     --sp: 8px;
+  }
+  :root[data-theme="dark"] {
+    --background: #14121F;
+    --surface: #05070C;
+    --surface-2: #0F1420;
+    --card: #1D1A30;
+    --card-alt: #262239;
+    --text-primary: #EDEAF7;
+    --text-secondary: #B3AEC9;
+    --text-faint: #8983A3;
+    --border: #34304A;
+    --danger-soft: #3A1F22;
+    --answers-soft: #163625;
+    --row-hover-border: #4A4468;
+    --scrollbar-thumb: #3A3552;
+    --tag-school-bg: #362C4D;
+    --role-answers-border: #1F4E36;
+    --role-questions-border: #2A3B63;
+    --role-questions-bg: #202A47;
+    --role-exam-color: #4FC3E0;
+    --role-exam-border: #1D4B5C;
+    --role-exam-bg: #17313C;
   }
   * { box-sizing: border-box; }
   html, body { height: 100%; }
@@ -37,6 +68,7 @@
     color: var(--text-primary); font-size: 15px; line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     display: flex; flex-direction: column; height: 100vh; overflow: hidden;
+    transition: background-color .15s, color .15s;
   }
   a { color: inherit; }
 
@@ -48,6 +80,12 @@
   header h1 {
     font-size: 26px; font-weight: 600; margin: 0; letter-spacing: -0.01em;
   }
+  .theme-toggle {
+    margin-left: auto; padding: 8px 14px; border-radius: var(--r-control); border: 1px solid var(--border);
+    background: var(--card-alt); color: var(--text-secondary); font-size: 12.5px; font-weight: 600;
+    font-family: var(--font-mono); cursor: pointer; white-space: nowrap;
+  }
+  .theme-toggle:hover { border-color: var(--primary); color: var(--primary); }
   .layout { display: flex; flex-direction: column; flex: 1; min-height: 0; }
 
   .filterbar {
@@ -130,7 +168,7 @@
   }
   .col-headers {
     flex-shrink: 0;
-    display: grid; grid-template-columns: 2.3fr 0.7fr 0.55fr 0.75fr 0.4fr 0.9fr 0.5fr;
+    display: grid; grid-template-columns: 2.05fr 0.7fr 0.55fr 0.75fr 0.4fr 0.9fr 0.75fr;
     gap: 12px; padding: 10px 16px; font-family: var(--font-mono); font-size: 10.5px; color: var(--text-faint);
     text-transform: uppercase; letter-spacing: .04em; font-weight: 600; text-align: center;
     background: var(--background); border-bottom: 1px solid var(--border);
@@ -143,14 +181,14 @@
   .results-scroll::-webkit-scrollbar { display: none; }
 
   .row {
-    display: grid; grid-template-columns: 2.3fr 0.7fr 0.55fr 0.75fr 0.4fr 0.9fr 0.5fr;
+    display: grid; grid-template-columns: 2.05fr 0.7fr 0.55fr 0.75fr 0.4fr 0.9fr 0.75fr;
     gap: 12px; align-items: center; padding: 13px 16px; border-radius: var(--r-card);
     margin: 6px 0; background: var(--card); border: 1px solid var(--border);
     box-shadow: 0 1px 2px rgba(17, 24, 39, 0.03);
   }
   .row.group-row { cursor: pointer; }
   .row.group-row:hover { border-color: var(--primary); }
-  .row:not(.group-row):hover { border-color: #D8D3E8; }
+  .row:not(.group-row):hover { border-color: var(--row-hover-border); }
 
   .row > div:not(.title-cell), .member-row > div:not(.title-cell) { text-align: center; }
 
@@ -170,7 +208,7 @@
     font-size: 11px; background: var(--card-alt); color: var(--text-secondary); border: 1px solid var(--border);
     font-weight: 600;
   }
-  .tag.school { background: #F1EAFA; color: var(--primary); border-color: transparent; }
+  .tag.school { background: var(--tag-school-bg); color: var(--primary); border-color: transparent; }
   .cell-muted { color: var(--text-secondary); font-size: 13px; }
 
   .flag-badge {
@@ -200,7 +238,7 @@
 
   .members { padding: 0 0 4px 0; margin-top: -2px; }
   .member-row {
-    display: grid; grid-template-columns: 2.3fr 0.7fr 0.55fr 0.75fr 0.4fr 0.9fr 0.5fr;
+    display: grid; grid-template-columns: 2.05fr 0.7fr 0.55fr 0.75fr 0.4fr 0.9fr 0.75fr;
     gap: 12px; align-items: center; padding: 10px 16px; border-radius: var(--r-card);
     margin: 3px 0; background: var(--card-alt); border: 1px dashed var(--border);
   }
@@ -215,21 +253,60 @@
     border-radius: var(--r-control); background: var(--card); color: var(--text-secondary);
     border: 1px solid var(--border); width: fit-content; white-space: nowrap;
   }
-  .role-badge.answers { color: var(--answers); border-color: #CDE9D9; background: var(--answers-soft); }
-  .role-badge.questions { color: var(--accent); border-color: #D3DEF8; background: #EBF0FC; }
-  .role-badge.exam-paper { color: #0E7CA8; border-color: #A9D6E9; background: #E3F3FA; }
+  .role-badge.answers { color: var(--answers); border-color: var(--role-answers-border); background: var(--answers-soft); }
+  .role-badge.questions { color: var(--accent); border-color: var(--role-questions-border); background: var(--role-questions-bg); }
+  .role-badge.exam-paper { color: var(--role-exam-color); border-color: var(--role-exam-border); background: var(--role-exam-bg); }
 
   .empty { color: var(--text-faint); padding: 64px 20px; text-align: center; font-size: 14.5px; }
 
   ::-webkit-scrollbar { width: 10px; height: 10px; }
-  ::-webkit-scrollbar-thumb { background: #D9D4CB; border-radius: 6px; }
+  ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
+
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(5, 7, 12, 0.5); z-index: 100;
+    display: flex; align-items: center; justify-content: center; padding: 20px;
+  }
+  .modal {
+    background: var(--card); border-radius: var(--r-card); padding: 24px; width: 420px; max-width: 100%;
+    box-shadow: 0 20px 60px rgba(5, 7, 12, 0.35); max-height: 85vh; overflow-y: auto;
+  }
+  .modal h2 {
+    margin: 0 0 4px; font-size: 17px; font-weight: 600; color: var(--text-primary);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .modal-subtitle {
+    margin: 0 0 18px; font-size: 12.5px; color: var(--text-faint);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .modal-field { margin-bottom: 12px; }
+  .modal-field label {
+    display: block; font-family: var(--font-mono); font-size: 11px; color: var(--text-faint);
+    text-transform: uppercase; letter-spacing: .04em; font-weight: 600; margin-bottom: 6px;
+  }
+  .modal-field input {
+    width: 100%; padding: 8px 10px; border: 1px solid var(--border); border-radius: var(--r-control);
+    font-size: 13.5px; font-family: var(--font-body); background: var(--card-alt); color: var(--text-primary);
+    outline: none;
+  }
+  .modal-field input:focus { border-color: var(--primary); }
+  .modal-hint { font-size: 12px; color: var(--text-faint); margin: -6px 0 12px; }
+  .modal-actions { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin-top: 16px; }
+  .modal-status { margin-right: auto; font-size: 12px; color: var(--text-faint); }
+  .modal-actions button {
+    padding: 8px 16px; border-radius: var(--r-control); font-size: 13px; font-weight: 500; cursor: pointer;
+    font-family: var(--font-body); border: 1px solid var(--border); background: var(--card-alt); color: var(--text-secondary);
+  }
+  #edit-cancel:hover { border-color: var(--primary); color: var(--primary); }
+  #edit-save { background: #7B3FA0; border-color: #7B3FA0; color: #fff; }
+  #edit-save:hover { opacity: .9; }
 </style>
 </head>
 <body>
 
 <header>
   <h1>Holy Grail Mk 6 Index</h1>
+  <button type="button" class="theme-toggle" id="theme-toggle">Dark mode</button>
 </header>
 
 <div class="layout">
@@ -315,6 +392,47 @@
   </div>
 </div>
 
+<div class="modal-overlay" id="edit-modal" hidden>
+  <div class="modal">
+    <h2 id="edit-modal-title">Edit document</h2>
+    <p class="modal-subtitle" id="edit-modal-subtitle"></p>
+    <div class="modal-field">
+      <label>School</label>
+      <input type="text" id="edit-school">
+    </div>
+    <div class="modal-field">
+      <label>Paper info</label>
+      <input type="text" id="edit-paper-info">
+    </div>
+    <div class="modal-field">
+      <label>Subject</label>
+      <input type="text" id="edit-subject">
+    </div>
+    <div class="modal-field">
+      <label>Document type</label>
+      <input type="text" id="edit-doctype">
+    </div>
+    <div class="modal-field">
+      <label>Year</label>
+      <input type="text" id="edit-year" inputmode="numeric" maxlength="4">
+    </div>
+    <div class="modal-field">
+      <label>Paper number</label>
+      <input type="text" id="edit-paper-number" inputmode="numeric" maxlength="1">
+    </div>
+    <div class="modal-field">
+      <label>Group ID</label>
+      <input type="text" id="edit-group-id">
+    </div>
+    <p class="modal-hint">Editing Group ID moves this document into a different (or brand new) exam-paper set. Give two documents the same Group ID to merge them.</p>
+    <div class="modal-actions">
+      <span class="modal-status" id="edit-status"></span>
+      <button type="button" id="edit-cancel">Cancel</button>
+      <button type="button" id="edit-save">Save</button>
+    </div>
+  </div>
+</div>
+
 <script>
 let DATA = [];
 let GROUPS = [];       // one entry per group_id: {isGroup, key, members:[...]}
@@ -323,6 +441,24 @@ const openGroups = new Set();
 const $ = (id) => document.getElementById(id);
 const esc = (s) => (s ?? "").toString().replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const uniq = (arr) => [...new Set(arr.filter(Boolean))].sort();
+
+const THEME_KEY = "grail-theme";
+function applyTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  $("theme-toggle").textContent = theme === "dark" ? "Light mode" : "Dark mode";
+}
+function initTheme() {
+  let stored = null;
+  try { stored = localStorage.getItem(THEME_KEY); } catch { /* private mode etc */ }
+  const theme = stored || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  applyTheme(theme);
+}
+$("theme-toggle").addEventListener("click", () => {
+  const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+  try { localStorage.setItem(THEME_KEY, next); } catch { /* private mode etc */ }
+  applyTheme(next);
+});
+initTheme();
 
 // Collapses the many raw paper_info_role variants (QP, Solution, TYS Answers, Essay Solutions Q3,
 // Insert, Guide, ...) into exactly two badges: Answers or Questions. Anything that isn't clearly
@@ -615,7 +751,7 @@ function renderRows(groups) {
               ${flagBadgeHtml(m)}
             </div>
             ${rowMetaHtml(m)}
-            <div class="actions"><a href="${m.note_url}" target="_blank">Source</a></div>`;
+            <div class="actions"><a href="${m.note_url}" target="_blank">Source</a><button type="button" class="edit-btn" data-id="${esc(m.id)}">Edit</button></div>`;
           membersWrap.appendChild(mrow);
         }
         frag.appendChild(membersWrap);
@@ -636,7 +772,7 @@ function renderRows(groups) {
           ${flagBadgeHtml(e)}
         </div>
         ${rowMetaHtml(e)}
-        <div class="actions"><a href="${e.note_url}" target="_blank">Source</a></div>`;
+        <div class="actions"><a href="${e.note_url}" target="_blank">Source</a><button type="button" class="edit-btn" data-id="${esc(e.id)}">Edit</button></div>`;
       frag.appendChild(row);
     }
   }
@@ -665,6 +801,73 @@ $("f-reset").addEventListener("click", () => {
 });
 
 // manual grouping UI disabled for now (server endpoints in server.py still work if re-enabled)
+
+// Per-row metadata/grouping editor (local server only - PATCHes data/tagged.json, which
+// server.py backs up to data/backups/ before every write).
+let editingId = null;
+
+function openEditModal(e) {
+  editingId = e.id;
+  $("edit-modal-title").textContent = e.display_name;
+  $("edit-modal-subtitle").textContent = e.original_name;
+  $("edit-school").value = e.school || "";
+  $("edit-paper-info").value = e.paper_info || "";
+  $("edit-subject").value = e.subject || "";
+  $("edit-doctype").value = e.doc_type || "";
+  $("edit-year").value = e.year_resolved || "";
+  $("edit-paper-number").value = e.paper_number ?? "";
+  $("edit-group-id").value = e.group_id || "";
+  $("edit-status").textContent = "";
+  $("edit-modal").hidden = false;
+}
+
+function closeEditModal() {
+  $("edit-modal").hidden = true;
+  editingId = null;
+}
+
+$("edit-cancel").addEventListener("click", closeEditModal);
+$("edit-modal").addEventListener("click", (ev) => {
+  if (ev.target.id === "edit-modal") closeEditModal();
+});
+
+$("rows").addEventListener("click", (ev) => {
+  const btn = ev.target.closest(".edit-btn");
+  if (!btn) return;
+  ev.stopPropagation();
+  const entry = DATA.find(d => d.id === btn.dataset.id);
+  if (entry) openEditModal(entry);
+});
+
+$("edit-save").addEventListener("click", async () => {
+  if (!editingId) return;
+  const payload = {
+    school: $("edit-school").value.trim() || null,
+    paper_info: $("edit-paper-info").value.trim() || null,
+    subject: $("edit-subject").value.trim() || null,
+    doc_type: $("edit-doctype").value.trim() || null,
+    year_resolved: $("edit-year").value.trim() || null,
+    paper_number: $("edit-paper-number").value.trim() || null,
+    group_id: $("edit-group-id").value.trim() || null,
+  };
+  $("edit-status").textContent = "Saving...";
+  try {
+    const res = await fetch(`/api/note/${encodeURIComponent(editingId)}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const body = await res.json();
+    if (!res.ok) throw new Error(body.error || "Save failed");
+    const idx = DATA.findIndex(d => d.id === body.id);
+    if (idx !== -1) DATA[idx] = body;
+    GROUPS = buildGroups(DATA);
+    applyFilters();
+    closeEditModal();
+  } catch (err) {
+    $("edit-status").textContent = err.message;
+  }
+});
 
 async function loadData() {
   const data = await fetch("/api/notes").then(r => r.json());

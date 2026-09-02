@@ -23,12 +23,43 @@
     --danger-soft: #FBEAEA;
     --answers: #2F8F5B;
     --answers-soft: #E9F6EE;
+    --row-hover-border: #D8D3E8;
+    --scrollbar-thumb: #D9D4CB;
+    --tag-school-bg: #F1EAFA;
+    --role-answers-border: #CDE9D9;
+    --role-questions-border: #D3DEF8;
+    --role-questions-bg: #EBF0FC;
+    --role-exam-color: #0E7CA8;
+    --role-exam-border: #A9D6E9;
+    --role-exam-bg: #E3F3FA;
     --font-body: "Hanken Grotesk", -apple-system, "Segoe UI", sans-serif;
     --font-mono: "JetBrains Mono", ui-monospace, monospace;
     --r-card: 4px;
     --r-control: 3px;
     --r-pill: 9999px;
     --sp: 8px;
+  }
+  :root[data-theme="dark"] {
+    --background: #14121F;
+    --surface: #05070C;
+    --surface-2: #0F1420;
+    --card: #1D1A30;
+    --card-alt: #262239;
+    --text-primary: #EDEAF7;
+    --text-secondary: #B3AEC9;
+    --text-faint: #8983A3;
+    --border: #34304A;
+    --danger-soft: #3A1F22;
+    --answers-soft: #163625;
+    --row-hover-border: #4A4468;
+    --scrollbar-thumb: #3A3552;
+    --tag-school-bg: #362C4D;
+    --role-answers-border: #1F4E36;
+    --role-questions-border: #2A3B63;
+    --role-questions-bg: #202A47;
+    --role-exam-color: #4FC3E0;
+    --role-exam-border: #1D4B5C;
+    --role-exam-bg: #17313C;
   }
   * { box-sizing: border-box; }
   html, body { height: 100%; }
@@ -37,6 +68,7 @@
     color: var(--text-primary); font-size: 15px; line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     display: flex; flex-direction: column; height: 100vh; overflow: hidden;
+    transition: background-color .15s, color .15s;
   }
   a { color: inherit; }
 
@@ -48,6 +80,12 @@
   header h1 {
     font-size: 26px; font-weight: 600; margin: 0; letter-spacing: -0.01em;
   }
+  .theme-toggle {
+    margin-left: auto; padding: 8px 14px; border-radius: var(--r-control); border: 1px solid var(--border);
+    background: var(--card-alt); color: var(--text-secondary); font-size: 12.5px; font-weight: 600;
+    font-family: var(--font-mono); cursor: pointer; white-space: nowrap;
+  }
+  .theme-toggle:hover { border-color: var(--primary); color: var(--primary); }
   .layout { display: flex; flex-direction: column; flex: 1; min-height: 0; }
 
   .filterbar {
@@ -150,7 +188,7 @@
   }
   .row.group-row { cursor: pointer; }
   .row.group-row:hover { border-color: var(--primary); }
-  .row:not(.group-row):hover { border-color: #D8D3E8; }
+  .row:not(.group-row):hover { border-color: var(--row-hover-border); }
 
   .row > div:not(.title-cell), .member-row > div:not(.title-cell) { text-align: center; }
 
@@ -170,7 +208,7 @@
     font-size: 11px; background: var(--card-alt); color: var(--text-secondary); border: 1px solid var(--border);
     font-weight: 600;
   }
-  .tag.school { background: #F1EAFA; color: var(--primary); border-color: transparent; }
+  .tag.school { background: var(--tag-school-bg); color: var(--primary); border-color: transparent; }
   .cell-muted { color: var(--text-secondary); font-size: 13px; }
 
   .flag-badge {
@@ -215,14 +253,14 @@
     border-radius: var(--r-control); background: var(--card); color: var(--text-secondary);
     border: 1px solid var(--border); width: fit-content; white-space: nowrap;
   }
-  .role-badge.answers { color: var(--answers); border-color: #CDE9D9; background: var(--answers-soft); }
-  .role-badge.questions { color: var(--accent); border-color: #D3DEF8; background: #EBF0FC; }
-  .role-badge.exam-paper { color: #0E7CA8; border-color: #A9D6E9; background: #E3F3FA; }
+  .role-badge.answers { color: var(--answers); border-color: var(--role-answers-border); background: var(--answers-soft); }
+  .role-badge.questions { color: var(--accent); border-color: var(--role-questions-border); background: var(--role-questions-bg); }
+  .role-badge.exam-paper { color: var(--role-exam-color); border-color: var(--role-exam-border); background: var(--role-exam-bg); }
 
   .empty { color: var(--text-faint); padding: 64px 20px; text-align: center; font-size: 14.5px; }
 
   ::-webkit-scrollbar { width: 10px; height: 10px; }
-  ::-webkit-scrollbar-thumb { background: #D9D4CB; border-radius: 6px; }
+  ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
 </style>
 </head>
@@ -230,6 +268,7 @@
 
 <header>
   <h1>Holy Grail Mk 6 Index</h1>
+  <button type="button" class="theme-toggle" id="theme-toggle">Dark mode</button>
 </header>
 
 <div class="layout">
@@ -323,6 +362,24 @@ const openGroups = new Set();
 const $ = (id) => document.getElementById(id);
 const esc = (s) => (s ?? "").toString().replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const uniq = (arr) => [...new Set(arr.filter(Boolean))].sort();
+
+const THEME_KEY = "grail-theme";
+function applyTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  $("theme-toggle").textContent = theme === "dark" ? "Light mode" : "Dark mode";
+}
+function initTheme() {
+  let stored = null;
+  try { stored = localStorage.getItem(THEME_KEY); } catch { /* private mode etc */ }
+  const theme = stored || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  applyTheme(theme);
+}
+$("theme-toggle").addEventListener("click", () => {
+  const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+  try { localStorage.setItem(THEME_KEY, next); } catch { /* private mode etc */ }
+  applyTheme(next);
+});
+initTheme();
 
 // Collapses the many raw paper_info_role variants (QP, Solution, TYS Answers, Essay Solutions Q3,
 // Insert, Guide, ...) into exactly two badges: Answers or Questions. Anything that isn't clearly
