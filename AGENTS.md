@@ -12,10 +12,13 @@ project scrapes the metadata once, runs it through an enrichment pipeline, and s
 fast local single-page UI titled **Holy Grail Mk 6 Index**.
 
 Originally scoped to 5 subjects (H2 Mathematics, H2 Computing, H2 Physics, H2 Economics, H1
-General Paper) - that scope lives in `scrape.py`'s `DEFAULT_SUBJECTS`, overridable per-run via
-`--subject`. `data/tagged.json` currently also contains a 6th subject, **H1 Economics**: entries
-that were scraped under the H2 Economics grail.moe category but whose filenames turned out to
-be H1 Economics content (caught by the tagger's flagging, then relabeled - see "Flags" below).
+General Paper), later joined by H2 Chemistry - that scope lives in `scrape.py`'s
+`DEFAULT_SUBJECTS`, overridable per-run via `--subject`. `data/tagged.json` also contains two
+subjects that aren't in `DEFAULT_SUBJECTS` at all, **H1 Economics** and **H1 Chemistry**: entries
+that were scraped under the H2 Economics/H2 Chemistry grail.moe categories but whose filenames
+turned out to be H1-level content (caught by the tagger's flagging, then relabeled - see "Flags"
+below). Both are permanent, deliberate exceptions, not bugs - don't "fix" them by deleting the
+entries or coercing their subject back to the H2 category they were scraped under.
 
 ## Pipeline (run in this order)
 
@@ -70,6 +73,38 @@ this repo has already lost enrichment work once from skipping that.
 
 After any pipeline run: `cp data/tagged.json web/data.json` to keep the static build's bundled
 snapshot in sync.
+
+### Adding an entirely new subject to the dataset
+
+This has been done once already (H2 Chemistry), as a template for doing it again:
+
+1. `python scrape.py --subject "<Subject>" --out data/raw_<subject>.json` - scrape into its own
+   file first, not straight into `data/raw.json`, so you can sanity-check id overlap before
+   merging (`{e['id'] for e in existing} & {e['id'] for e in new}` should be empty).
+2. Tag it - `tag_with_gemini.py --in ... --out ...` if the free-tier quota has room (it's small:
+   the exact error is `RESOURCE_EXHAUSTED` / `generate_content_free_tier_requests`, and once hit
+   it does not clear within a retry-loop's timeframe), otherwise split the raw file into
+   ~200-entry chunks and dispatch that many `note-tagger` subagents in parallel (one per chunk,
+   each given an input/output path) - both paths write the same `{id, school, paper_info,
+   flagged, flag_reason}` shape, so either is a drop-in source for the merge step.
+3. Merge the tagged chunks back into the raw-scrape file by `id`, then append the new entries to
+   both `data/tagged.json` (the working file) **and** `data/raw.json` (the tracked literal-scrape
+   record - use the grail.moe category subject there, e.g. `"H2 Chemistry"`, even for entries
+   that get relabeled to an H1 subject in the next step; `raw.json` should reflect what was
+   actually scraped, not the corrected data).
+4. `python enrich.py` on the full merged file, then `python fetch_inline_urls.py` (idempotent,
+   only touches entries missing `inline_url` - safe to run twice if some fail transiently).
+5. Resolve any flags the same way as the "Flags" section below, then `cp data/tagged.json
+   web/data.json`.
+6. If the subject is meant to stick around permanently (not a one-off test batch), add it to
+   `scrape.py`'s `DEFAULT_SUBJECTS` so a bare `python scrape.py` re-scrapes it going forward.
+
+`enrich.py`'s step 1 (the answer/solution keyword sweep) reads `e["original_name"]` directly,
+but that field is normally only set in step 4 - fine when re-enriching data that's already been
+through `enrich()` once, but a `KeyError` on freshly-merged raw entries that have never been
+enriched before. Fixed by back-filling `original_name` in a step 0 before anything else runs; if
+you add a new step that reads a field step 4 sets, make sure it comes after step 4 or also
+back-fills in step 0.
 
 ## Flags (`flagged`/`flag_reason`)
 

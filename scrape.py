@@ -23,6 +23,7 @@ DEFAULT_SUBJECTS = [
     "H2 Computing",
     "H2 Physics",
     "H2 Economics",
+    "H2 Chemistry",
     "H1 General Paper",
 ]
 DEFAULT_OUT_PATH = Path(__file__).parent / "data" / "raw.json"
