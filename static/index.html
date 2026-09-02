@@ -82,6 +82,46 @@
   }
   .reset-btn:hover { border-color: var(--primary); color: var(--primary); }
 
+  .ms { position: relative; }
+  .ms-trigger {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 9px 10px; background: var(--card-alt); border: 1px solid var(--border);
+    color: var(--text-primary); border-radius: var(--r-control); font-size: 13.5px; outline: none;
+    font-family: var(--font-body); cursor: pointer; min-width: 150px; white-space: nowrap;
+  }
+  .ms-trigger:hover, .ms-trigger.active { border-color: var(--primary); }
+  .ms-trigger .ms-caret { font-size: 9px; color: var(--text-faint); }
+  .ms-panel {
+    position: absolute; top: calc(100% + 6px); left: 0; z-index: 40; min-width: 220px;
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--r-control);
+    box-shadow: 0 10px 28px rgba(17, 24, 39, 0.14); padding: 8px;
+  }
+  .ms-options { max-height: 260px; overflow-y: auto; }
+  .ms-option {
+    display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: var(--r-control);
+    cursor: pointer; font-size: 13.5px; color: var(--text-primary);
+  }
+  .ms-option:hover { background: var(--card-alt); }
+  .ms-option input { accent-color: var(--primary); cursor: pointer; }
+  .ms-actions {
+    display: flex; justify-content: space-between; gap: 8px; padding: 8px 4px 2px;
+    border-top: 1px solid var(--border); margin-top: 6px;
+  }
+  .ms-actions button {
+    font-size: 12px; font-family: var(--font-mono); background: none; border: none;
+    color: var(--text-secondary); cursor: pointer; padding: 4px 6px;
+  }
+  .ms-actions button:hover { color: var(--primary); }
+
+  .year-panel { min-width: 240px; }
+  .year-panel input[type=text] {
+    width: 100%; padding: 8px 10px; border: 1px solid var(--border); border-radius: var(--r-control);
+    font-size: 13.5px; font-family: var(--font-body); background: var(--card-alt); color: var(--text-primary);
+    outline: none;
+  }
+  .year-panel input[type=text]:focus { border-color: var(--primary); }
+  .year-panel .hint { font-size: 12px; color: var(--text-faint); margin-top: 6px; }
+
   .results {
     flex: 1; min-height: 0; display: flex; flex-direction: column;
     padding: 16px 28px 0;
@@ -202,19 +242,53 @@
     </div>
     <div class="filter-group">
       <label>School</label>
-      <select id="f-school"><option value="">All schools</option></select>
+      <div class="ms" id="f-school-ms">
+        <button type="button" class="ms-trigger" id="f-school-trigger">All schools<span class="ms-caret">&#9662;</span></button>
+        <div class="ms-panel" id="f-school-panel" hidden>
+          <div class="ms-options" id="f-school-options"></div>
+          <div class="ms-actions">
+            <button type="button" data-clear="school">Clear</button>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="filter-group">
       <label>Year</label>
-      <select id="f-year"><option value="">All years</option></select>
+      <div class="ms" id="f-year-ms">
+        <button type="button" class="ms-trigger" id="f-year-trigger">All years<span class="ms-caret">&#9662;</span></button>
+        <div class="ms-panel year-panel" id="f-year-panel" hidden>
+          <input type="text" id="f-year-input" placeholder="e.g. 2023-2026, 2019">
+          <div class="hint">Comma-separated years or ranges</div>
+          <div class="ms-actions">
+            <button type="button" id="f-year-clear">Clear</button>
+            <button type="button" id="f-year-apply">Apply</button>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="filter-group">
       <label>Document type</label>
-      <select id="f-doctype"><option value="">All types</option></select>
+      <div class="ms" id="f-doctype-ms">
+        <button type="button" class="ms-trigger" id="f-doctype-trigger">All types<span class="ms-caret">&#9662;</span></button>
+        <div class="ms-panel" id="f-doctype-panel" hidden>
+          <div class="ms-options" id="f-doctype-options"></div>
+          <div class="ms-actions">
+            <button type="button" data-clear="doctype">Clear</button>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="filter-group">
       <label>Paper</label>
-      <select id="f-paper"><option value="">All papers</option></select>
+      <div class="ms" id="f-paper-ms">
+        <button type="button" class="ms-trigger" id="f-paper-trigger">All papers<span class="ms-caret">&#9662;</span></button>
+        <div class="ms-panel" id="f-paper-panel" hidden>
+          <div class="ms-options" id="f-paper-options"></div>
+          <div class="ms-actions">
+            <button type="button" data-clear="paper">Clear</button>
+          </div>
+        </div>
+      </div>
     </div>
     <button class="reset-btn" id="f-reset">Reset filters</button>
   </div>
@@ -291,6 +365,116 @@ function populateSelect(id, values) {
   if ([...el.options].some(o => o.value === current)) el.value = current;
 }
 
+// School/document-type/paper accept multiple selected values (checkbox dropdowns); year
+// accepts a typed comma-separated list of years and/or ranges (e.g. "2023-2026, 2019").
+const multiFilters = { school: new Set(), doctype: new Set(), paper: new Set() };
+let yearRanges = [];
+
+const MULTI_LABELS = { school: "All schools", doctype: "All types", paper: "All papers" };
+
+function updateMultiTrigger(key) {
+  const trigger = $(`f-${key}-trigger`);
+  const n = multiFilters[key].size;
+  const label = n === 0 ? MULTI_LABELS[key] : (n === 1 ? [...multiFilters[key]][0] : `${n} selected`);
+  trigger.firstChild.textContent = label;
+  trigger.classList.toggle("active", n > 0);
+}
+
+function populateMultiSelect(key, values) {
+  const optionsEl = $(`f-${key}-options`);
+  optionsEl.innerHTML = "";
+  for (const v of values) {
+    const label = document.createElement("label");
+    label.className = "ms-option";
+    const input = document.createElement("input");
+    input.type = "checkbox"; input.value = v;
+    input.checked = multiFilters[key].has(v);
+    input.addEventListener("change", () => {
+      if (input.checked) multiFilters[key].add(v); else multiFilters[key].delete(v);
+      updateMultiTrigger(key);
+      applyFilters();
+    });
+    const span = document.createElement("span");
+    span.textContent = v;
+    label.appendChild(input);
+    label.appendChild(span);
+    optionsEl.appendChild(label);
+  }
+  updateMultiTrigger(key);
+}
+
+function closeAllPanels(except) {
+  document.querySelectorAll(".ms-panel").forEach(p => {
+    if (p !== except) p.hidden = true;
+  });
+}
+
+function setupDropdown(key) {
+  const trigger = $(`f-${key}-trigger`);
+  const panel = $(`f-${key}-panel`);
+  trigger.addEventListener("click", (ev) => {
+    ev.stopPropagation();
+    const willOpen = panel.hidden;
+    closeAllPanels(willOpen ? panel : null);
+    panel.hidden = !willOpen;
+  });
+  panel.addEventListener("click", (ev) => ev.stopPropagation());
+}
+
+document.addEventListener("click", () => closeAllPanels(null));
+
+["school", "doctype", "paper"].forEach(setupDropdown);
+document.querySelectorAll("[data-clear]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const key = btn.dataset.clear;
+    multiFilters[key].clear();
+    $(`f-${key}-options`).querySelectorAll("input").forEach(i => i.checked = false);
+    updateMultiTrigger(key);
+    applyFilters();
+  });
+});
+
+// Parses "2023-2026, 2019" into [[2023,2026],[2019,2019]]; malformed parts are ignored.
+function parseYearRanges(text) {
+  const ranges = [];
+  for (const part of text.split(",").map(s => s.trim()).filter(Boolean)) {
+    const range = part.match(/^(\d{4})\s*-\s*(\d{4})$/);
+    if (range) {
+      let a = Number(range[1]), b = Number(range[2]);
+      if (a > b) [a, b] = [b, a];
+      ranges.push([a, b]);
+    } else if (/^\d{4}$/.test(part)) {
+      ranges.push([Number(part), Number(part)]);
+    }
+  }
+  return ranges;
+}
+
+function updateYearTrigger(rawText) {
+  const trigger = $("f-year-trigger");
+  const label = rawText.trim() ? rawText.trim() : "All years";
+  trigger.firstChild.textContent = label;
+  trigger.classList.toggle("active", yearRanges.length > 0);
+}
+
+function applyYearInput() {
+  yearRanges = parseYearRanges($("f-year-input").value);
+  updateYearTrigger($("f-year-input").value);
+  applyFilters();
+}
+
+setupDropdown("year");
+$("f-year-apply").addEventListener("click", applyYearInput);
+$("f-year-input").addEventListener("keydown", (ev) => {
+  if (ev.key === "Enter") { applyYearInput(); $("f-year-panel").hidden = true; }
+});
+$("f-year-clear").addEventListener("click", () => {
+  $("f-year-input").value = "";
+  yearRanges = [];
+  updateYearTrigger("");
+  applyFilters();
+});
+
 // Reads every filter control once per applyFilters() call instead of once per document -
 // with 3300+ documents, re-querying the DOM inside the per-entry predicate made every
 // keystroke redo thousands of getElementById/.value calls.
@@ -299,10 +483,10 @@ function getFilterState() {
   return {
     searchWords: search ? search.split(/\s+/).filter(Boolean) : [],
     subject: $("f-subject").value,
-    school: $("f-school").value,
-    year: $("f-year").value,
-    doctype: $("f-doctype").value,
-    paper: $("f-paper").value,
+    schools: multiFilters.school,
+    yearRanges,
+    doctypes: multiFilters.doctype,
+    papers: multiFilters.paper,
   };
 }
 
@@ -312,10 +496,13 @@ function matchesFilters(e, f) {
     if (!f.searchWords.every(w => hay.includes(w))) return false;
   }
   if (f.subject && e.subject !== f.subject) return false;
-  if (f.school && e.school !== f.school) return false;
-  if (f.year && String(e.year_resolved) !== f.year) return false;
-  if (f.doctype && e.doc_type !== f.doctype) return false;
-  if (f.paper && String(e.paper_number) !== f.paper) return false;
+  if (f.schools.size && !f.schools.has(e.school)) return false;
+  if (f.yearRanges.length) {
+    const y = Number(e.year_resolved);
+    if (!y || !f.yearRanges.some(([a, b]) => y >= a && y <= b)) return false;
+  }
+  if (f.doctypes.size && !f.doctypes.has(e.doc_type)) return false;
+  if (f.papers.size && !f.papers.has(String(e.paper_number))) return false;
   return true;
 }
 
@@ -458,16 +645,18 @@ $("f-search").addEventListener("input", () => {
   clearTimeout(searchDebounce);
   searchDebounce = setTimeout(applyFilters, 100);
 });
-["f-subject", "f-school", "f-year", "f-doctype", "f-paper"].forEach(id => {
-  $(id).addEventListener("input", applyFilters);
-});
+$("f-subject").addEventListener("input", applyFilters);
 $("f-reset").addEventListener("click", () => {
   $("f-search").value = "";
   $("f-subject").value = "";
-  $("f-school").value = "";
-  $("f-year").value = "";
-  $("f-doctype").value = "";
-  $("f-paper").value = "";
+  for (const key of ["school", "doctype", "paper"]) {
+    multiFilters[key].clear();
+    $(`f-${key}-options`).querySelectorAll("input").forEach(i => i.checked = false);
+    updateMultiTrigger(key);
+  }
+  $("f-year-input").value = "";
+  yearRanges = [];
+  updateYearTrigger("");
   applyFilters();
 });
 
@@ -478,10 +667,9 @@ async function loadData() {
   DATA = data;
   GROUPS = buildGroups(data);
   populateSelect("f-subject", uniq(data.map(d => d.subject)));
-  populateSelect("f-school", uniq(data.map(d => d.school)));
-  populateSelect("f-year", uniq(data.map(d => d.year_resolved)).sort((a,b) => b - a));
-  populateSelect("f-doctype", uniq(data.map(d => d.doc_type)));
-  populateSelect("f-paper", uniq(data.map(d => d.paper_number)).sort((a,b) => a - b).map(n => String(n)));
+  populateMultiSelect("school", uniq(data.map(d => d.school)));
+  populateMultiSelect("doctype", uniq(data.map(d => d.doc_type)));
+  populateMultiSelect("paper", uniq(data.map(d => d.paper_number)).sort((a,b) => a - b).map(n => String(n)));
   applyFilters();
 }
 
