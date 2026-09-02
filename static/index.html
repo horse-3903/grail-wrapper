@@ -384,6 +384,15 @@ function groupFlagBadgeHtml(members) {
   return `<span class="flag-badge" data-tooltip="${esc(tooltip)}">! ${flagged.length} flagged</span>`;
 }
 
+// which papers (1-4) this exam-paper set covers, shown compactly in the group's Status column
+function groupPaperBadgesHtml(members) {
+  const nums = [...new Set(members.map(m => m.paper_number).filter(Boolean))].sort((a, b) => a - b);
+  return nums.map(n => {
+    const cls = n >= 1 && n <= 4 ? `p${n}` : "p-other";
+    return `<span class="paper-badge ${cls}">P${n}</span>`;
+  }).join("");
+}
+
 function rowMetaHtml(e) {
   return `
     <div>${e.school ? `<span class="tag school">${esc(e.school)}</span>` : `<span class="cell-muted">-</span>`}</div>
@@ -411,7 +420,7 @@ function renderRows(groups) {
           </div>
         </div>
         <div class="col-badges"><span class="member-count">${g.members.length} files</span></div>
-        <div class="col-badges">${groupFlagBadgeHtml(g.members)}</div>
+        <div class="col-badges">${groupPaperBadgesHtml(g.members)}${groupFlagBadgeHtml(g.members)}</div>
         ${rowMetaHtml(g.primary)}
         <div class="actions">
           <a href="${g.primary.note_url}" target="_blank" onclick="event.stopPropagation()">Source</a>
