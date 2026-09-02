@@ -17,27 +17,33 @@ A local, faster, organized index for the grail.moe 'A' Level exam paper library
 ## Overview
 
 **grail-wrapper** is a local wrapper around the [grail.moe](https://grail.moe/library) exam
-paper library. Instead of clicking through hundreds of paginated listing pages, it scrapes the
-library's metadata once, enriches it with Claude subagents (school, paper info, review flags,
-answer-booklet links), and serves a fast local search UI where every title opens the PDF
-directly. The core question it answers: can a messy, freeform-named crowd-uploaded document
-library be turned into a clean, browsable, correctly-grouped index without manually touching
-every one of its thousands of entries.
+paper library, presented as a UI titled **Holy Grail Mk 6 Index**. Instead of clicking through
+hundreds of paginated listing pages, it scrapes the library's metadata once, enriches it with
+Claude subagents and the Gemini API (school, paper info, review flags, answer-booklet links),
+and serves a fast local search UI where every title opens the PDF directly. The core question
+it answers: can a messy, freeform-named crowd-uploaded document library be turned into a clean,
+browsable, correctly-grouped index without manually touching every one of its thousands of
+entries.
 
 ## Features
 
-- **Fast local search** - filter by subject, school, year, document type, and paper number over
-  the full scraped index, no page-by-page browsing on the live site
+- **Fast local search** - filter by subject, school, year range, document type, and paper number
+  over the full scraped index, no page-by-page browsing on the live site
+- **Multi-select filters** - School, Document type, and Paper accept multiple selected values at
+  once via checkbox dropdowns; Year is a from/to range filter (a single year collapses the range
+  to just that year)
 - **Direct PDF links** - every title links straight to grail.moe's stable static PDF URL, opening
   inline in a new tab instead of forcing a download, with no bulk upfront download
-- **Automatic tagging** - Claude Haiku subagents extract school and paper info from freeform
-  filenames and flag entries whose name looks inconsistent with the site's structured fields
+- **Automatic tagging** - Claude Haiku subagents or the free Gemini API extract school and paper
+  info from freeform filenames and flag entries whose name looks inconsistent with the site's
+  structured fields, for a human (or another agent pass) to resolve
 - **Exam-set grouping** - question papers and their answer booklets are grouped into one
-  expandable row per exam sitting, instead of scattered disconnected entries
+  expandable row per exam sitting (badged "Exam Paper"), with question papers always listed
+  before their answers, instead of scattered disconnected entries
 - **Per-subject paper labels** - Paper 1/2/3/4 are labeled with what they actually are for each
   subject (e.g. H2 Economics P1 = Case Study Questions, H2 Computing P2 = Practical)
 - **Configurable scraping** - target any category, subject, document type, or year via CLI flags,
-  not hardcoded to the 5 default A-level subjects
+  not hardcoded to the default subjects
 
 ## Tech Stack
 
@@ -79,7 +85,7 @@ targeted by a desktop shortcut.
 ### Re-scraping the index
 
 `scrape.py` accepts flags to target any category, subject, document type, or year instead of the
-5 built-in A-level subjects:
+default A-level subjects:
 
 ```bash
 python scrape.py
@@ -100,13 +106,24 @@ run unattended too, via the free Gemini API instead of a manual Claude Code suba
 local `.env` as `GEMINI_API_KEY=...`):
 
 ```bash
-python tag_with_gemini.py                # tags entries in data/tagged.json missing school/paper_info
-python tag_with_gemini.py --force         # re-tags everything (e.g. after a prompt change)
+python tag_with_gemini.py                 # tags entries in data/tagged.json missing school/paper_info
+python tag_with_gemini.py --force          # re-tags everything (e.g. after a prompt change)
+python tag_with_gemini.py --include-flagged # also re-tags entries currently flagged for review
 ```
 
-It backs up the file it's about to overwrite to `data/backups/` first. Year resolution, naming,
-exam-set grouping, and answer-booklet linking are still a manual Claude Code session using the
-subagents defined in `.claude/agents/`.
+Once tags are in place, `enrich.py` deterministically recomputes every derived field - resolved
+year, standardized `display_name`, paper number/label, and exam-set `group_id` - from the raw
+school/paper_info/year fields. Safe to re-run any time those inputs change; it leaves
+subagent-linked groups (`linked|...`/`manual|...` ids) untouched:
+
+```bash
+python enrich.py
+```
+
+All three scripts back up the file they're about to overwrite to `data/backups/` first (skip
+with `--no-backup`). Answer-booklet linking for the remaining unlinked "orphan" entries is still
+a manual Claude Code session using the `answer-linker` subagent defined in `.claude/agents/`; see
+[AGENTS.md](AGENTS.md) for the full pipeline and what each stage does.
 
 ---
 
@@ -123,7 +140,9 @@ To refresh the deployed data after re-scraping or re-tagging:
 cp data/tagged.json web/data.json
 ```
 
-then commit and push (or redeploy) `web/`.
+then commit and push (or redeploy) `web/`. `static/index.html` and `web/index.html` are kept in
+sync by hand whenever the UI changes - the only difference between them is how they load data
+(`/api/notes` vs `./data.json`) and how titles link to PDFs.
 
 ---
 
@@ -131,21 +150,26 @@ then commit and push (or redeploy) `web/`.
 
 ```
 grail-wrapper/
-├── scrape.py               # metadata scraper -> data/raw.json, CLI-configurable
+├── scrape.py                # metadata scraper -> data/raw.json, CLI-configurable
 ├── fetch_inline_urls.py     # fills in each note's stable document.grail.moe PDF URL
-├── server.py                # Flask app: serves the UI and the index over /api/notes
-├── start_server.bat          # Windows launcher: starts the server and opens the browser
+├── tag_with_gemini.py       # unattended Gemini-based school/paper_info tagging
+├── enrich.py                 # deterministic year/naming/paper-number/grouping pass
+├── server.py                 # Flask app: serves the UI and the index over /api/notes
+├── start_server.bat           # Windows launcher: starts the server and opens the browser
 ├── static/
-│   └── index.html            # local-server UI (single-page, no build step)
+│   └── index.html              # local-server UI (single-page, no build step)
 ├── web/
-│   ├── index.html             # static build for free hosting (Vercel/Netlify/GitHub Pages)
-│   └── data.json               # snapshot of data/tagged.json bundled for the static build
+│   ├── index.html                # static build for free hosting (Vercel/Netlify/GitHub Pages)
+│   └── data.json                  # snapshot of data/tagged.json bundled for the static build
 ├── data/
-│   ├── raw.json               # scraped metadata, no enrichment
-│   └── tagged.json            # raw.json + tags/year_resolved/display_name/group_id/inline_url
+│   ├── raw.json                  # scraped metadata, no enrichment
+│   ├── tagged.json                # raw.json + tags/year_resolved/display_name/group_id/inline_url
+│   ├── manual_groups.json          # manual group overrides applied by server.py (usually empty)
+│   └── backups/                     # timestamped pre-overwrite snapshots (gitignored)
 ├── .claude/agents/
-│   ├── note-tagger.md          # subagent: tags school/paper_info, flags inconsistencies
-│   └── answer-linker.md        # subagent: fuzzy-links question papers to answer booklets
+│   ├── note-tagger.md              # subagent: tags school/paper_info, flags inconsistencies
+│   └── answer-linker.md            # subagent: fuzzy-links question papers to answer booklets
+├── AGENTS.md                # full pipeline reference for coding agents working on this repo
 ├── LICENSE
 └── README.md
 ```
