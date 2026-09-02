@@ -155,7 +155,7 @@
   }
   /* distinct per paper number, deliberately not reusing the Questions (blue) or Answers (green) colors */
   .paper-badge.p1 { color: #B45309; background: #FEF3E2; border-color: #F3D9A6; }
-  .paper-badge.p2 { color: #7C3AED; background: #F2ECFC; border-color: #DCC9F7; }
+  .paper-badge.p2 { color: #334155; background: #EEF2F6; border-color: #CBD5E1; }
   .paper-badge.p3 { color: #BE185D; background: #FCE7F1; border-color: #F5B7D3; }
   .paper-badge.p4 { color: #0F766E; background: #E4F6F4; border-color: #A9E1DA; }
   .paper-badge.p-other { color: var(--text-secondary); background: var(--card-alt); border-color: var(--border); }
@@ -356,6 +356,12 @@ function roleLabel(m) {
   return classifyRole(m.paper_info_role || m.doc_type);
 }
 
+// inline_url (document.grail.moe) is a stable direct link and opens in-tab; download_url
+// (api.grail.moe) forces a download via an S3 Content-Disposition:attachment header
+function pdfUrl(e) {
+  return e.inline_url || e.download_url;
+}
+
 function paperBadgeHtml(e) {
   if (!e.paper_number) return "";
   const title = e.paper_label ? ` title="${esc(e.paper_label)}"` : "";
@@ -426,7 +432,7 @@ function renderRows(groups) {
             <div class="title-cell">
               <span class="row-indent"></span>
               <div class="member-title-wrap">
-                <a class="doc-link" href="/api/download/${m.id}" target="_blank">${esc(m.display_name)}</a>
+                <a class="doc-link" href="${pdfUrl(m)}" target="_blank">${esc(m.display_name)}</a>
                 <span class="member-orig">${esc(m.original_name)}</span>
               </div>
             </div>
@@ -448,7 +454,7 @@ function renderRows(groups) {
       row.innerHTML = `
         <div class="title-cell">
           <div class="member-title-wrap">
-            <a class="doc-link" href="/api/download/${e.id}" target="_blank">${esc(e.display_name)}</a>
+            <a class="doc-link" href="${pdfUrl(e)}" target="_blank">${esc(e.display_name)}</a>
             <span class="member-orig">${esc(e.original_name)}</span>
           </div>
         </div>
