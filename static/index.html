@@ -5,25 +5,25 @@
 <title>Grail Local Index</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
   :root {
     --primary: #A268CF;
     --accent: #5984EA;
-    --background: #F5F3EF;
+    --background: #F1EFF7;
     --surface: #111827;
     --surface-2: #1B2333;
     --card: #FFFFFF;
-    --card-alt: #FAF9F6;
+    --card-alt: #F7F5FB;
     --text-primary: #111827;
     --text-secondary: #4B5563;
-    --text-faint: #8A93A3;
+    --text-faint: #5F6779;
     --border: #E5E7EB;
     --danger: #C2504F;
     --danger-soft: #FBEAEA;
     --answers: #2F8F5B;
     --answers-soft: #E9F6EE;
-    --font-body: "Inter", -apple-system, "Segoe UI", sans-serif;
+    --font-body: "Hanken Grotesk", -apple-system, "Segoe UI", sans-serif;
     --font-mono: "JetBrains Mono", ui-monospace, monospace;
     --r-card: 4px;
     --r-control: 3px;
@@ -36,10 +36,12 @@
     margin: 0; font-family: var(--font-body); background: var(--background);
     color: var(--text-primary); font-size: 15px; line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+    display: flex; flex-direction: column; height: 100vh; overflow: hidden;
   }
   a { color: inherit; }
 
   header {
+    flex-shrink: 0;
     padding: 20px 32px; border-bottom: 1px solid var(--border); background: var(--card);
     display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap;
   }
@@ -49,13 +51,18 @@
   header .count {
     color: var(--text-secondary); font-size: 12px; font-family: var(--font-mono); font-weight: 500;
   }
-  header .subtitle { color: var(--text-faint); font-size: 13px; flex-basis: 100%; margin-top: 2px; }
 
-  .layout { display: flex; height: calc(100vh - 80px); }
+  .layout { display: flex; flex: 1; min-height: 0; }
 
   .filters {
     width: 264px; padding: 24px 20px; border-right: 1px solid var(--border);
-    overflow-y: auto; flex-shrink: 0; background: var(--surface); color: #E7E9EF;
+    overflow-y: auto; flex-shrink: 0;
+    background: linear-gradient(165deg, #171233 0%, #111827 55%);
+    color: #E7E9EF; position: relative;
+  }
+  .filters::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
   }
   .filter-group { margin-bottom: 20px; }
   .filter-group label {
@@ -77,16 +84,21 @@
   }
   .reset-btn:hover { border-color: var(--primary); color: #fff; }
 
-  .results { flex: 1; overflow-y: auto; padding: 16px 28px 48px; }
-  .col-headers {
-    display: grid; grid-template-columns: 2fr 0.65fr 0.85fr 0.5fr 1fr 0.5fr;
-    gap: 12px; padding: 10px 16px; font-family: var(--font-mono); font-size: 10.5px; color: var(--text-faint);
-    text-transform: uppercase; letter-spacing: .04em; font-weight: 600; position: sticky; top: 0;
-    background: var(--background); z-index: 5; border-bottom: 1px solid var(--border);
+  .results {
+    flex: 1; min-height: 0; display: flex; flex-direction: column;
+    padding: 16px 28px 0;
   }
+  .col-headers {
+    flex-shrink: 0;
+    display: grid; grid-template-columns: 2.6fr 0.6fr 0.8fr 0.45fr 0.6fr 0.5fr;
+    gap: 12px; padding: 10px 16px; font-family: var(--font-mono); font-size: 10.5px; color: var(--text-faint);
+    text-transform: uppercase; letter-spacing: .04em; font-weight: 600;
+    background: var(--background); border-bottom: 1px solid var(--border);
+  }
+  .results-scroll { flex: 1; min-height: 0; overflow-y: auto; padding-bottom: 48px; }
 
   .row {
-    display: grid; grid-template-columns: 2fr 0.65fr 0.85fr 0.5fr 1fr 0.5fr;
+    display: grid; grid-template-columns: 2.6fr 0.6fr 0.8fr 0.45fr 0.6fr 0.5fr;
     gap: 12px; align-items: center; padding: 13px 16px; border-radius: var(--r-card);
     margin: 6px 0; background: var(--card); border: 1px solid var(--border);
     box-shadow: 0 1px 2px rgba(17, 24, 39, 0.03);
@@ -136,7 +148,7 @@
 
   .members { padding: 0 0 4px 0; margin-top: -2px; }
   .member-row {
-    display: grid; grid-template-columns: 2fr 0.65fr 0.85fr 0.5fr 1fr 0.5fr;
+    display: grid; grid-template-columns: 2.6fr 0.6fr 0.8fr 0.45fr 0.6fr 0.5fr;
     gap: 12px; align-items: center; padding: 10px 16px 10px 40px; border-radius: var(--r-card);
     margin: 3px 0 3px 12px; background: var(--card-alt); border: 1px dashed var(--border);
   }
@@ -152,6 +164,7 @@
   }
   .role-badge.answers { color: var(--answers); border-color: #CDE9D9; background: var(--answers-soft); }
   .role-badge.questions { color: var(--accent); border-color: #D3DEF8; background: #EBF0FC; }
+  .role-badge.insert { color: var(--primary); border-color: #E3D4F3; background: #F5EEFB; }
 
   .empty { color: var(--text-faint); padding: 64px 20px; text-align: center; font-size: 14.5px; }
 
@@ -166,7 +179,6 @@
 <header>
   <h1>Grail Local Index</h1>
   <span class="count" id="count"></span>
-  <span class="subtitle">GCE 'A' Levels: H2 Math, H2 Computing, H2 Physics, H2 Economics, H1 GP. Click a title to open the PDF; grouped exam sets expand into their papers and answers.</span>
 </header>
 
 <div class="layout">
@@ -212,8 +224,10 @@
       <div>Type</div>
       <div style="text-align:right">Links</div>
     </div>
-    <div id="rows"></div>
-    <div class="empty" id="empty" style="display:none">No documents match these filters.</div>
+    <div class="results-scroll">
+      <div id="rows"></div>
+      <div class="empty" id="empty" style="display:none">No documents match these filters.</div>
+    </div>
   </div>
 </div>
 
@@ -226,9 +240,18 @@ const $ = (id) => document.getElementById(id);
 const esc = (s) => (s ?? "").toString().replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const uniq = (arr) => [...new Set(arr.filter(Boolean))].sort();
 
-function isQuestionsRole(role) {
+// Collapses the many raw paper_info_role variants (QP, Solution, TYS Answers, Essay Solutions Q3, ...)
+// into a small fixed set of badges: Answers, Insert, Questions, Other.
+function classifyRole(role) {
   const r = (role || "").trim().toLowerCase();
-  return r === "questions" || r === "qp" || r.startsWith("qp ") || r.endsWith(" qp");
+  if (r.includes("answer") || r.includes("solution")) return "Answers";
+  if (r.includes("insert")) return "Insert";
+  if (r === "questions" || r.includes("qp") || r.includes("question")) return "Questions";
+  return "Other";
+}
+
+function isQuestionsRole(role) {
+  return classifyRole(role) === "Questions";
 }
 
 function buildGroups(data) {
@@ -270,7 +293,8 @@ function matchesFilters(e) {
 
   if (search) {
     const hay = (e.display_name + " " + e.original_name).toLowerCase();
-    if (!hay.includes(search)) return false;
+    const words = search.split(/\s+/).filter(Boolean);
+    if (!words.every(w => hay.includes(w))) return false;
   }
   if (subject && e.subject !== subject) return false;
   if (school && e.school !== school) return false;
@@ -298,15 +322,16 @@ function applyFilters() {
 }
 
 function roleClass(role) {
-  const r = (role || "").toLowerCase();
-  if (r.includes("answer") || r.includes("solution")) return "answers";
-  if (isQuestionsRole(role)) return "questions";
+  const bucket = classifyRole(role);
+  if (bucket === "Answers") return "answers";
+  if (bucket === "Questions") return "questions";
+  if (bucket === "Insert") return "insert";
   return "";
 }
 
 function roleLabel(m) {
   const rawRole = m.paper_info_role || m.doc_type;
-  const role = isQuestionsRole(rawRole) ? "Questions" : rawRole;
+  const role = classifyRole(rawRole);
   return m.paper_label ? `${role} (${m.paper_label})` : role;
 }
 
