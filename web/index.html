@@ -446,7 +446,7 @@ function parseYearInput(value) {
 function updateYearTrigger() {
   const trigger = $("f-year-trigger");
   let label = "All years";
-  if (yearMin != null && yearMax != null) label = `${yearMin}–${yearMax}`;
+  if (yearMin != null && yearMax != null) label = yearMin === yearMax ? `${yearMin}` : `${yearMin}–${yearMax}`;
   else if (yearMin != null) label = `${yearMin}+`;
   else if (yearMax != null) label = `Up to ${yearMax}`;
   trigger.firstChild.textContent = label;
