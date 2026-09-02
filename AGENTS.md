@@ -155,9 +155,10 @@ since some browser privacy modes throw on access.
 
 `static/index.html` has a per-row "Edit" button (next to "Source", on expanded group members and
 on ungrouped rows - not on collapsed group headers, since a group can have multiple members and
-editing "the group" would be ambiguous) that opens a modal for School, Paper Info, Subject,
-Document Type, Year, Paper Number, and Group ID. Saving sends a `PATCH /api/note/<id>` to
-`server.py`, which:
+editing "the group" would be ambiguous) that opens a modal covering two different things:
+
+**Metadata** (School, Paper Info, Subject, Document Type, Year, Paper Number) - edited as plain
+text fields, saved via the modal's Save button, which sends `PATCH /api/note/<id>`. That handler:
 
 1. **Backs up `data/tagged.json` to `data/backups/`** before writing (same `backup_tagged()`
    pattern the CLI scripts use - every write path into this file backs up first, no exceptions).
@@ -166,15 +167,31 @@ Document Type, Year, Paper Number, and Group ID. Saving sends a `PATCH /api/note
    `base_of()`/`role_of()`/`SUBJECT_PAPER_LABELS`/`SUBJ_ABBR` helpers - it does **not** re-run
    `enrich.py`'s year-resolution, school-sweep, or auto-grouping logic on the whole dataset, so
    editing one row can't have side effects on unrelated entries.
-3. If `group_id` was edited and doesn't already start with `manual|`/`linked|`, it gets prefixed
-   with `manual|` - the same convention `enrich.py` already respects to avoid stomping on
-   subagent-linked or now UI-edited groups on its next run. To merge two documents into one exam
-   set, edit either one's Group ID to match the other's (or to any shared new string) - it'll
-   pick up the `manual|` prefix automatically.
+
+**Grouping** - not a raw `group_id` text field (too easy to typo, and typing an unprefixed
+string that happens to collide with an existing computed key would silently and confusingly
+regroup things). Instead:
+
+- A live search box matches against every group's display name, school, subject, year, and
+  member filenames; clicking a result immediately `POST`s `/api/note/<id>/merge` with that
+  group's real `target_group_id`.
+- `api_merge_note()` in `server.py` protects the merge from `enrich.py`'s next run by rewriting
+  **every current member of the target group** (not just the newly added entry) onto a
+  `manual|`-prefixed id, if it isn't already `manual|`/`linked|`. Prefixing only the new entry
+  and leaving its groupmates unprefixed would desync them the moment `enrich.py` recomputes the
+  groupmates' (still deterministic) ids - they'd stay put, the new entry would drift, and the
+  merge would silently undo itself. Prefixing the whole group at once is what makes it stick.
+- "Split into its own group" (shown only when the entry currently has groupmates) `POST`s
+  `/api/note/<id>/ungroup`, which recomputes that one entry's *natural* group_id via
+  `enrich.py`'s `compute_group_id()` - the same function `enrich()`'s main loop calls - so a
+  split entry can still land next to its real school/year/subject peers on its own merits, just
+  without whatever manual/linked override was pinning it elsewhere.
+- Both endpoints return the full updated `entries` list (not just the one changed entry, since a
+  merge can touch several), and the client replaces `DATA`/`GROUPS` wholesale from that response.
 
 **This feature is `static/index.html` + `server.py` only.** `web/index.html` is a static build
-with nowhere to persist a PATCH, so it deliberately does not get the Edit button or modal - only
-mirror the dark-mode CSS/JS changes there, not the editor.
+with nowhere to persist a PATCH/POST, so it deliberately does not get the Edit button or modal -
+only mirror the dark-mode CSS/JS changes there, not the editor.
 
 ## Environment quirks (this machine)
 

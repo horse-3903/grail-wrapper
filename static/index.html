@@ -313,6 +313,31 @@
   }
   .modal-field input:focus { border-color: var(--primary); }
   .modal-hint { font-size: 12px; color: var(--text-faint); margin: -6px 0 12px; }
+
+  .group-current {
+    font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; line-height: 1.4;
+    padding: 8px 10px; background: var(--card-alt); border: 1px solid var(--border); border-radius: var(--r-control);
+  }
+  .group-current strong { color: var(--text-primary); }
+  .group-results { margin-top: 6px; max-height: 160px; overflow-y: auto; }
+  .group-results:not(:empty) {
+    border: 1px solid var(--border); border-radius: var(--r-control); background: var(--card-alt);
+  }
+  .group-result {
+    padding: 8px 10px; cursor: pointer; font-size: 13px; color: var(--text-primary);
+    border-bottom: 1px solid var(--border);
+  }
+  .group-result:last-child { border-bottom: none; }
+  .group-result:hover { background: var(--card); }
+  .group-result.gr-empty { cursor: default; color: var(--text-faint); }
+  .group-result.gr-empty:hover { background: none; }
+  .group-result .gr-meta { font-size: 11px; color: var(--text-faint); margin-top: 2px; }
+  .group-ungroup-btn {
+    margin-top: 10px; font-size: 12px; font-family: var(--font-mono); background: none; border: none;
+    color: var(--text-secondary); cursor: pointer; padding: 0; text-decoration: underline;
+  }
+  .group-ungroup-btn:hover { color: var(--danger); }
+
   .modal-actions { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin-top: 16px; }
   .modal-status { margin-right: auto; font-size: 12px; color: var(--text-faint); }
   .modal-actions button {
@@ -449,10 +474,12 @@
       <input type="text" id="edit-paper-number" inputmode="numeric" maxlength="1">
     </div>
     <div class="modal-field">
-      <label>Group ID</label>
-      <input type="text" id="edit-group-id">
+      <label>Group</label>
+      <div class="group-current" id="group-current-label"></div>
+      <input type="text" id="group-search" placeholder="Search school, subject, year, or filename to merge into...">
+      <div class="group-results" id="group-results"></div>
+      <button type="button" class="group-ungroup-btn" id="group-ungroup" hidden>Split into its own group</button>
     </div>
-    <p class="modal-hint">Editing Group ID moves this document into a different (or brand new) exam-paper set. Give two documents the same Group ID to merge them.</p>
     <div class="modal-actions">
       <span class="modal-status" id="edit-status"></span>
       <button type="button" id="edit-cancel">Cancel</button>
@@ -832,9 +859,106 @@ $("f-reset").addEventListener("click", () => {
 
 // manual grouping UI disabled for now (server endpoints in server.py still work if re-enabled)
 
-// Per-row metadata/grouping editor (local server only - PATCHes data/tagged.json, which
-// server.py backs up to data/backups/ before every write).
+// Per-row metadata/grouping editor (local server only - every write backs up
+// data/tagged.json to data/backups/ first, see server.py).
 let editingId = null;
+let groupIndex = [];  // built fresh each time the modal opens: [{group_id, label, count, searchText}]
+
+function buildGroupIndex() {
+  return GROUPS.map(g => ({
+    group_id: g.key,
+    label: g.primary.display_name,
+    count: g.members.length,
+    searchText: [
+      g.primary.display_name, g.primary.school, g.primary.subject, g.primary.year_resolved,
+      ...g.members.map(m => m.original_name),
+    ].filter(Boolean).join(" ").toLowerCase(),
+  }));
+}
+
+function renderGroupCurrent(e) {
+  const grp = GROUPS.find(g => g.key === e.group_id);
+  const count = grp ? grp.members.length : 1;
+  $("group-current-label").innerHTML = count > 1
+    ? `Grouped with <strong>${count - 1}</strong> other document${count - 1 === 1 ? "" : "s"} as <strong>${esc(e.display_name)}</strong>`
+    : `Not currently grouped with any other document.`;
+  $("group-ungroup").hidden = count <= 1;
+}
+
+function renderGroupResults(query, currentGroupId) {
+  const resultsEl = $("group-results");
+  resultsEl.innerHTML = "";
+  const words = query.toLowerCase().trim().split(/\s+/).filter(Boolean);
+  if (!words.length) return;
+
+  const matches = groupIndex
+    .filter(g => g.group_id !== currentGroupId && words.every(w => g.searchText.includes(w)))
+    .slice(0, 8);
+
+  if (!matches.length) {
+    resultsEl.innerHTML = `<div class="group-result gr-empty">No matching groups</div>`;
+    return;
+  }
+  for (const g of matches) {
+    const div = document.createElement("div");
+    div.className = "group-result";
+    div.innerHTML = `${esc(g.label)}<div class="gr-meta">${g.count} file${g.count === 1 ? "" : "s"}</div>`;
+    div.addEventListener("click", () => mergeIntoGroup(g.group_id, g.label));
+    resultsEl.appendChild(div);
+  }
+}
+
+async function mergeIntoGroup(targetGroupId, targetLabel) {
+  $("edit-status").textContent = "Merging...";
+  try {
+    const res = await fetch(`/api/note/${encodeURIComponent(editingId)}/merge`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ target_group_id: targetGroupId }),
+    });
+    const body = await res.json();
+    if (!res.ok) throw new Error(body.error || "Merge failed");
+    DATA = body.entries;
+    GROUPS = buildGroups(DATA);
+    groupIndex = buildGroupIndex();
+    applyFilters();
+    const entry = DATA.find(d => d.id === editingId);
+    renderGroupCurrent(entry);
+    $("group-search").value = "";
+    $("group-results").innerHTML = "";
+    $("edit-status").textContent = `Merged into "${targetLabel}"`;
+  } catch (err) {
+    $("edit-status").textContent = err.message;
+  }
+}
+
+async function ungroupEntry() {
+  $("edit-status").textContent = "Splitting...";
+  try {
+    const res = await fetch(`/api/note/${encodeURIComponent(editingId)}/ungroup`, { method: "POST" });
+    const body = await res.json();
+    if (!res.ok) throw new Error(body.error || "Split failed");
+    DATA = body.entries;
+    GROUPS = buildGroups(DATA);
+    groupIndex = buildGroupIndex();
+    applyFilters();
+    const entry = DATA.find(d => d.id === editingId);
+    renderGroupCurrent(entry);
+    $("edit-status").textContent = "Split into its own group";
+  } catch (err) {
+    $("edit-status").textContent = err.message;
+  }
+}
+
+let groupSearchDebounce;
+$("group-search").addEventListener("input", () => {
+  clearTimeout(groupSearchDebounce);
+  groupSearchDebounce = setTimeout(() => {
+    const entry = DATA.find(d => d.id === editingId);
+    renderGroupResults($("group-search").value, entry ? entry.group_id : null);
+  }, 120);
+});
+$("group-ungroup").addEventListener("click", ungroupEntry);
 
 function openEditModal(e) {
   editingId = e.id;
@@ -846,8 +970,11 @@ function openEditModal(e) {
   $("edit-doctype").value = e.doc_type || "";
   $("edit-year").value = e.year_resolved || "";
   $("edit-paper-number").value = e.paper_number ?? "";
-  $("edit-group-id").value = e.group_id || "";
   $("edit-status").textContent = "";
+  groupIndex = buildGroupIndex();
+  renderGroupCurrent(e);
+  $("group-search").value = "";
+  $("group-results").innerHTML = "";
   $("edit-modal").hidden = false;
 }
 
@@ -878,7 +1005,6 @@ $("edit-save").addEventListener("click", async () => {
     doc_type: $("edit-doctype").value.trim() || null,
     year_resolved: $("edit-year").value.trim() || null,
     paper_number: $("edit-paper-number").value.trim() || null,
-    group_id: $("edit-group-id").value.trim() || null,
   };
   $("edit-status").textContent = "Saving...";
   try {

@@ -81,6 +81,23 @@ def find_paper_number(base: str, original_name: str, subject: str, paper_info_fu
     return None
 
 
+def compute_group_id(e: dict, base: str, n: int | None) -> str:
+    """The deterministic group_id an entry would get on its own, ignoring any manual/linked
+    override. Shared by enrich() and server.py's "split into its own group" action.
+    """
+    topic = re.sub(r"\s+", " ", NUM_RE.sub("", base)).strip()
+    if e["doc_type"] in GROUPABLE_TYPES and topic:
+        if e.get("school"):
+            key = topic
+        else:
+            # unknown school: different anonymous uploads aren't provably the same
+            # source, so keep them split by paper number to avoid false merges
+            key = f"{topic} P{n}" if n else topic
+        school_part = e.get("school") or "-"
+        return f"{school_part}|{e.get('year_resolved') or '-'}|{e['subject']}|{key}"
+    return f"single|{e['id']}"
+
+
 def enrich(data: list[dict]) -> list[dict]:
     # 1. detect answer/solution/mark-scheme keywords the tagger might have missed
     for e in data:
@@ -132,18 +149,7 @@ def enrich(data: list[dict]) -> list[dict]:
 
         old_gid = e.get("group_id", "")
         if not old_gid.startswith("linked|") and not old_gid.startswith("manual|"):
-            topic = re.sub(r"\s+", " ", NUM_RE.sub("", base)).strip()
-            if e["doc_type"] in GROUPABLE_TYPES and topic:
-                if e.get("school"):
-                    key = topic
-                else:
-                    # unknown school: different anonymous uploads aren't provably the same
-                    # source, so keep them split by paper number to avoid false merges
-                    key = f"{topic} P{n}" if n else topic
-                school_part = e.get("school") or "-"
-                e["group_id"] = f"{school_part}|{e['year_resolved'] or '-'}|{e['subject']}|{key}"
-            else:
-                e["group_id"] = f"single|{e['id']}"
+            e["group_id"] = compute_group_id(e, base, n)
 
         school_prefix = f"{e['school']} " if e.get("school") else ""
         tail = e.get("paper_info") or e["doc_type"] or ""

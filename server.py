@@ -10,7 +10,7 @@ from pathlib import Path
 
 from flask import Flask, jsonify, request, send_from_directory
 
-from enrich import SUBJ_ABBR, SUBJECT_PAPER_LABELS, base_of, role_of
+from enrich import SUBJ_ABBR, SUBJECT_PAPER_LABELS, base_of, compute_group_id, find_paper_number, role_of
 
 ROOT = Path(__file__).parent
 DATA_PATH = ROOT / "data" / "tagged.json"
@@ -18,7 +18,9 @@ RAW_PATH = ROOT / "data" / "raw.json"
 MANUAL_GROUPS_PATH = ROOT / "data" / "manual_groups.json"
 BACKUP_DIR = ROOT / "data" / "backups"
 
-EDITABLE_NOTE_FIELDS = {"school", "paper_info", "subject", "doc_type", "year_resolved", "paper_number", "group_id"}
+# Grouping is handled by the dedicated merge/ungroup endpoints below, not this generic PATCH -
+# a raw group_id text field is neither easy to discover nor safe to hand-edit (see api_merge_note).
+EDITABLE_NOTE_FIELDS = {"school", "paper_info", "subject", "doc_type", "year_resolved", "paper_number"}
 
 app = Flask(__name__, static_folder="static")
 
@@ -104,13 +106,6 @@ def api_update_note(note_id):
         else:
             entry[key] = value or None
 
-    # a manually-set group_id shouldn't be silently overwritten by a future `python enrich.py`
-    # run, so it gets the same "manual|" protection the answer-linker subagent's groups use
-    if "group_id" in updates:
-        gid = entry.get("group_id") or ""
-        if gid and not gid.startswith("manual|") and not gid.startswith("linked|"):
-            entry["group_id"] = f"manual|{gid}"
-
     base = base_of(entry.get("paper_info"))
     entry["paper_info_base"] = base
     entry["paper_info_role"] = role_of(entry.get("paper_info"), base)
@@ -123,6 +118,68 @@ def api_update_note(note_id):
 
     save_tagged(entries)
     return jsonify(entry)
+
+
+@app.route("/api/note/<note_id>/merge", methods=["POST"])
+def api_merge_note(note_id):
+    """Merges one entry into an existing group (picked from the UI's search results, so
+    target_group_id is always a real, currently-in-use group_id - never hand-typed).
+
+    If the target group isn't already protected (manual|/linked|), the whole group - every
+    current member, not just this entry - gets moved onto a manual|-prefixed id. Doing it to
+    the whole group, not just the newly added entry, is what keeps them grouped together after
+    a future `python enrich.py` run: enrich.py recomputes group_id for any entry that isn't
+    already manual|/linked|-prefixed, so if only the new entry were protected it would keep a
+    different id than its now-unprotected groupmates and immediately fall back out of the group.
+    """
+    body = request.get_json(force=True, silent=True) or {}
+    target_gid = body.get("target_group_id")
+    if not target_gid:
+        return jsonify({"error": "target_group_id required"}), 400
+
+    if not DATA_PATH.exists():
+        return jsonify({"error": "data/tagged.json not found"}), 404
+    with DATA_PATH.open(encoding="utf-8") as f:
+        entries = json.load(f)
+
+    entry = next((e for e in entries if e["id"] == note_id), None)
+    if entry is None:
+        return jsonify({"error": "note not found"}), 404
+    if not any(e.get("group_id") == target_gid for e in entries):
+        return jsonify({"error": "target group not found"}), 404
+
+    if not (target_gid.startswith("manual|") or target_gid.startswith("linked|")):
+        protected_gid = f"manual|{target_gid}"
+        for e in entries:
+            if e.get("group_id") == target_gid:
+                e["group_id"] = protected_gid
+        target_gid = protected_gid
+
+    entry["group_id"] = target_gid
+    save_tagged(entries)
+    return jsonify({"entries": entries})
+
+
+@app.route("/api/note/<note_id>/ungroup", methods=["POST"])
+def api_ungroup_note(note_id):
+    """Splits one entry back out into its own natural group - the same group_id `python
+    enrich.py` would give it standing alone, so it may still land next to school/year/subject
+    peers on its own merits, just without the manual override that was pinning it elsewhere.
+    """
+    if not DATA_PATH.exists():
+        return jsonify({"error": "data/tagged.json not found"}), 404
+    with DATA_PATH.open(encoding="utf-8") as f:
+        entries = json.load(f)
+
+    entry = next((e for e in entries if e["id"] == note_id), None)
+    if entry is None:
+        return jsonify({"error": "note not found"}), 404
+
+    base = base_of(entry.get("paper_info"))
+    n = find_paper_number(base, entry.get("original_name", entry["name"]), entry.get("subject"), entry.get("paper_info"))
+    entry["group_id"] = compute_group_id(entry, base, n)
+    save_tagged(entries)
+    return jsonify({"entries": entries})
 
 
 @app.route("/api/manual-group", methods=["POST"])
