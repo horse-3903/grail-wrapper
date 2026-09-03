@@ -249,6 +249,17 @@
   }
   .flag-badge:hover::after { opacity: 1; visibility: visible; }
 
+  /* recolors with the theme via mask-image instead of embedding a fixed-color icon */
+  .drive-badge {
+    display: inline-block; width: 13px; height: 13px; flex-shrink: 0;
+    background-color: var(--text-faint);
+    -webkit-mask-image: url('drive-icon.png'); mask-image: url('drive-icon.png');
+    -webkit-mask-size: contain; mask-size: contain;
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+    -webkit-mask-position: center; mask-position: center;
+    cursor: help;
+  }
+
   .actions { display: flex; gap: 6px; justify-content: center; }
   .actions a, .actions button {
     font-size: 11px; font-family: var(--font-mono); padding: 5px 10px; border-radius: var(--r-control);
@@ -740,6 +751,11 @@ function flagBadgeHtml(e) {
   return `<span class="flag-badge" data-tooltip="${esc(e.flag_reason || "Flagged for review")}">! review</span>`;
 }
 
+function driveBadgeHtml(e) {
+  if (e.source !== "drive") return "";
+  return `<span class="drive-badge" title="From Google Drive"></span>`;
+}
+
 // Group headers are collapsed by default, so a flagged member inside would otherwise be invisible
 function groupFlagBadgeHtml(members) {
   const flagged = members.filter(m => m.flagged);
@@ -748,6 +764,13 @@ function groupFlagBadgeHtml(members) {
     ? (flagged[0].flag_reason || "Flagged for review")
     : `${flagged.length} files flagged:\n` + flagged.map(m => `- ${m.flag_reason || "Flagged for review"}`).join("\n");
   return `<span class="flag-badge" data-tooltip="${esc(tooltip)}">! ${flagged.length} flagged</span>`;
+}
+
+// Group headers are collapsed by default, so show the badge if any member came from Drive
+function groupDriveBadgeHtml(members) {
+  return members.some(m => m.source === "drive")
+    ? `<span class="drive-badge" title="Includes files from Google Drive"></span>`
+    : "";
 }
 
 // A group's own title must never single out one paper number: for a known school, its
@@ -786,6 +809,7 @@ function renderRows(groups) {
         </div>
         <div class="col-badges">
           <span class="role-badge exam-paper">Exam Paper</span>
+          ${groupDriveBadgeHtml(g.members)}
           ${groupFlagBadgeHtml(g.members)}
         </div>
         ${rowMetaHtml(g.primary)}
@@ -814,6 +838,7 @@ function renderRows(groups) {
             </div>
             <div class="col-badges">
               <span class="role-badge ${roleClass(m.paper_info_role)}">${esc(roleLabel(m))}</span>
+              ${driveBadgeHtml(m)}
               ${flagBadgeHtml(m)}
             </div>
             ${rowMetaHtml(m)}
@@ -835,6 +860,7 @@ function renderRows(groups) {
         </div>
         <div class="col-badges">
           <span class="role-badge ${roleClass(e.paper_info_role)}">${esc(roleLabel(e))}</span>
+          ${driveBadgeHtml(e)}
           ${flagBadgeHtml(e)}
         </div>
         ${rowMetaHtml(e)}
