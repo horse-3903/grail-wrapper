@@ -410,13 +410,20 @@
     .filterbar { padding: 12px 16px; gap: 10px; }
     .filter-group.grow { flex: 1 1 100%; }
     .filter-toggle-btn { display: inline-flex; }
+    /* Collapsed is the plain default here - no .open class, no JS needed to establish it -
+       so there's no window for a mistimed script to leave it visibly expanded on load. JS
+       only ever adds/removes .open; the CSS alone decides what "no .open" looks like. Laid
+       out 2-up rather than one full-width control per row so opening it doesn't push the
+       results list almost entirely off-screen, per feedback that a single narrow phone
+       screenshot was mostly filter panel with one sliver of a result underneath it. */
     .filterbar-collapsible {
-      display: flex; flex-direction: column; gap: 12px; width: 100%;
+      display: none; grid-template-columns: 1fr 1fr; gap: 10px 12px; width: 100%;
     }
-    .filterbar-collapsible[hidden] { display: none; }
-    .filterbar-collapsible .filter-group { width: 100%; }
+    .filterbar-collapsible.open { display: grid; }
+    .filterbar-collapsible .filter-group { width: auto; min-width: 0; }
+    .filterbar-collapsible .checkbox-row { grid-column: 1 / -1; }
     .filterbar select, .filterbar .ms-trigger { width: 100%; min-width: 0; }
-    .reset-btn { margin-left: 0; width: 100%; text-align: center; }
+    .reset-btn { grid-column: 1 / -1; margin-left: 0; width: 100%; text-align: center; }
 
     .results { padding: 12px 14px 0; }
     .results-scroll { padding: 0 14px 40px 0; margin-right: -14px; }
@@ -1103,16 +1110,16 @@ $("f-search").addEventListener("input", () => {
 $("f-subject").addEventListener("input", applyFilters);
 $("f-flagged").addEventListener("input", applyFilters);
 
-// Mobile-only "Filters" toggle - collapsed by default below the 820px breakpoint (see CSS),
-// where the full filter bar would otherwise push the results below the fold on first load.
-// Above that breakpoint .filterbar-collapsible is display:contents (see CSS) and this button
-// is hidden, so [hidden] here has no visible effect on desktop either way.
+// Mobile-only "Filters" toggle. Collapsed-by-default is a plain CSS default below the 820px
+// breakpoint (.filterbar-collapsible has no .open class in the initial HTML) - not something
+// this script has to establish itself, so there's no window where a script that hasn't run
+// yet (or a matchMedia check racing page paint) leaves the panel visibly expanded. This
+// listener only ever adds/removes .open in response to an actual click.
 const filterToggleBtn = $("filter-toggle");
 const filterCollapsible = $("filterbar-collapsible");
-if (window.matchMedia("(max-width: 820px)").matches) filterCollapsible.hidden = true;
 filterToggleBtn.addEventListener("click", () => {
-  filterCollapsible.hidden = !filterCollapsible.hidden;
-  filterToggleBtn.setAttribute("aria-expanded", String(!filterCollapsible.hidden));
+  const open = filterCollapsible.classList.toggle("open");
+  filterToggleBtn.setAttribute("aria-expanded", String(open));
 });
 $("f-reset").addEventListener("click", () => {
   $("f-search").value = "";
