@@ -53,8 +53,10 @@ scrape.py  ->  tag_with_gemini.py (or note-tagger subagent)  ->  enrich.py  ->  
      of one sitting merge into one group; for an *unknown* school, groups stay split by paper
      number, since two anonymous uploads can't be assumed to be the same sitting.
    Entries whose `group_id` already starts with `linked|` or `manual|` are left alone - those
-   came from the answer-linker subagent or the (currently disabled) manual-grouping UI, and
-   encode judgment this script can't reproduce.
+   came from the answer-linker subagent or the row editor's merge/split actions in
+   `static/index.html` (via `server.py`'s `/api/note/<id>/merge` and `/ungroup`, the only
+   grouping mechanism the server exposes - group_id is written directly onto each entry rather
+   than kept in a separate overlay file), and encode judgment this script can't reproduce.
 4. **`answer-linker` subagent** (`.claude/agents/answer-linker.md`) - for the "orphan" entries
    `enrich.py`'s `paper_info`-based grouping couldn't confidently pair (fuzzy filename matching
    across a whole subject/year). Manual, interactive-session-only, same as `note-tagger`.

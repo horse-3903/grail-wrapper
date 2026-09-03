@@ -847,8 +847,6 @@ $("f-reset").addEventListener("click", () => {
   applyFilters();
 });
 
-// manual grouping UI disabled for now (server endpoints in server.py still work if re-enabled)
-
 async function loadData() {
   const data = await fetch("./data.json").then(r => r.json());
   DATA = data;
