@@ -200,6 +200,12 @@
     gap: 12px; padding: 10px 16px; font-family: var(--font-mono); font-size: 10.5px; color: var(--text-faint);
     text-transform: uppercase; letter-spacing: .04em; font-weight: 600; text-align: center;
     background: var(--background); border-bottom: 1px solid var(--border);
+    /* --col-headers-right-pad (16px + the real scrollbar width) is set in JS once
+       results-scroll has laid out (see syncScrollbarGutter()) and stays constant thanks to
+       scrollbar-gutter: stable below, so header columns line up with the row columns
+       underneath instead of the row grid being narrower by however wide this browser's real
+       scrollbar happens to be. 26px fallback matches the 10px custom-styled scrollbar below. */
+    padding-right: var(--col-headers-right-pad, 26px);
   }
   .col-headers > div:first-child { text-align: left; }
   .col-headers > div.sortable { cursor: pointer; user-select: none; }
@@ -213,6 +219,10 @@
        28px as this element's own right padding) so the scrollbar rides the true right edge of
        the page while the row content keeps its original inset. */
     margin-right: -28px;
+    /* always reserve space for the scrollbar even when the list is short enough not to need
+       scrolling, so the row grid's width - and therefore its measured gutter and column
+       alignment with .col-headers above - doesn't shift depending on row count */
+    scrollbar-gutter: stable;
   }
 
   .row {
@@ -1265,6 +1275,16 @@ function restoreScrollPosition() {
   if (saved != null) resultsScrollEl.scrollTop = Number(saved) || 0;
 }
 
+// Measures the real, currently-rendered scrollbar width (varies by browser/OS - no point
+// guessing a pixel value) and exposes it as --scrollbar-w for .col-headers's padding-right to
+// match. scrollbar-gutter: stable on .results-scroll keeps this constant regardless of
+// whether the filtered list is actually tall enough to scroll, so one measurement after the
+// first render is enough - it never needs recomputing later.
+function syncScrollbarGutter() {
+  const width = resultsScrollEl.offsetWidth - resultsScrollEl.clientWidth;
+  document.documentElement.style.setProperty("--col-headers-right-pad", `${16 + width}px`);
+}
+
 async function loadData() {
   const data = await fetch("/api/notes").then(r => r.json());
   DATA = data;
@@ -1281,6 +1301,7 @@ async function loadData() {
 
   applyRemainingFiltersFromUrl(urlParams);
   applyFilters();
+  syncScrollbarGutter();
   restoreScrollPosition();
 }
 
