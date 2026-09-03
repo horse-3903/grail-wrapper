@@ -604,18 +604,21 @@ function matchesFilters(e, f) {
   }
   if (f.doctypes.size && !f.doctypes.has(e.doc_type)) return false;
   if (f.papers.size && !f.papers.has(String(e.paper_number))) return false;
-  if (f.statuses.size && !f.statuses.has(classifyRole(e.paper_info_role || e.doc_type))) return false;
   return true;
 }
 
 // Column-header sorting: click once for ascending, again for descending, a third time
 // resets to the default (year desc, then name) - dir cycles 1 -> -1 -> 0.
-// status must match what the Status column actually shows: a group row always renders
-// "Exam Paper" (see renderRows) regardless of its primary member's own role, so sorting by
-// the primary's classifyRole() instead scattered visually-identical "Exam Paper" rows.
+// Matches what the Status column actually shows: a group row always renders "Exam Paper"
+// (see renderRows) regardless of its primary member's own role, so filtering/sorting by the
+// primary's classifyRole() instead of this scattered visually-identical "Exam Paper" rows.
+function rowStatus(g) {
+  return g.isGroup ? "Exam Paper" : classifyRole(g.primary.paper_info_role || g.primary.doc_type);
+}
+
 const SORT_KEYS = {
   document: g => g.primary.display_name || "",
-  status: g => g.isGroup ? "Exam Paper" : classifyRole(g.primary.paper_info_role || g.primary.doc_type),
+  status: rowStatus,
   school: g => g.primary.school || "",
   subject: g => g.primary.subject || "",
   year: g => g.primary.year_resolved ? Number(g.primary.year_resolved) : null,
@@ -676,8 +679,11 @@ function applyFilters() {
       if (matchesFilters(g.primary, f)) visible.push(g);
     }
   }
-  sortGroups(visible);
-  renderRows(visible);
+  // Status is a row-level concept (what the Status column shows), not a per-member one -
+  // applied after grouping so a multi-member "Exam Paper" row is judged as a whole.
+  const withStatus = f.statuses.size ? visible.filter(g => f.statuses.has(rowStatus(g))) : visible;
+  sortGroups(withStatus);
+  renderRows(withStatus);
 }
 
 function roleClass(role) {
@@ -834,7 +840,7 @@ async function loadData() {
   populateMultiSelect("school", uniq(data.map(d => d.school)));
   populateMultiSelect("doctype", uniq(data.map(d => d.doc_type)));
   populateMultiSelect("paper", uniq(data.map(d => d.paper_number)).sort((a,b) => a - b).map(n => String(n)));
-  populateMultiSelect("status", ["Questions", "Answers"]);
+  populateMultiSelect("status", ["Exam Paper", "Questions", "Answers"]);
   applyFilters();
 }
 
