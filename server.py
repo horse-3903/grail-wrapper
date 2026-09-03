@@ -22,7 +22,7 @@ BACKUP_DIR = ROOT / "data" / "backups"
 # a raw group_id text field is neither easy to discover nor safe to hand-edit (see api_merge_note).
 EDITABLE_NOTE_FIELDS = {"school", "paper_info", "subject", "doc_type", "year_resolved", "paper_number"}
 
-app = Flask(__name__, static_folder="static")
+app = Flask(__name__, static_folder="static", static_url_path="")
 
 
 def load_manual_groups():
