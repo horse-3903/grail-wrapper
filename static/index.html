@@ -479,7 +479,7 @@
       <div class="sortable" data-sort="type">Type<span class="sort-arrow"></span></div>
       <div>Links</div>
     </div>
-    <div class="results-scroll">
+    <div class="results-scroll" id="results-scroll">
       <div id="rows"></div>
       <div class="empty" id="empty" style="display:none">No documents match these filters.</div>
     </div>
@@ -1244,6 +1244,27 @@ function applyRemainingFiltersFromUrl(params) {
   if (flaggedEl && params.get("fl") === "1") flaggedEl.checked = true;
 }
 
+// Preserves the results list's scroll position across a page reload (sessionStorage, not
+// localStorage - this is "come back to where I was", not something that should survive into
+// a totally unrelated future visit). Saved continuously while scrolling, restored once after
+// the first render; filter/sort changes re-render the list and naturally reset scroll to the
+// top on their own, which is correct - only a reload should jump back to where you were.
+const SCROLL_KEY = "grail-results-scroll-y";
+const resultsScrollEl = $("results-scroll");
+let scrollSaveTimer;
+resultsScrollEl.addEventListener("scroll", () => {
+  clearTimeout(scrollSaveTimer);
+  scrollSaveTimer = setTimeout(() => {
+    try { sessionStorage.setItem(SCROLL_KEY, String(resultsScrollEl.scrollTop)); } catch { /* private mode etc */ }
+  }, 100);
+});
+
+function restoreScrollPosition() {
+  let saved;
+  try { saved = sessionStorage.getItem(SCROLL_KEY); } catch { return; }
+  if (saved != null) resultsScrollEl.scrollTop = Number(saved) || 0;
+}
+
 async function loadData() {
   const data = await fetch("/api/notes").then(r => r.json());
   DATA = data;
@@ -1260,6 +1281,7 @@ async function loadData() {
 
   applyRemainingFiltersFromUrl(urlParams);
   applyFilters();
+  restoreScrollPosition();
 }
 
 loadData();
