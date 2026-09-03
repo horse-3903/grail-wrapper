@@ -47,6 +47,9 @@ entries.
 - **In-browser metadata editing** (local server only) - fix a row's school, paper info, subject,
   document type, year, paper number, or which exam-set group it belongs to directly from the UI;
   every save backs up `data/tagged.json` to `data/backups/` first
+- **A second source** - a public Google Drive of the same 6 subjects is crawled and rule-tagged
+  (no API key, no AI calls - the folder structure already encodes school/year/type), then merged
+  in for papers grail.moe doesn't have; every row shows a small badge for where it came from
 - **Configurable scraping** - target any category, subject, document type, or year via CLI flags,
   not hardcoded to the default subjects
 
@@ -130,6 +133,21 @@ with `--no-backup`). Answer-booklet linking for the remaining unlinked "orphan" 
 a manual Claude Code session using the `answer-linker` subagent defined in `.claude/agents/`; see
 [AGENTS.md](AGENTS.md) for the full pipeline and what each stage does.
 
+### Pulling in the Google Drive source
+
+A public Google Drive mirrors the same 6 subjects, already organized well enough
+(`Prelims|Promos / Year / School / filename`) that tagging is rule-based - no API key, no AI
+calls:
+
+```bash
+python scrape_gdrive.py    # crawl + tag -> data/gdrive_tagged.json
+python merge_gdrive.py     # merge in only what's not already covered, backs up first
+python enrich.py           # recompute derived fields for the newly-merged entries
+```
+
+Safe to re-run periodically to pick up newly-added Drive files - both scripts are no-ops for
+anything already merged. See [AGENTS.md](AGENTS.md) for how the tagging and dedup logic works.
+
 ---
 
 ## Deploying the static build
@@ -159,16 +177,23 @@ grail-wrapper/
 ├── fetch_inline_urls.py     # fills in each note's stable document.grail.moe PDF URL
 ├── tag_with_gemini.py       # unattended Gemini-based school/paper_info tagging
 ├── enrich.py                 # deterministic year/naming/paper-number/grouping pass
+├── scrape_gdrive.py           # crawls + rule-tags the public Drive source -> data/gdrive_tagged.json
+├── merge_gdrive.py             # merges Drive entries not already covered into data/tagged.json
 ├── server.py                 # Flask app: serves the UI and the index over /api/notes
 ├── start_server.bat           # Windows launcher: starts the server and opens the browser
 ├── static/
-│   └── index.html              # local-server UI (single-page, no build step)
+│   ├── index.html               # local-server UI (single-page, no build step)
+│   ├── drive-icon.png            # source badge: Google Drive
+│   └── link-icon.png             # source badge: direct grail.moe link
 ├── web/
 │   ├── index.html                # static build for free hosting (Vercel/Netlify/GitHub Pages)
-│   └── data.json                  # snapshot of data/tagged.json bundled for the static build
+│   ├── data.json                  # snapshot of data/tagged.json bundled for the static build
+│   ├── drive-icon.png              # (same as static/, mirrored for the static build)
+│   └── link-icon.png                # (same as static/, mirrored for the static build)
 ├── data/
 │   ├── raw.json                  # scraped metadata, no enrichment
 │   ├── tagged.json                # raw.json + tags/year_resolved/display_name/group_id/inline_url
+│   ├── gdrive_tagged.json          # full tagged Drive catalog (scrape_gdrive.py output)
 │   ├── manual_groups.json          # manual group overrides applied by server.py (usually empty)
 │   └── backups/                     # timestamped pre-overwrite snapshots (gitignored)
 ├── .claude/agents/
@@ -200,6 +225,8 @@ Beyond the raw scraped fields (`name`, `category`, `subject`, `doc_type`, `note_
 - `group_id` - documents sharing a `group_id` render as one expandable exam-paper set in the UI
 - `flagged` / `flag_reason` - set when the name still looks inconsistent after year resolution
   and needs a human look
+- `source` - `"drive"` for entries merged in from Google Drive, absent for grail.moe entries;
+  drives the source-icon badge next to each row
 
 ## Environment Variables
 

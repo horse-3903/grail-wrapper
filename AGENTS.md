@@ -106,6 +106,51 @@ enriched before. Fixed by back-filling `original_name` in a step 0 before anythi
 you add a new step that reads a field step 4 sets, make sure it comes after step 4 or also
 back-fills in step 0.
 
+### The Google Drive source (`scrape_gdrive.py` / `merge_gdrive.py`)
+
+A second, independent source alongside grail.moe: the public "Holy Grail Mark 6" Google Drive
+(`drive.google.com/drive/folders/1gC6GQLgcuoHzwDXtEGzTwvzCz0YsYuwg`), scoped to the same 6
+subjects, under `Massive Grail (A Level/IB)/<Subject>/A Level(s)/H2 <Subject>` (or, for
+Computing/General Paper, straight to the subject root - neither has an H1/H2 split there since
+Computing is H2-only and GP is H1-only in the Singapore syllabus).
+
+- **No API key needed.** `scrape_gdrive.py`'s `list_folder()` scrapes the `AF_initDataCallback`
+  JSON blob Google Drive's own *unauthenticated* folder-listing page embeds in its HTML - the
+  same data the web UI itself renders from - via one HTTP GET per folder, recursively. This is
+  unofficial and could break if Google changes that page's internal format; if `list_folder()`
+  starts returning `[]` for folders you know aren't empty, that's the first thing to check.
+- **Tagging is rule-based, not AI-based**, because the Drive is already curated into
+  `Prelims|Promos / Year / [School] / .../ filename` - school and year come from the folder path
+  (`find_school_in_path()` tries path segments before falling back to the filename), doc_type
+  from the Prelims/Promos folder, and only paper number / Questions-vs-Answers need a filename
+  regex. `paper_info` is *built* from those pieces (`"Prelim P1 Answers"`), not the raw filename
+  - the raw filename stays in `original_name` only. This deliberately reuses `enrich.py`'s
+  `SCHOOL_RE`/`YEAR_RE`/`base_of`/`role_of`/`find_paper_number`/`compute_group_id`, so a Drive
+  entry's `group_id` comes out identical in style to a grail.moe entry's - e.g.
+  `RI|2014|H2 Chemistry|Prelim` - and lands in the *same* group as existing grail.moe entries for
+  that school/year/subject/topic without needing any manual merge step.
+- **`name` is deliberately not just the raw filename.** `enrich.py`'s year-resolution regex
+  searches `e["name"]`, but plenty of Drive filenames only carry the year via the folder path
+  (e.g. `RVHS_H2_Chem_P2_ANS.pdf` inside a `2014` folder) - so `scrape_gdrive.py` prepends the
+  year to `name` whenever it isn't already in the filename text. Skip this and a future
+  `python enrich.py` run will silently null `year_resolved` for those entries.
+- **Non-document files are dropped** (`DOC_MIME_ALLOW`) - Computing's Prelim folders in
+  particular contain project resource files (`.py`, `.db`, `.csv`) alongside the actual papers,
+  which aren't "papers" in this project's sense.
+- **`merge_gdrive.py` only adds what's missing.** A Drive file counts as already covered if an
+  entry with the same `(school, year_resolved, subject, paper_number, Questions-vs-Answers)`
+  already exists - checked first within the same `group_id`, then loosened to the whole
+  `(school, year_resolved, subject)` in case the topic word differs. Among what's left,
+  near-duplicate re-uploads of the same paper (multiple people uploading the same file) are
+  deduplicated to one representative (shortest `original_name`) before merging. Re-running both
+  scripts periodically is exactly how you'd pick up newly-added Drive files - it's a no-op except
+  for the genuinely new ones.
+- Merged entries get `source: "drive"` (grail.moe entries have no `source` field, i.e. absent
+  means grail.moe) - the UI's source badge (see below) keys off this.
+- `data/gdrive_tagged.json` is the tracked output of `scrape_gdrive.py` (the full catalog, before
+  the gap/dedup filtering) - same role as `data/raw.json` for the grail.moe side, kept so
+  `merge_gdrive.py` can be re-run without re-crawling.
+
 ## Flags (`flagged`/`flag_reason`)
 
 Entries the tagger thinks look inconsistent with their structured fields. As of the last cleanup
@@ -218,6 +263,16 @@ new hex color anywhere in the row/badge/filter CSS, dark mode will look wrong fo
 `localStorage["grail-theme"]`; on first load (`initTheme()`), it falls back to
 `prefers-color-scheme` if nothing is stored. Both `localStorage` calls are wrapped in `try/catch`
 since some browser privacy modes throw on access.
+
+### Source badge
+
+Every row shows a small icon indicating where it came from: `sourceBadgeHtml(e)` renders the
+Drive triangle (`static/drive-icon.png` / `web/drive-icon.png`) when `e.source === "drive"`,
+otherwise a link icon (`link-icon.png`) for the default grail.moe direct link. Both icons are
+plain black-on-transparent PNGs recolored via `background-color: var(--text-faint)` +
+`mask-image` (not `<img>`), which is what makes them follow the light/dark theme automatically -
+don't replace this with an `<img>` tag, since that would bake in a fixed color. Group headers use
+`groupSourceBadgeHtml(members)`, which shows Drive if *any* member is Drive-sourced.
 
 ## Editing metadata/grouping from the UI (local server only)
 
