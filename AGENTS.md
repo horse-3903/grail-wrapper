@@ -272,11 +272,14 @@ edit both by hand, in the same way, every time. The only intentional differences
 | Data source | `fetch("/api/notes")` | `fetch("./data.json")` |
 | PDF link helper | same `pdfUrl(e)` (`inline_url \|\| download_url`) | same |
 | "Only flagged" filter | present (`#f-flagged` checkbox) | **not present, deliberately** |
+| Flag badges (`! review` / `! N flagged`) | present (`flagBadgeHtml`/`groupFlagBadgeHtml`) | **not present, deliberately** |
 
 When changing one, `grep` the other for the same selector/function name and apply the same edit -
-**except** for anything marked local-only above (the flagged filter, the row editor further
-down): those are intentional divergences, not sync gaps, so don't "fix" `web/index.html` by
-copying them over.
+**except** for anything marked local-only above (the flagged filter, the flag badges, the row
+editor further down): those are intentional divergences, not sync gaps, so don't "fix"
+`web/index.html` by copying them over. Flags are an internal curation aid for whoever is running
+the local server to fix data quality issues - public visitors to the static build have no way to
+act on a flag, so surfacing it there is just noise, not useful signal.
 
 Key JS internals worth knowing before touching filtering/rendering:
 
