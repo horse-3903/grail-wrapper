@@ -125,6 +125,39 @@ standing rule to reapply blindly):
   the wrong subject in place. This is why H1 Economics now appears as a 6th subject in the UI
   even though it was never in `scrape.py`'s `DEFAULT_SUBJECTS`.
 
+## Known data-quality patterns worth re-checking periodically
+
+Neither of these trips `flagged` - they're structurally invisible to the tagger's own
+consistency check, so they need a dedicated sweep rather than just reviewing flags.
+
+- **School substring confusion**: a tagger occasionally picks a *shorter* known-school code
+  that's a true substring of the *actual* (longer) code named in the filename - `PJC` tagged for
+  a `JPJC` file, `AJC` for `SAJC`, `IJC` for `YIJC`, `YJC` for `NYJC`, `MJC` for `TMJC`, `SRJC`
+  for `ASRJC` - plus, separately, a batch that dumped several RI/EJC/NJC/JPJC/TJC files under
+  `school: "MI"` with no relation to the name at all. Detect with `enrich.py`'s `SCHOOL_RE`
+  against `original_name`: if it finds a *different* school than the tagged one, the tag is
+  probably wrong (verify first - a name mentioning 2+ distinct schools is a genuine compilation
+  and should get `school: null`, not either school forced onto it). Fixing the tag alone isn't
+  enough - re-run `enrich.py` afterward so `group_id` gets recomputed from the corrected school.
+- **Ungrouped exam papers that belong in a group**: an entry with a known school can still end
+  up as its own `single|<id>` group if `paper_info` is `null`, or is *only* a bare paper number
+  or role word ("P1", "Answers") with no topic word - `enrich.py`'s topic key strips both the
+  suffix (`Answers`/`Solutions`/etc.) and the paper number, so a paper_info of just `"P1"` or
+  `"Answers"` strips to an empty topic and never matches its siblings. Find candidates with
+  `doc_type == "Exam Papers" and group_id.startswith("single|") and school`. Matching them back
+  requires more than same school+year+subject - **also require a shared topic keyword** (prelim,
+  promo, EOY, MYE, CA1/2, ...) between the orphan and the candidate group; school+year+subject
+  alone produced false positives (test-series entries falsely matched to the one existing Prelim
+  group for that year, purely because it was the *only* candidate). Two shapes of fix, both via
+  the `manual|` convention: merging an orphan into an *existing* bare-id group must re-prefix
+  **every current member of that group**, not just the orphan (same reasoning as the UI's
+  merge endpoint - protecting only the new entry desyncs it from groupmates on the next
+  `enrich.py` run); and a cluster of orphans that should form a *brand-new* group (no existing
+  multi-member group yet) gets a synthesized `manual|<school>|<year>|<subject>|<topic>` id.
+  After either kind of merge, double-check for a leftover 1-member bare group with the same
+  school/year/subject/topic that should have joined the same cluster but didn't (nothing looks
+  for those automatically) - it happened for several 2024 H2 Chemistry Prelim groups.
+
 ## UI: `static/index.html` and `web/index.html`
 
 Two near-identical single-file HTML/CSS/JS apps, **not build-generated from a shared source** -

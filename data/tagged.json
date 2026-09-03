@@ -9251,7 +9251,7 @@
   "original_name": "2020 J2 VJC H2 Math prelims (Paper 1)",
   "paper_number": 1,
   "paper_label": "Pure Mathematics",
-  "group_id": "single|13801",
+  "group_id": "manual|VJC|2020|H2 Mathematics|Prelim",
   "display_name": "VJC 2020 H2 Math P1",
   "inline_url": "https://document.grail.moe/772c40690b4140b0b9c4067e6945cd98.pdf"
  },
@@ -9277,7 +9277,7 @@
   "original_name": "2020 J2 VJC H2 Math prelims (Paper 2)",
   "paper_number": 2,
   "paper_label": "Mathematics & Statistics",
-  "group_id": "single|13802",
+  "group_id": "manual|VJC|2020|H2 Mathematics|Prelim",
   "display_name": "VJC 2020 H2 Math P2",
   "inline_url": "https://document.grail.moe/73f995f95c8e4bee898f1453460d1e80.pdf"
  },
@@ -9303,7 +9303,7 @@
   "original_name": "2020 J2 VJC H2 Math prelim answers (Numerical answer only)",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "single|13803",
+  "group_id": "manual|VJC|2020|H2 Mathematics|Prelim",
   "display_name": "VJC 2020 H2 Math Answers",
   "inline_url": "https://document.grail.moe/125ad5f4c5ce414aaaa47c08e7958ee4.pdf"
  },
@@ -12386,7 +12386,7 @@
   "year": "2023",
   "uploaded_by": "currymuncher",
   "uploaded_on": "23 September 2024",
-  "school": "MI",
+  "school": "RI",
   "paper_info": "Answers",
   "flagged": false,
   "flag_reason": null,
@@ -12398,7 +12398,7 @@
   "paper_number": null,
   "paper_label": null,
   "group_id": "single|13509",
-  "display_name": "MI 2023 H2 Math Answers",
+  "display_name": "RI 2023 H2 Math Answers",
   "inline_url": "https://document.grail.moe/11b787db5db6411787af824556c81920.pdf"
  },
  {
@@ -18819,7 +18819,7 @@
   "original_name": "VJC_H2_2020_Prelim_P1",
   "paper_number": 1,
   "paper_label": "Pure Mathematics",
-  "group_id": "VJC|2020|H2 Mathematics|Prelim",
+  "group_id": "manual|VJC|2020|H2 Mathematics|Prelim",
   "display_name": "VJC 2020 H2 Math Prelim",
   "inline_url": "https://document.grail.moe/a8928957151f43b79a20b009afef48cc.pdf"
  },
@@ -18845,7 +18845,7 @@
   "original_name": "VJC_H2_2020_Prelim_P2",
   "paper_number": 2,
   "paper_label": "Mathematics & Statistics",
-  "group_id": "VJC|2020|H2 Mathematics|Prelim",
+  "group_id": "manual|VJC|2020|H2 Mathematics|Prelim",
   "display_name": "VJC 2020 H2 Math Prelim",
   "inline_url": "https://document.grail.moe/9bd4911ac83d4217be6dd72e5d5ea023.pdf"
  },
@@ -18871,7 +18871,7 @@
   "original_name": "VJC_H2_2020_Prelim_Answers",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "VJC|2020|H2 Mathematics|Prelim",
+  "group_id": "manual|VJC|2020|H2 Mathematics|Prelim",
   "display_name": "VJC 2020 H2 Math Prelim Answers",
   "inline_url": "https://document.grail.moe/3998089802ec4e88b1ec1e2455f2b918.pdf"
  },
@@ -19536,7 +19536,7 @@
   "year": "2023",
   "uploaded_by": "CowMooMoo",
   "uploaded_on": "8 October 2023",
-  "school": "SRJC",
+  "school": "ASRJC",
   "paper_info": "Prelim P2 Solution",
   "flagged": false,
   "flag_reason": null,
@@ -19547,8 +19547,8 @@
   "original_name": "ASRJC 9758 2023 Prelim P2 Solution",
   "paper_number": 2,
   "paper_label": "Mathematics & Statistics",
-  "group_id": "SRJC|2023|H2 Mathematics|Prelim",
-  "display_name": "SRJC 2023 H2 Math Prelim P2 Solution",
+  "group_id": "ASRJC|2023|H2 Mathematics|Prelim",
+  "display_name": "ASRJC 2023 H2 Math Prelim P2 Solution",
   "inline_url": "https://document.grail.moe/bcd9d33714544fb196d87abbca137072.pdf"
  },
  {
@@ -19562,7 +19562,7 @@
   "year": "2023",
   "uploaded_by": "CowMooMoo",
   "uploaded_on": "8 October 2023",
-  "school": "PJC",
+  "school": "JPJC",
   "paper_info": "Prelim P2 Solution",
   "flagged": false,
   "flag_reason": null,
@@ -19573,8 +19573,8 @@
   "original_name": "JPJC 9758 2023 Prelim P2 Solution",
   "paper_number": 2,
   "paper_label": "Mathematics & Statistics",
-  "group_id": "PJC|2023|H2 Mathematics|Prelim",
-  "display_name": "PJC 2023 H2 Math Prelim P2 Solution",
+  "group_id": "JPJC|2023|H2 Mathematics|Prelim",
+  "display_name": "JPJC 2023 H2 Math Prelim P2 Solution",
   "inline_url": "https://document.grail.moe/96ee6dd8089d4a3fac42ec773fe01aff.pdf"
  },
  {
@@ -19588,7 +19588,7 @@
   "year": "2023",
   "uploaded_by": "CowMooMoo",
   "uploaded_on": "8 October 2023",
-  "school": "PJC",
+  "school": "JPJC",
   "paper_info": "Prelim P1",
   "flagged": false,
   "flag_reason": null,
@@ -19599,8 +19599,8 @@
   "original_name": "JPJC 9758 2023 Prelim P1",
   "paper_number": 1,
   "paper_label": "Pure Mathematics",
-  "group_id": "PJC|2023|H2 Mathematics|Prelim",
-  "display_name": "PJC 2023 H2 Math Prelim P1",
+  "group_id": "JPJC|2023|H2 Mathematics|Prelim",
+  "display_name": "JPJC 2023 H2 Math Prelim P1",
   "inline_url": "https://document.grail.moe/b01239cca46341ff884eb86f4cce282b.pdf"
  },
  {
@@ -19614,7 +19614,7 @@
   "year": "2023",
   "uploaded_by": "CowMooMoo",
   "uploaded_on": "8 October 2023",
-  "school": "PJC",
+  "school": "JPJC",
   "paper_info": "Prelim P1 Solution",
   "flagged": false,
   "flag_reason": null,
@@ -19625,8 +19625,8 @@
   "original_name": "JPJC 9758 2023 Prelim P1 Solution",
   "paper_number": 1,
   "paper_label": "Pure Mathematics",
-  "group_id": "PJC|2023|H2 Mathematics|Prelim",
-  "display_name": "PJC 2023 H2 Math Prelim P1 Solution",
+  "group_id": "JPJC|2023|H2 Mathematics|Prelim",
+  "display_name": "JPJC 2023 H2 Math Prelim P1 Solution",
   "inline_url": "https://document.grail.moe/ae6aa11210434f2da8c24ee126c523b4.pdf"
  },
  {
@@ -19640,7 +19640,7 @@
   "year": "2023",
   "uploaded_by": "CowMooMoo",
   "uploaded_on": "8 October 2023",
-  "school": "PJC",
+  "school": "JPJC",
   "paper_info": "Prelim P2",
   "flagged": false,
   "flag_reason": null,
@@ -19651,8 +19651,8 @@
   "original_name": "JPJC 9758 2023 Prelim P2",
   "paper_number": 2,
   "paper_label": "Mathematics & Statistics",
-  "group_id": "PJC|2023|H2 Mathematics|Prelim",
-  "display_name": "PJC 2023 H2 Math Prelim P2",
+  "group_id": "JPJC|2023|H2 Mathematics|Prelim",
+  "display_name": "JPJC 2023 H2 Math Prelim P2",
   "inline_url": "https://document.grail.moe/0e13d39f3d354d81b411b1af6d7993e0.pdf"
  },
  {
@@ -19718,7 +19718,7 @@
   "year": "2022",
   "uploaded_by": "admin",
   "uploaded_on": "22 September 2023",
-  "school": "AJC",
+  "school": "SAJC",
   "paper_info": "Prelim P2 Solution",
   "flagged": false,
   "flag_reason": null,
@@ -19729,8 +19729,8 @@
   "original_name": "SAJC_9758_2022_Prelim_P2_Solutions",
   "paper_number": 2,
   "paper_label": "Mathematics & Statistics",
-  "group_id": "AJC|2022|H2 Mathematics|Prelim",
-  "display_name": "AJC 2022 H2 Math Prelim P2 Solution",
+  "group_id": "SAJC|2022|H2 Mathematics|Prelim",
+  "display_name": "SAJC 2022 H2 Math Prelim P2 Solution",
   "inline_url": "https://document.grail.moe/82adb1929a664f15bc13361406b665e8.pdf"
  },
  {
@@ -19744,7 +19744,7 @@
   "year": "2022",
   "uploaded_by": "admin",
   "uploaded_on": "22 September 2023",
-  "school": "AJC",
+  "school": "SAJC",
   "paper_info": "Prelim P1 Solution",
   "flagged": false,
   "flag_reason": null,
@@ -19755,8 +19755,8 @@
   "original_name": "SAJC_9758_2022_Prelim_P1_Solutions",
   "paper_number": 1,
   "paper_label": "Pure Mathematics",
-  "group_id": "AJC|2022|H2 Mathematics|Prelim",
-  "display_name": "AJC 2022 H2 Math Prelim P1 Solution",
+  "group_id": "SAJC|2022|H2 Mathematics|Prelim",
+  "display_name": "SAJC 2022 H2 Math Prelim P1 Solution",
   "inline_url": "https://document.grail.moe/3b33f838ff964d5da2dbefb630b56905.pdf"
  },
  {
@@ -19770,7 +19770,7 @@
   "year": "2022",
   "uploaded_by": "admin",
   "uploaded_on": "22 September 2023",
-  "school": "AJC",
+  "school": "SAJC",
   "paper_info": "Prelim P2",
   "flagged": false,
   "flag_reason": null,
@@ -19781,8 +19781,8 @@
   "original_name": "SAJC_9758_2022_Prelim_P2",
   "paper_number": 2,
   "paper_label": "Mathematics & Statistics",
-  "group_id": "AJC|2022|H2 Mathematics|Prelim",
-  "display_name": "AJC 2022 H2 Math Prelim P2",
+  "group_id": "SAJC|2022|H2 Mathematics|Prelim",
+  "display_name": "SAJC 2022 H2 Math Prelim P2",
   "inline_url": "https://document.grail.moe/d42026e56c4349f5b4a94f6ac12251b2.pdf"
  },
  {
@@ -19900,7 +19900,7 @@
   "year": "-",
   "uploaded_by": "hima",
   "uploaded_on": "3 June 2023",
-  "school": "AJC",
+  "school": "SAJC",
   "paper_info": "P2 Solution",
   "flagged": false,
   "flag_reason": null,
@@ -19912,7 +19912,7 @@
   "paper_number": 2,
   "paper_label": "Mathematics & Statistics",
   "group_id": "single|6736",
-  "display_name": "AJC - H2 Math P2 Solution",
+  "display_name": "SAJC - H2 Math P2 Solution",
   "inline_url": "https://document.grail.moe/d293a4b65ce14809823738243b42ff86.pdf"
  },
  {
@@ -19926,7 +19926,7 @@
   "year": "-",
   "uploaded_by": "hima",
   "uploaded_on": "3 June 2023",
-  "school": "AJC",
+  "school": "SAJC",
   "paper_info": "P1 Solution",
   "flagged": false,
   "flag_reason": null,
@@ -19938,7 +19938,7 @@
   "paper_number": 1,
   "paper_label": "Pure Mathematics",
   "group_id": "single|6735",
-  "display_name": "AJC - H2 Math P1 Solution",
+  "display_name": "SAJC - H2 Math P1 Solution",
   "inline_url": "https://document.grail.moe/5a0728a23528415496c968f162d7f064.pdf"
  },
  {
@@ -19952,7 +19952,7 @@
   "year": "-",
   "uploaded_by": "hima",
   "uploaded_on": "3 June 2023",
-  "school": "AJC",
+  "school": "SAJC",
   "paper_info": "P2",
   "flagged": false,
   "flag_reason": null,
@@ -19964,7 +19964,7 @@
   "paper_number": 2,
   "paper_label": "Mathematics & Statistics",
   "group_id": "single|6734",
-  "display_name": "AJC - H2 Math P2",
+  "display_name": "SAJC - H2 Math P2",
   "inline_url": "https://document.grail.moe/24c9dd58e1d9467fb0cfc6662838289a.pdf"
  },
  {
@@ -19978,7 +19978,7 @@
   "year": "2017",
   "uploaded_by": "hima",
   "uploaded_on": "3 June 2023",
-  "school": "AJC",
+  "school": "SAJC",
   "paper_info": "Prelim Questions",
   "flagged": false,
   "flag_reason": null,
@@ -19989,8 +19989,8 @@
   "original_name": "SAJC 2017_H2_MATHS_Qns Prelims",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "AJC|2017|H2 Mathematics|Prelim",
-  "display_name": "AJC 2017 H2 Math Prelim Questions",
+  "group_id": "SAJC|2017|H2 Mathematics|Prelim",
+  "display_name": "SAJC 2017 H2 Math Prelim Questions",
   "inline_url": "https://document.grail.moe/fa5fbbb94ae248df849a8f86a139c026.pdf"
  },
  {
@@ -20186,7 +20186,7 @@
   "year": "-",
   "uploaded_by": "hima",
   "uploaded_on": "3 June 2023",
-  "school": "AJC",
+  "school": "SAJC",
   "paper_info": "P1 MS",
   "flagged": false,
   "flag_reason": null,
@@ -20197,8 +20197,8 @@
   "original_name": "SAJC P1 MS",
   "paper_number": 1,
   "paper_label": "Pure Mathematics",
-  "group_id": "AJC|-|H2 Mathematics|MS",
-  "display_name": "AJC - H2 Math P1 MS",
+  "group_id": "SAJC|-|H2 Mathematics|MS",
+  "display_name": "SAJC - H2 Math P1 MS",
   "inline_url": "https://document.grail.moe/cc9e89d8311b4cafabada334caecbcdf.pdf"
  },
  {
@@ -20212,7 +20212,7 @@
   "year": "-",
   "uploaded_by": "hima",
   "uploaded_on": "3 June 2023",
-  "school": "AJC",
+  "school": "SAJC",
   "paper_info": null,
   "flagged": false,
   "flag_reason": null,
@@ -20224,7 +20224,7 @@
   "paper_number": null,
   "paper_label": null,
   "group_id": "single|6702",
-  "display_name": "AJC - H2 Math Exam Papers",
+  "display_name": "SAJC - H2 Math Exam Papers",
   "inline_url": "https://document.grail.moe/fda6c4ba1ab647438d2ab373a9083101.pdf"
  },
  {
@@ -20238,7 +20238,7 @@
   "year": "-",
   "uploaded_by": "hima",
   "uploaded_on": "3 June 2023",
-  "school": "AJC",
+  "school": "SAJC",
   "paper_info": "P2",
   "flagged": false,
   "flag_reason": null,
@@ -20250,7 +20250,7 @@
   "paper_number": 2,
   "paper_label": "Mathematics & Statistics",
   "group_id": "single|6701",
-  "display_name": "AJC - H2 Math P2",
+  "display_name": "SAJC - H2 Math P2",
   "inline_url": "https://document.grail.moe/b0f3783f2b694219a45eefcf5ac52812.pdf"
  },
  {
@@ -20264,7 +20264,7 @@
   "year": "-",
   "uploaded_by": "hima",
   "uploaded_on": "3 June 2023",
-  "school": "AJC",
+  "school": "SAJC",
   "paper_info": "P1",
   "flagged": false,
   "flag_reason": null,
@@ -20276,7 +20276,7 @@
   "paper_number": 1,
   "paper_label": "Pure Mathematics",
   "group_id": "single|6700",
-  "display_name": "AJC - H2 Math P1",
+  "display_name": "SAJC - H2 Math P1",
   "inline_url": "https://document.grail.moe/8a82ac26be0b404e9ff0804d1fbbeba0.pdf"
  },
  {
@@ -20290,7 +20290,7 @@
   "year": "-",
   "uploaded_by": "hima",
   "uploaded_on": "3 June 2023",
-  "school": "AJC",
+  "school": "SAJC",
   "paper_info": "P2 MS",
   "flagged": false,
   "flag_reason": null,
@@ -20301,8 +20301,8 @@
   "original_name": "SAJC P2 MS",
   "paper_number": 2,
   "paper_label": "Mathematics & Statistics",
-  "group_id": "AJC|-|H2 Mathematics|MS",
-  "display_name": "AJC - H2 Math P2 MS",
+  "group_id": "SAJC|-|H2 Mathematics|MS",
+  "display_name": "SAJC - H2 Math P2 MS",
   "inline_url": "https://document.grail.moe/74f1261e020f4541859cf17f32d4ea50.pdf"
  },
  {
@@ -21356,7 +21356,7 @@
   "year": "-",
   "uploaded_by": "hima",
   "uploaded_on": "3 June 2023",
-  "school": "AJC",
+  "school": "SAJC",
   "paper_info": "P1 Questions",
   "flagged": false,
   "flag_reason": null,
@@ -21368,7 +21368,7 @@
   "paper_number": 1,
   "paper_label": "Pure Mathematics",
   "group_id": "single|6618",
-  "display_name": "AJC - H2 Math P1 Questions",
+  "display_name": "SAJC - H2 Math P1 Questions",
   "inline_url": "https://document.grail.moe/ea1f5841d3e748c5816d24c06238a1ca.pdf"
  },
  {
@@ -21382,7 +21382,7 @@
   "year": "-",
   "uploaded_by": "hima",
   "uploaded_on": "3 June 2023",
-  "school": "AJC",
+  "school": "SAJC",
   "paper_info": "P1 Answers",
   "flagged": false,
   "flag_reason": null,
@@ -21394,7 +21394,7 @@
   "paper_number": 1,
   "paper_label": "Pure Mathematics",
   "group_id": "single|6617",
-  "display_name": "AJC - H2 Math P1 Answers",
+  "display_name": "SAJC - H2 Math P1 Answers",
   "inline_url": "https://document.grail.moe/6460095db1804db79c6af646792ca7a3.pdf"
  },
  {
@@ -21408,7 +21408,7 @@
   "year": "-",
   "uploaded_by": "hima",
   "uploaded_on": "3 June 2023",
-  "school": "AJC",
+  "school": "SAJC",
   "paper_info": "P2 Questions",
   "flagged": false,
   "flag_reason": null,
@@ -21420,7 +21420,7 @@
   "paper_number": 2,
   "paper_label": "Mathematics & Statistics",
   "group_id": "single|6616",
-  "display_name": "AJC - H2 Math P2 Questions",
+  "display_name": "SAJC - H2 Math P2 Questions",
   "inline_url": "https://document.grail.moe/1709c57ce8ed4af79f65197088bef666.pdf"
  },
  {
@@ -21434,7 +21434,7 @@
   "year": "-",
   "uploaded_by": "hima",
   "uploaded_on": "3 June 2023",
-  "school": "AJC",
+  "school": "SAJC",
   "paper_info": "P2 Answers",
   "flagged": false,
   "flag_reason": null,
@@ -21446,7 +21446,7 @@
   "paper_number": 2,
   "paper_label": "Mathematics & Statistics",
   "group_id": "single|6615",
-  "display_name": "AJC - H2 Math P2 Answers",
+  "display_name": "SAJC - H2 Math P2 Answers",
   "inline_url": "https://document.grail.moe/9717455712124233b237ba5e2fa1db09.pdf"
  },
  {
@@ -23696,7 +23696,7 @@
   "year": "-",
   "uploaded_by": "hima",
   "uploaded_on": "3 June 2023",
-  "school": "AJC",
+  "school": "SAJC",
   "paper_info": null,
   "flagged": false,
   "flag_reason": null,
@@ -23708,7 +23708,7 @@
   "paper_number": null,
   "paper_label": null,
   "group_id": "single|6718",
-  "display_name": "AJC - H2 Math Exam Papers",
+  "display_name": "SAJC - H2 Math Exam Papers",
   "inline_url": "https://document.grail.moe/294cc4fc78694cf08c11fe010cf915d8.pdf"
  },
  {
@@ -27414,7 +27414,7 @@
   "year": "2025",
   "uploaded_by": "fwyr",
   "uploaded_on": "2 October 2025",
-  "school": "YJC",
+  "school": "NYJC",
   "paper_info": "Prelim P1",
   "flagged": false,
   "flag_reason": null,
@@ -27425,8 +27425,8 @@
   "original_name": "2025 NYJC Prelims P1 QP H2 Computing",
   "paper_number": 1,
   "paper_label": "Theory",
-  "group_id": "YJC|2025|H2 Computing|Prelim",
-  "display_name": "YJC 2025 H2 Comp Prelim P1",
+  "group_id": "NYJC|2025|H2 Computing|Prelim",
+  "display_name": "NYJC 2025 H2 Comp Prelim P1",
   "inline_url": "https://document.grail.moe/70110a6b9e6746ef8f1a771b5c818b93.pdf"
  },
  {
@@ -27518,7 +27518,7 @@
   "year": "2025",
   "uploaded_by": "hima",
   "uploaded_on": "30 September 2025",
-  "school": "IJC",
+  "school": "YIJC",
   "paper_info": "Prelim P2",
   "flagged": false,
   "flag_reason": null,
@@ -27529,8 +27529,8 @@
   "original_name": "YIJC Prelim 2025 H2 Computing P2",
   "paper_number": 2,
   "paper_label": "Practical",
-  "group_id": "IJC|2025|H2 Computing|Prelim",
-  "display_name": "IJC 2025 H2 Comp Prelim P2",
+  "group_id": "YIJC|2025|H2 Computing|Prelim",
+  "display_name": "YIJC 2025 H2 Comp Prelim P2",
   "inline_url": "https://document.grail.moe/266be91a0fce47acb03c7ac9fff322d2.zip"
  },
  {
@@ -28064,7 +28064,7 @@
   "year": "2024",
   "uploaded_by": "hima",
   "uploaded_on": "1 October 2024",
-  "school": "VJC",
+  "school": "NYJC",
   "paper_info": "Paper 2",
   "flagged": false,
   "flag_reason": null,
@@ -28076,7 +28076,7 @@
   "paper_number": 2,
   "paper_label": "Practical",
   "group_id": "single|14178",
-  "display_name": "VJC 2024 H2 Comp Paper 2",
+  "display_name": "NYJC 2024 H2 Comp Paper 2",
   "inline_url": "https://document.grail.moe/87d0917c282d4118ba71e51ec9c2b973.zip"
  },
  {
@@ -28116,7 +28116,7 @@
   "year": "2024",
   "uploaded_by": "hima",
   "uploaded_on": "1 October 2024",
-  "school": "IJC",
+  "school": "YIJC",
   "paper_info": "Paper 2",
   "flagged": false,
   "flag_reason": null,
@@ -28128,7 +28128,7 @@
   "paper_number": 2,
   "paper_label": "Practical",
   "group_id": "single|14180",
-  "display_name": "IJC 2024 H2 Comp Paper 2",
+  "display_name": "YIJC 2024 H2 Comp Paper 2",
   "inline_url": "https://document.grail.moe/0df9b11fdc314911b01540e1504ebdcd.zip"
  },
  {
@@ -29208,7 +29208,7 @@
   "year": "2025",
   "uploaded_by": "anons",
   "uploaded_on": "24 May 2026",
-  "school": "MI",
+  "school": "RI",
   "paper_info": "Answers",
   "flagged": false,
   "flag_reason": null,
@@ -29220,7 +29220,7 @@
   "paper_number": null,
   "paper_label": null,
   "group_id": "single|22296",
-  "display_name": "MI 2025 H2 Phy Answers",
+  "display_name": "RI 2025 H2 Phy Answers",
   "inline_url": "https://document.grail.moe/8934e8d6a369420cb8b8e0f11c7fe7bb.pdf"
  },
  {
@@ -29728,7 +29728,7 @@
   "year": "2026",
   "uploaded_by": "alishan",
   "uploaded_on": "30 July 2026",
-  "school": "IJC",
+  "school": "YIJC",
   "paper_info": null,
   "flagged": false,
   "flag_reason": null,
@@ -29740,7 +29740,7 @@
   "paper_number": null,
   "paper_label": null,
   "group_id": "single|22462",
-  "display_name": "IJC 2026 H2 Phy Notes/Practices",
+  "display_name": "YIJC 2026 H2 Phy Notes/Practices",
   "inline_url": "https://document.grail.moe/b5abd9b0894c4491857358af8ed68428.pdf"
  },
  {
@@ -30196,7 +30196,7 @@
   "year": "2025",
   "uploaded_by": "blahblahblah03",
   "uploaded_on": "22 November 2025",
-  "school": "MI",
+  "school": "RI",
   "paper_info": "Answers",
   "flagged": false,
   "flag_reason": null,
@@ -30208,7 +30208,7 @@
   "paper_number": null,
   "paper_label": null,
   "group_id": "single|20673",
-  "display_name": "MI 2025 H2 Phy Answers",
+  "display_name": "RI 2025 H2 Phy Answers",
   "inline_url": "https://document.grail.moe/57fb7adf32a440029dca9a1ebef7cd0c.pdf"
  },
  {
@@ -30222,7 +30222,7 @@
   "year": "2025",
   "uploaded_by": "blahblahblah03",
   "uploaded_on": "22 November 2025",
-  "school": "MI",
+  "school": "RI",
   "paper_info": "Answers",
   "flagged": false,
   "flag_reason": null,
@@ -30234,7 +30234,7 @@
   "paper_number": null,
   "paper_label": null,
   "group_id": "single|20671",
-  "display_name": "MI 2025 H2 Phy Answers",
+  "display_name": "RI 2025 H2 Phy Answers",
   "inline_url": "https://document.grail.moe/3618e2aeb3f945d8b29f7b0fb11e2fc0.pdf"
  },
  {
@@ -30248,7 +30248,7 @@
   "year": "2025",
   "uploaded_by": "blahblahblah03",
   "uploaded_on": "22 November 2025",
-  "school": "MI",
+  "school": "RI",
   "paper_info": "Remedial",
   "flagged": false,
   "flag_reason": null,
@@ -30260,7 +30260,7 @@
   "paper_number": null,
   "paper_label": null,
   "group_id": "single|20672",
-  "display_name": "MI 2025 H2 Phy Remedial",
+  "display_name": "RI 2025 H2 Phy Remedial",
   "inline_url": "https://document.grail.moe/e659b5c9409a4771ab099c8fb24232f0.pdf"
  },
  {
@@ -30846,7 +30846,7 @@
   "year": "2025",
   "uploaded_by": "bananamuncher123",
   "uploaded_on": "3 March 2026",
-  "school": "RI",
+  "school": "TJC",
   "paper_info": null,
   "flagged": false,
   "flag_reason": null,
@@ -30858,7 +30858,7 @@
   "paper_number": null,
   "paper_label": null,
   "group_id": "single|22054",
-  "display_name": "RI 2025 H2 Phy Notes/Practices",
+  "display_name": "TJC 2025 H2 Phy Notes/Practices",
   "inline_url": "https://document.grail.moe/6734e9498b5b4cb3bffcedcf2150718e.pdf"
  },
  {
@@ -30872,7 +30872,7 @@
   "year": "2025",
   "uploaded_by": "bananamuncher123",
   "uploaded_on": "3 March 2026",
-  "school": "MI",
+  "school": "TJC",
   "paper_info": "Answers",
   "flagged": false,
   "flag_reason": null,
@@ -30884,7 +30884,7 @@
   "paper_number": null,
   "paper_label": null,
   "group_id": "single|22053",
-  "display_name": "MI 2025 H2 Phy Answers",
+  "display_name": "TJC 2025 H2 Phy Answers",
   "inline_url": "https://document.grail.moe/f24085fde7a54f41b5fd60262d20839d.pdf"
  },
  {
@@ -31860,7 +31860,7 @@
   "year": "2025",
   "uploaded_by": "mnkthe3ms",
   "uploaded_on": "20 October 2025",
-  "school": "YJC",
+  "school": "NYJC",
   "paper_info": null,
   "flagged": false,
   "flag_reason": null,
@@ -31872,7 +31872,7 @@
   "paper_number": 3,
   "paper_label": null,
   "group_id": "linked|19902|19903|19913",
-  "display_name": "YJC 2025 H2 Phy Exam Papers",
+  "display_name": "NYJC 2025 H2 Phy Exam Papers",
   "inline_url": "https://document.grail.moe/2e7cf1cb87b24e129646fa860f01c29a.pdf"
  },
  {
@@ -31938,7 +31938,7 @@
   "year": "2025",
   "uploaded_by": "mnkthe3ms",
   "uploaded_on": "20 October 2025",
-  "school": "YJC",
+  "school": "NYJC",
   "paper_info": null,
   "flagged": false,
   "flag_reason": null,
@@ -31950,7 +31950,7 @@
   "paper_number": 2,
   "paper_label": null,
   "group_id": "linked|19902|19903|19913",
-  "display_name": "YJC 2025 H2 Phy Exam Papers",
+  "display_name": "NYJC 2025 H2 Phy Exam Papers",
   "inline_url": "https://document.grail.moe/71b300fca3d24e929bd8065ac5775d17.pdf"
  },
  {
@@ -32042,7 +32042,7 @@
   "year": "2025",
   "uploaded_by": "mnkthe3ms",
   "uploaded_on": "20 October 2025",
-  "school": "YJC",
+  "school": "NYJC",
   "paper_info": null,
   "flagged": false,
   "flag_reason": null,
@@ -32054,7 +32054,7 @@
   "paper_number": 1,
   "paper_label": null,
   "group_id": "linked|19902|19903|19913",
-  "display_name": "YJC 2025 H2 Phy Exam Papers",
+  "display_name": "NYJC 2025 H2 Phy Exam Papers",
   "inline_url": "https://document.grail.moe/ae5d6e82beb743ebb38f71ef6f951d68.pdf"
  },
  {
@@ -46498,7 +46498,7 @@
   "year": "2023",
   "uploaded_by": "CowMooMoo",
   "uploaded_on": "15 October 2023",
-  "school": "IJC",
+  "school": "YIJC",
   "paper_info": "Prelim P1",
   "flagged": false,
   "flag_reason": null,
@@ -46509,8 +46509,8 @@
   "original_name": "YIJC 2023 H2Phy Prelim P1 Question Paper",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "IJC|2023|H2 Physics|Prelim",
-  "display_name": "IJC 2023 H2 Phy Prelim P1",
+  "group_id": "YIJC|2023|H2 Physics|Prelim",
+  "display_name": "YIJC 2023 H2 Phy Prelim P1",
   "inline_url": "https://document.grail.moe/9e13817b495147b6b7ec5c1abc4aa3d9.pdf"
  },
  {
@@ -46524,7 +46524,7 @@
   "year": "2023",
   "uploaded_by": "CowMooMoo",
   "uploaded_on": "15 October 2023",
-  "school": "IJC",
+  "school": "YIJC",
   "paper_info": "Prelim P1 Solutions",
   "flagged": false,
   "flag_reason": null,
@@ -46535,8 +46535,8 @@
   "original_name": "YIJC 2023 H2Phy Prelim P1 Solution",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "IJC|2023|H2 Physics|Prelim",
-  "display_name": "IJC 2023 H2 Phy Prelim P1 Solutions",
+  "group_id": "YIJC|2023|H2 Physics|Prelim",
+  "display_name": "YIJC 2023 H2 Phy Prelim P1 Solutions",
   "inline_url": "https://document.grail.moe/03cc45fda8524be590b918a01f5dc6d5.pdf"
  },
  {
@@ -46550,7 +46550,7 @@
   "year": "2023",
   "uploaded_by": "CowMooMoo",
   "uploaded_on": "15 October 2023",
-  "school": "IJC",
+  "school": "YIJC",
   "paper_info": "Prelim P2",
   "flagged": false,
   "flag_reason": null,
@@ -46561,8 +46561,8 @@
   "original_name": "YIJC 2023 H2Phy Prelim P2 Question Paper",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "IJC|2023|H2 Physics|Prelim",
-  "display_name": "IJC 2023 H2 Phy Prelim P2",
+  "group_id": "YIJC|2023|H2 Physics|Prelim",
+  "display_name": "YIJC 2023 H2 Phy Prelim P2",
   "inline_url": "https://document.grail.moe/d77bd1ef6ea44f6d8dcf48cacf5eb77c.pdf"
  },
  {
@@ -46576,7 +46576,7 @@
   "year": "2023",
   "uploaded_by": "CowMooMoo",
   "uploaded_on": "15 October 2023",
-  "school": "IJC",
+  "school": "YIJC",
   "paper_info": "Prelim P2 Solutions",
   "flagged": false,
   "flag_reason": null,
@@ -46587,8 +46587,8 @@
   "original_name": "YIJC 2023 H2Phy Prelim P2 Solution",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "IJC|2023|H2 Physics|Prelim",
-  "display_name": "IJC 2023 H2 Phy Prelim P2 Solutions",
+  "group_id": "YIJC|2023|H2 Physics|Prelim",
+  "display_name": "YIJC 2023 H2 Phy Prelim P2 Solutions",
   "inline_url": "https://document.grail.moe/68bfc9b6657e437da89d517409e457ab.pdf"
  },
  {
@@ -46602,7 +46602,7 @@
   "year": "2023",
   "uploaded_by": "CowMooMoo",
   "uploaded_on": "15 October 2023",
-  "school": "IJC",
+  "school": "YIJC",
   "paper_info": "Prelim P3",
   "flagged": false,
   "flag_reason": null,
@@ -46613,8 +46613,8 @@
   "original_name": "YIJC 2023 H2Phy Prelim P3 Question Paper",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "IJC|2023|H2 Physics|Prelim",
-  "display_name": "IJC 2023 H2 Phy Prelim P3",
+  "group_id": "YIJC|2023|H2 Physics|Prelim",
+  "display_name": "YIJC 2023 H2 Phy Prelim P3",
   "inline_url": "https://document.grail.moe/e3ce536a084c4ba790fba769012714eb.pdf"
  },
  {
@@ -46628,7 +46628,7 @@
   "year": "2023",
   "uploaded_by": "CowMooMoo",
   "uploaded_on": "15 October 2023",
-  "school": "IJC",
+  "school": "YIJC",
   "paper_info": "Prelim P3 Solutions",
   "flagged": false,
   "flag_reason": null,
@@ -46639,8 +46639,8 @@
   "original_name": "YIJC 2023 H2Phy Prelim P3 Solution",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "IJC|2023|H2 Physics|Prelim",
-  "display_name": "IJC 2023 H2 Phy Prelim P3 Solutions",
+  "group_id": "YIJC|2023|H2 Physics|Prelim",
+  "display_name": "YIJC 2023 H2 Phy Prelim P3 Solutions",
   "inline_url": "https://document.grail.moe/e71bff29c8424b16a2d472dac2a31288.pdf"
  },
  {
@@ -47278,7 +47278,7 @@
   "year": "2022",
   "uploaded_by": "admin",
   "uploaded_on": "22 September 2023",
-  "school": "RI",
+  "school": "SAJC",
   "paper_info": "Prelim P1",
   "flagged": false,
   "flag_reason": null,
@@ -47289,8 +47289,8 @@
   "original_name": "SAJC 2022 Physics Prelim H2 P1_for sharing",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "RI|2022|H2 Physics|Prelim",
-  "display_name": "RI 2022 H2 Phy Prelim P1",
+  "group_id": "SAJC|2022|H2 Physics|Prelim",
+  "display_name": "SAJC 2022 H2 Phy Prelim P1",
   "inline_url": "https://document.grail.moe/6fc48d7938974d32b5e71d6a07058e4c.pdf"
  },
  {
@@ -47304,7 +47304,7 @@
   "year": "2022",
   "uploaded_by": "admin",
   "uploaded_on": "22 September 2023",
-  "school": "RI",
+  "school": "SAJC",
   "paper_info": "Prelim P4 Practical",
   "flagged": false,
   "flag_reason": null,
@@ -47315,8 +47315,8 @@
   "original_name": "SAJC 2022 Physics Practical Prelim H2 P4_for sharing",
   "paper_number": 4,
   "paper_label": "Practical",
-  "group_id": "RI|2022|H2 Physics|Prelim Practical",
-  "display_name": "RI 2022 H2 Phy Prelim P4 Practical",
+  "group_id": "SAJC|2022|H2 Physics|Prelim Practical",
+  "display_name": "SAJC 2022 H2 Phy Prelim P4 Practical",
   "inline_url": "https://document.grail.moe/3fb1210539dd4563b1f991a2f3bccbd7.pdf"
  },
  {
@@ -49384,7 +49384,7 @@
   "year": "2022",
   "uploaded_by": "legacy",
   "uploaded_on": "25 September 2023",
-  "school": "MI",
+  "school": "NJC",
   "paper_info": "Promo P2",
   "flagged": false,
   "flag_reason": null,
@@ -49395,8 +49395,8 @@
   "original_name": "NJC 2022 SH1 Promo Paper 2 QnA_with Examiner_s Comments_latest",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "MI|2022|H2 Physics|Promo",
-  "display_name": "MI 2022 H2 Phy Promo P2",
+  "group_id": "NJC|2022|H2 Physics|Promo",
+  "display_name": "NJC 2022 H2 Phy Promo P2",
   "inline_url": "https://document.grail.moe/606e621f6b674f47895bae5886b25d50.pdf"
  },
  {
@@ -49566,7 +49566,7 @@
   "year": "2022",
   "uploaded_by": "admin",
   "uploaded_on": "22 September 2023",
-  "school": "RI",
+  "school": "SAJC",
   "paper_info": "Prelim P2",
   "flagged": false,
   "flag_reason": null,
@@ -49577,8 +49577,8 @@
   "original_name": "SAJC 2022 Physics Prelim H2 P2_for sharing",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "RI|2022|H2 Physics|Prelim",
-  "display_name": "RI 2022 H2 Phy Prelim P2",
+  "group_id": "SAJC|2022|H2 Physics|Prelim",
+  "display_name": "SAJC 2022 H2 Phy Prelim P2",
   "inline_url": "https://document.grail.moe/2272f34b06304449bbeb1a9099f1d4c8.pdf"
  },
  {
@@ -49592,7 +49592,7 @@
   "year": "2022",
   "uploaded_by": "admin",
   "uploaded_on": "22 September 2023",
-  "school": "RI",
+  "school": "SAJC",
   "paper_info": "Prelim P3",
   "flagged": false,
   "flag_reason": null,
@@ -49603,8 +49603,8 @@
   "original_name": "SAJC 2022 Physics Prelim H2 P3_for sharing",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "RI|2022|H2 Physics|Prelim",
-  "display_name": "RI 2022 H2 Phy Prelim P3",
+  "group_id": "SAJC|2022|H2 Physics|Prelim",
+  "display_name": "SAJC 2022 H2 Phy Prelim P3",
   "inline_url": "https://document.grail.moe/f062798be7594b52a99af1350e831481.pdf"
  },
  {
@@ -60393,7 +60393,7 @@
   "original_name": "SAJC H2 Prelim 2024 P2 QP",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "single|14935",
+  "group_id": "manual|SAJC|2024|H2 Economics|prelim",
   "display_name": "SAJC 2024 H2 Econs P2 QP",
   "inline_url": "https://document.grail.moe/99b1c23918dd4e6c8623e8fb011afd92.pdf"
  },
@@ -60471,7 +60471,7 @@
   "original_name": "ASRJC H2 Prelim 2024 P1",
   "paper_number": 1,
   "paper_label": "Case Study Questions",
-  "group_id": "single|14751",
+  "group_id": "manual|ASRJC|2024|H2 Economics|prelim",
   "display_name": "ASRJC 2024 H2 Econs P1",
   "inline_url": "https://document.grail.moe/88fe401a840c4b55b67900b7750d9abd.pdf"
  },
@@ -60497,7 +60497,7 @@
   "original_name": "ASRJC H2 Prelim 2024 P2",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "single|14752",
+  "group_id": "manual|ASRJC|2024|H2 Economics|prelim",
   "display_name": "ASRJC 2024 H2 Econs P2",
   "inline_url": "https://document.grail.moe/555d0f210dbb48ce9ea96e6dbeefd504.pdf"
  },
@@ -60523,7 +60523,7 @@
   "original_name": "ASRJC H2 Prelim 2024 P1 QP Insert",
   "paper_number": 1,
   "paper_label": "Case Study Questions",
-  "group_id": "single|14753",
+  "group_id": "manual|ASRJC|2024|H2 Economics|prelim",
   "display_name": "ASRJC 2024 H2 Econs P1 QP",
   "inline_url": "https://document.grail.moe/afd69537826b40d6af5d1ea3fc5e08da.pdf"
  },
@@ -60549,7 +60549,7 @@
   "original_name": "HCI H2 Prelim 2024 P2 QP",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "single|14750",
+  "group_id": "manual|HCI|2024|H2 Economics|prelim",
   "display_name": "HCI 2024 H2 Econs P2 QP",
   "inline_url": "https://document.grail.moe/11d554f10d4d4047803c98ff0916fc62.pdf"
  },
@@ -60575,7 +60575,7 @@
   "original_name": "HCI H2 Prelim 2024 Paper 2 Mark Scheme",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "single|14749",
+  "group_id": "manual|HCI|2024|H2 Economics|prelim",
   "display_name": "HCI 2024 H2 Econs Mark Scheme",
   "inline_url": "https://document.grail.moe/7d74fb6371f54be287f7638b2819eec0.pdf"
  },
@@ -60601,7 +60601,7 @@
   "original_name": "HCI H2 Prelim 2024 P1 QP",
   "paper_number": 1,
   "paper_label": "Case Study Questions",
-  "group_id": "single|14748",
+  "group_id": "manual|HCI|2024|H2 Economics|prelim",
   "display_name": "HCI 2024 H2 Econs P1 QP",
   "inline_url": "https://document.grail.moe/aa32863253d24a949d0f1f398a0ca997.pdf"
  },
@@ -60653,7 +60653,7 @@
   "original_name": "HCI H2 Prelim 2024 Paper 1 Mark Scheme",
   "paper_number": 1,
   "paper_label": "Case Study Questions",
-  "group_id": "single|14747",
+  "group_id": "manual|HCI|2024|H2 Economics|prelim",
   "display_name": "HCI 2024 H2 Econs Mark Scheme",
   "inline_url": "https://document.grail.moe/58e3e743ca394ddcba2c65626750b488.pdf"
  },
@@ -60705,7 +60705,7 @@
   "original_name": "YIJC 2024 JC2 H2 Prelim 9570 P1 QP_Final",
   "paper_number": 1,
   "paper_label": "Case Study Questions",
-  "group_id": "single|14904",
+  "group_id": "manual|YIJC|2024|H2 Economics|prelim",
   "display_name": "YIJC 2024 H2 Econs P1 QP",
   "inline_url": "https://document.grail.moe/2bccf240ee3c4d53ac9481ec831d81d7.pdf"
  },
@@ -60731,7 +60731,7 @@
   "original_name": "YIJC 2024 JC2 H2 Prelim Essay Q5 Suggested Answer",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "YIJC|2024|H2 Economics|Prelim",
+  "group_id": "manual|YIJC|2024|H2 Economics|prelim",
   "display_name": "YIJC 2024 H2 Econs Prelim Answers",
   "inline_url": "https://document.grail.moe/6bf540d1de02430c8f3109c057e851b1.pdf"
  },
@@ -60757,7 +60757,7 @@
   "original_name": "YIJC 2024 JC2 H2 Prelim Essay Q3 Suggested Answer",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "YIJC|2024|H2 Economics|Prelim",
+  "group_id": "manual|YIJC|2024|H2 Economics|prelim",
   "display_name": "YIJC 2024 H2 Econs Prelim Answers",
   "inline_url": "https://document.grail.moe/e9f38537ab3c4959addd9647f807937c.pdf"
  },
@@ -60783,7 +60783,7 @@
   "original_name": "YIJC 2024 JC2 H2 Prelim 9570 P2 QP_Final",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "single|14900",
+  "group_id": "manual|YIJC|2024|H2 Economics|prelim",
   "display_name": "YIJC 2024 H2 Econs P2 QP",
   "inline_url": "https://document.grail.moe/cc64fd6eb89c4da7a0c5a16192b2f803.pdf"
  },
@@ -60809,7 +60809,7 @@
   "original_name": "YIJC 2024 JC2 H2 Prelim Essay Q2 Suggested Answer",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "YIJC|2024|H2 Economics|Prelim",
+  "group_id": "manual|YIJC|2024|H2 Economics|prelim",
   "display_name": "YIJC 2024 H2 Econs Prelim Answers",
   "inline_url": "https://document.grail.moe/dd153b2aa53540578306258d8b4879b0.pdf"
  },
@@ -60835,7 +60835,7 @@
   "original_name": "YIJC 2024 JC2 H2 Prelim Essay Q4 Suggested Answer",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "YIJC|2024|H2 Economics|Prelim",
+  "group_id": "manual|YIJC|2024|H2 Economics|prelim",
   "display_name": "YIJC 2024 H2 Econs Prelim Answers",
   "inline_url": "https://document.grail.moe/c252050024a441db80e5038e785e4f28.pdf"
  },
@@ -60861,7 +60861,7 @@
   "original_name": "YIJC 2024 JC2 H2 Prelim Essay Q1 Suggested Answer",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "YIJC|2024|H2 Economics|Prelim",
+  "group_id": "manual|YIJC|2024|H2 Economics|prelim",
   "display_name": "YIJC 2024 H2 Econs Prelim Answers",
   "inline_url": "https://document.grail.moe/a5cf856bec754a34bd1f0abaa99a8049.pdf"
  },
@@ -60887,7 +60887,7 @@
   "original_name": "YIJC 2024 JC2 H2 Prelim Essay Q6 Suggested Answer",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "YIJC|2024|H2 Economics|Prelim",
+  "group_id": "manual|YIJC|2024|H2 Economics|prelim",
   "display_name": "YIJC 2024 H2 Econs Prelim Answers",
   "inline_url": "https://document.grail.moe/e43c1a0a41654142b2d6cf4f10df6fa1.pdf"
  },
@@ -61303,7 +61303,7 @@
   "original_name": "YIJC H2 Econs 2024 Prelims P2 Ans (Compiled)",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "single|18629",
+  "group_id": "manual|YIJC|2024|H2 Economics|prelim",
   "display_name": "YIJC 2024 H2 Econs P2 Answers",
   "inline_url": "https://document.grail.moe/4e021026f4a54931bc1ac2636da9ce5a.pdf"
  },
@@ -61329,7 +61329,7 @@
   "original_name": "acjc 2024 h2 econs prelims p2 ans (compiled)",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "single|18628",
+  "group_id": "manual|ACJC|2024|H2 Economics|prelim",
   "display_name": "ACJC 2024 H2 Econs p2 Answers",
   "inline_url": "https://document.grail.moe/998d9dcc25a744f4ba53139f07c8a403.pdf"
  },
@@ -62811,7 +62811,7 @@
   "original_name": "2023 HCI Prelim Paper 2 QP",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "single|10944",
+  "group_id": "manual|HCI|2023|H2 Economics|Prelim",
   "display_name": "HCI 2023 H2 Econs Paper 2",
   "inline_url": "https://document.grail.moe/6abaff25184b437ab2323f0793120e4f.pdf"
  },
@@ -62837,7 +62837,7 @@
   "original_name": "2023 HCI Prelim Paper 1 QP",
   "paper_number": 1,
   "paper_label": "Case Study Questions",
-  "group_id": "single|10942",
+  "group_id": "manual|HCI|2023|H2 Economics|Prelim",
   "display_name": "HCI 2023 H2 Econs Paper 1",
   "inline_url": "https://document.grail.moe/f39e39cfc9c84b068deb290955e8ccd6.pdf"
  },
@@ -62889,7 +62889,7 @@
   "original_name": "2023 HCI Prelim Paper 2 Answers",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "single|10945",
+  "group_id": "manual|HCI|2023|H2 Economics|Prelim",
   "display_name": "HCI 2023 H2 Econs Answers",
   "inline_url": "https://document.grail.moe/82f5b17dd7a14f5684cc15fadb723c25.pdf"
  },
@@ -62915,7 +62915,7 @@
   "original_name": "2023 DHS Prelims Paper 2 QP",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "single|10940",
+  "group_id": "manual|DHS|2023|H2 Economics|Prelim",
   "display_name": "DHS 2023 H2 Econs Paper 2",
   "inline_url": "https://document.grail.moe/2815f7a3f5404f30acd3c8d12f52e750.pdf"
  },
@@ -62941,7 +62941,7 @@
   "original_name": "2023 DHS Prelims Paper 1 QP",
   "paper_number": 1,
   "paper_label": "Case Study Questions",
-  "group_id": "single|10938",
+  "group_id": "manual|DHS|2023|H2 Economics|Prelim",
   "display_name": "DHS 2023 H2 Econs Paper 1",
   "inline_url": "https://document.grail.moe/ec37789161d040f4976537676cd1fbf2.pdf"
  },
@@ -62967,7 +62967,7 @@
   "original_name": "2023 DHS Prelims Paper 2 Answers",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "single|10941",
+  "group_id": "manual|DHS|2023|H2 Economics|Prelim",
   "display_name": "DHS 2023 H2 Econs Answers",
   "inline_url": "https://document.grail.moe/ef8fa55207294f72ba1c7ec3c6ad379e.pdf"
  },
@@ -63019,7 +63019,7 @@
   "original_name": "2023 DHS Prelims Paper 1 Answers",
   "paper_number": 1,
   "paper_label": "Case Study Questions",
-  "group_id": "single|10939",
+  "group_id": "manual|DHS|2023|H2 Economics|Prelim",
   "display_name": "DHS 2023 H2 Econs Answers",
   "inline_url": "https://document.grail.moe/b65f6e859a0d4062ab21103da557888f.pdf"
  },
@@ -63045,7 +63045,7 @@
   "original_name": "YIJC 2023 JC2 H2 Prelim 9570 P1 QP_ (Final)",
   "paper_number": 1,
   "paper_label": "Case Study Questions",
-  "group_id": "single|10231",
+  "group_id": "manual|YIJC|2023|H2 Economics|prelim",
   "display_name": "YIJC 2023 H2 Econs P1 QP",
   "inline_url": "https://document.grail.moe/743f6d7d05044011940e5af05a3dc51a.pdf"
  },
@@ -63071,7 +63071,7 @@
   "original_name": "YIJC 2023 JC2 H2 Prelim 9570 P2 QP_(Final)",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "single|10233",
+  "group_id": "manual|YIJC|2023|H2 Economics|prelim",
   "display_name": "YIJC 2023 H2 Econs P2 QP",
   "inline_url": "https://document.grail.moe/3aa98b06d1ae4031a3ef82c5f6d272ca.pdf"
  },
@@ -63097,7 +63097,7 @@
   "original_name": "YIJC 2023 JC2 H2 Prelim 9570 P1 SAMS",
   "paper_number": 1,
   "paper_label": "Case Study Questions",
-  "group_id": "single|10232",
+  "group_id": "manual|YIJC|2023|H2 Economics|prelim",
   "display_name": "YIJC 2023 H2 Econs P1",
   "inline_url": "https://document.grail.moe/bfb604e03f4f4a14bd0c542a68322a07.pdf"
  },
@@ -63123,7 +63123,7 @@
   "original_name": "YIJC 2023 JC2 H2 Prelim 9570 P2 SAMS",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "single|10234",
+  "group_id": "manual|YIJC|2023|H2 Economics|prelim",
   "display_name": "YIJC 2023 H2 Econs P2",
   "inline_url": "https://document.grail.moe/6d32e81e340c4d678ef3ab20af31e637.pdf"
  },
@@ -63305,7 +63305,7 @@
   "original_name": "TJC H2 Prelim 2024 P1 QP",
   "paper_number": 1,
   "paper_label": "Case Study Questions",
-  "group_id": "single|14916",
+  "group_id": "manual|TJC|2024|H2 Economics|Suggested",
   "display_name": "TJC 2024 H2 Econs P1 QP",
   "inline_url": "https://document.grail.moe/ca78cc52a0aa4d3e9782b7de1d4eda3f.pdf"
  },
@@ -63331,7 +63331,7 @@
   "original_name": "TJC H2 Prelim 2024 P1 Suggested Answers",
   "paper_number": 1,
   "paper_label": "Case Study Questions",
-  "group_id": "TJC|2024|H2 Economics|Suggested",
+  "group_id": "manual|TJC|2024|H2 Economics|Suggested",
   "display_name": "TJC 2024 H2 Econs P1 Suggested Answers",
   "inline_url": "https://document.grail.moe/86a3ff4bac9a40379301e33c2c219438.pdf"
  },
@@ -63357,7 +63357,7 @@
   "original_name": "TJC H2 Prelim 2024 P2 Suggested Answers",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "TJC|2024|H2 Economics|Suggested",
+  "group_id": "manual|TJC|2024|H2 Economics|Suggested",
   "display_name": "TJC 2024 H2 Econs P2 Suggested Answers",
   "inline_url": "https://document.grail.moe/e2c09820a22d49a783d8654285f0acd5.pdf"
  },
@@ -63383,7 +63383,7 @@
   "original_name": "TJC H2 Prelim 2024 P2 QP",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "single|14917",
+  "group_id": "manual|TJC|2024|H2 Economics|Suggested",
   "display_name": "TJC 2024 H2 Econs P2 QP",
   "inline_url": "https://document.grail.moe/d93a8ffbed3f4ef4b59cdcd793a33d2a.pdf"
  },
@@ -63409,7 +63409,7 @@
   "original_name": "NJC H2 Prelim 2024 P2 QP",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "single|14911",
+  "group_id": "manual|NJC|2024|H2 Economics|prelim",
   "display_name": "NJC 2024 H2 Econs P2 QP",
   "inline_url": "https://document.grail.moe/f00cb8c25cab48588702a5cc224b2506.pdf"
  },
@@ -63487,7 +63487,7 @@
   "original_name": "NJC H2 Prelim 2024 P1 QP",
   "paper_number": 1,
   "paper_label": "Case Study Questions",
-  "group_id": "single|14910",
+  "group_id": "manual|NJC|2024|H2 Economics|prelim",
   "display_name": "NJC 2024 H2 Econs P1 QP",
   "inline_url": "https://document.grail.moe/802c3150067c4fb6960bbc996bf9b3fe.pdf"
  },
@@ -63513,7 +63513,7 @@
   "original_name": "EJC H2 Economics Prelim Exam Paper 1 2024",
   "paper_number": 1,
   "paper_label": "Case Study Questions",
-  "group_id": "single|14625",
+  "group_id": "manual|EJC|2024|H2 Economics|prelim",
   "display_name": "EJC 2024 H2 Econs Paper 1",
   "inline_url": "https://document.grail.moe/3f41d38203b04bab8338f20679ebdedf.pdf"
  },
@@ -63539,7 +63539,7 @@
   "original_name": "EJC H2 Economics Prelim Exam Paper 2 2024",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "single|14626",
+  "group_id": "manual|EJC|2024|H2 Economics|prelim",
   "display_name": "EJC 2024 H2 Econs Paper 2",
   "inline_url": "https://document.grail.moe/dc405e7f86cb48a0a2df9284b76a7bf1.pdf"
  },
@@ -63721,7 +63721,7 @@
   "original_name": "2024 TMJC H2 Econs Prelims P1 QP",
   "paper_number": 1,
   "paper_label": "Case Study Questions",
-  "group_id": "single|14028",
+  "group_id": "manual|TMJC|2024|H2 Economics|prelim",
   "display_name": "TMJC 2024 H2 Econs P1 QP",
   "inline_url": "https://document.grail.moe/88b5b9bf239c4a65ac260782e479b533.pdf"
  },
@@ -63747,7 +63747,7 @@
   "original_name": "2024 TMJC H2 Econs Prelims P2 QP",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "single|14029",
+  "group_id": "manual|TMJC|2024|H2 Economics|prelim",
   "display_name": "TMJC 2024 H2 Econs P2 QP",
   "inline_url": "https://document.grail.moe/7ffccd8afa634083988157ff64fbaf45.pdf"
  },
@@ -64163,7 +64163,7 @@
   "original_name": "SAJC 2024_JC2 H2_Econs_Prelims_P2_Suggested Answers",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "single|15191",
+  "group_id": "manual|SAJC|2024|H2 Economics|prelim",
   "display_name": "SAJC 2024 H2 Econs P2 Answers",
   "inline_url": "https://document.grail.moe/da340ff90f804470b151b69d66b75d42.pdf"
  },
@@ -64189,7 +64189,7 @@
   "original_name": "ACJC H2 Prelim 2024 P2 EQ1 Solutions",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "single|14630",
+  "group_id": "manual|ACJC|2024|H2 Economics|prelim",
   "display_name": "ACJC 2024 H2 Econs P2 Answers",
   "inline_url": "https://document.grail.moe/fdc29721861048a5834e94da7f5f20c2.pdf"
  },
@@ -64215,7 +64215,7 @@
   "original_name": "ACJC H2 Prelim 2024 P1 QP",
   "paper_number": 1,
   "paper_label": "Case Study Questions",
-  "group_id": "single|14629",
+  "group_id": "manual|ACJC|2024|H2 Economics|prelim",
   "display_name": "ACJC 2024 H2 Econs P1 QP",
   "inline_url": "https://document.grail.moe/ea891548809b4b6cac039f51cad8027d.pdf"
  },
@@ -64241,7 +64241,7 @@
   "original_name": "ACJC H2 Prelim 2024 P2 QP",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "single|14636",
+  "group_id": "manual|ACJC|2024|H2 Economics|prelim",
   "display_name": "ACJC 2024 H2 Econs P2 QP",
   "inline_url": "https://document.grail.moe/42617a0410c64132b343db428abb0626.pdf"
  },
@@ -64267,7 +64267,7 @@
   "original_name": "ACJC H2 Prelim 2024 P1 CSQ1 Solutions",
   "paper_number": 1,
   "paper_label": "Case Study Questions",
-  "group_id": "single|14627",
+  "group_id": "manual|ACJC|2024|H2 Economics|prelim",
   "display_name": "ACJC 2024 H2 Econs P1 Answers",
   "inline_url": "https://document.grail.moe/b6cd12e67d7649ac8af10a4828038af1.pdf"
  },
@@ -64293,7 +64293,7 @@
   "original_name": "ACJC H2 Prelim 2024 P1 CSQ2 Solutions",
   "paper_number": 1,
   "paper_label": "Case Study Questions",
-  "group_id": "single|14628",
+  "group_id": "manual|ACJC|2024|H2 Economics|prelim",
   "display_name": "ACJC 2024 H2 Econs P1 Answers",
   "inline_url": "https://document.grail.moe/056520be3e914ebabd5e64075056b67f.pdf"
  },
@@ -64319,7 +64319,7 @@
   "original_name": "ACJC H2 Prelim 2024 P2 EQ5 Solutions",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "single|14634",
+  "group_id": "manual|ACJC|2024|H2 Economics|prelim",
   "display_name": "ACJC 2024 H2 Econs P2 Answers",
   "inline_url": "https://document.grail.moe/e61cd565314b4487b1bab7f4959acdc4.pdf"
  },
@@ -64345,7 +64345,7 @@
   "original_name": "ACJC H2 Prelim 2024 P2 EQ3 Solutions",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "single|14632",
+  "group_id": "manual|ACJC|2024|H2 Economics|prelim",
   "display_name": "ACJC 2024 H2 Econs P2 Answers",
   "inline_url": "https://document.grail.moe/1e48cc76ed784c9cb3f8114f2d5ad96c.pdf"
  },
@@ -64371,7 +64371,7 @@
   "original_name": "ACJC H2 Prelim 2024 P2 EQ4 Solutions",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "single|14633",
+  "group_id": "manual|ACJC|2024|H2 Economics|prelim",
   "display_name": "ACJC 2024 H2 Econs P2 Answers",
   "inline_url": "https://document.grail.moe/00e5b0ff344c47daabcb69eac0759853.pdf"
  },
@@ -64397,7 +64397,7 @@
   "original_name": "ACJC H2 Prelim 2024 P2 EQ2 Solutions",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "single|14631",
+  "group_id": "manual|ACJC|2024|H2 Economics|prelim",
   "display_name": "ACJC 2024 H2 Econs P2 Answers",
   "inline_url": "https://document.grail.moe/63c47a9961524a4dbd48f75924aeb949.pdf"
  },
@@ -64423,7 +64423,7 @@
   "original_name": "ACJC H2 Prelim 2024 P2 EQ6 Solutions",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "single|14635",
+  "group_id": "manual|ACJC|2024|H2 Economics|prelim",
   "display_name": "ACJC 2024 H2 Econs P2 Answers",
   "inline_url": "https://document.grail.moe/a6fbbef3fbaf4dc8a6d093cc25dfadd5.pdf"
  },
@@ -64475,7 +64475,7 @@
   "original_name": "JPJC H2 Prelim 2024 P2 Solutions",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "single|14663",
+  "group_id": "manual|JPJC|2024|H2 Economics|prelim",
   "display_name": "JPJC 2024 H2 Econs P2 Solutions",
   "inline_url": "https://document.grail.moe/bed054967cb54b41ab6d7546b1119dba.pdf"
  },
@@ -64501,7 +64501,7 @@
   "original_name": "JPJC H2 Prelim 2024 P1 Solutions",
   "paper_number": 1,
   "paper_label": "Case Study Questions",
-  "group_id": "single|14661",
+  "group_id": "manual|JPJC|2024|H2 Economics|prelim",
   "display_name": "JPJC 2024 H2 Econs P1 Solutions",
   "inline_url": "https://document.grail.moe/ec5e6249c01e47c4b5d4628e0c5cbe7d.pdf"
  },
@@ -64527,7 +64527,7 @@
   "original_name": "JPJC H2 Prelim 2024 P2 QP",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "single|14662",
+  "group_id": "manual|JPJC|2024|H2 Economics|prelim",
   "display_name": "JPJC 2024 H2 Econs P2 QP",
   "inline_url": "https://document.grail.moe/5d6eb303040742a6bc920d2def16d30f.pdf"
  },
@@ -64553,7 +64553,7 @@
   "original_name": "JPJC H2 Prelim 2024 P1 QP",
   "paper_number": 1,
   "paper_label": "Case Study Questions",
-  "group_id": "single|14660",
+  "group_id": "manual|JPJC|2024|H2 Economics|prelim",
   "display_name": "JPJC 2024 H2 Econs P1 QP",
   "inline_url": "https://document.grail.moe/96085eae4dd24e11a988518b559fb2be.pdf"
  },
@@ -64579,7 +64579,7 @@
   "original_name": "CJC H2 Prelim 2024 P1 Solutions",
   "paper_number": 1,
   "paper_label": "Case Study Questions",
-  "group_id": "single|14643",
+  "group_id": "manual|CJC|2024|H2 Economics|prelim",
   "display_name": "CJC 2024 H2 Econs P1 Solutions",
   "inline_url": "https://document.grail.moe/af7fd35df0164437a0db1aae36633281.pdf"
  },
@@ -64605,7 +64605,7 @@
   "original_name": "CJC H2 Prelim 2024 P2 Solutions",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "single|14645",
+  "group_id": "manual|CJC|2024|H2 Economics|prelim",
   "display_name": "CJC 2024 H2 Econs P2 Solutions",
   "inline_url": "https://document.grail.moe/dfe8cb48b2be48168d29366f9497dd77.pdf"
  },
@@ -64631,7 +64631,7 @@
   "original_name": "CJC H2 Prelim 2024 P2 QP",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "single|14644",
+  "group_id": "manual|CJC|2024|H2 Economics|prelim",
   "display_name": "CJC 2024 H2 Econs P2 QP",
   "inline_url": "https://document.grail.moe/b4479d0633ba498f86a38bc4b372179d.pdf"
  },
@@ -64657,7 +64657,7 @@
   "original_name": "CJC H2 Prelim 2024 P1 QP",
   "paper_number": 1,
   "paper_label": "Case Study Questions",
-  "group_id": "single|14642",
+  "group_id": "manual|CJC|2024|H2 Economics|prelim",
   "display_name": "CJC 2024 H2 Econs P1 QP",
   "inline_url": "https://document.grail.moe/35188fd203ce4bc8b2f0da5805ecc396.pdf"
  },
@@ -64683,7 +64683,7 @@
   "original_name": "EJC 2023 JC2 H2 Prelim Paper 1 QP_for sharing",
   "paper_number": 1,
   "paper_label": "Case Study Questions",
-  "group_id": "single|12842",
+  "group_id": "manual|EJC|2023|H2 Economics|Prelim",
   "display_name": "EJC 2023 H2 Econs Paper 1",
   "inline_url": "https://document.grail.moe/5f255bfb78414aabbd1ce901da5dcde0.pdf"
  },
@@ -64891,7 +64891,7 @@
   "original_name": "2023 VJC H2 Economics Preliminary Examination answers",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "single|10230",
+  "group_id": "manual|VJC|2023|H2 Economics|prelim",
   "display_name": "VJC 2023 H2 Econs answers",
   "inline_url": "https://document.grail.moe/485c533b56d243e49367beb2bba8d6eb.pdf"
  },
@@ -64917,7 +64917,7 @@
   "original_name": "2023 VJC H2 Economics_Prelim Exam_Paper 2_for print",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "single|10229",
+  "group_id": "manual|VJC|2023|H2 Economics|prelim",
   "display_name": "VJC 2023 H2 Econs Paper 2",
   "inline_url": "https://document.grail.moe/ad39463cc30b41f383a9d37539728746.pdf"
  },
@@ -64943,7 +64943,7 @@
   "original_name": "2023 VJC H2 Economics_Prelim Exam_Paper 1_for print",
   "paper_number": 1,
   "paper_label": "Case Study Questions",
-  "group_id": "single|10228",
+  "group_id": "manual|VJC|2023|H2 Economics|prelim",
   "display_name": "VJC 2023 H2 Econs Paper 1",
   "inline_url": "https://document.grail.moe/7d6951f8bd034f9d886dc09ea7f7bd1a.pdf"
  },
@@ -68011,7 +68011,7 @@
   "original_name": "2023 HCI Prelim Paper 2_QP_Final",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "HCI|2023|H2 Economics|Prelim",
+  "group_id": "manual|HCI|2023|H2 Economics|Prelim",
   "display_name": "HCI 2023 H2 Econs Prelim P2",
   "inline_url": "https://document.grail.moe/c88fac3a59534687aa68a6d98b56544c.pdf"
  },
@@ -68037,7 +68037,7 @@
   "original_name": "2023 HCI Prelim EQ Suggested Answers",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "HCI|2023|H2 Economics|Prelim",
+  "group_id": "manual|HCI|2023|H2 Economics|Prelim",
   "display_name": "HCI 2023 H2 Econs Prelim Answers",
   "inline_url": "https://document.grail.moe/d8d9f22c7071402caf22f4f07f50bab3.pdf"
  },
@@ -68063,7 +68063,7 @@
   "original_name": "2023 HCI Prelim CSQ answers",
   "paper_number": 1,
   "paper_label": "Case Study Questions",
-  "group_id": "HCI|2023|H2 Economics|Prelim",
+  "group_id": "manual|HCI|2023|H2 Economics|Prelim",
   "display_name": "HCI 2023 H2 Econs Prelim Answers",
   "inline_url": "https://document.grail.moe/0d37447e97c945c8a5bbde9bdbb79508.pdf"
  },
@@ -68089,7 +68089,7 @@
   "original_name": "2023 HCI Prelim Paper 1_QP_Final",
   "paper_number": 1,
   "paper_label": "Case Study Questions",
-  "group_id": "HCI|2023|H2 Economics|Prelim",
+  "group_id": "manual|HCI|2023|H2 Economics|Prelim",
   "display_name": "HCI 2023 H2 Econs Prelim P1",
   "inline_url": "https://document.grail.moe/1135a2bb27ba4971aafded52170e8560.pdf"
  },
@@ -68115,7 +68115,7 @@
   "original_name": "DHS 2023 H2EC Prelims Paper 2 Answers (for sharing)",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "DHS|2023|H2 Economics|Prelim",
+  "group_id": "manual|DHS|2023|H2 Economics|Prelim",
   "display_name": "DHS 2023 H2 Econs Prelim P2 Answers Mark Scheme",
   "inline_url": "https://document.grail.moe/f7f2ab25bbd54a4d92851aeaa0777233.pdf"
  },
@@ -68661,7 +68661,7 @@
   "original_name": "EJC 2023 JC2 H2 Prelim Paper 2 QP_for sharing",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "EJC|2023|H2 Economics|Prelim",
+  "group_id": "manual|EJC|2023|H2 Economics|Prelim",
   "display_name": "EJC 2023 H2 Econs Prelim P2",
   "inline_url": "https://document.grail.moe/a3dccea79d194432800f6e7a93da92ce.pdf"
  },
@@ -68687,7 +68687,7 @@
   "original_name": "EJC 2023 JC2 H2 Econs Prelim P1 Suggested answers_for sharing",
   "paper_number": 1,
   "paper_label": "Case Study Questions",
-  "group_id": "EJC|2023|H2 Economics|Prelim",
+  "group_id": "manual|EJC|2023|H2 Economics|Prelim",
   "display_name": "EJC 2023 H2 Econs Prelim P1 Answers",
   "inline_url": "https://document.grail.moe/8adadf03a460438e85cc09807b502753.pdf"
  },
@@ -68713,7 +68713,7 @@
   "original_name": "EJC 2023 JC2 H2 Econs Prelim P2 Suggested Answers_for sharing",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "EJC|2023|H2 Economics|Prelim",
+  "group_id": "manual|EJC|2023|H2 Economics|Prelim",
   "display_name": "EJC 2023 H2 Econs Prelim P2 Answers",
   "inline_url": "https://document.grail.moe/abf31cb7853644479579460d8e135edf.pdf"
  },
@@ -68921,7 +68921,7 @@
   "original_name": "DHS 2023 H2EC Prelims Paper 2 QP (Final)",
   "paper_number": 2,
   "paper_label": "Essays",
-  "group_id": "DHS|2023|H2 Economics|Prelim",
+  "group_id": "manual|DHS|2023|H2 Economics|Prelim",
   "display_name": "DHS 2023 H2 Econs Prelim P2",
   "inline_url": "https://document.grail.moe/74e35e9ee31541dfb1d2c99bbc5f64f5.pdf"
  },
@@ -68947,7 +68947,7 @@
   "original_name": "EJC 2023 JC2 H2 Prelim Paper 1 QP_for sharing",
   "paper_number": 1,
   "paper_label": "Case Study Questions",
-  "group_id": "EJC|2023|H2 Economics|Prelim",
+  "group_id": "manual|EJC|2023|H2 Economics|Prelim",
   "display_name": "EJC 2023 H2 Econs Prelim P1",
   "inline_url": "https://document.grail.moe/cc4eeec76ca94d8fb27f210b49dc0aa8.pdf"
  },
@@ -77735,7 +77735,7 @@
   "original_name": "CJC 2025 JC2 GP PRELIM P2 - Suggested Answers",
   "paper_number": 2,
   "paper_label": "Comprehension",
-  "group_id": "single|19322",
+  "group_id": "manual|CJC|2025|H1 General Paper|Prelim",
   "display_name": "CJC 2025 GP P2 Answers",
   "inline_url": "https://document.grail.moe/11b666fe5d5b4b179df61df71b0a3326.pdf"
  },
@@ -78244,7 +78244,7 @@
   "year": "2023",
   "uploaded_by": "cy717",
   "uploaded_on": "27 March 2025",
-  "school": "YJC",
+  "school": "NYJC",
   "paper_info": "EOY P2 Answers",
   "flagged": false,
   "flag_reason": null,
@@ -78255,8 +78255,8 @@
   "original_name": "2023 NYJC EOY_P2_Answer Booklet",
   "paper_number": 2,
   "paper_label": "Comprehension",
-  "group_id": "YJC|2023|H1 General Paper|EOY",
-  "display_name": "YJC 2023 GP EOY P2 Answers",
+  "group_id": "NYJC|2023|H1 General Paper|EOY",
+  "display_name": "NYJC 2023 GP EOY P2 Answers",
   "inline_url": "https://document.grail.moe/07b39bf6a9b340069533e1c4ff58e167.pdf"
  },
  {
@@ -78270,7 +78270,7 @@
   "year": "2023",
   "uploaded_by": "cy717",
   "uploaded_on": "27 March 2025",
-  "school": "YJC",
+  "school": "NYJC",
   "paper_info": "EOY P2 Insert",
   "flagged": false,
   "flag_reason": null,
@@ -78281,8 +78281,8 @@
   "original_name": "2023 NYJC EOY_P2_insert",
   "paper_number": 2,
   "paper_label": "Comprehension",
-  "group_id": "YJC|2023|H1 General Paper|EOY",
-  "display_name": "YJC 2023 GP EOY P2 Insert",
+  "group_id": "NYJC|2023|H1 General Paper|EOY",
+  "display_name": "NYJC 2023 GP EOY P2 Insert",
   "inline_url": "https://document.grail.moe/5ae72328f2f54bd4bac102301df2b285.pdf"
  },
  {
@@ -79466,7 +79466,7 @@
   "year": "2024",
   "uploaded_by": "FMNIC",
   "uploaded_on": "1 October 2024",
-  "school": "YJC",
+  "school": "NYJC",
   "paper_info": "Prelim P2 Suggested Answers",
   "flagged": false,
   "flag_reason": null,
@@ -79477,8 +79477,8 @@
   "original_name": "2024 NYJC Prelim P2 AQ Suggested Points",
   "paper_number": 2,
   "paper_label": "Comprehension",
-  "group_id": "YJC|2024|H1 General Paper|Prelim Suggested",
-  "display_name": "YJC 2024 GP Prelim P2 Suggested Answers",
+  "group_id": "NYJC|2024|H1 General Paper|Prelim Suggested",
+  "display_name": "NYJC 2024 GP Prelim P2 Suggested Answers",
   "inline_url": "https://document.grail.moe/3113080e61cf4354826e85ecac18acc9.pdf"
  },
  {
@@ -79492,7 +79492,7 @@
   "year": "2024",
   "uploaded_by": "FMNIC",
   "uploaded_on": "1 October 2024",
-  "school": "YJC",
+  "school": "NYJC",
   "paper_info": "Prelim P2 Insert",
   "flagged": false,
   "flag_reason": null,
@@ -79503,8 +79503,8 @@
   "original_name": "2024 NYJC Prelim P2 Insert",
   "paper_number": 2,
   "paper_label": "Comprehension",
-  "group_id": "YJC|2024|H1 General Paper|Prelim",
-  "display_name": "YJC 2024 GP Prelim P2 Insert",
+  "group_id": "NYJC|2024|H1 General Paper|Prelim",
+  "display_name": "NYJC 2024 GP Prelim P2 Insert",
   "inline_url": "https://document.grail.moe/8cee301de58c4d41b6e241e6c8e7e89c.pdf"
  },
  {
@@ -79518,7 +79518,7 @@
   "year": "2024",
   "uploaded_by": "FMNIC",
   "uploaded_on": "1 October 2024",
-  "school": "YJC",
+  "school": "NYJC",
   "paper_info": "Prelim P2 Answers",
   "flagged": false,
   "flag_reason": null,
@@ -79529,8 +79529,8 @@
   "original_name": "2024 NYJC Prelim P2 Answer Booklet",
   "paper_number": 2,
   "paper_label": "Comprehension",
-  "group_id": "YJC|2024|H1 General Paper|Prelim",
-  "display_name": "YJC 2024 GP Prelim P2 Answers",
+  "group_id": "NYJC|2024|H1 General Paper|Prelim",
+  "display_name": "NYJC 2024 GP Prelim P2 Answers",
   "inline_url": "https://document.grail.moe/492dfb45246a4e9581856c6deb72f543.pdf"
  },
  {
@@ -79570,7 +79570,7 @@
   "year": "2024",
   "uploaded_by": "FMNIC",
   "uploaded_on": "1 October 2024",
-  "school": "YJC",
+  "school": "NYJC",
   "paper_info": "Prelim P2 Answers",
   "flagged": false,
   "flag_reason": null,
@@ -79581,8 +79581,8 @@
   "original_name": "2024 NYJC Prelim P2 Ans Scheme",
   "paper_number": 2,
   "paper_label": "Comprehension",
-  "group_id": "YJC|2024|H1 General Paper|Prelim",
-  "display_name": "YJC 2024 GP Prelim P2 Answers",
+  "group_id": "NYJC|2024|H1 General Paper|Prelim",
+  "display_name": "NYJC 2024 GP Prelim P2 Answers",
   "inline_url": "https://document.grail.moe/f54194b777ee42afabe45b2232e2c688.pdf"
  },
  {
@@ -80205,7 +80205,7 @@
   "original_name": "CJC 2025 JC2 GP PRELIM P2 - Answer Booklet",
   "paper_number": 2,
   "paper_label": "Comprehension",
-  "group_id": "CJC|2025|H1 General Paper|Prelim",
+  "group_id": "manual|CJC|2025|H1 General Paper|Prelim",
   "display_name": "CJC 2025 GP Prelim P2 Answers",
   "inline_url": "https://document.grail.moe/0e5463c19d5a47abb7c2dfd052b0c021.pdf"
  },
@@ -80231,7 +80231,7 @@
   "original_name": "CJC 2025 JC2 GP PRELIM P1 - Question Paper",
   "paper_number": 1,
   "paper_label": "Essay",
-  "group_id": "CJC|2025|H1 General Paper|Prelim",
+  "group_id": "manual|CJC|2025|H1 General Paper|Prelim",
   "display_name": "CJC 2025 GP Prelim P1",
   "inline_url": "https://document.grail.moe/dc671756426d42d7bb2dcfcb23aaf233.pdf"
  },
@@ -80922,7 +80922,7 @@
   "year": "2025",
   "uploaded_by": "sparklesparkle",
   "uploaded_on": "2 November 2025",
-  "school": "MI",
+  "school": "EJC",
   "paper_info": "Prelim P1",
   "flagged": false,
   "flag_reason": null,
@@ -80933,8 +80933,8 @@
   "original_name": "EJC 2025 GP Preliminary Examination P1 SAS",
   "paper_number": 1,
   "paper_label": "Essay",
-  "group_id": "MI|2025|H1 General Paper|Prelim",
-  "display_name": "MI 2025 GP Prelim P1",
+  "group_id": "EJC|2025|H1 General Paper|Prelim",
+  "display_name": "EJC 2025 GP Prelim P1",
   "inline_url": "https://document.grail.moe/6274d271584845d497ddc5238de10f91.pdf"
  },
  {
@@ -81130,7 +81130,7 @@
   "year": "2023",
   "uploaded_by": "cy717",
   "uploaded_on": "27 March 2025",
-  "school": "YJC",
+  "school": "NYJC",
   "paper_info": "EOY P2 Answers",
   "flagged": false,
   "flag_reason": null,
@@ -81141,8 +81141,8 @@
   "original_name": "2023 NYJC_EOY_P2_Ans Scheme",
   "paper_number": 2,
   "paper_label": "Comprehension",
-  "group_id": "YJC|2023|H1 General Paper|EOY",
-  "display_name": "YJC 2023 GP EOY P2 Answers",
+  "group_id": "NYJC|2023|H1 General Paper|EOY",
+  "display_name": "NYJC 2023 GP EOY P2 Answers",
   "inline_url": "https://document.grail.moe/26d9aeb787e74b41a3e86d3b347c4c58.pdf"
  },
  {
@@ -81312,7 +81312,7 @@
   "year": "2025",
   "uploaded_by": "currymuncher",
   "uploaded_on": "29 September 2025",
-  "school": "YJC",
+  "school": "NYJC",
   "paper_info": "Promo",
   "flagged": false,
   "flag_reason": null,
@@ -81323,8 +81323,8 @@
   "original_name": "nyjc-2025-promo-p1",
   "paper_number": 1,
   "paper_label": "Essay",
-  "group_id": "YJC|2025|H1 General Paper|Promo",
-  "display_name": "YJC 2025 GP Promo",
+  "group_id": "NYJC|2025|H1 General Paper|Promo",
+  "display_name": "NYJC 2025 GP Promo",
   "inline_url": "https://document.grail.moe/069fd38ea6094109a55d77691c178f84.pdf"
  },
  {
@@ -81676,7 +81676,7 @@
   "year": "2024",
   "uploaded_by": "FMNIC",
   "uploaded_on": "1 October 2024",
-  "school": "YJC",
+  "school": "NYJC",
   "paper_info": "Prelim",
   "flagged": false,
   "flag_reason": null,
@@ -81687,8 +81687,8 @@
   "original_name": "2024 NYJC Prelim P1",
   "paper_number": 1,
   "paper_label": "Essay",
-  "group_id": "YJC|2024|H1 General Paper|Prelim",
-  "display_name": "YJC 2024 GP Prelim",
+  "group_id": "NYJC|2024|H1 General Paper|Prelim",
+  "display_name": "NYJC 2024 GP Prelim",
   "inline_url": "https://document.grail.moe/9f3c8f73b4764af0ad6d1d385252bdae.pdf"
  },
  {
@@ -82274,7 +82274,7 @@
   "year": "2024",
   "uploaded_by": "FMNIC",
   "uploaded_on": "1 October 2024",
-  "school": "IJC",
+  "school": "YIJC",
   "paper_info": "Prelim P2 Insert",
   "flagged": false,
   "flag_reason": null,
@@ -82285,8 +82285,8 @@
   "original_name": "2024 YIJC JC2 Prelim P2 Insert",
   "paper_number": 2,
   "paper_label": "Comprehension",
-  "group_id": "IJC|2024|H1 General Paper|Prelim",
-  "display_name": "IJC 2024 GP Prelim P2 Insert",
+  "group_id": "YIJC|2024|H1 General Paper|Prelim",
+  "display_name": "YIJC 2024 GP Prelim P2 Insert",
   "inline_url": "https://document.grail.moe/aca0eace7a19440899b79438655189b4.pdf"
  },
  {
@@ -82300,7 +82300,7 @@
   "year": "2024",
   "uploaded_by": "FMNIC",
   "uploaded_on": "1 October 2024",
-  "school": "IJC",
+  "school": "YIJC",
   "paper_info": "Prelim P1",
   "flagged": false,
   "flag_reason": null,
@@ -82311,8 +82311,8 @@
   "original_name": "2024 YIJC JC2 Prelim P1 Questions",
   "paper_number": 1,
   "paper_label": "Essay",
-  "group_id": "IJC|2024|H1 General Paper|Prelim",
-  "display_name": "IJC 2024 GP Prelim P1",
+  "group_id": "YIJC|2024|H1 General Paper|Prelim",
+  "display_name": "YIJC 2024 GP Prelim P1",
   "inline_url": "https://document.grail.moe/0a8b4795c28c4ce0bfe249a6f0d904c3.pdf"
  },
  {
@@ -82326,7 +82326,7 @@
   "year": "2024",
   "uploaded_by": "FMNIC",
   "uploaded_on": "1 October 2024",
-  "school": "IJC",
+  "school": "YIJC",
   "paper_info": "Prelim P2 Answers",
   "flagged": false,
   "flag_reason": null,
@@ -82337,8 +82337,8 @@
   "original_name": "2024 YIJC JC2 Prelim P2 Answer Guide",
   "paper_number": 2,
   "paper_label": "Comprehension",
-  "group_id": "IJC|2024|H1 General Paper|Prelim",
-  "display_name": "IJC 2024 GP Prelim P2 Answers",
+  "group_id": "YIJC|2024|H1 General Paper|Prelim",
+  "display_name": "YIJC 2024 GP Prelim P2 Answers",
   "inline_url": "https://document.grail.moe/980f26701194494ea4a65064ca412c16.pdf"
  },
  {
@@ -82352,7 +82352,7 @@
   "year": "2024",
   "uploaded_by": "FMNIC",
   "uploaded_on": "1 October 2024",
-  "school": "IJC",
+  "school": "YIJC",
   "paper_info": "Prelim P2 Answers",
   "flagged": false,
   "flag_reason": null,
@@ -82363,8 +82363,8 @@
   "original_name": "2024 YIJC JC2 Prelim P2 Answer Booklet",
   "paper_number": 2,
   "paper_label": "Comprehension",
-  "group_id": "IJC|2024|H1 General Paper|Prelim",
-  "display_name": "IJC 2024 GP Prelim P2 Answers",
+  "group_id": "YIJC|2024|H1 General Paper|Prelim",
+  "display_name": "YIJC 2024 GP Prelim P2 Answers",
   "inline_url": "https://document.grail.moe/ff2315d1fd664209a9fd3f6f18733f40.pdf"
  },
  {
@@ -83444,7 +83444,7 @@
   "year": "2023",
   "uploaded_by": "tmrwiom",
   "uploaded_on": "8 October 2023",
-  "school": "YJC",
+  "school": "NYJC",
   "paper_info": null,
   "flagged": false,
   "flag_reason": null,
@@ -83456,7 +83456,7 @@
   "paper_number": 1,
   "paper_label": "Essay",
   "group_id": "single|10062",
-  "display_name": "YJC 2023 GP Exam Papers",
+  "display_name": "NYJC 2023 GP Exam Papers",
   "inline_url": "https://document.grail.moe/e7222792e7f940d39b0a996c1cd91d58.pdf"
  },
  {
@@ -84131,7 +84131,7 @@
   "original_name": "2023MIPrelimQP (H1 General Paper 8807_02_INSERT)",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "MI|2023|H1 General Paper|Prelim",
+  "group_id": "manual|MI|2023|H1 General Paper|Prelim",
   "display_name": "MI 2023 GP Prelim Insert QP",
   "inline_url": "https://document.grail.moe/114d999c85e0423d89aabb3de17b4e6f.pdf"
  },
@@ -84157,7 +84157,7 @@
   "original_name": "2023MIPrelimQP (H1 General Paper 8807_02_ANSWER BOOKLET)",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "MI|2023|H1 General Paper|Prelim",
+  "group_id": "manual|MI|2023|H1 General Paper|Prelim",
   "display_name": "MI 2023 GP Prelim Answers QP",
   "inline_url": "https://document.grail.moe/554d4e99a62a48d09f901635a9a66ee5.pdf"
  },
@@ -84183,7 +84183,7 @@
   "original_name": "2023MIPrelimAS (H1 General Paper 8807_02)",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "MI|2023|H1 General Paper|Prelim",
+  "group_id": "manual|MI|2023|H1 General Paper|Prelim",
   "display_name": "MI 2023 GP Prelim",
   "inline_url": "https://document.grail.moe/e17e67ade284421c96c1d81801904b56.pdf"
  },
@@ -84406,7 +84406,7 @@
   "year": "2023",
   "uploaded_by": "tmrwiom",
   "uploaded_on": "8 October 2023",
-  "school": "IJC",
+  "school": "YIJC",
   "paper_info": "Prelim",
   "flagged": false,
   "flag_reason": null,
@@ -84417,8 +84417,8 @@
   "original_name": "2023_YIJC Prelims_H1GP_8807_01",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "IJC|2023|H1 General Paper|Prelim",
-  "display_name": "IJC 2023 GP Prelim",
+  "group_id": "YIJC|2023|H1 General Paper|Prelim",
+  "display_name": "YIJC 2023 GP Prelim",
   "inline_url": "https://document.grail.moe/42be9d52d0eb4b539ef837fbec442df0.pdf"
  },
  {
@@ -84432,7 +84432,7 @@
   "year": "2023",
   "uploaded_by": "tmrwiom",
   "uploaded_on": "8 October 2023",
-  "school": "IJC",
+  "school": "YIJC",
   "paper_info": "P2 Answers",
   "flagged": false,
   "flag_reason": null,
@@ -84444,7 +84444,7 @@
   "paper_number": 2,
   "paper_label": "Comprehension",
   "group_id": "single|10032",
-  "display_name": "IJC 2023 GP P2 Answers",
+  "display_name": "YIJC 2023 GP P2 Answers",
   "inline_url": "https://document.grail.moe/4ee995840c614538a164dcdb18938463.pdf"
  },
  {
@@ -85145,7 +85145,7 @@
   "original_name": "2023MIPrelimQP (H1 General Paper 8807_01)",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "single|10047",
+  "group_id": "manual|MI|2023|H1 General Paper|Prelim",
   "display_name": "MI 2023 GP Exam Papers",
   "inline_url": "https://document.grail.moe/d774910f38e44b73a2fac12c450a1f49.pdf"
  },
@@ -89721,7 +89721,7 @@
   "paper_info_role": "Questions",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "NJC|2011|H2 Chemistry|Prelim",
+  "group_id": "manual|NJC|2011|H2 Chemistry|prelim",
   "display_name": "NJC 2011 H2 Chemistry Prelim P1",
   "inline_url": "https://document.grail.moe/89fc062e63a249209673dced3fd54d7e.pdf"
  },
@@ -90943,7 +90943,7 @@
   "paper_info_role": "Questions",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "NJC|2014|H2 Chemistry|Prelim",
+  "group_id": "manual|NJC|2014|H2 Chemistry|Prelim",
   "display_name": "NJC 2014 H2 Chemistry Prelim P2",
   "inline_url": "https://document.grail.moe/bbe67c3d89f94271a151c76e3d6625ea.pdf"
  },
@@ -90969,7 +90969,7 @@
   "paper_info_role": "Answers",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "NJC|2014|H2 Chemistry|Prelim",
+  "group_id": "manual|NJC|2014|H2 Chemistry|Prelim",
   "display_name": "NJC 2014 H2 Chemistry Prelim P1 Answers",
   "inline_url": "https://document.grail.moe/fe2c2c96884a481fbf218bf33d8b0fec.pdf"
  },
@@ -91203,7 +91203,7 @@
   "paper_info_role": "Questions",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "SAJC|2014|H2 Chemistry|Prelim",
+  "group_id": "manual|SAJC|2014|H2 Chemistry|Prelim",
   "display_name": "SAJC 2014 H2 Chemistry Prelim P2",
   "inline_url": "https://document.grail.moe/2103c7d56dd14af0ad037e8e04cfb41c.pdf"
  },
@@ -91593,7 +91593,7 @@
   "paper_info_role": "Answers",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "SAJC|2014|H2 Chemistry|Prelim",
+  "group_id": "manual|SAJC|2014|H2 Chemistry|Prelim",
   "display_name": "SAJC 2014 H2 Chemistry Prelim P1 Answers",
   "inline_url": "https://document.grail.moe/17ba73ada80f4847a68dd888e082dccd.pdf"
  },
@@ -91619,7 +91619,7 @@
   "paper_info_role": "Answers",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "SAJC|2014|H2 Chemistry|Prelim",
+  "group_id": "manual|SAJC|2014|H2 Chemistry|Prelim",
   "display_name": "SAJC 2014 H2 Chemistry Prelim P3 Answers",
   "inline_url": "https://document.grail.moe/8e7767b3912a4d11a40b6714f8cf97ba.pdf"
  },
@@ -91645,7 +91645,7 @@
   "paper_info_role": "Questions",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "SAJC|2014|H2 Chemistry|Prelim",
+  "group_id": "manual|SAJC|2014|H2 Chemistry|Prelim",
   "display_name": "SAJC 2014 H2 Chemistry Prelim P3",
   "inline_url": "https://document.grail.moe/99f7e606f61c463fba7c683371d37404.pdf"
  },
@@ -91671,7 +91671,7 @@
   "paper_info_role": "Answers",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "SAJC|2014|H2 Chemistry|Prelim",
+  "group_id": "manual|SAJC|2014|H2 Chemistry|Prelim",
   "display_name": "SAJC 2014 H2 Chemistry Prelim P2 Answers",
   "inline_url": "https://document.grail.moe/040d1d330bcd41e991e2efac77186fc5.pdf"
  },
@@ -92295,7 +92295,7 @@
   "paper_info_role": "Answers",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "NJC|2014|H2 Chemistry|Prelim",
+  "group_id": "manual|NJC|2014|H2 Chemistry|Prelim",
   "display_name": "NJC 2014 H2 Chemistry Prelim P2 Answers",
   "inline_url": "https://document.grail.moe/04db29500b6146bc9dab11318fb98153.pdf"
  },
@@ -92321,7 +92321,7 @@
   "paper_info_role": "QP",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "NJC|2014|H2 Chemistry|Prelim",
+  "group_id": "manual|NJC|2014|H2 Chemistry|Prelim",
   "display_name": "NJC 2014 H2 Chemistry Prelim P1 QP",
   "inline_url": "https://document.grail.moe/ab7a779d178d4b17be8a24e83494d567.pdf"
  },
@@ -92347,7 +92347,7 @@
   "paper_info_role": "Answers",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "NJC|2014|H2 Chemistry|Prelim",
+  "group_id": "manual|NJC|2014|H2 Chemistry|Prelim",
   "display_name": "NJC 2014 H2 Chemistry Prelim P3 Answers",
   "inline_url": "https://document.grail.moe/13d40b0c24934d0bbac504d43216dd6c.pdf"
  },
@@ -93257,7 +93257,7 @@
   "paper_info_role": "Answers",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "NJC|2015|H2 Chemistry|Prelim",
+  "group_id": "manual|NJC|2015|H2 Chemistry|prelim",
   "display_name": "NJC 2015 H2 Chemistry Prelim P3 Answers",
   "inline_url": "https://document.grail.moe/1f760d3131b54dccb64d4fb31d61887c.pdf"
  },
@@ -94037,7 +94037,7 @@
   "paper_info_role": "Questions",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "NYJC|2016|H2 Chemistry|Prelim",
+  "group_id": "manual|NYJC|2016|H2 Chemistry|Prelim",
   "display_name": "NYJC 2016 H2 Chemistry Prelim P1",
   "inline_url": "https://document.grail.moe/41ef88e16ae6468e83532e31badd17c4.pdf"
  },
@@ -94479,7 +94479,7 @@
   "paper_info_role": "Questions",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "NYJC|2016|H2 Chemistry|Prelim",
+  "group_id": "manual|NYJC|2016|H2 Chemistry|Prelim",
   "display_name": "NYJC 2016 H2 Chemistry Prelim P2",
   "inline_url": "https://document.grail.moe/af3c1a5862d84ce2bad23d5ffd5676be.pdf"
  },
@@ -102892,7 +102892,7 @@
   "year": "2020",
   "uploaded_by": "admin",
   "uploaded_on": "29 August 2025",
-  "school": "IJC",
+  "school": "YIJC",
   "paper_info": "Prelim P1 Suggested Solutions",
   "flagged": false,
   "flag_reason": null,
@@ -102903,8 +102903,8 @@
   "paper_info_role": "Solutions",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "IJC|2020|H2 Chemistry|Prelim Suggested",
-  "display_name": "IJC 2020 H2 Chemistry Prelim P1 Suggested Solutions",
+  "group_id": "YIJC|2020|H2 Chemistry|Prelim Suggested",
+  "display_name": "YIJC 2020 H2 Chemistry Prelim P1 Suggested Solutions",
   "inline_url": "https://document.grail.moe/0731d7afbb734655b31b311d3b8f9c40.pdf"
  },
  {
@@ -104218,7 +104218,7 @@
   "year": "2021",
   "uploaded_by": "admin",
   "uploaded_on": "29 August 2025",
-  "school": "MI",
+  "school": "NYJC",
   "paper_info": "P2",
   "flagged": false,
   "flag_reason": null,
@@ -104230,7 +104230,7 @@
   "paper_number": 2,
   "paper_label": null,
   "group_id": "single|18289",
-  "display_name": "MI 2021 H2 Chemistry P2",
+  "display_name": "NYJC 2021 H2 Chemistry P2",
   "inline_url": "https://document.grail.moe/5207f64b54164bc18d5c8446853066e6.pdf"
  },
  {
@@ -104764,7 +104764,7 @@
   "year": "2020",
   "uploaded_by": "admin",
   "uploaded_on": "29 August 2025",
-  "school": "IJC",
+  "school": "YIJC",
   "paper_info": "Prelim P4",
   "flagged": false,
   "flag_reason": null,
@@ -104775,8 +104775,8 @@
   "paper_info_role": "Questions",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "IJC|2020|H2 Chemistry|Prelim",
-  "display_name": "IJC 2020 H2 Chemistry Prelim P4",
+  "group_id": "YIJC|2020|H2 Chemistry|Prelim",
+  "display_name": "YIJC 2020 H2 Chemistry Prelim P4",
   "inline_url": "https://document.grail.moe/6ccade7ca9734472803f345cb5970f18.pdf"
  },
  {
@@ -104790,7 +104790,7 @@
   "year": "2020",
   "uploaded_by": "admin",
   "uploaded_on": "29 August 2025",
-  "school": "IJC",
+  "school": "YIJC",
   "paper_info": "Prelim P3 Answers",
   "flagged": false,
   "flag_reason": null,
@@ -104801,8 +104801,8 @@
   "paper_info_role": "Answers",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "IJC|2020|H2 Chemistry|Prelim",
-  "display_name": "IJC 2020 H2 Chemistry Prelim P3 Answers",
+  "group_id": "YIJC|2020|H2 Chemistry|Prelim",
+  "display_name": "YIJC 2020 H2 Chemistry Prelim P3 Answers",
   "inline_url": "https://document.grail.moe/0d4ad9cd9c574e269bdb7e7e070fa61e.pdf"
  },
  {
@@ -104816,7 +104816,7 @@
   "year": "2020",
   "uploaded_by": "admin",
   "uploaded_on": "29 August 2025",
-  "school": "IJC",
+  "school": "YIJC",
   "paper_info": "Prelim P1",
   "flagged": false,
   "flag_reason": null,
@@ -104827,8 +104827,8 @@
   "paper_info_role": "Questions",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "IJC|2020|H2 Chemistry|Prelim",
-  "display_name": "IJC 2020 H2 Chemistry Prelim P1",
+  "group_id": "YIJC|2020|H2 Chemistry|Prelim",
+  "display_name": "YIJC 2020 H2 Chemistry Prelim P1",
   "inline_url": "https://document.grail.moe/c3a1bc600dd6483ea71d7f0d4d9d2031.pdf"
  },
  {
@@ -104842,7 +104842,7 @@
   "year": "2020",
   "uploaded_by": "admin",
   "uploaded_on": "29 August 2025",
-  "school": "IJC",
+  "school": "YIJC",
   "paper_info": "Prelim P2",
   "flagged": false,
   "flag_reason": null,
@@ -104853,8 +104853,8 @@
   "paper_info_role": "Questions",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "IJC|2020|H2 Chemistry|Prelim",
-  "display_name": "IJC 2020 H2 Chemistry Prelim P2",
+  "group_id": "YIJC|2020|H2 Chemistry|Prelim",
+  "display_name": "YIJC 2020 H2 Chemistry Prelim P2",
   "inline_url": "https://document.grail.moe/2c2c9119c64244e1b7e559a6c7f62a3e.pdf"
  },
  {
@@ -104868,7 +104868,7 @@
   "year": "2020",
   "uploaded_by": "admin",
   "uploaded_on": "29 August 2025",
-  "school": "IJC",
+  "school": "YIJC",
   "paper_info": "Prelim P2 Suggested Solutions",
   "flagged": false,
   "flag_reason": null,
@@ -104879,8 +104879,8 @@
   "paper_info_role": "Solutions",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "IJC|2020|H2 Chemistry|Prelim Suggested",
-  "display_name": "IJC 2020 H2 Chemistry Prelim P2 Suggested Solutions",
+  "group_id": "YIJC|2020|H2 Chemistry|Prelim Suggested",
+  "display_name": "YIJC 2020 H2 Chemistry Prelim P2 Suggested Solutions",
   "inline_url": "https://document.grail.moe/787e186a975d4dafaf8cb4a415ac8593.pdf"
  },
  {
@@ -104894,7 +104894,7 @@
   "year": "2019",
   "uploaded_by": "admin",
   "uploaded_on": "29 August 2025",
-  "school": "MJC",
+  "school": "TMJC",
   "paper_info": "Prelim P4",
   "flagged": false,
   "flag_reason": null,
@@ -104905,8 +104905,8 @@
   "paper_info_role": "Questions",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "MJC|2019|H2 Chemistry|Prelim",
-  "display_name": "MJC 2019 H2 Chemistry Prelim P4",
+  "group_id": "TMJC|2019|H2 Chemistry|Prelim",
+  "display_name": "TMJC 2019 H2 Chemistry Prelim P4",
   "inline_url": "https://document.grail.moe/3d39eac900d64ff7b78bc85cd806f349.pdf"
  },
  {
@@ -105596,7 +105596,7 @@
   "year": "2021",
   "uploaded_by": "admin",
   "uploaded_on": "29 August 2025",
-  "school": "MJC",
+  "school": "TMJC",
   "paper_info": "Prelim P4 Answers",
   "flagged": false,
   "flag_reason": null,
@@ -105607,8 +105607,8 @@
   "paper_info_role": "Answers",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "MJC|2021|H2 Chemistry|Prelim",
-  "display_name": "MJC 2021 H2 Chemistry Prelim P4 Answers",
+  "group_id": "TMJC|2021|H2 Chemistry|Prelim",
+  "display_name": "TMJC 2021 H2 Chemistry Prelim P4 Answers",
   "inline_url": "https://document.grail.moe/505daa12c3ff431caff7595bb9cc4f85.pdf"
  },
  {
@@ -105622,7 +105622,7 @@
   "year": "2021",
   "uploaded_by": "admin",
   "uploaded_on": "29 August 2025",
-  "school": "MJC",
+  "school": "TMJC",
   "paper_info": "Prelim P4",
   "flagged": false,
   "flag_reason": null,
@@ -105633,8 +105633,8 @@
   "paper_info_role": "Questions",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "MJC|2021|H2 Chemistry|Prelim",
-  "display_name": "MJC 2021 H2 Chemistry Prelim P4",
+  "group_id": "TMJC|2021|H2 Chemistry|Prelim",
+  "display_name": "TMJC 2021 H2 Chemistry Prelim P4",
   "inline_url": "https://document.grail.moe/af8f8de289224c1db001324fcdb95f0d.pdf"
  },
  {
@@ -105648,7 +105648,7 @@
   "year": "2021",
   "uploaded_by": "admin",
   "uploaded_on": "29 August 2025",
-  "school": "MJC",
+  "school": "TMJC",
   "paper_info": "Prelim P2 Answers",
   "flagged": false,
   "flag_reason": null,
@@ -105659,8 +105659,8 @@
   "paper_info_role": "Answers",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "MJC|2021|H2 Chemistry|Prelim",
-  "display_name": "MJC 2021 H2 Chemistry Prelim P2 Answers",
+  "group_id": "TMJC|2021|H2 Chemistry|Prelim",
+  "display_name": "TMJC 2021 H2 Chemistry Prelim P2 Answers",
   "inline_url": "https://document.grail.moe/9399066bc937475dab663af6cb077d7c.pdf"
  },
  {
@@ -105674,7 +105674,7 @@
   "year": "2021",
   "uploaded_by": "admin",
   "uploaded_on": "29 August 2025",
-  "school": "MJC",
+  "school": "TMJC",
   "paper_info": "Prelim P3 Answers",
   "flagged": false,
   "flag_reason": null,
@@ -105685,8 +105685,8 @@
   "paper_info_role": "Answers",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "MJC|2021|H2 Chemistry|Prelim",
-  "display_name": "MJC 2021 H2 Chemistry Prelim P3 Answers",
+  "group_id": "TMJC|2021|H2 Chemistry|Prelim",
+  "display_name": "TMJC 2021 H2 Chemistry Prelim P3 Answers",
   "inline_url": "https://document.grail.moe/cf300ce066da404eb3c4ecb652e78499.pdf"
  },
  {
@@ -105700,7 +105700,7 @@
   "year": "2021",
   "uploaded_by": "admin",
   "uploaded_on": "29 August 2025",
-  "school": "MJC",
+  "school": "TMJC",
   "paper_info": "Prelim P2",
   "flagged": false,
   "flag_reason": null,
@@ -105711,8 +105711,8 @@
   "paper_info_role": "Questions",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "MJC|2021|H2 Chemistry|Prelim",
-  "display_name": "MJC 2021 H2 Chemistry Prelim P2",
+  "group_id": "TMJC|2021|H2 Chemistry|Prelim",
+  "display_name": "TMJC 2021 H2 Chemistry Prelim P2",
   "inline_url": "https://document.grail.moe/6d35ce256b11497ca4c6ace0a0c2ab0b.pdf"
  },
  {
@@ -105726,7 +105726,7 @@
   "year": "2021",
   "uploaded_by": "admin",
   "uploaded_on": "29 August 2025",
-  "school": "MJC",
+  "school": "TMJC",
   "paper_info": "Prelim P3",
   "flagged": false,
   "flag_reason": null,
@@ -105737,8 +105737,8 @@
   "paper_info_role": "Questions",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "MJC|2021|H2 Chemistry|Prelim",
-  "display_name": "MJC 2021 H2 Chemistry Prelim P3",
+  "group_id": "TMJC|2021|H2 Chemistry|Prelim",
+  "display_name": "TMJC 2021 H2 Chemistry Prelim P3",
   "inline_url": "https://document.grail.moe/2444c74d98f84323b4d9dcad8ec302ea.pdf"
  },
  {
@@ -105752,7 +105752,7 @@
   "year": "2021",
   "uploaded_by": "admin",
   "uploaded_on": "29 August 2025",
-  "school": "MJC",
+  "school": "TMJC",
   "paper_info": "Prelim P1 Answers",
   "flagged": false,
   "flag_reason": null,
@@ -105763,8 +105763,8 @@
   "paper_info_role": "Answers",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "MJC|2021|H2 Chemistry|Prelim",
-  "display_name": "MJC 2021 H2 Chemistry Prelim P1 Answers",
+  "group_id": "TMJC|2021|H2 Chemistry|Prelim",
+  "display_name": "TMJC 2021 H2 Chemistry Prelim P1 Answers",
   "inline_url": "https://document.grail.moe/07c4288c3548480488d6aa0ca477f657.pdf"
  },
  {
@@ -105778,7 +105778,7 @@
   "year": "2021",
   "uploaded_by": "admin",
   "uploaded_on": "29 August 2025",
-  "school": "MJC",
+  "school": "TMJC",
   "paper_info": "Prelim P1",
   "flagged": false,
   "flag_reason": null,
@@ -105789,8 +105789,8 @@
   "paper_info_role": "Questions",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "MJC|2021|H2 Chemistry|Prelim",
-  "display_name": "MJC 2021 H2 Chemistry Prelim P1",
+  "group_id": "TMJC|2021|H2 Chemistry|Prelim",
+  "display_name": "TMJC 2021 H2 Chemistry Prelim P1",
   "inline_url": "https://document.grail.moe/9dc06529f74f458c9c58daa80bc4eb8d.pdf"
  },
  {
@@ -107078,7 +107078,7 @@
   "year": "2022",
   "uploaded_by": "admin",
   "uploaded_on": "28 August 2025",
-  "school": "MI",
+  "school": "NJC",
   "paper_info": "Prelim P4 Answers",
   "flagged": false,
   "flag_reason": null,
@@ -107089,8 +107089,8 @@
   "paper_info_role": "Answers",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "MI|2022|H2 Chemistry|Prelim",
-  "display_name": "MI 2022 H2 Chemistry Prelim P4 Answers",
+  "group_id": "manual|NJC|2022|H2 Chemistry|Prelim",
+  "display_name": "NJC 2022 H2 Chemistry Prelim P4 Answers",
   "inline_url": "https://document.grail.moe/0a3296d75c17450ab3cb92d765d45db8.pdf"
  },
  {
@@ -107104,7 +107104,7 @@
   "year": "2022",
   "uploaded_by": "admin",
   "uploaded_on": "28 August 2025",
-  "school": "MI",
+  "school": "NJC",
   "paper_info": "Prelim P3 Answers",
   "flagged": false,
   "flag_reason": null,
@@ -107115,8 +107115,8 @@
   "paper_info_role": "Answers",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "MI|2022|H2 Chemistry|Prelim",
-  "display_name": "MI 2022 H2 Chemistry Prelim P3 Answers",
+  "group_id": "manual|NJC|2022|H2 Chemistry|Prelim",
+  "display_name": "NJC 2022 H2 Chemistry Prelim P3 Answers",
   "inline_url": "https://document.grail.moe/7d605cc0776d441b837a3ab17c28f1b4.pdf"
  },
  {
@@ -107130,7 +107130,7 @@
   "year": "2022",
   "uploaded_by": "admin",
   "uploaded_on": "28 August 2025",
-  "school": "MI",
+  "school": "NJC",
   "paper_info": "Prelim P1 Answers",
   "flagged": false,
   "flag_reason": null,
@@ -107141,8 +107141,8 @@
   "paper_info_role": "Answers",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "MI|2022|H2 Chemistry|Prelim",
-  "display_name": "MI 2022 H2 Chemistry Prelim P1 Answers",
+  "group_id": "manual|NJC|2022|H2 Chemistry|Prelim",
+  "display_name": "NJC 2022 H2 Chemistry Prelim P1 Answers",
   "inline_url": "https://document.grail.moe/43fae9d46e554b3fadc0102a87b8376c.pdf"
  },
  {
@@ -107156,7 +107156,7 @@
   "year": "2022",
   "uploaded_by": "admin",
   "uploaded_on": "28 August 2025",
-  "school": "MI",
+  "school": "NJC",
   "paper_info": "Prelim P1",
   "flagged": false,
   "flag_reason": null,
@@ -107167,8 +107167,8 @@
   "paper_info_role": "Questions",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "MI|2022|H2 Chemistry|Prelim",
-  "display_name": "MI 2022 H2 Chemistry Prelim P1",
+  "group_id": "manual|NJC|2022|H2 Chemistry|Prelim",
+  "display_name": "NJC 2022 H2 Chemistry Prelim P1",
   "inline_url": "https://document.grail.moe/44cd960b3f4645ac95306ea52930982b.pdf"
  },
  {
@@ -107442,7 +107442,7 @@
   "year": "2022",
   "uploaded_by": "admin",
   "uploaded_on": "28 August 2025",
-  "school": "MI",
+  "school": "NJC",
   "paper_info": "Prelim P2 Answers",
   "flagged": false,
   "flag_reason": null,
@@ -107453,8 +107453,8 @@
   "paper_info_role": "Answers",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "MI|2022|H2 Chemistry|Prelim",
-  "display_name": "MI 2022 H2 Chemistry Prelim P2 Answers",
+  "group_id": "manual|NJC|2022|H2 Chemistry|Prelim",
+  "display_name": "NJC 2022 H2 Chemistry Prelim P2 Answers",
   "inline_url": "https://document.grail.moe/04f3cd238ae549fa883e722326f80260.pdf"
  },
  {
@@ -107468,7 +107468,7 @@
   "year": "2022",
   "uploaded_by": "admin",
   "uploaded_on": "28 August 2025",
-  "school": "MI",
+  "school": "NJC",
   "paper_info": "Prelim P3",
   "flagged": false,
   "flag_reason": null,
@@ -107479,8 +107479,8 @@
   "paper_info_role": "Questions",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "MI|2022|H2 Chemistry|Prelim",
-  "display_name": "MI 2022 H2 Chemistry Prelim P3",
+  "group_id": "manual|NJC|2022|H2 Chemistry|Prelim",
+  "display_name": "NJC 2022 H2 Chemistry Prelim P3",
   "inline_url": "https://document.grail.moe/287c61c3a48e417cbdf90927f7d1c1d3.pdf"
  },
  {
@@ -107635,7 +107635,7 @@
   "paper_info_role": "Questions",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "ASRJC|2023|H2 Chemistry|Prelim",
+  "group_id": "manual|ASRJC|2023|H2 Chemistry|Prelim",
   "display_name": "ASRJC 2023 H2 Chemistry Prelim P3",
   "inline_url": "https://document.grail.moe/f399d214ac684eaca3fc7775161d119e.pdf"
  },
@@ -107661,7 +107661,7 @@
   "paper_info_role": "Mark Scheme",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "ASRJC|2023|H2 Chemistry|Prelim",
+  "group_id": "manual|ASRJC|2023|H2 Chemistry|Prelim",
   "display_name": "ASRJC 2023 H2 Chemistry Prelim P3 Mark Scheme",
   "inline_url": "https://document.grail.moe/8fbfeea09efe4ee6993e61a4534a2e8e.pdf"
  },
@@ -107687,7 +107687,7 @@
   "paper_info_role": "Questions",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "ASRJC|2023|H2 Chemistry|Prelim",
+  "group_id": "manual|ASRJC|2023|H2 Chemistry|Prelim",
   "display_name": "ASRJC 2023 H2 Chemistry Prelim P2",
   "inline_url": "https://document.grail.moe/2ef01efff7a44d989e84bcc09ee3a63d.pdf"
  },
@@ -107713,7 +107713,7 @@
   "paper_info_role": "Mark Scheme",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "ASRJC|2023|H2 Chemistry|Prelim",
+  "group_id": "manual|ASRJC|2023|H2 Chemistry|Prelim",
   "display_name": "ASRJC 2023 H2 Chemistry Prelim P2 Mark Scheme",
   "inline_url": "https://document.grail.moe/08d95511c89a44209b71d7dbf21e73a7.pdf"
  },
@@ -107739,7 +107739,7 @@
   "paper_info_role": "Mark Scheme",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "ASRJC|2023|H2 Chemistry|Prelim",
+  "group_id": "manual|ASRJC|2023|H2 Chemistry|Prelim",
   "display_name": "ASRJC 2023 H2 Chemistry Prelim P1 Mark Scheme",
   "inline_url": "https://document.grail.moe/c0eeb82dae8d4f3cb6d4dc3f697de414.pdf"
  },
@@ -109455,7 +109455,7 @@
   "paper_info_role": "",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "single|18180",
+  "group_id": "manual|DHS|2023|H2 Chemistry|Prelim",
   "display_name": "DHS 2023 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/ca89a2a5c92e4bb991ba1090b74457e9.pdf"
  },
@@ -109481,7 +109481,7 @@
   "paper_info_role": "",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "single|18179",
+  "group_id": "manual|DHS|2023|H2 Chemistry|Prelim",
   "display_name": "DHS 2023 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/656056b49ce14f3f86ac5e6af86e2e9e.pdf"
  },
@@ -109533,7 +109533,7 @@
   "paper_info_role": "",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "single|18177",
+  "group_id": "manual|DHS|2023|H2 Chemistry|Prelim",
   "display_name": "DHS 2023 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/270a9392b53049fcb3435f5e4ba7b8f5.pdf"
  },
@@ -109689,7 +109689,7 @@
   "paper_info_role": "",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "single|18187",
+  "group_id": "manual|YIJC|2023|H2 Chemistry|Prelim",
   "display_name": "YIJC 2023 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/1c50ab498bd443d49ef097d3570dc160.pdf"
  },
@@ -109715,7 +109715,7 @@
   "paper_info_role": "",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "single|18188",
+  "group_id": "manual|YIJC|2023|H2 Chemistry|Prelim",
   "display_name": "YIJC 2023 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/8ff1172f6d1e41ceba51477d889fc4d2.pdf"
  },
@@ -109741,7 +109741,7 @@
   "paper_info_role": "Answers",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "YIJC|2023|H2 Chemistry|Prelim",
+  "group_id": "manual|YIJC|2023|H2 Chemistry|Prelim",
   "display_name": "YIJC 2023 H2 Chemistry Prelim P2 Answers",
   "inline_url": "https://document.grail.moe/25163d0480ac4575a50cee949571eed7.pdf"
  },
@@ -109767,7 +109767,7 @@
   "paper_info_role": "Questions",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "YIJC|2023|H2 Chemistry|Prelim",
+  "group_id": "manual|YIJC|2023|H2 Chemistry|Prelim",
   "display_name": "YIJC 2023 H2 Chemistry Prelim P2",
   "inline_url": "https://document.grail.moe/5cf0d4c1dcce40299ab1d00b4a8ed657.pdf"
  },
@@ -109793,7 +109793,7 @@
   "paper_info_role": "Questions",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "YIJC|2023|H2 Chemistry|Prelim",
+  "group_id": "manual|YIJC|2023|H2 Chemistry|Prelim",
   "display_name": "YIJC 2023 H2 Chemistry Prelim P1",
   "inline_url": "https://document.grail.moe/20a87f6b614f46769189b01b712b779c.pdf"
  },
@@ -109819,7 +109819,7 @@
   "paper_info_role": "Answers",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "YIJC|2023|H2 Chemistry|Prelim",
+  "group_id": "manual|YIJC|2023|H2 Chemistry|Prelim",
   "display_name": "YIJC 2023 H2 Chemistry Prelim P1 Answers",
   "inline_url": "https://document.grail.moe/95d66807094545f28d21bd635e77bf80.pdf"
  },
@@ -109845,7 +109845,7 @@
   "paper_info_role": "",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "single|18178",
+  "group_id": "manual|DHS|2023|H2 Chemistry|Prelim",
   "display_name": "DHS 2023 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/49ad04835e8c4cf8a1986197a9fb70af.pdf"
  },
@@ -109871,7 +109871,7 @@
   "paper_info_role": "",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "single|18182",
+  "group_id": "manual|DHS|2023|H2 Chemistry|Prelim",
   "display_name": "DHS 2023 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/035d2b4e65964f118407052587386801.pdf"
  },
@@ -111301,7 +111301,7 @@
   "paper_info_role": "",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "single|14783",
+  "group_id": "manual|EJC|2024|H2 Chemistry|prelim",
   "display_name": "EJC 2024 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/14c987dfe9904681a6fd054d8accb67c.pdf"
  },
@@ -111327,7 +111327,7 @@
   "paper_info_role": "Answers",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "single|14782",
+  "group_id": "manual|VJC|2024|H2 Chemistry|Prelim",
   "display_name": "VJC 2024 H2 Chemistry Answers",
   "inline_url": "https://document.grail.moe/8bb166d7ed794beabd70691ea9da0e08.pdf"
  },
@@ -111353,7 +111353,7 @@
   "paper_info_role": "",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "single|14781",
+  "group_id": "manual|EJC|2024|H2 Chemistry|prelim",
   "display_name": "EJC 2024 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/053cefc778d648c298dbf4af2eed6616.pdf"
  },
@@ -111379,7 +111379,7 @@
   "paper_info_role": "Answers",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "single|14780",
+  "group_id": "manual|EJC|2024|H2 Chemistry|prelim",
   "display_name": "EJC 2024 H2 Chemistry Answers",
   "inline_url": "https://document.grail.moe/b2dd0ab24faf4a2bb0173d88292dfd12.pdf"
  },
@@ -111405,7 +111405,7 @@
   "paper_info_role": "",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "single|14779",
+  "group_id": "manual|VJC|2024|H2 Chemistry|Prelim",
   "display_name": "VJC 2024 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/731297b4d220492c84f59704991d8f3d.pdf"
  },
@@ -111431,7 +111431,7 @@
   "paper_info_role": "Answers",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "single|14777",
+  "group_id": "manual|VJC|2024|H2 Chemistry|Prelim",
   "display_name": "VJC 2024 H2 Chemistry Answers",
   "inline_url": "https://document.grail.moe/a0790b056650444e947188af00d7a2b2.pdf"
  },
@@ -111457,7 +111457,7 @@
   "paper_info_role": "Answers",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "single|14776",
+  "group_id": "manual|EJC|2024|H2 Chemistry|prelim",
   "display_name": "EJC 2024 H2 Chemistry Answers",
   "inline_url": "https://document.grail.moe/0b03cf512492449f935a05a672ec611b.pdf"
  },
@@ -111483,7 +111483,7 @@
   "paper_info_role": "Answers",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "single|14775",
+  "group_id": "manual|EJC|2024|H2 Chemistry|prelim",
   "display_name": "EJC 2024 H2 Chemistry Answers",
   "inline_url": "https://document.grail.moe/62550514974c4246bff45d025f6ea5b8.pdf"
  },
@@ -111509,7 +111509,7 @@
   "paper_info_role": "Answers",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "RVHS|2024|H2 Chemistry|Prelim",
+  "group_id": "manual|RVHS|2024|H2 Chemistry|Prelim",
   "display_name": "RVHS 2024 H2 Chemistry Prelim P4 Answers",
   "inline_url": "https://document.grail.moe/dc69847613734113b9e192aa0012f868.pdf"
  },
@@ -111561,7 +111561,7 @@
   "paper_info_role": "Questions",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "SAJC|2024|H2 Chemistry|Prelim",
+  "group_id": "manual|SAJC|2024|H2 Chemistry|Prelim",
   "display_name": "SAJC 2024 H2 Chemistry Prelim P4",
   "inline_url": "https://document.grail.moe/79ffa0a84d6543ebb279695da9a216c3.pdf"
  },
@@ -111613,7 +111613,7 @@
   "paper_info_role": "Answers",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "single|14372",
+  "group_id": "manual|TJC|2024|H2 Chemistry|Prelim",
   "display_name": "TJC 2024 H2 Chemistry Answers",
   "inline_url": "https://document.grail.moe/76766e5109aa4773a0d5e0da3cd9a667.pdf"
  },
@@ -111639,7 +111639,7 @@
   "paper_info_role": "",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "single|14371",
+  "group_id": "manual|SAJC|2024|H2 Chemistry|Prelim",
   "display_name": "SAJC 2024 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/b205c0d63cd8447da4077af7369cf9cb.pdf"
  },
@@ -111665,7 +111665,7 @@
   "paper_info_role": "Answers",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "single|14370",
+  "group_id": "manual|TJC|2024|H2 Chemistry|Prelim",
   "display_name": "TJC 2024 H2 Chemistry Answers",
   "inline_url": "https://document.grail.moe/e17163df19974191b633dcc3e1a1e992.pdf"
  },
@@ -111691,7 +111691,7 @@
   "paper_info_role": "Answers",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "single|14369",
+  "group_id": "manual|SAJC|2024|H2 Chemistry|Prelim",
   "display_name": "SAJC 2024 H2 Chemistry Answers",
   "inline_url": "https://document.grail.moe/ce28777c2857495381d83687de0a3aca.pdf"
  },
@@ -111717,7 +111717,7 @@
   "paper_info_role": "",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "single|14368",
+  "group_id": "manual|TJC|2024|H2 Chemistry|Prelim",
   "display_name": "TJC 2024 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/2ec1689a6c5c43b3aa54183d2a5a7281.pdf"
  },
@@ -111743,7 +111743,7 @@
   "paper_info_role": "Answers",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "single|14367",
+  "group_id": "manual|TJC|2024|H2 Chemistry|Prelim",
   "display_name": "TJC 2024 H2 Chemistry Answers",
   "inline_url": "https://document.grail.moe/f3862fb7d4f045838275483d4f0ebfde.pdf"
  },
@@ -111769,7 +111769,7 @@
   "paper_info_role": "Answers",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "single|14366",
+  "group_id": "manual|SAJC|2024|H2 Chemistry|Prelim",
   "display_name": "SAJC 2024 H2 Chemistry Answers",
   "inline_url": "https://document.grail.moe/b6225416900e41639697b70f34d4baa1.pdf"
  },
@@ -111795,7 +111795,7 @@
   "paper_info_role": "",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "single|14365",
+  "group_id": "manual|SAJC|2024|H2 Chemistry|Prelim",
   "display_name": "SAJC 2024 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/8d5b62269bb547dd813531d10bb704b6.pdf"
  },
@@ -111951,7 +111951,7 @@
   "paper_info_role": "",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "single|14404",
+  "group_id": "manual|RI|2024|H2 Chemistry|Prelim",
   "display_name": "RI 2024 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/eccd0c95e08a4be383a9e859d5b62c71.pdf"
  },
@@ -111977,7 +111977,7 @@
   "paper_info_role": "Answers",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "single|14405",
+  "group_id": "manual|RI|2024|H2 Chemistry|Prelim",
   "display_name": "RI 2024 H2 Chemistry Answers",
   "inline_url": "https://document.grail.moe/61b6297d5d784630bec93e61ede1ccd0.pdf"
  },
@@ -112003,7 +112003,7 @@
   "paper_info_role": "",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "single|14406",
+  "group_id": "manual|TJC|2024|H2 Chemistry|Prelim",
   "display_name": "TJC 2024 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/44aee760d1534e10a4f6b587b4e662b5.pdf"
  },
@@ -112029,7 +112029,7 @@
   "paper_info_role": "Answers",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "single|14407",
+  "group_id": "manual|TJC|2024|H2 Chemistry|Prelim",
   "display_name": "TJC 2024 H2 Chemistry Answers",
   "inline_url": "https://document.grail.moe/548ca295170f44228c4b08744393583b.pdf"
  },
@@ -112081,7 +112081,7 @@
   "paper_info_role": "",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "single|14344",
+  "group_id": "manual|RVHS|2024|H2 Chemistry|Prelim",
   "display_name": "RVHS 2024 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/f1490283866148cfa1272e73d6f8a408.pdf"
  },
@@ -112107,7 +112107,7 @@
   "paper_info_role": "Answers",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "single|14326",
+  "group_id": "manual|NJC|2024|H2 Chemistry|Prelim",
   "display_name": "NJC 2024 H2 Chemistry Answers",
   "inline_url": "https://document.grail.moe/26f418b310064b6e8c553b893fe41a09.pdf"
  },
@@ -112133,7 +112133,7 @@
   "paper_info_role": "Answers",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "single|14325",
+  "group_id": "manual|NJC|2024|H2 Chemistry|Prelim",
   "display_name": "NJC 2024 H2 Chemistry Answers",
   "inline_url": "https://document.grail.moe/957fc4b59828407fa963e437853a7478.pdf"
  },
@@ -112159,7 +112159,7 @@
   "paper_info_role": "",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "single|14343",
+  "group_id": "manual|RVHS|2024|H2 Chemistry|Prelim",
   "display_name": "RVHS 2024 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/a377602a4cb741bb9b235cc3df2e3ed8.pdf"
  },
@@ -112185,7 +112185,7 @@
   "paper_info_role": "Answers",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "single|14342",
+  "group_id": "manual|RI|2024|H2 Chemistry|Prelim",
   "display_name": "RI 2024 H2 Chemistry Answers",
   "inline_url": "https://document.grail.moe/249858a83f8e4791a290622e9645d60a.pdf"
  },
@@ -112211,7 +112211,7 @@
   "paper_info_role": "",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "single|14329",
+  "group_id": "manual|NYJC|2024|H2 Chemistry|Prelim",
   "display_name": "NYJC 2024 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/f91b018139664930af0aeab95f6e529e.pdf"
  },
@@ -112237,7 +112237,7 @@
   "paper_info_role": "Answers",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "single|14323",
+  "group_id": "manual|NJC|2024|H2 Chemistry|Prelim",
   "display_name": "NJC 2024 H2 Chemistry Answers",
   "inline_url": "https://document.grail.moe/d2df37893be94f93b53b2a133a5df5bd.pdf"
  },
@@ -112263,7 +112263,7 @@
   "paper_info_role": "",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "single|14324",
+  "group_id": "manual|NJC|2024|H2 Chemistry|Prelim",
   "display_name": "NJC 2024 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/e46ac17647f749baa3b0e534b520bf1d.pdf"
  },
@@ -112289,7 +112289,7 @@
   "paper_info_role": "Answers",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "single|14346",
+  "group_id": "manual|RVHS|2024|H2 Chemistry|Prelim",
   "display_name": "RVHS 2024 H2 Chemistry Answers",
   "inline_url": "https://document.grail.moe/9f65edcf83bf49ce88ffb69d5c2faf26.pdf"
  },
@@ -112315,7 +112315,7 @@
   "paper_info_role": "",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "single|14341",
+  "group_id": "manual|RVHS|2024|H2 Chemistry|Prelim",
   "display_name": "RVHS 2024 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/efc7114fa17a42738def1c55f993d167.pdf"
  },
@@ -112445,7 +112445,7 @@
   "paper_info_role": "Answers",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "single|17349",
+  "group_id": "manual|NJC|2022|H2 Chemistry|Prelim",
   "display_name": "NJC 2022 H2 Chemistry Answers",
   "inline_url": "https://document.grail.moe/d06c2af5e66841889b3bdd94879d29ce.pdf"
  },
@@ -112497,7 +112497,7 @@
   "paper_info_role": "Answers",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "single|17347",
+  "group_id": "manual|EJC|2022|H2 Chemistry|Prelim",
   "display_name": "EJC 2022 H2 Chemistry Answers",
   "inline_url": "https://document.grail.moe/0760a8826753486a9ebf299199987279.pdf"
  },
@@ -113563,7 +113563,7 @@
   "paper_info_role": "Answers",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "RVHS|2024|H2 Chemistry|Prelim",
+  "group_id": "manual|RVHS|2024|H2 Chemistry|Prelim",
   "display_name": "RVHS 2024 H2 Chemistry Prelim P2 Answers",
   "inline_url": "https://document.grail.moe/ada0f7e4c43c42118db55ff521be7593.pdf"
  },
@@ -113589,7 +113589,7 @@
   "paper_info_role": "Answers",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "RI|2024|H2 Chemistry|Prelim",
+  "group_id": "manual|RI|2024|H2 Chemistry|Prelim",
   "display_name": "RI 2024 H2 Chemistry Prelim P2 Answers",
   "inline_url": "https://document.grail.moe/dbb87a831753407abd3bc45cb09768f1.pdf"
  },
@@ -113615,7 +113615,7 @@
   "paper_info_role": "Answers",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "RI|2024|H2 Chemistry|Prelim",
+  "group_id": "manual|RI|2024|H2 Chemistry|Prelim",
   "display_name": "RI 2024 H2 Chemistry Prelim P1 Answers",
   "inline_url": "https://document.grail.moe/c17d85fb6678422eb755041c9955d8d3.pdf"
  },
@@ -113641,7 +113641,7 @@
   "paper_info_role": "Questions",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "RI|2024|H2 Chemistry|Prelim",
+  "group_id": "manual|RI|2024|H2 Chemistry|Prelim",
   "display_name": "RI 2024 H2 Chemistry Prelim P1",
   "inline_url": "https://document.grail.moe/552ee93de8a54550a13a55a591426080.pdf"
  },
@@ -113667,7 +113667,7 @@
   "paper_info_role": "Questions",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "RI|2024|H2 Chemistry|Prelim",
+  "group_id": "manual|RI|2024|H2 Chemistry|Prelim",
   "display_name": "RI 2024 H2 Chemistry Prelim P2",
   "inline_url": "https://document.grail.moe/8f2b834ffc3b43eb9368ee1c0b71f808.pdf"
  },
@@ -113693,7 +113693,7 @@
   "paper_info_role": "Questions",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "RI|2024|H2 Chemistry|Prelim",
+  "group_id": "manual|RI|2024|H2 Chemistry|Prelim",
   "display_name": "RI 2024 H2 Chemistry Prelim P3",
   "inline_url": "https://document.grail.moe/1f5210416f77453ab7fd209bd20e03fa.pdf"
  },
@@ -113719,7 +113719,7 @@
   "paper_info_role": "Questions",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "NYJC|2024|H2 Chemistry|Prelim",
+  "group_id": "manual|NYJC|2024|H2 Chemistry|Prelim",
   "display_name": "NYJC 2024 H2 Chemistry Prelim P1",
   "inline_url": "https://document.grail.moe/1992c6cbc7e94cb6970d2fb09ac710f5.pdf"
  },
@@ -113745,7 +113745,7 @@
   "paper_info_role": "Answers",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "NYJC|2024|H2 Chemistry|Prelim",
+  "group_id": "manual|NYJC|2024|H2 Chemistry|Prelim",
   "display_name": "NYJC 2024 H2 Chemistry Prelim P1 Answers",
   "inline_url": "https://document.grail.moe/d61c003dc8b949cabafa133412798151.pdf"
  },
@@ -113771,7 +113771,7 @@
   "paper_info_role": "Answers",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "NYJC|2024|H2 Chemistry|Prelim",
+  "group_id": "manual|NYJC|2024|H2 Chemistry|Prelim",
   "display_name": "NYJC 2024 H2 Chemistry Prelim P3 Answers",
   "inline_url": "https://document.grail.moe/9f00e58823b047139b2ede6d7f479610.pdf"
  },
@@ -113797,7 +113797,7 @@
   "paper_info_role": "Questions",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "NYJC|2024|H2 Chemistry|Prelim",
+  "group_id": "manual|NYJC|2024|H2 Chemistry|Prelim",
   "display_name": "NYJC 2024 H2 Chemistry Prelim P2",
   "inline_url": "https://document.grail.moe/78d7285d16fd424ab612bf8af7a6c725.pdf"
  },
@@ -113979,7 +113979,7 @@
   "paper_info_role": "Answers",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "SAJC|2024|H2 Chemistry|Prelim",
+  "group_id": "manual|SAJC|2024|H2 Chemistry|Prelim",
   "display_name": "SAJC 2024 H2 Chemistry Prelim P4 Answers",
   "inline_url": "https://document.grail.moe/f62db465471549bfb8345a78cdd9dbfa.pdf"
  },
@@ -114005,7 +114005,7 @@
   "paper_info_role": "Questions",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "VJC|2024|H2 Chemistry|Prelim",
+  "group_id": "manual|VJC|2024|H2 Chemistry|Prelim",
   "display_name": "VJC 2024 H2 Chemistry Prelim P4",
   "inline_url": "https://document.grail.moe/fe332070362342519935543fc3f5a706.pdf"
  },
@@ -114031,7 +114031,7 @@
   "paper_info_role": "Questions",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "RVHS|2024|H2 Chemistry|Prelim",
+  "group_id": "manual|RVHS|2024|H2 Chemistry|Prelim",
   "display_name": "RVHS 2024 H2 Chemistry Prelim P4",
   "inline_url": "https://document.grail.moe/5ab83086a9db41c1adc57636df01c795.pdf"
  },
@@ -114135,7 +114135,7 @@
   "paper_info_role": "Answers",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "VJC|2024|H2 Chemistry|Prelim",
+  "group_id": "manual|VJC|2024|H2 Chemistry|Prelim",
   "display_name": "VJC 2024 H2 Chemistry Prelim P4 Answers",
   "inline_url": "https://document.grail.moe/ba27258cec2448a18753a70964ab986d.pdf"
  },
@@ -114239,7 +114239,7 @@
   "paper_info_role": "Questions",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "VJC|2024|H2 Chemistry|Prelim",
+  "group_id": "manual|VJC|2024|H2 Chemistry|Prelim",
   "display_name": "VJC 2024 H2 Chemistry Prelim P3",
   "inline_url": "https://document.grail.moe/f17ac71b02184c24bfbbc18a0bb39305.pdf"
  },
@@ -114265,7 +114265,7 @@
   "paper_info_role": "Questions",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "VJC|2024|H2 Chemistry|Prelim",
+  "group_id": "manual|VJC|2024|H2 Chemistry|Prelim",
   "display_name": "VJC 2024 H2 Chemistry Prelim P1",
   "inline_url": "https://document.grail.moe/fba28bf023d243459adc383a8577fc8f.pdf"
  },
@@ -114291,7 +114291,7 @@
   "paper_info_role": "Answers",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "VJC|2024|H2 Chemistry|Prelim",
+  "group_id": "manual|VJC|2024|H2 Chemistry|Prelim",
   "display_name": "VJC 2024 H2 Chemistry Prelim P2 Answers",
   "inline_url": "https://document.grail.moe/74af3bf6e85f4e90837f94d396c6150d.pdf"
  },
@@ -114447,7 +114447,7 @@
   "paper_info_role": "Questions",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "EJC|2024|H2 Chemistry|Prelim",
+  "group_id": "manual|EJC|2024|H2 Chemistry|prelim",
   "display_name": "EJC 2024 H2 Chemistry Prelim P3",
   "inline_url": "https://document.grail.moe/935d377c160043cba20095eabe3fa091.pdf"
  },
@@ -114473,7 +114473,7 @@
   "paper_info_role": "Questions",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "SAJC|2024|H2 Chemistry|Prelim",
+  "group_id": "manual|SAJC|2024|H2 Chemistry|Prelim",
   "display_name": "SAJC 2024 H2 Chemistry Prelim P2",
   "inline_url": "https://document.grail.moe/ec1285a5e4a644d8a03a44e84cbe14da.pdf"
  },
@@ -114499,7 +114499,7 @@
   "paper_info_role": "Questions",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "TJC|2024|H2 Chemistry|Prelim",
+  "group_id": "manual|TJC|2024|H2 Chemistry|Prelim",
   "display_name": "TJC 2024 H2 Chemistry Prelim P2",
   "inline_url": "https://document.grail.moe/701b7a6857844ed8a42f55e4aceb092a.pdf"
  },
@@ -114603,7 +114603,7 @@
   "paper_info_role": "Questions",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "TJC|2024|H2 Chemistry|Prelim",
+  "group_id": "manual|TJC|2024|H2 Chemistry|Prelim",
   "display_name": "TJC 2024 H2 Chemistry Prelim P3",
   "inline_url": "https://document.grail.moe/4e47e82af5fb481e8a0ed4f26b28b857.pdf"
  },
@@ -114707,7 +114707,7 @@
   "paper_info_role": "Answers",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "SAJC|2024|H2 Chemistry|Prelim",
+  "group_id": "manual|SAJC|2024|H2 Chemistry|Prelim",
   "display_name": "SAJC 2024 H2 Chemistry Prelim P1 Answers",
   "inline_url": "https://document.grail.moe/82e7988ef8f04f819979906f467c6b31.pdf"
  },
@@ -114993,7 +114993,7 @@
   "paper_info_role": "Answers",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "NYJC|2024|H2 Chemistry|Prelim",
+  "group_id": "manual|NYJC|2024|H2 Chemistry|Prelim",
   "display_name": "NYJC 2024 H2 Chemistry Prelim P2 Answers",
   "inline_url": "https://document.grail.moe/ad68d426d11d430b9f81d5ddd244b10b.pdf"
  },
@@ -115019,7 +115019,7 @@
   "paper_info_role": "Questions",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "NJC|2024|H2 Chemistry|Prelim",
+  "group_id": "manual|NJC|2024|H2 Chemistry|Prelim",
   "display_name": "NJC 2024 H2 Chemistry Prelim P2",
   "inline_url": "https://document.grail.moe/6e56947a99b94e3c8e017436174917e1.pdf"
  },
@@ -115045,7 +115045,7 @@
   "paper_info_role": "Questions",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "NJC|2024|H2 Chemistry|Prelim",
+  "group_id": "manual|NJC|2024|H2 Chemistry|Prelim",
   "display_name": "NJC 2024 H2 Chemistry Prelim P1",
   "inline_url": "https://document.grail.moe/8526cb72dfc7436dbc05f4be9a44c1da.pdf"
  },
@@ -115071,7 +115071,7 @@
   "paper_info_role": "Answers",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "RVHS|2024|H2 Chemistry|Prelim",
+  "group_id": "manual|RVHS|2024|H2 Chemistry|Prelim",
   "display_name": "RVHS 2024 H2 Chemistry Prelim P3 Answers",
   "inline_url": "https://document.grail.moe/e4aa3ff32f4941ccbea6565c384bee14.pdf"
  },
@@ -116215,7 +116215,7 @@
   "paper_info_role": "Questions",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "MI|2024|H2 Chemistry|EOY",
+  "group_id": "manual|MI|2024|H2 Chemistry|EOY",
   "display_name": "MI 2024 H2 Chemistry EOY P1",
   "inline_url": "https://document.grail.moe/098615f49048478f9b0da5d4d290cf0a.pdf"
  },
@@ -116241,7 +116241,7 @@
   "paper_info_role": "Questions",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "MI|2024|H2 Chemistry|EOY",
+  "group_id": "manual|MI|2024|H2 Chemistry|EOY",
   "display_name": "MI 2024 H2 Chemistry EOY P3",
   "inline_url": "https://document.grail.moe/638d94c1a6a94f1fb5cfc8603403b8ef.pdf"
  },
@@ -116267,7 +116267,7 @@
   "paper_info_role": "Answers",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "single|14004",
+  "group_id": "manual|MI|2024|H2 Chemistry|EOY",
   "display_name": "MI 2024 H2 Chemistry P4 Answers",
   "inline_url": "https://document.grail.moe/7721856a4adc42e0a54813bc7c2722a0.pdf"
  },
@@ -116813,7 +116813,7 @@
   "paper_info_role": "Answers",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "single|14003",
+  "group_id": "manual|MI|2024|H2 Chemistry|EOY",
   "display_name": "MI 2024 H2 Chemistry P1 Answers",
   "inline_url": "https://document.grail.moe/ae1c2031b355454eac9e63ec31d8f621.pdf"
  },
@@ -116839,7 +116839,7 @@
   "paper_info_role": "Questions",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "MI|2024|H2 Chemistry|EOY",
+  "group_id": "manual|MI|2024|H2 Chemistry|EOY",
   "display_name": "MI 2024 H2 Chemistry EOY P2",
   "inline_url": "https://document.grail.moe/62eced0161eb48b5b00d58db7aaa597b.pdf"
  },
@@ -116865,7 +116865,7 @@
   "paper_info_role": "Answers",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "single|14005",
+  "group_id": "manual|MI|2024|H2 Chemistry|EOY",
   "display_name": "MI 2024 H2 Chemistry P2 Answers",
   "inline_url": "https://document.grail.moe/364cdd5d5d4445bf8943ecdb8f1a0579.pdf"
  },
@@ -116891,7 +116891,7 @@
   "paper_info_role": "Questions",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "MI|2024|H2 Chemistry|EOY",
+  "group_id": "manual|MI|2024|H2 Chemistry|EOY",
   "display_name": "MI 2024 H2 Chemistry EOY P4",
   "inline_url": "https://document.grail.moe/8edeace82fd243ae86b67d14657bbfa3.pdf"
  },
@@ -116917,7 +116917,7 @@
   "paper_info_role": "Answers",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "single|14002",
+  "group_id": "manual|MI|2024|H2 Chemistry|EOY",
   "display_name": "MI 2024 H2 Chemistry P3 Answers",
   "inline_url": "https://document.grail.moe/b267f3397f2341109966436ab53b7ca9.pdf"
  },
@@ -117333,7 +117333,7 @@
   "paper_info_role": "Answers",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "EJC|2022|H2 Chemistry|Prelim",
+  "group_id": "manual|EJC|2022|H2 Chemistry|Prelim",
   "display_name": "EJC 2022 H2 Chemistry Prelim P2 Answers",
   "inline_url": "https://document.grail.moe/80cc8a78474045338181874df12a37aa.pdf"
  },
@@ -117359,7 +117359,7 @@
   "paper_info_role": "Questions",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "EJC|2022|H2 Chemistry|Prelim",
+  "group_id": "manual|EJC|2022|H2 Chemistry|Prelim",
   "display_name": "EJC 2022 H2 Chemistry Prelim P3",
   "inline_url": "https://document.grail.moe/d8245c21b06f4575ba5277d4623ce7fa.pdf"
  },
@@ -117385,7 +117385,7 @@
   "paper_info_role": "Questions",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "EJC|2022|H2 Chemistry|Prelim",
+  "group_id": "manual|EJC|2022|H2 Chemistry|Prelim",
   "display_name": "EJC 2022 H2 Chemistry Prelim P2",
   "inline_url": "https://document.grail.moe/cfd855e64508451eaa89c5e09e6ee031.pdf"
  },
@@ -117411,7 +117411,7 @@
   "paper_info_role": "Questions",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "EJC|2022|H2 Chemistry|Prelim",
+  "group_id": "manual|EJC|2022|H2 Chemistry|Prelim",
   "display_name": "EJC 2022 H2 Chemistry Prelim P1",
   "inline_url": "https://document.grail.moe/373daef5f54c4e20819a94aac3c695a0.pdf"
  },
@@ -118659,7 +118659,7 @@
   "paper_info_role": "Questions",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "ASRJC|2023|H2 Chemistry|Prelim",
+  "group_id": "manual|ASRJC|2023|H2 Chemistry|Prelim",
   "display_name": "ASRJC 2023 H2 Chemistry Prelim P4",
   "inline_url": "https://document.grail.moe/2ac9647da1bc414ab9ef03f177d5face.pdf"
  },
@@ -118685,7 +118685,7 @@
   "paper_info_role": "Mark Scheme",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "ASRJC|2023|H2 Chemistry|Prelim",
+  "group_id": "manual|ASRJC|2023|H2 Chemistry|Prelim",
   "display_name": "ASRJC 2023 H2 Chemistry Prelim P4 Mark Scheme",
   "inline_url": "https://document.grail.moe/bc74397ca8d443b686bfab37265e958e.pdf"
  },
@@ -118711,7 +118711,7 @@
   "paper_info_role": "Questions",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "ASRJC|2023|H2 Chemistry|Prelim",
+  "group_id": "manual|ASRJC|2023|H2 Chemistry|Prelim",
   "display_name": "ASRJC 2023 H2 Chemistry Prelim P3",
   "inline_url": "https://document.grail.moe/cd417cafb14541229995d808ac6e2abb.pdf"
  },
@@ -118737,7 +118737,7 @@
   "paper_info_role": "Mark Scheme",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "ASRJC|2023|H2 Chemistry|Prelim",
+  "group_id": "manual|ASRJC|2023|H2 Chemistry|Prelim",
   "display_name": "ASRJC 2023 H2 Chemistry Prelim P2 Mark Scheme",
   "inline_url": "https://document.grail.moe/a2d085f31571459e903b9591cfc82deb.pdf"
  },
@@ -118763,7 +118763,7 @@
   "paper_info_role": "Questions",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "ASRJC|2023|H2 Chemistry|Prelim",
+  "group_id": "manual|ASRJC|2023|H2 Chemistry|Prelim",
   "display_name": "ASRJC 2023 H2 Chemistry Prelim P2",
   "inline_url": "https://document.grail.moe/cb0545aa73c243ae9de075904cb81076.pdf"
  },
@@ -118789,7 +118789,7 @@
   "paper_info_role": "Mark Scheme",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "ASRJC|2023|H2 Chemistry|Prelim",
+  "group_id": "manual|ASRJC|2023|H2 Chemistry|Prelim",
   "display_name": "ASRJC 2023 H2 Chemistry Prelim P3 Mark Scheme",
   "inline_url": "https://document.grail.moe/38915e28e3034dab80093ecc87cec0f8.pdf"
  },
@@ -119153,7 +119153,7 @@
   "paper_info_role": "Answers",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "NJC|2023|H2 Chemistry|Prelim",
+  "group_id": "manual|NJC|2023|H2 Chemistry|Prelim",
   "display_name": "NJC 2023 H2 Chemistry Prelim P3 Answers",
   "inline_url": "https://document.grail.moe/d7e6e7b5882342bda5d466a2f9710aeb.pdf"
  },
@@ -119621,7 +119621,7 @@
   "paper_info_role": "Answers",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "EJC|2022|H2 Chemistry|Prelim",
+  "group_id": "manual|EJC|2022|H2 Chemistry|Prelim",
   "display_name": "EJC 2022 H2 Chemistry Prelim Answers",
   "inline_url": "https://document.grail.moe/f5ecd090df674e11895c8b0f6468f3a7.pdf"
  },
@@ -119647,7 +119647,7 @@
   "paper_info_role": "Answers",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "EJC|2022|H2 Chemistry|Prelim",
+  "group_id": "manual|EJC|2022|H2 Chemistry|Prelim",
   "display_name": "EJC 2022 H2 Chemistry Prelim Answers",
   "inline_url": "https://document.grail.moe/f2250db22fb243e9b073c90901949df0.pdf"
  },
@@ -119855,7 +119855,7 @@
   "paper_info_role": "Questions",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "NJC|2023|H2 Chemistry|Prelim",
+  "group_id": "manual|NJC|2023|H2 Chemistry|Prelim",
   "display_name": "NJC 2023 H2 Chemistry Prelim P1",
   "inline_url": "https://document.grail.moe/b7feac091bd942e7a0bcc24a1e128b02.pdf"
  },
@@ -119881,7 +119881,7 @@
   "paper_info_role": "Answers",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "NJC|2023|H2 Chemistry|Prelim",
+  "group_id": "manual|NJC|2023|H2 Chemistry|Prelim",
   "display_name": "NJC 2023 H2 Chemistry Prelim P1 Answers",
   "inline_url": "https://document.grail.moe/a0f9b1e2b8f7428c89bffb88577576be.pdf"
  },
@@ -119907,7 +119907,7 @@
   "paper_info_role": "Answers",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "NJC|2023|H2 Chemistry|Prelim",
+  "group_id": "manual|NJC|2023|H2 Chemistry|Prelim",
   "display_name": "NJC 2023 H2 Chemistry Prelim P2 Answers",
   "inline_url": "https://document.grail.moe/d8db6514d89746e98e14fb47a0648b35.pdf"
  },
@@ -120453,7 +120453,7 @@
   "paper_info_role": "Questions",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "RVHS|2023|H2 Chemistry|Prelim",
+  "group_id": "manual|RVHS|2023|H2 Chemistry|Prelim",
   "display_name": "RVHS 2023 H2 Chemistry Prelim P2",
   "inline_url": "https://document.grail.moe/561c501c75334911acc566e0b799992a.pdf"
  },
@@ -120479,7 +120479,7 @@
   "paper_info_role": "Answers",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "RVHS|2023|H2 Chemistry|Prelim",
+  "group_id": "manual|RVHS|2023|H2 Chemistry|Prelim",
   "display_name": "RVHS 2023 H2 Chemistry Prelim P1 Answers",
   "inline_url": "https://document.grail.moe/14bbbb9fecb24354bfb6f9c563d09034.pdf"
  },
@@ -120505,7 +120505,7 @@
   "paper_info_role": "Questions",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "RVHS|2023|H2 Chemistry|Prelim",
+  "group_id": "manual|RVHS|2023|H2 Chemistry|Prelim",
   "display_name": "RVHS 2023 H2 Chemistry Prelim P1",
   "inline_url": "https://document.grail.moe/82aac3cff46a4e6cb0c9a29117ed95b8.pdf"
  },
@@ -120869,7 +120869,7 @@
   "paper_info_role": "Questions",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "YIJC|2023|H2 Chemistry|Prelim",
+  "group_id": "manual|YIJC|2023|H2 Chemistry|Prelim",
   "display_name": "YIJC 2023 H2 Chemistry Prelim P4",
   "inline_url": "https://document.grail.moe/3af45b420bfc4293a3f3901f73d6df00.pdf"
  },
@@ -121129,7 +121129,7 @@
   "paper_info_role": "Answers",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "single|10524",
+  "group_id": "manual|JPJC|2022|H2 Chemistry|promo",
   "display_name": "JPJC 2022 H2 Chemistry P1 Answers",
   "inline_url": "https://document.grail.moe/e109351e34dc464982c0987734923cf8.pdf"
  },
@@ -121155,7 +121155,7 @@
   "paper_info_role": "Answers",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "single|10525",
+  "group_id": "manual|JPJC|2022|H2 Chemistry|promo",
   "display_name": "JPJC 2022 H2 Chemistry P2 Answers",
   "inline_url": "https://document.grail.moe/bd23d5b474bf4565af6bbc0777a87f54.pdf"
  },
@@ -121493,7 +121493,7 @@
   "paper_info_role": "Questions",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "NJC|2023|H2 Chemistry|Prelim",
+  "group_id": "manual|NJC|2023|H2 Chemistry|Prelim",
   "display_name": "NJC 2023 H2 Chemistry Prelim",
   "inline_url": "https://document.grail.moe/c4b529dbc8244d0397c4b04519e43f88.pdf"
  },
@@ -121545,7 +121545,7 @@
   "paper_info_role": "Questions",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "NJC|2023|H2 Chemistry|Prelim",
+  "group_id": "manual|NJC|2023|H2 Chemistry|Prelim",
   "display_name": "NJC 2023 H2 Chemistry Prelim",
   "inline_url": "https://document.grail.moe/7a5fb643c1da49d99daea8136d85ffd6.pdf"
  },
@@ -121571,7 +121571,7 @@
   "paper_info_role": "Answers",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "YIJC|2023|H2 Chemistry|Prelim",
+  "group_id": "manual|YIJC|2023|H2 Chemistry|Prelim",
   "display_name": "YIJC 2023 H2 Chemistry Prelim P4 Answers",
   "inline_url": "https://document.grail.moe/8ddc649c21094424acd4b4b0a68edc03.pdf"
  },
@@ -123391,7 +123391,7 @@
   "paper_info_role": "Questions",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "ASRJC|2023|H2 Chemistry|Prelim",
+  "group_id": "manual|ASRJC|2023|H2 Chemistry|Prelim",
   "display_name": "ASRJC 2023 H2 Chemistry Prelim P1",
   "inline_url": "https://document.grail.moe/49e9ebb187124fcebe7eba5afabc53f4.pdf"
  },
@@ -123547,7 +123547,7 @@
   "paper_info_role": "",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "single|11143",
+  "group_id": "manual|RVHS|2023|H2 Chemistry|Prelim",
   "display_name": "RVHS 2023 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/a905827f0dfb4f48bb213dbbb11aa3ee.pdf"
  },
@@ -123911,7 +123911,7 @@
   "paper_info_role": "Answers",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "DHS|2023|H2 Chemistry|Prelim",
+  "group_id": "manual|DHS|2023|H2 Chemistry|Prelim",
   "display_name": "DHS 2023 H2 Chemistry Prelim P4 Answers",
   "inline_url": "https://document.grail.moe/244ae98640454bb1afaac13bb46f6f14.pdf"
  },
@@ -124041,7 +124041,7 @@
   "paper_info_role": "Questions",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "DHS|2023|H2 Chemistry|Prelim",
+  "group_id": "manual|DHS|2023|H2 Chemistry|Prelim",
   "display_name": "DHS 2023 H2 Chemistry Prelim P4",
   "inline_url": "https://document.grail.moe/1430151a5b804766b00d340c01ea1baa.pdf"
  },
@@ -124067,7 +124067,7 @@
   "paper_info_role": "",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "single|9954",
+  "group_id": "manual|ASRJC|2023|H2 Chemistry|Prelim",
   "display_name": "ASRJC 2023 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/083977bc580d46888d6090c295e9c6e3.pdf"
  },
@@ -124093,7 +124093,7 @@
   "paper_info_role": "",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "single|9953",
+  "group_id": "manual|ASRJC|2023|H2 Chemistry|Prelim",
   "display_name": "ASRJC 2023 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/b043d676a81b468f9e687cf60f11970f.pdf"
  },
@@ -124119,7 +124119,7 @@
   "paper_info_role": "",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "single|9949",
+  "group_id": "manual|NJC|2023|H2 Chemistry|Prelim",
   "display_name": "NJC 2023 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/2b7f8ea0b865422b8889cab621f0279c.pdf"
  },
@@ -124145,7 +124145,7 @@
   "paper_info_role": "",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "single|9922",
+  "group_id": "manual|NJC|2023|H2 Chemistry|Prelim",
   "display_name": "NJC 2023 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/fdc912f622f64bc4b22b1ea23208ea31.pdf"
  },
@@ -124171,7 +124171,7 @@
   "paper_info_role": "",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "single|9920",
+  "group_id": "manual|ASRJC|2023|H2 Chemistry|Prelim",
   "display_name": "ASRJC 2023 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/a441407e28214e7f9968d2d4508eafc5.pdf"
  },
@@ -124197,7 +124197,7 @@
   "paper_info_role": "",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "single|9921",
+  "group_id": "manual|ASRJC|2023|H2 Chemistry|Prelim",
   "display_name": "ASRJC 2023 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/4051d61dd630468bb0431eca5887f9a9.pdf"
  },
@@ -124420,7 +124420,7 @@
   "year": "2023",
   "uploaded_by": "Rediculous",
   "uploaded_on": "30 August 2023",
-  "school": "MI",
+  "school": "EJC",
   "paper_info": "Lecture Notes",
   "flagged": false,
   "flag_reason": null,
@@ -124432,7 +124432,7 @@
   "paper_number": null,
   "paper_label": null,
   "group_id": "single|9490",
-  "display_name": "MI 2023 H2 Chemistry Lecture Notes",
+  "display_name": "EJC 2023 H2 Chemistry Lecture Notes",
   "inline_url": "https://document.grail.moe/306e41bc198d45f5863821405cb8e94c.pdf"
  },
  {
@@ -124446,7 +124446,7 @@
   "year": "2023",
   "uploaded_by": "Rediculous",
   "uploaded_on": "30 August 2023",
-  "school": "MI",
+  "school": "EJC",
   "paper_info": "Lecture Notes",
   "flagged": false,
   "flag_reason": null,
@@ -124458,7 +124458,7 @@
   "paper_number": null,
   "paper_label": null,
   "group_id": "single|9491",
-  "display_name": "MI 2023 H2 Chemistry Lecture Notes",
+  "display_name": "EJC 2023 H2 Chemistry Lecture Notes",
   "inline_url": "https://document.grail.moe/49c7962f87f6462ea2499d98ab3a2339.pdf"
  },
  {
@@ -124498,7 +124498,7 @@
   "year": "2023",
   "uploaded_by": "Rediculous",
   "uploaded_on": "30 August 2023",
-  "school": "MI",
+  "school": "EJC",
   "paper_info": "Lecture Notes",
   "flagged": false,
   "flag_reason": null,
@@ -124510,7 +124510,7 @@
   "paper_number": null,
   "paper_label": null,
   "group_id": "single|9493",
-  "display_name": "MI 2023 H2 Chemistry Lecture Notes",
+  "display_name": "EJC 2023 H2 Chemistry Lecture Notes",
   "inline_url": "https://document.grail.moe/546aa8931a724e7eaee74f7e8a51ac1e.pdf"
  },
  {
@@ -124524,7 +124524,7 @@
   "year": "2023",
   "uploaded_by": "Rediculous",
   "uploaded_on": "30 August 2023",
-  "school": "MI",
+  "school": "EJC",
   "paper_info": "Lecture Notes",
   "flagged": false,
   "flag_reason": null,
@@ -124536,7 +124536,7 @@
   "paper_number": null,
   "paper_label": null,
   "group_id": "single|9494",
-  "display_name": "MI 2023 H2 Chemistry Lecture Notes",
+  "display_name": "EJC 2023 H2 Chemistry Lecture Notes",
   "inline_url": "https://document.grail.moe/226180bc2af74c4d892eb0bba85265a0.pdf"
  },
  {
@@ -124576,7 +124576,7 @@
   "year": "2022",
   "uploaded_by": "popcorn13",
   "uploaded_on": "26 August 2023",
-  "school": "MI",
+  "school": "RI",
   "paper_info": null,
   "flagged": false,
   "flag_reason": null,
@@ -124588,7 +124588,7 @@
   "paper_number": null,
   "paper_label": null,
   "group_id": "single|9468",
-  "display_name": "MI 2022 H2 Chemistry Notes/Practices",
+  "display_name": "RI 2022 H2 Chemistry Notes/Practices",
   "inline_url": "https://document.grail.moe/15f773243cf54c709f13afffebe04515.pdf"
  },
  {
@@ -124602,7 +124602,7 @@
   "year": "2023",
   "uploaded_by": "Rediculous",
   "uploaded_on": "30 August 2023",
-  "school": "MI",
+  "school": "EJC",
   "paper_info": "Lecture Notes",
   "flagged": false,
   "flag_reason": null,
@@ -124614,7 +124614,7 @@
   "paper_number": null,
   "paper_label": null,
   "group_id": "single|9501",
-  "display_name": "MI 2023 H2 Chemistry Lecture Notes",
+  "display_name": "EJC 2023 H2 Chemistry Lecture Notes",
   "inline_url": "https://document.grail.moe/ba00136dedb34ef0baba4a90eda30b76.pdf"
  },
  {
@@ -124654,7 +124654,7 @@
   "year": "2023",
   "uploaded_by": "Rediculous",
   "uploaded_on": "30 August 2023",
-  "school": "MI",
+  "school": "EJC",
   "paper_info": "Lecture Notes",
   "flagged": false,
   "flag_reason": null,
@@ -124666,7 +124666,7 @@
   "paper_number": null,
   "paper_label": null,
   "group_id": "single|9504",
-  "display_name": "MI 2023 H2 Chemistry Lecture Notes",
+  "display_name": "EJC 2023 H2 Chemistry Lecture Notes",
   "inline_url": "https://document.grail.moe/4c5c8e06f4584dc4bc364987a9e35910.pdf"
  },
  {
@@ -124680,7 +124680,7 @@
   "year": "2023",
   "uploaded_by": "Rediculous",
   "uploaded_on": "30 August 2023",
-  "school": "MI",
+  "school": "EJC",
   "paper_info": "Lecture Notes",
   "flagged": false,
   "flag_reason": null,
@@ -124692,7 +124692,7 @@
   "paper_number": null,
   "paper_label": null,
   "group_id": "single|9503",
-  "display_name": "MI 2023 H2 Chemistry Lecture Notes",
+  "display_name": "EJC 2023 H2 Chemistry Lecture Notes",
   "inline_url": "https://document.grail.moe/aff19d0254344830b339e9ad297f06ba.pdf"
  },
  {
@@ -124758,7 +124758,7 @@
   "year": "2023",
   "uploaded_by": "Rediculous",
   "uploaded_on": "30 August 2023",
-  "school": "MI",
+  "school": "EJC",
   "paper_info": "Lecture Notes",
   "flagged": false,
   "flag_reason": null,
@@ -124770,7 +124770,7 @@
   "paper_number": null,
   "paper_label": null,
   "group_id": "single|9499",
-  "display_name": "MI 2023 H2 Chemistry Lecture Notes",
+  "display_name": "EJC 2023 H2 Chemistry Lecture Notes",
   "inline_url": "https://document.grail.moe/20a8718075a1415e859e2ffddad6e199.pdf"
  },
  {
@@ -125382,7 +125382,7 @@
   "year": "2022",
   "uploaded_by": "popcorn13",
   "uploaded_on": "26 August 2023",
-  "school": "MI",
+  "school": "RI",
   "paper_info": null,
   "flagged": false,
   "flag_reason": null,
@@ -125394,7 +125394,7 @@
   "paper_number": null,
   "paper_label": null,
   "group_id": "single|9467",
-  "display_name": "MI 2022 H2 Chemistry Notes/Practices",
+  "display_name": "RI 2022 H2 Chemistry Notes/Practices",
   "inline_url": "https://document.grail.moe/5b4cddd67193457782f026ccb5cf59c6.pdf"
  },
  {
@@ -125434,7 +125434,7 @@
   "year": "2022",
   "uploaded_by": "popcorn13",
   "uploaded_on": "26 August 2023",
-  "school": "MI",
+  "school": "RI",
   "paper_info": null,
   "flagged": false,
   "flag_reason": null,
@@ -125446,7 +125446,7 @@
   "paper_number": null,
   "paper_label": null,
   "group_id": "single|9464",
-  "display_name": "MI 2022 H2 Chemistry Notes/Practices",
+  "display_name": "RI 2022 H2 Chemistry Notes/Practices",
   "inline_url": "https://document.grail.moe/092d52ec6bfb440ebcaa16be21124c21.pdf"
  },
  {
@@ -125512,7 +125512,7 @@
   "year": "2022",
   "uploaded_by": "popcorn13",
   "uploaded_on": "26 August 2023",
-  "school": "MI",
+  "school": "RI",
   "paper_info": null,
   "flagged": false,
   "flag_reason": null,
@@ -125524,7 +125524,7 @@
   "paper_number": null,
   "paper_label": null,
   "group_id": "single|9463",
-  "display_name": "MI 2022 H2 Chemistry Notes/Practices",
+  "display_name": "RI 2022 H2 Chemistry Notes/Practices",
   "inline_url": "https://document.grail.moe/5f6bcd10b031422e8e03d948602bbee8.pdf"
  },
  {
@@ -125564,7 +125564,7 @@
   "year": "—",
   "uploaded_by": "popcorn13",
   "uploaded_on": "24 August 2023",
-  "school": "MI",
+  "school": "RI",
   "paper_info": "Notes",
   "flagged": false,
   "flag_reason": null,
@@ -125576,7 +125576,7 @@
   "paper_number": null,
   "paper_label": null,
   "group_id": "single|9457",
-  "display_name": "MI 2022 H2 Chemistry Notes",
+  "display_name": "RI 2022 H2 Chemistry Notes",
   "inline_url": "https://document.grail.moe/f13c8ec6531d4bf4bcddfe8e2e8adce9.pdf"
  },
  {
@@ -125668,7 +125668,7 @@
   "year": "2016",
   "uploaded_by": "hima",
   "uploaded_on": "3 June 2023",
-  "school": "YJC",
+  "school": "NYJC",
   "paper_info": "Answers",
   "flagged": false,
   "flag_reason": null,
@@ -125679,8 +125679,8 @@
   "paper_info_role": "Answers",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "single|6367",
-  "display_name": "YJC 2016 H2 Chemistry Answers",
+  "group_id": "manual|NYJC|2016|H2 Chemistry|Prelim",
+  "display_name": "NYJC 2016 H2 Chemistry Answers",
   "inline_url": "https://document.grail.moe/f6b1e8d41b7c4997b5f8935a4361f1ac.pdf"
  },
  {
@@ -125694,7 +125694,7 @@
   "year": "2016",
   "uploaded_by": "hima",
   "uploaded_on": "3 June 2023",
-  "school": "YJC",
+  "school": "NYJC",
   "paper_info": "Answers",
   "flagged": false,
   "flag_reason": null,
@@ -125705,8 +125705,8 @@
   "paper_info_role": "Answers",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "single|6366",
-  "display_name": "YJC 2016 H2 Chemistry Answers",
+  "group_id": "manual|NYJC|2016|H2 Chemistry|Prelim",
+  "display_name": "NYJC 2016 H2 Chemistry Answers",
   "inline_url": "https://document.grail.moe/eedbe5979ea649bcae1fa5ab0a489839.pdf"
  },
  {
@@ -125720,7 +125720,7 @@
   "year": "2016",
   "uploaded_by": "hima",
   "uploaded_on": "3 June 2023",
-  "school": "YJC",
+  "school": "NYJC",
   "paper_info": "Answers",
   "flagged": false,
   "flag_reason": null,
@@ -125731,8 +125731,8 @@
   "paper_info_role": "Answers",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "single|6362",
-  "display_name": "YJC 2016 H2 Chemistry Answers",
+  "group_id": "manual|NYJC|2016|H2 Chemistry|Prelim",
+  "display_name": "NYJC 2016 H2 Chemistry Answers",
   "inline_url": "https://document.grail.moe/fb31ce19f8a84c9c8b53d8eb16fcd856.pdf"
  },
  {
@@ -126147,7 +126147,7 @@
   "paper_info_role": "Answers",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "single|6340",
+  "group_id": "manual|NJC|2011|H2 Chemistry|prelim",
   "display_name": "NJC 2011 H2 Chemistry Answers",
   "inline_url": "https://document.grail.moe/7114d279a39f4a89aafd3ec8a6463674.pdf"
  },
@@ -126173,7 +126173,7 @@
   "paper_info_role": "Questions",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "MI|2018|H2 Chemistry|Prelim",
+  "group_id": "manual|MI|2018|H2 Chemistry|Prelim",
   "display_name": "MI 2018 H2 Chemistry Prelim P4",
   "inline_url": "https://document.grail.moe/b1dd01c9b3ec404c9569f3376c5b200d.pdf"
  },
@@ -126199,7 +126199,7 @@
   "paper_info_role": "Questions",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "MI|2018|H2 Chemistry|Prelim",
+  "group_id": "manual|MI|2018|H2 Chemistry|Prelim",
   "display_name": "MI 2018 H2 Chemistry Prelim P2",
   "inline_url": "https://document.grail.moe/ddab30a108fb4fc88701d96a319d9b75.pdf"
  },
@@ -126225,7 +126225,7 @@
   "paper_info_role": "Questions",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "MI|2018|H2 Chemistry|Prelim",
+  "group_id": "manual|MI|2018|H2 Chemistry|Prelim",
   "display_name": "MI 2018 H2 Chemistry Prelim P3",
   "inline_url": "https://document.grail.moe/5d95097f075142cc857e767fc34428b2.pdf"
  },
@@ -126251,7 +126251,7 @@
   "paper_info_role": "Questions",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "MI|2018|H2 Chemistry|Prelim",
+  "group_id": "manual|MI|2018|H2 Chemistry|Prelim",
   "display_name": "MI 2018 H2 Chemistry Prelim P1",
   "inline_url": "https://document.grail.moe/b1171df3514c43f1b87596207bb4b473.pdf"
  },
@@ -126277,7 +126277,7 @@
   "paper_info_role": "Answers",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "single|6322",
+  "group_id": "manual|MI|2018|H2 Chemistry|Prelim",
   "display_name": "MI 2018 H2 Chemistry Answers",
   "inline_url": "https://document.grail.moe/ca3247840df44ea285d30d747ca8cbb9.pdf"
  },
@@ -126329,7 +126329,7 @@
   "paper_info_role": "Answers",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "MI|2018|H2 Chemistry|Prelim",
+  "group_id": "manual|MI|2018|H2 Chemistry|Prelim",
   "display_name": "MI 2018 H2 Chemistry Prelim P3 Answers",
   "inline_url": "https://document.grail.moe/eb67cf4ccb0548c18047978dd0a4e20c.pdf"
  },
@@ -126355,7 +126355,7 @@
   "paper_info_role": "Answers",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "MI|2018|H2 Chemistry|Prelim",
+  "group_id": "manual|MI|2018|H2 Chemistry|Prelim",
   "display_name": "MI 2018 H2 Chemistry Prelim P4 Answers",
   "inline_url": "https://document.grail.moe/40f519965c354ca2a66b119cac9fbf5e.pdf"
  },
@@ -126563,7 +126563,7 @@
   "paper_info_role": "Answers",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "JPJC|2021|H2 Chemistry|Prelim",
+  "group_id": "manual|JPJC|2021|H2 Chemistry|Prelim",
   "display_name": "JPJC 2021 H2 Chemistry Prelim P2 Answers",
   "inline_url": "https://document.grail.moe/ec825429198f428ba18f367694d7e171.pdf"
  },
@@ -126589,7 +126589,7 @@
   "paper_info_role": "Answers",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "JPJC|2021|H2 Chemistry|Prelim",
+  "group_id": "manual|JPJC|2021|H2 Chemistry|Prelim",
   "display_name": "JPJC 2021 H2 Chemistry Prelim P3 Answers",
   "inline_url": "https://document.grail.moe/9b348d0e76a148b3b874e9ce8b83ab08.pdf"
  },
@@ -126615,7 +126615,7 @@
   "paper_info_role": "Answers",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "JPJC|2021|H2 Chemistry|Prelim",
+  "group_id": "manual|JPJC|2021|H2 Chemistry|Prelim",
   "display_name": "JPJC 2021 H2 Chemistry Prelim P4 Answers",
   "inline_url": "https://document.grail.moe/54e86788c16d4eb388ca5d31d2eadcc9.pdf"
  },
@@ -126630,7 +126630,7 @@
   "year": "2021",
   "uploaded_by": "hima",
   "uploaded_on": "3 June 2023",
-  "school": "MI",
+  "school": "JPJC",
   "paper_info": "P2",
   "flagged": false,
   "flag_reason": null,
@@ -126641,8 +126641,8 @@
   "paper_info_role": "Questions",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "single|6282",
-  "display_name": "MI 2021 H2 Chemistry P2",
+  "group_id": "manual|JPJC|2021|H2 Chemistry|Prelim",
+  "display_name": "JPJC 2021 H2 Chemistry P2",
   "inline_url": "https://document.grail.moe/2da55a1589534743b28ca819dadbc4fd.pdf"
  },
  {
@@ -126667,7 +126667,7 @@
   "paper_info_role": "Questions",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "JPJC|2021|H2 Chemistry|Prelim",
+  "group_id": "manual|JPJC|2021|H2 Chemistry|Prelim",
   "display_name": "JPJC 2021 H2 Chemistry Prelim P4",
   "inline_url": "https://document.grail.moe/52f86c8e20754f12b7144a7cd1072f70.pdf"
  },
@@ -126682,7 +126682,7 @@
   "year": "2021",
   "uploaded_by": "hima",
   "uploaded_on": "3 June 2023",
-  "school": "MI",
+  "school": "JPJC",
   "paper_info": "P1",
   "flagged": false,
   "flag_reason": null,
@@ -126693,8 +126693,8 @@
   "paper_info_role": "Questions",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "single|6280",
-  "display_name": "MI 2021 H2 Chemistry P1",
+  "group_id": "manual|JPJC|2021|H2 Chemistry|Prelim",
+  "display_name": "JPJC 2021 H2 Chemistry P1",
   "inline_url": "https://document.grail.moe/acc2786690e64391915921b384647479.pdf"
  },
  {
@@ -126719,7 +126719,7 @@
   "paper_info_role": "Questions",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "JPJC|2021|H2 Chemistry|Prelim",
+  "group_id": "manual|JPJC|2021|H2 Chemistry|Prelim",
   "display_name": "JPJC 2021 H2 Chemistry Prelim P3",
   "inline_url": "https://document.grail.moe/eb0cb1d92c464d3a97c454056a4cea5c.pdf"
  },
@@ -126734,7 +126734,7 @@
   "year": "2021",
   "uploaded_by": "hima",
   "uploaded_on": "3 June 2023",
-  "school": "MI",
+  "school": "JPJC",
   "paper_info": "Prelim P1 Answers",
   "flagged": false,
   "flag_reason": null,
@@ -126745,8 +126745,8 @@
   "paper_info_role": "Answers",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "MI|2021|H2 Chemistry|Prelim",
-  "display_name": "MI 2021 H2 Chemistry Prelim P1 Answers",
+  "group_id": "manual|JPJC|2021|H2 Chemistry|Prelim",
+  "display_name": "JPJC 2021 H2 Chemistry Prelim P1 Answers",
   "inline_url": "https://document.grail.moe/8ef1059d969441798a3fbd4b48111687.pdf"
  },
  {
@@ -126760,7 +126760,7 @@
   "year": "2021",
   "uploaded_by": "hima",
   "uploaded_on": "3 June 2023",
-  "school": "MI",
+  "school": "TJC",
   "paper_info": null,
   "flagged": false,
   "flag_reason": null,
@@ -126771,8 +126771,8 @@
   "paper_info_role": "",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "single|6277",
-  "display_name": "MI 2021 H2 Chemistry Exam Papers",
+  "group_id": "manual|TJC|2021|H2 Chemistry|prelim",
+  "display_name": "TJC 2021 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/b01176286ade4bc7818149a09ad6b256.pdf"
  },
  {
@@ -126786,7 +126786,7 @@
   "year": "2021",
   "uploaded_by": "hima",
   "uploaded_on": "3 June 2023",
-  "school": "MI",
+  "school": "TJC",
   "paper_info": null,
   "flagged": false,
   "flag_reason": null,
@@ -126797,8 +126797,8 @@
   "paper_info_role": "",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "single|6276",
-  "display_name": "MI 2021 H2 Chemistry Exam Papers",
+  "group_id": "manual|TJC|2021|H2 Chemistry|prelim",
+  "display_name": "TJC 2021 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/9b3029df1ad44660bff42c4c2e872d3d.pdf"
  },
  {
@@ -126812,7 +126812,7 @@
   "year": "2021",
   "uploaded_by": "hima",
   "uploaded_on": "3 June 2023",
-  "school": "MI",
+  "school": "TJC",
   "paper_info": "Answers",
   "flagged": false,
   "flag_reason": null,
@@ -126823,8 +126823,8 @@
   "paper_info_role": "Answers",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "single|6275",
-  "display_name": "MI 2021 H2 Chemistry Answers",
+  "group_id": "manual|TJC|2021|H2 Chemistry|prelim",
+  "display_name": "TJC 2021 H2 Chemistry Answers",
   "inline_url": "https://document.grail.moe/282498c97e184a269171b82a5784b7cf.pdf"
  },
  {
@@ -126838,7 +126838,7 @@
   "year": "2021",
   "uploaded_by": "hima",
   "uploaded_on": "3 June 2023",
-  "school": "MI",
+  "school": "TJC",
   "paper_info": null,
   "flagged": false,
   "flag_reason": null,
@@ -126849,8 +126849,8 @@
   "paper_info_role": "",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "single|6274",
-  "display_name": "MI 2021 H2 Chemistry Exam Papers",
+  "group_id": "manual|TJC|2021|H2 Chemistry|prelim",
+  "display_name": "TJC 2021 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/19bfac9821a94a1297489de5ca904265.pdf"
  },
  {
@@ -126864,7 +126864,7 @@
   "year": "2021",
   "uploaded_by": "hima",
   "uploaded_on": "3 June 2023",
-  "school": "MI",
+  "school": "TJC",
   "paper_info": "Answers",
   "flagged": false,
   "flag_reason": null,
@@ -126875,8 +126875,8 @@
   "paper_info_role": "Answers",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "single|6273",
-  "display_name": "MI 2021 H2 Chemistry Answers",
+  "group_id": "manual|TJC|2021|H2 Chemistry|prelim",
+  "display_name": "TJC 2021 H2 Chemistry Answers",
   "inline_url": "https://document.grail.moe/153e71bc0d674de999495e1a6f493784.pdf"
  },
  {
@@ -126890,7 +126890,7 @@
   "year": "2021",
   "uploaded_by": "hima",
   "uploaded_on": "3 June 2023",
-  "school": "MI",
+  "school": "TJC",
   "paper_info": null,
   "flagged": false,
   "flag_reason": null,
@@ -126901,8 +126901,8 @@
   "paper_info_role": "",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "single|6272",
-  "display_name": "MI 2021 H2 Chemistry Exam Papers",
+  "group_id": "manual|TJC|2021|H2 Chemistry|prelim",
+  "display_name": "TJC 2021 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/5eb6332d308e4c2a96d0bc40d7e7ef2a.pdf"
  },
  {
@@ -126916,7 +126916,7 @@
   "year": "2021",
   "uploaded_by": "hima",
   "uploaded_on": "3 June 2023",
-  "school": "MI",
+  "school": "TJC",
   "paper_info": "Answers",
   "flagged": false,
   "flag_reason": null,
@@ -126927,8 +126927,8 @@
   "paper_info_role": "Answers",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "single|6271",
-  "display_name": "MI 2021 H2 Chemistry Answers",
+  "group_id": "manual|TJC|2021|H2 Chemistry|prelim",
+  "display_name": "TJC 2021 H2 Chemistry Answers",
   "inline_url": "https://document.grail.moe/65a0e23cc9204ef191367592cbec20dd.pdf"
  },
  {
@@ -127046,7 +127046,7 @@
   "year": "2022",
   "uploaded_by": "popcorn13",
   "uploaded_on": "9 August 2023",
-  "school": "MI",
+  "school": "RI",
   "paper_info": null,
   "flagged": false,
   "flag_reason": null,
@@ -127058,7 +127058,7 @@
   "paper_number": null,
   "paper_label": null,
   "group_id": "single|9301",
-  "display_name": "MI 2022 H2 Chemistry Notes/Practices",
+  "display_name": "RI 2022 H2 Chemistry Notes/Practices",
   "inline_url": "https://document.grail.moe/9e3af519c78e419f9f483c9aad0f6162.pdf"
  },
  {
@@ -127098,7 +127098,7 @@
   "year": "2022",
   "uploaded_by": "popcorn13",
   "uploaded_on": "30 July 2023",
-  "school": "MI",
+  "school": "RI",
   "paper_info": null,
   "flagged": false,
   "flag_reason": null,
@@ -127110,7 +127110,7 @@
   "paper_number": null,
   "paper_label": null,
   "group_id": "single|9244",
-  "display_name": "MI 2022 H2 Chemistry Notes/Practices",
+  "display_name": "RI 2022 H2 Chemistry Notes/Practices",
   "inline_url": "https://document.grail.moe/d6647e68fe074af187f6dd2bfe2d249c.pdf"
  },
  {
@@ -127213,7 +127213,7 @@
   "paper_info_role": "Solution",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "single|6339",
+  "group_id": "manual|NJC|2011|H2 Chemistry|prelim",
   "display_name": "NJC 2011 H2 Chemistry Solution",
   "inline_url": "https://document.grail.moe/b6c14b5b6ada427f8d9ff66529e68e61.pdf"
  },
@@ -127239,7 +127239,7 @@
   "paper_info_role": "Answers",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "HCI|2018|H2 Chemistry|Prelim",
+  "group_id": "manual|HCI|2018|H2 Chemistry|Prelim",
   "display_name": "HCI 2018 H2 Chemistry Prelim P1 Answers",
   "inline_url": "https://document.grail.moe/290440ac55844727832df8d2c83db821.pdf"
  },
@@ -127265,7 +127265,7 @@
   "paper_info_role": "Answers",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "HCI|2018|H2 Chemistry|Prelim",
+  "group_id": "manual|HCI|2018|H2 Chemistry|Prelim",
   "display_name": "HCI 2018 H2 Chemistry Prelim P2 Answers",
   "inline_url": "https://document.grail.moe/8961c4fd6ae041e5b095e24b1bf4e82f.pdf"
  },
@@ -127291,7 +127291,7 @@
   "paper_info_role": "Answers",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "HCI|2018|H2 Chemistry|Prelim",
+  "group_id": "manual|HCI|2018|H2 Chemistry|Prelim",
   "display_name": "HCI 2018 H2 Chemistry Prelim P3 Answers",
   "inline_url": "https://document.grail.moe/5c1a3822f674417e8d58d73e56054c31.pdf"
  },
@@ -127317,7 +127317,7 @@
   "paper_info_role": "",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "single|6332",
+  "group_id": "manual|HCI|2018|H2 Chemistry|Prelim",
   "display_name": "HCI 2018 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/5df9f0f1e6dc43fd83262afed5dd4ce2.pdf"
  },
@@ -127343,7 +127343,7 @@
   "paper_info_role": "Answers",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "HCI|2018|H2 Chemistry|Prelim",
+  "group_id": "manual|HCI|2018|H2 Chemistry|Prelim",
   "display_name": "HCI 2018 H2 Chemistry Prelim P4 Answers",
   "inline_url": "https://document.grail.moe/768fdbc7b2b44e059d1eea591532499b.pdf"
  },
@@ -127369,7 +127369,7 @@
   "paper_info_role": "Questions",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "HCI|2018|H2 Chemistry|Prelim",
+  "group_id": "manual|HCI|2018|H2 Chemistry|Prelim",
   "display_name": "HCI 2018 H2 Chemistry Prelim P4",
   "inline_url": "https://document.grail.moe/6aba8c9b91de4387ad8dedd714fd8b94.pdf"
  },
@@ -127395,7 +127395,7 @@
   "paper_info_role": "Questions",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "HCI|2018|H2 Chemistry|Prelim",
+  "group_id": "manual|HCI|2018|H2 Chemistry|Prelim",
   "display_name": "HCI 2018 H2 Chemistry Prelim P4",
   "inline_url": "https://document.grail.moe/c845659a894642c99481456a1ea31eb4.pdf"
  },
@@ -127421,7 +127421,7 @@
   "paper_info_role": "Questions",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "HCI|2018|H2 Chemistry|Prelim",
+  "group_id": "manual|HCI|2018|H2 Chemistry|Prelim",
   "display_name": "HCI 2018 H2 Chemistry Prelim P2",
   "inline_url": "https://document.grail.moe/b89fcb66d5574ea3ac5fc39c05e7d1d0.pdf"
  },
@@ -127447,7 +127447,7 @@
   "paper_info_role": "Answers",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "single|6327",
+  "group_id": "manual|MI|2018|H2 Chemistry|Prelim",
   "display_name": "MI 2018 H2 Chemistry Answers",
   "inline_url": "https://document.grail.moe/e0898847f7ac42c4be4af92fc723a5a3.pdf"
  },
@@ -127592,7 +127592,7 @@
   "year": "—",
   "uploaded_by": "popcorn13",
   "uploaded_on": "19 August 2023",
-  "school": "MI",
+  "school": "RI",
   "paper_info": "Solution",
   "flagged": false,
   "flag_reason": null,
@@ -127604,7 +127604,7 @@
   "paper_number": null,
   "paper_label": null,
   "group_id": "single|9398",
-  "display_name": "MI 2013 H2 Chemistry Solution",
+  "display_name": "RI 2013 H2 Chemistry Solution",
   "inline_url": "https://document.grail.moe/8560b11b9bf2401d94bdbd1ca6565c10.pdf"
  },
  {
@@ -127930,7 +127930,7 @@
   "year": "—",
   "uploaded_by": "popcorn13",
   "uploaded_on": "4 September 2023",
-  "school": "MI",
+  "school": "RI",
   "paper_info": "Solution",
   "flagged": false,
   "flag_reason": null,
@@ -127942,7 +127942,7 @@
   "paper_number": null,
   "paper_label": null,
   "group_id": "single|9537",
-  "display_name": "MI 2020 H2 Chemistry Solution",
+  "display_name": "RI 2020 H2 Chemistry Solution",
   "inline_url": "https://document.grail.moe/ff54193d725947b8a48d92f390f9f53a.pdf"
  },
  {
@@ -127956,7 +127956,7 @@
   "year": "2016",
   "uploaded_by": "popcorn13",
   "uploaded_on": "4 September 2023",
-  "school": "MI",
+  "school": "RI",
   "paper_info": "P2 Answers",
   "flagged": false,
   "flag_reason": null,
@@ -127968,7 +127968,7 @@
   "paper_number": 2,
   "paper_label": null,
   "group_id": "single|9536",
-  "display_name": "MI 2016 H2 Chemistry P2 Answers",
+  "display_name": "RI 2016 H2 Chemistry P2 Answers",
   "inline_url": "https://document.grail.moe/f5a8cdba87c740f49f9d7949abcb2144.pdf"
  },
  {
@@ -130333,7 +130333,7 @@
   "paper_info_role": "Answers",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "TJC|2021|H2 Chemistry|Prelim",
+  "group_id": "manual|TJC|2021|H2 Chemistry|prelim",
   "display_name": "TJC 2021 H2 Chemistry Prelim P1 Answers",
   "inline_url": "https://document.grail.moe/933a0b4fab7d446fa37e10e84dd6a548.pdf"
  },
@@ -136027,7 +136027,7 @@
   "paper_info_role": "Answers",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "single|5836",
+  "group_id": "manual|MI|2008|H1 Chemistry|promo",
   "display_name": "MI 2008 H1 Chemistry P1 Answers",
   "inline_url": "https://document.grail.moe/fb0671cdc0934217be7c7d4dc6f45d8b.pdf"
  },
@@ -137535,7 +137535,7 @@
   "paper_info_role": "Answers",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "HCI|2015|H2 Chemistry|Prelim",
+  "group_id": "manual|HCI|2015|H2 Chemistry|Prelim",
   "display_name": "HCI 2015 H2 Chemistry Prelim P3 Answers",
   "inline_url": "https://document.grail.moe/15e191c5c0e44a4fb57912e9bb561448.pdf"
  },
@@ -137561,7 +137561,7 @@
   "paper_info_role": "Questions",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "HCI|2015|H2 Chemistry|Prelim",
+  "group_id": "manual|HCI|2015|H2 Chemistry|Prelim",
   "display_name": "HCI 2015 H2 Chemistry Prelim P3",
   "inline_url": "https://document.grail.moe/e22370aa034841d6b272226425d80117.pdf"
  },
@@ -137587,7 +137587,7 @@
   "paper_info_role": "Questions",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "HCI|2015|H2 Chemistry|Prelim",
+  "group_id": "manual|HCI|2015|H2 Chemistry|Prelim",
   "display_name": "HCI 2015 H2 Chemistry Prelim P2",
   "inline_url": "https://document.grail.moe/72ec4ad2d8624ca5b0933ff1f49ec58b.pdf"
  },
@@ -137821,7 +137821,7 @@
   "paper_info_role": "Questions",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "single|5748",
+  "group_id": "manual|MI|2008|H1 Chemistry|promo",
   "display_name": "MI 2008 H1 Chemistry P2",
   "inline_url": "https://document.grail.moe/5768865f7ec24fd2bad548111b82fd29.pdf"
  },
@@ -139433,7 +139433,7 @@
   "paper_info_role": "Answers",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "single|5525",
+  "group_id": "manual|NJC|2015|H2 Chemistry|prelim",
   "display_name": "NJC 2015 H2 Chemistry P2 Answers",
   "inline_url": "https://document.grail.moe/65c3ac86fe5149a6aae3f17ed4ff829a.pdf"
  },
@@ -139459,7 +139459,7 @@
   "paper_info_role": "Questions",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "single|5523",
+  "group_id": "manual|NJC|2015|H2 Chemistry|prelim",
   "display_name": "NJC 2015 H2 Chemistry P1",
   "inline_url": "https://document.grail.moe/5cbdbed0bc204545bf0cbe5fff36d151.pdf"
  },
@@ -139485,7 +139485,7 @@
   "paper_info_role": "Questions",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "single|5521",
+  "group_id": "manual|NJC|2015|H2 Chemistry|prelim",
   "display_name": "NJC 2015 H2 Chemistry P2",
   "inline_url": "https://document.grail.moe/97392405f4e94546ba21a96016ee1901.pdf"
  },
@@ -139511,7 +139511,7 @@
   "paper_info_role": "Questions",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "single|5519",
+  "group_id": "manual|NJC|2015|H2 Chemistry|prelim",
   "display_name": "NJC 2015 H2 Chemistry P3",
   "inline_url": "https://document.grail.moe/a73a36dc040f48c08fd0ba7fabfb26bd.pdf"
  },
@@ -139953,7 +139953,7 @@
   "paper_info_role": "Questions",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "single|5544",
+  "group_id": "manual|HCI|2015|H2 Chemistry|Prelim",
   "display_name": "HCI 2015 H2 Chemistry P1",
   "inline_url": "https://document.grail.moe/eba453177cba4c4d952445350a6ef1c5.pdf"
  },
@@ -139979,7 +139979,7 @@
   "paper_info_role": "Answers",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "single|5542",
+  "group_id": "manual|HCI|2015|H2 Chemistry|Prelim",
   "display_name": "HCI 2015 H2 Chemistry P2 Answers",
   "inline_url": "https://document.grail.moe/6590978d49d24bbf885fa74a60157366.pdf"
  },
@@ -140005,7 +140005,7 @@
   "paper_info_role": "Answers",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "single|5540",
+  "group_id": "manual|HCI|2015|H2 Chemistry|Prelim",
   "display_name": "HCI 2015 H2 Chemistry P1 Answers",
   "inline_url": "https://document.grail.moe/0bcf8df48a1942d0929c16949fb50fd4.pdf"
  },
@@ -140031,7 +140031,7 @@
   "paper_info_role": "Questions",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "single|5539",
+  "group_id": "manual|MI|2015|H2 Chemistry|prelim",
   "display_name": "MI 2015 H2 Chemistry P1",
   "inline_url": "https://document.grail.moe/0bb7846961be4b58a8dce4a24f771220.pdf"
  },
@@ -140057,7 +140057,7 @@
   "paper_info_role": "Answers",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "single|5537",
+  "group_id": "manual|MI|2015|H2 Chemistry|prelim",
   "display_name": "MI 2015 H2 Chemistry P1 Answers",
   "inline_url": "https://document.grail.moe/bad77d8bcf32460dbf70fef31dd31c43.pdf"
  },
@@ -140083,7 +140083,7 @@
   "paper_info_role": "Questions",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "single|5536",
+  "group_id": "manual|MI|2015|H2 Chemistry|prelim",
   "display_name": "MI 2015 H2 Chemistry P3",
   "inline_url": "https://document.grail.moe/3b994875dc7f4369bd55fa2e0aa25ff2.pdf"
  },
@@ -140109,7 +140109,7 @@
   "paper_info_role": "Questions",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "single|5534",
+  "group_id": "manual|MI|2015|H2 Chemistry|prelim",
   "display_name": "MI 2015 H2 Chemistry P2",
   "inline_url": "https://document.grail.moe/9d728c30d0824331a779fc16468a6e54.pdf"
  },
@@ -140135,7 +140135,7 @@
   "paper_info_role": "Answers",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "single|5532",
+  "group_id": "manual|MI|2015|H2 Chemistry|prelim",
   "display_name": "MI 2015 H2 Chemistry P3 Answers",
   "inline_url": "https://document.grail.moe/a2f0253a501e485f88d6c4457bea07a0.pdf"
  },
@@ -140161,7 +140161,7 @@
   "paper_info_role": "Answers",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "single|5531",
+  "group_id": "manual|MI|2015|H2 Chemistry|prelim",
   "display_name": "MI 2015 H2 Chemistry P2 Answers",
   "inline_url": "https://document.grail.moe/ad5d17e1764245bdb6964ee2782bd822.pdf"
  },
@@ -140187,7 +140187,7 @@
   "paper_info_role": "Answers",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "single|5526",
+  "group_id": "manual|NJC|2015|H2 Chemistry|prelim",
   "display_name": "NJC 2015 H2 Chemistry P1 Answers",
   "inline_url": "https://document.grail.moe/4a170dbe32ff4dc0b65ba5535b59ea5f.pdf"
  },
@@ -140837,7 +140837,7 @@
   "paper_info_role": "Answers",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "single|5362",
+  "group_id": "manual|SAJC|2014|H2 Chemistry|Prelim",
   "display_name": "SAJC 2014 H2 Chemistry P3 Answers",
   "inline_url": "https://document.grail.moe/b828ac8108504763bc3e63b821b90bad.pdf"
  },
@@ -140993,7 +140993,7 @@
   "paper_info_role": "Answers",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "single|5476",
+  "group_id": "manual|ASRJC|2022|H2 Chemistry|Prelim",
   "display_name": "ASRJC 2022 H2 Chemistry P3 Answers",
   "inline_url": "https://document.grail.moe/579aec2a65664179852b199b653b6f4d.pdf"
  },
@@ -141019,7 +141019,7 @@
   "paper_info_role": "Answers",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "single|5473",
+  "group_id": "manual|ASRJC|2022|H2 Chemistry|Prelim",
   "display_name": "ASRJC 2022 H2 Chemistry P2 Answers",
   "inline_url": "https://document.grail.moe/b9b1bfcb22a0428b8c4f2151ca748d28.pdf"
  },
@@ -141045,7 +141045,7 @@
   "paper_info_role": "Questions",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "ASRJC|2022|H2 Chemistry|Prelim",
+  "group_id": "manual|ASRJC|2022|H2 Chemistry|Prelim",
   "display_name": "ASRJC 2022 H2 Chemistry Prelim P1",
   "inline_url": "https://document.grail.moe/d1a627c96d314d628dfff9bebea62352.pdf"
  },
@@ -141071,7 +141071,7 @@
   "paper_info_role": "Answers",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "single|5470",
+  "group_id": "manual|ASRJC|2022|H2 Chemistry|Prelim",
   "display_name": "ASRJC 2022 H2 Chemistry P4 Answers",
   "inline_url": "https://document.grail.moe/1b2453aa4607499cbbc413fb09d2817a.pdf"
  },
@@ -141097,7 +141097,7 @@
   "paper_info_role": "Questions",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "ASRJC|2022|H2 Chemistry|Prelim",
+  "group_id": "manual|ASRJC|2022|H2 Chemistry|Prelim",
   "display_name": "ASRJC 2022 H2 Chemistry Prelim P2",
   "inline_url": "https://document.grail.moe/d9e6934487ce4f9bbee049c77c3a84e9.pdf"
  },
@@ -141123,7 +141123,7 @@
   "paper_info_role": "Answers",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "single|5467",
+  "group_id": "manual|ASRJC|2022|H2 Chemistry|Prelim",
   "display_name": "ASRJC 2022 H2 Chemistry P1 Answers",
   "inline_url": "https://document.grail.moe/61f82179d9e5499bb03f89434bfc0fc6.pdf"
  },
@@ -141149,7 +141149,7 @@
   "paper_info_role": "Questions",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "ASRJC|2022|H2 Chemistry|Prelim",
+  "group_id": "manual|ASRJC|2022|H2 Chemistry|Prelim",
   "display_name": "ASRJC 2022 H2 Chemistry Prelim P4",
   "inline_url": "https://document.grail.moe/07e71d578c364538922f7b44e6b20a40.pdf"
  },
@@ -141513,7 +141513,7 @@
   "paper_info_role": "Answers",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "single|5323",
+  "group_id": "manual|ACJC|2014|H2 Chemistry|prelim",
   "display_name": "ACJC 2014 H2 Chemistry P2 Answers",
   "inline_url": "https://document.grail.moe/5e8f8014f52f42a3a1180ebbec356202.pdf"
  },
@@ -141695,7 +141695,7 @@
   "paper_info_role": "Questions",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "single|5309",
+  "group_id": "manual|NJC|2014|H2 Chemistry|Prelim",
   "display_name": "NJC 2014 H2 Chemistry P2",
   "inline_url": "https://document.grail.moe/ce6bf8a675b84e7db04a0ff007dc0c46.pdf"
  },
@@ -141721,7 +141721,7 @@
   "paper_info_role": "Questions",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "single|5307",
+  "group_id": "manual|NJC|2014|H2 Chemistry|Prelim",
   "display_name": "NJC 2014 H2 Chemistry P1",
   "inline_url": "https://document.grail.moe/a80e92c4b22f42999008be144be66ebb.pdf"
  },
@@ -142241,7 +142241,7 @@
   "paper_info_role": "",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "single|5479",
+  "group_id": "manual|EJC|2022|H2 Chemistry|Prelim",
   "display_name": "EJC 2022 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/c5ea87c1aa174afba6b41bed923e8282.pdf"
  },
@@ -142267,7 +142267,7 @@
   "paper_info_role": "Questions",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "ASRJC|2022|H2 Chemistry|Prelim",
+  "group_id": "manual|ASRJC|2022|H2 Chemistry|Prelim",
   "display_name": "ASRJC 2022 H2 Chemistry Prelim P3",
   "inline_url": "https://document.grail.moe/5e5e3d1c23014dc5b60500a831a9cb79.pdf"
  },
@@ -142293,7 +142293,7 @@
   "paper_info_role": "Questions",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "single|5337",
+  "group_id": "manual|CJC|2014|H2 Chemistry|prelim",
   "display_name": "CJC 2014 H2 Chemistry P2",
   "inline_url": "https://document.grail.moe/935435423e5143598eb6a614ad9adbcf.pdf"
  },
@@ -142449,7 +142449,7 @@
   "paper_info_role": "Questions",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "single|5329",
+  "group_id": "manual|ACJC|2014|H2 Chemistry|prelim",
   "display_name": "ACJC 2014 H2 Chemistry P3",
   "inline_url": "https://document.grail.moe/bc8ac79004c04590823a9de8feee74ba.pdf"
  },
@@ -142475,7 +142475,7 @@
   "paper_info_role": "Answers",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "single|5327",
+  "group_id": "manual|ACJC|2014|H2 Chemistry|prelim",
   "display_name": "ACJC 2014 H2 Chemistry P3 Answers",
   "inline_url": "https://document.grail.moe/ab747b8e18344d06aa00c100d0ad87a7.pdf"
  },
@@ -142501,7 +142501,7 @@
   "paper_info_role": "Questions",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "single|5326",
+  "group_id": "manual|ACJC|2014|H2 Chemistry|prelim",
   "display_name": "ACJC 2014 H2 Chemistry P1",
   "inline_url": "https://document.grail.moe/7ecc60dd37af4401af4e2a8d1384660d.pdf"
  },
@@ -142527,7 +142527,7 @@
   "paper_info_role": "Questions",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "single|5324",
+  "group_id": "manual|ACJC|2014|H2 Chemistry|prelim",
   "display_name": "ACJC 2014 H2 Chemistry P2",
   "inline_url": "https://document.grail.moe/9508f632121a48a090a10c5cbcc8b06a.pdf"
  },
@@ -142631,7 +142631,7 @@
   "paper_info_role": "",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "single|5430",
+  "group_id": "manual|DHS|2022|H2 Chemistry|prelim",
   "display_name": "DHS 2022 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/9d02c0c50dbf4521b9b331ef36dce234.pdf"
  },
@@ -142657,7 +142657,7 @@
   "paper_info_role": "Answers",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "single|5428",
+  "group_id": "manual|DHS|2022|H2 Chemistry|prelim",
   "display_name": "DHS 2022 H2 Chemistry Answers",
   "inline_url": "https://document.grail.moe/278e7cb7a2f942a3b851eea5dfb430a0.pdf"
  },
@@ -142683,7 +142683,7 @@
   "paper_info_role": "",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "single|5427",
+  "group_id": "manual|DHS|2022|H2 Chemistry|prelim",
   "display_name": "DHS 2022 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/3f89a3a99fca4879961674889ee03129.pdf"
  },
@@ -142709,7 +142709,7 @@
   "paper_info_role": "",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "single|5426",
+  "group_id": "manual|DHS|2022|H2 Chemistry|prelim",
   "display_name": "DHS 2022 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/bf90b36ee7e544a88786d3afa9afaa60.pdf"
  },
@@ -142735,7 +142735,7 @@
   "paper_info_role": "Answers",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "single|5424",
+  "group_id": "manual|DHS|2022|H2 Chemistry|prelim",
   "display_name": "DHS 2022 H2 Chemistry Answers",
   "inline_url": "https://document.grail.moe/6932e07e9a8a4cd28c78c27f45685191.pdf"
  },
@@ -142761,7 +142761,7 @@
   "paper_info_role": "Answers",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "single|5423",
+  "group_id": "manual|DHS|2022|H2 Chemistry|prelim",
   "display_name": "DHS 2022 H2 Chemistry Answers",
   "inline_url": "https://document.grail.moe/96e9cdc691ea463397def469318428d4.pdf"
  },
@@ -142787,7 +142787,7 @@
   "paper_info_role": "Answers",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "single|5420",
+  "group_id": "manual|DHS|2022|H2 Chemistry|prelim",
   "display_name": "DHS 2022 H2 Chemistry Answers",
   "inline_url": "https://document.grail.moe/6381b32538b7438abdea13002814ad6d.pdf"
  },
@@ -143073,7 +143073,7 @@
   "paper_info_role": "Answers",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "single|5353",
+  "group_id": "manual|MJC|2014|H2 Chemistry|prelim",
   "display_name": "MJC 2014 H2 Chemistry P2 Answers",
   "inline_url": "https://document.grail.moe/001f7a2ef1e742069a33bd82526b62d9.pdf"
  },
@@ -143177,7 +143177,7 @@
   "paper_info_role": "Questions",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "single|5347",
+  "group_id": "manual|MJC|2014|H2 Chemistry|prelim",
   "display_name": "MJC 2014 H2 Chemistry P2",
   "inline_url": "https://document.grail.moe/31a1eec1a2764e069ed96a445be00fd4.pdf"
  },
@@ -143203,7 +143203,7 @@
   "paper_info_role": "Questions",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "single|5345",
+  "group_id": "manual|CJC|2014|H2 Chemistry|prelim",
   "display_name": "CJC 2014 H2 Chemistry P1",
   "inline_url": "https://document.grail.moe/27d7b5933a654261868848e18e23d78c.pdf"
  },
@@ -143229,7 +143229,7 @@
   "paper_info_role": "Questions",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "single|5344",
+  "group_id": "manual|CJC|2014|H2 Chemistry|prelim",
   "display_name": "CJC 2014 H2 Chemistry P1",
   "inline_url": "https://document.grail.moe/56176dc9149d4f94ae6562c984ac0632.pdf"
  },
@@ -143255,7 +143255,7 @@
   "paper_info_role": "Questions",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "single|5342",
+  "group_id": "manual|CJC|2014|H2 Chemistry|prelim",
   "display_name": "CJC 2014 H2 Chemistry P3",
   "inline_url": "https://document.grail.moe/331f0d6c26b8497baad4e65f87dbbcd8.pdf"
  },
@@ -143281,7 +143281,7 @@
   "paper_info_role": "Questions",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "single|5341",
+  "group_id": "manual|CJC|2014|H2 Chemistry|prelim",
   "display_name": "CJC 2014 H2 Chemistry P3",
   "inline_url": "https://document.grail.moe/e98616548abb49ca847a153ce56b5b64.pdf"
  },
@@ -143307,7 +143307,7 @@
   "paper_info_role": "Questions",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "single|5339",
+  "group_id": "manual|CJC|2014|H2 Chemistry|prelim",
   "display_name": "CJC 2014 H2 Chemistry P2",
   "inline_url": "https://document.grail.moe/3ee9d5437ceb44828c66de8b0f74c309.pdf"
  },
@@ -143411,7 +143411,7 @@
   "paper_info_role": "",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "single|5419",
+  "group_id": "manual|DHS|2022|H2 Chemistry|prelim",
   "display_name": "DHS 2022 H2 Chemistry Exam Papers",
   "inline_url": "https://document.grail.moe/ed31dc21873e4b8e81a6d5759ba0d789.pdf"
  },
@@ -143437,7 +143437,7 @@
   "paper_info_role": "Questions",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "RVHS|2022|H2 Chemistry|Prelim",
+  "group_id": "manual|RVHS|2022|H2 Chemistry|Prelim",
   "display_name": "RVHS 2022 H2 Chemistry Prelim P4",
   "inline_url": "https://document.grail.moe/76326bb1a8114c53b206eae3aa06f86d.pdf"
  },
@@ -143463,7 +143463,7 @@
   "paper_info_role": "Answers",
   "paper_number": 4,
   "paper_label": null,
-  "group_id": "single|5416",
+  "group_id": "manual|RVHS|2022|H2 Chemistry|Prelim",
   "display_name": "RVHS 2022 H2 Chemistry P4 Answers",
   "inline_url": "https://document.grail.moe/4c5ade41a8e54d8b87c12c9133d7cc07.pdf"
  },
@@ -143489,7 +143489,7 @@
   "paper_info_role": "Questions",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "RVHS|2022|H2 Chemistry|Prelim",
+  "group_id": "manual|RVHS|2022|H2 Chemistry|Prelim",
   "display_name": "RVHS 2022 H2 Chemistry Prelim P3",
   "inline_url": "https://document.grail.moe/a50f1eced0794af294c370e3f4973a3f.pdf"
  },
@@ -143515,7 +143515,7 @@
   "paper_info_role": "Questions",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "RVHS|2022|H2 Chemistry|Prelim",
+  "group_id": "manual|RVHS|2022|H2 Chemistry|Prelim",
   "display_name": "RVHS 2022 H2 Chemistry Prelim P2",
   "inline_url": "https://document.grail.moe/dc3d3a4cd0b84d80bb0d5c9fa1759af3.pdf"
  },
@@ -143541,7 +143541,7 @@
   "paper_info_role": "Answers",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "RVHS|2022|H2 Chemistry|Prelim",
+  "group_id": "manual|RVHS|2022|H2 Chemistry|Prelim",
   "display_name": "RVHS 2022 H2 Chemistry Prelim P3 Answers",
   "inline_url": "https://document.grail.moe/cf8dd38a726145409b4f16ebe8250a40.pdf"
  },
@@ -143567,7 +143567,7 @@
   "paper_info_role": "Answers",
   "paper_number": 2,
   "paper_label": null,
-  "group_id": "RVHS|2022|H2 Chemistry|Prelim",
+  "group_id": "manual|RVHS|2022|H2 Chemistry|Prelim",
   "display_name": "RVHS 2022 H2 Chemistry Prelim P2 Answers",
   "inline_url": "https://document.grail.moe/3a1dc3121eed4822a0b86b39f00f78ed.pdf"
  },
@@ -143593,7 +143593,7 @@
   "paper_info_role": "Answers",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "RVHS|2022|H2 Chemistry|Prelim",
+  "group_id": "manual|RVHS|2022|H2 Chemistry|Prelim",
   "display_name": "RVHS 2022 H2 Chemistry Prelim P1 Answers",
   "inline_url": "https://document.grail.moe/8236e46dd5b34baa8d1cdd561ebb346a.pdf"
  },
@@ -143619,7 +143619,7 @@
   "paper_info_role": "Questions",
   "paper_number": 1,
   "paper_label": null,
-  "group_id": "RVHS|2022|H2 Chemistry|Prelim",
+  "group_id": "manual|RVHS|2022|H2 Chemistry|Prelim",
   "display_name": "RVHS 2022 H2 Chemistry Prelim P1",
   "inline_url": "https://document.grail.moe/91767ff19f534cd6918a5d4dad634f15.pdf"
  },
