@@ -235,23 +235,6 @@
   .tag.school { background: var(--tag-school-bg); color: var(--primary); border-color: transparent; }
   .cell-muted { color: var(--text-secondary); font-size: 13px; }
 
-  .flag-badge {
-    position: relative; display: inline-flex; align-items: center; gap: 4px; font-size: 11px;
-    font-family: var(--font-mono); color: var(--danger); background: var(--danger-soft);
-    padding: 2px 8px; border-radius: var(--r-control); font-weight: 600; cursor: help;
-  }
-  .flag-badge::after {
-    content: attr(data-tooltip);
-    position: absolute; top: calc(100% + 6px); left: 0; z-index: 30;
-    background: var(--surface); color: #F2F4F8; font-family: var(--font-body); font-weight: 400;
-    font-size: 12.5px; line-height: 1.4; padding: 8px 10px; border-radius: var(--r-control);
-    width: max-content; max-width: 280px; white-space: pre-line;
-    box-shadow: 0 6px 18px rgba(17, 24, 39, 0.25);
-    opacity: 0; visibility: hidden; transition: opacity .12s;
-    pointer-events: none;
-  }
-  .flag-badge:hover::after { opacity: 1; visibility: visible; }
-
   /* recolor with the theme via mask-image instead of embedding a fixed-color icon */
   .source-badge {
     display: inline-block; width: 13px; height: 13px; flex-shrink: 0;
@@ -627,12 +610,15 @@ function matchesFilters(e, f) {
 
 // Column-header sorting: click once for ascending, again for descending, a third time
 // resets to the default (year desc, then name) - dir cycles 1 -> -1 -> 0.
+// status must match what the Status column actually shows: a group row always renders
+// "Exam Paper" (see renderRows) regardless of its primary member's own role, so sorting by
+// the primary's classifyRole() instead scattered visually-identical "Exam Paper" rows.
 const SORT_KEYS = {
   document: g => g.primary.display_name || "",
-  status: g => classifyRole(g.primary.paper_info_role || g.primary.doc_type),
+  status: g => g.isGroup ? "Exam Paper" : classifyRole(g.primary.paper_info_role || g.primary.doc_type),
   school: g => g.primary.school || "",
   subject: g => g.primary.subject || "",
-  year: g => Number(g.primary.year_resolved) || 0,
+  year: g => g.primary.year_resolved ? Number(g.primary.year_resolved) : null,
   type: g => g.primary.doc_type || "",
 };
 let sortState = { key: null, dir: 0 };
@@ -708,25 +694,10 @@ function pdfUrl(e) {
   return e.inline_url || e.download_url;
 }
 
-function flagBadgeHtml(e) {
-  if (!e.flagged) return "";
-  return `<span class="flag-badge" data-tooltip="${esc(e.flag_reason || "Flagged for review")}">! review</span>`;
-}
-
 function sourceBadgeHtml(e) {
   return e.source === "drive"
     ? `<span class="source-badge drive" title="From Google Drive"></span>`
     : `<span class="source-badge link" title="Direct link (grail.moe)"></span>`;
-}
-
-// Group headers are collapsed by default, so a flagged member inside would otherwise be invisible
-function groupFlagBadgeHtml(members) {
-  const flagged = members.filter(m => m.flagged);
-  if (!flagged.length) return "";
-  const tooltip = flagged.length === 1
-    ? (flagged[0].flag_reason || "Flagged for review")
-    : `${flagged.length} files flagged:\n` + flagged.map(m => `- ${m.flag_reason || "Flagged for review"}`).join("\n");
-  return `<span class="flag-badge" data-tooltip="${esc(tooltip)}">! ${flagged.length} flagged</span>`;
 }
 
 // Group headers are collapsed by default, so show Drive if any member came from Drive,
@@ -774,7 +745,6 @@ function renderRows(groups) {
         </div>
         <div class="col-badges">
           <span class="role-badge exam-paper">Exam Paper</span>
-          ${groupFlagBadgeHtml(g.members)}
         </div>
         ${rowMetaHtml(g.primary)}
         <div class="actions">
@@ -803,7 +773,6 @@ function renderRows(groups) {
             </div>
             <div class="col-badges">
               <span class="role-badge ${roleClass(m.paper_info_role)}">${esc(roleLabel(m))}</span>
-              ${flagBadgeHtml(m)}
             </div>
             ${rowMetaHtml(m)}
             <div class="actions"><a href="${m.note_url}" target="_blank">Source</a></div>`;
@@ -825,7 +794,6 @@ function renderRows(groups) {
         </div>
         <div class="col-badges">
           <span class="role-badge ${roleClass(e.paper_info_role)}">${esc(roleLabel(e))}</span>
-          ${flagBadgeHtml(e)}
         </div>
         ${rowMetaHtml(e)}
         <div class="actions"><a href="${e.note_url}" target="_blank">Source</a></div>`;

@@ -739,12 +739,15 @@ function matchesFilters(e, f) {
 
 // Column-header sorting: click once for ascending, again for descending, a third time
 // resets to the default (year desc, then name) - dir cycles 1 -> -1 -> 0.
+// status must match what the Status column actually shows: a group row always renders
+// "Exam Paper" (see renderRows) regardless of its primary member's own role, so sorting by
+// the primary's classifyRole() instead scattered visually-identical "Exam Paper" rows.
 const SORT_KEYS = {
   document: g => g.primary.display_name || "",
-  status: g => classifyRole(g.primary.paper_info_role || g.primary.doc_type),
+  status: g => g.isGroup ? "Exam Paper" : classifyRole(g.primary.paper_info_role || g.primary.doc_type),
   school: g => g.primary.school || "",
   subject: g => g.primary.subject || "",
-  year: g => Number(g.primary.year_resolved) || 0,
+  year: g => g.primary.year_resolved ? Number(g.primary.year_resolved) : null,
   type: g => g.primary.doc_type || "",
 };
 let sortState = { key: null, dir: 0 };
