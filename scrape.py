@@ -71,11 +71,25 @@ def parse_page(html: str) -> list[dict]:
 
 def page_count(html: str) -> int:
     import re
+    import sys
 
     m = re.search(r"Page<!-- -->1<!-- --> of <!-- -->(\d+)", html)
-    if not m:
-        m = re.search(r"of <!-- -->(\d+)", html)
-    return int(m.group(1)) if m else 1
+    if m:
+        return int(m.group(1))
+
+    # primary pattern didn't match - likely a Next.js markup change on grail.moe's side.
+    # The looser fallback below still works for now, but warn loudly since a future
+    # version bump could break it too and silently under-scrape (falling back to 1 page).
+    m = re.search(r"of <!-- -->(\d+)", html)
+    if m:
+        print("WARNING: page_count() primary pattern didn't match, used the looser fallback - "
+              "grail.moe's markup may have changed, double-check scraped counts look right",
+              file=sys.stderr)
+        return int(m.group(1))
+
+    print("WARNING: page_count() found no page-count pattern at all, defaulting to 1 page - "
+          "this subject/filter combo may be badly under-scraped", file=sys.stderr)
+    return 1
 
 
 def get_with_retry(session: requests.Session, params: dict, retries: int = 4) -> requests.Response | None:
