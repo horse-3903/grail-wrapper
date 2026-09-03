@@ -643,6 +643,15 @@ function groupFlagBadgeHtml(members) {
   return `<span class="flag-badge" data-tooltip="${esc(tooltip)}">! ${flagged.length} flagged</span>`;
 }
 
+// A group's own title must never single out one paper number: for a known school, its
+// group_id already merges every paper of the sitting (P1-P4, questions and answers alike)
+// under one topic - the primary member just happens to carry its own paper number in
+// display_name (e.g. "ACJC 2025 H2 Math Prelim P1"), which misrepresents the whole group.
+const PAPER_NUM_RE = /(?<![A-Za-z0-9])P(?:aper)?\.?\s*[1-4](?![0-9])/gi;
+function groupTitle(primary) {
+  return (primary.display_name || "").replace(PAPER_NUM_RE, "").replace(/\s+/g, " ").trim();
+}
+
 function rowMetaHtml(e) {
   return `
     <div>${e.school ? `<span class="tag school">${esc(e.school)}</span>` : `<span class="cell-muted">-</span>`}</div>
@@ -664,7 +673,7 @@ function renderRows(groups) {
       row.innerHTML = `
         <div class="title-cell">
           <div class="member-title-wrap">
-            <span class="group-title">${esc(g.primary.display_name)}</span>
+            <span class="group-title">${esc(groupTitle(g.primary))}</span>
             <span class="member-orig">${esc(g.primary.original_name)}</span>
           </div>
         </div>
