@@ -811,6 +811,29 @@ document.querySelectorAll(".col-headers .sortable").forEach(header => {
   });
 });
 
+// Mirrors the current filter state into the URL's query string (replaceState, not
+// pushState - filter changes shouldn't spam browser history) so a filtered view can be
+// bookmarked or shared as a link, and restored on load by readFiltersFromUrl() below.
+function updateUrlFromFilters() {
+  const params = new URLSearchParams();
+  const search = $("f-search").value.trim();
+  if (search) params.set("q", search);
+  const subject = $("f-subject").value;
+  if (subject) params.set("subject", subject);
+  if (multiFilters.school.size) params.set("school", [...multiFilters.school].join(","));
+  if (multiFilters.doctype.size) params.set("doctype", [...multiFilters.doctype].join(","));
+  if (multiFilters.paper.size) params.set("paper", [...multiFilters.paper].join(","));
+  if (multiFilters.status.size) params.set("status", [...multiFilters.status].join(","));
+  if (yearMin != null) params.set("year_min", yearMin);
+  if (yearMax != null) params.set("year_max", yearMax);
+  const flaggedEl = document.getElementById("f-flagged");
+  if (flaggedEl && flaggedEl.checked) params.set("flagged", "1");
+
+  const qs = params.toString();
+  const newUrl = qs ? `${location.pathname}?${qs}` : location.pathname;
+  history.replaceState(null, "", newUrl);
+}
+
 function applyFilters() {
   const f = getFilterState();
   const visible = [];
@@ -830,6 +853,7 @@ function applyFilters() {
   const withStatus = f.statuses.size ? visible.filter(g => f.statuses.has(rowStatus(g))) : visible;
   sortGroups(withStatus);
   renderRows(withStatus);
+  updateUrlFromFilters();
 }
 
 function roleClass(role) {
@@ -1162,15 +1186,50 @@ $("edit-save").addEventListener("click", async () => {
   }
 });
 
+// Runs before the multi-select checkboxes are built, since populateMultiSelect() checks a
+// box based on whether multiFilters[key] already has that value - the school/doctype/paper/
+// status portions of the URL have to land in multiFilters before that happens, not after.
+function readMultiFiltersFromUrl(params) {
+  for (const key of ["school", "doctype", "paper", "status"]) {
+    const raw = params.get(key);
+    if (!raw) continue;
+    for (const v of raw.split(",").filter(Boolean)) multiFilters[key].add(v);
+  }
+}
+
+// Runs after the controls exist (the subject <select>'s options, the year inputs) - a <select>
+// silently ignores .value assignments that don't match an existing <option>.
+function applyRemainingFiltersFromUrl(params) {
+  if (params.has("q")) $("f-search").value = params.get("q");
+  if (params.has("subject")) $("f-subject").value = params.get("subject");
+  if (params.has("year_min")) {
+    yearMin = Number(params.get("year_min"));
+    $("f-year-from").value = params.get("year_min");
+  }
+  if (params.has("year_max")) {
+    yearMax = Number(params.get("year_max"));
+    $("f-year-to").value = params.get("year_max");
+  }
+  updateYearTrigger();
+  const flaggedEl = document.getElementById("f-flagged");
+  if (flaggedEl && params.get("flagged") === "1") flaggedEl.checked = true;
+}
+
 async function loadData() {
   const data = await fetch("/api/notes").then(r => r.json());
   DATA = data;
   GROUPS = buildGroups(data);
+
+  const urlParams = new URLSearchParams(location.search);
+  readMultiFiltersFromUrl(urlParams);
+
   populateSelect("f-subject", uniq(data.map(d => d.subject)));
   populateMultiSelect("school", uniq(data.map(d => d.school)));
   populateMultiSelect("doctype", uniq(data.map(d => d.doc_type)));
   populateMultiSelect("paper", uniq(data.map(d => d.paper_number)).sort((a,b) => a - b).map(n => String(n)));
   populateMultiSelect("status", ["Exam Paper", "Questions", "Answers"]);
+
+  applyRemainingFiltersFromUrl(urlParams);
   applyFilters();
 }
 
