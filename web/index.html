@@ -682,6 +682,30 @@ document.querySelectorAll(".col-headers .sortable").forEach(header => {
   });
 });
 
+// Short codes for the closed-set filter values (subject/doctype/status), keeping shared
+// links compact - "MYEs/CAs/Other Tests" or "H2 Mathematics" spelled out in full, repeated
+// across several selected values, was the main thing bloating the URL. Falls back to the raw
+// value on encode/decode if it's ever missing from the map (e.g. a new doc_type/subject added
+// to the data before this list is updated), so nothing breaks - the URL is just less compact.
+const SUBJECT_CODES = {
+  "H1 Chemistry": "h1ch", "H1 Economics": "h1ec", "H1 General Paper": "gp",
+  "H2 Chemistry": "h2ch", "H2 Computing": "h2co", "H2 Economics": "h2ec",
+  "H2 Mathematics": "h2ma", "H2 Physics": "h2ph",
+};
+const DOCTYPE_CODES = {
+  "Exam Papers": "ep", "MYEs/CAs/Other Tests": "mye", "Notes/Practices": "np",
+  "TYS Answers": "tys", "User Mock Papers": "ump",
+};
+const STATUS_CODES = { "Exam Paper": "e", "Questions": "q", "Answers": "a" };
+
+const invert = (map) => Object.fromEntries(Object.entries(map).map(([k, v]) => [v, k]));
+const SUBJECT_CODES_REV = invert(SUBJECT_CODES);
+const DOCTYPE_CODES_REV = invert(DOCTYPE_CODES);
+const STATUS_CODES_REV = invert(STATUS_CODES);
+
+const encodeValue = (map, value) => map[value] || value;
+const decodeValue = (revMap, code) => revMap[code] || code;
+
 // Mirrors the current filter state into the URL's query string (replaceState, not
 // pushState - filter changes shouldn't spam browser history) so a filtered view can be
 // bookmarked or shared as a link, and restored on load by readFiltersFromUrl() below.
@@ -690,15 +714,17 @@ function updateUrlFromFilters() {
   const search = $("f-search").value.trim();
   if (search) params.set("q", search);
   const subject = $("f-subject").value;
-  if (subject) params.set("subject", subject);
-  if (multiFilters.school.size) params.set("school", [...multiFilters.school].join(","));
-  if (multiFilters.doctype.size) params.set("doctype", [...multiFilters.doctype].join(","));
-  if (multiFilters.paper.size) params.set("paper", [...multiFilters.paper].join(","));
-  if (multiFilters.status.size) params.set("status", [...multiFilters.status].join(","));
-  if (yearMin != null) params.set("year_min", yearMin);
-  if (yearMax != null) params.set("year_max", yearMax);
+  if (subject) params.set("s", encodeValue(SUBJECT_CODES, subject));
+  if (multiFilters.school.size) params.set("sc", [...multiFilters.school].join(","));
+  if (multiFilters.doctype.size)
+    params.set("dt", [...multiFilters.doctype].map(v => encodeValue(DOCTYPE_CODES, v)).join(","));
+  if (multiFilters.paper.size) params.set("pp", [...multiFilters.paper].join(","));
+  if (multiFilters.status.size)
+    params.set("st", [...multiFilters.status].map(v => encodeValue(STATUS_CODES, v)).join(","));
+  if (yearMin != null) params.set("y0", yearMin);
+  if (yearMax != null) params.set("y1", yearMax);
   const flaggedEl = document.getElementById("f-flagged");
-  if (flaggedEl && flaggedEl.checked) params.set("flagged", "1");
+  if (flaggedEl && flaggedEl.checked) params.set("fl", "1");
 
   const qs = params.toString();
   const newUrl = qs ? `${location.pathname}?${qs}` : location.pathname;
@@ -875,29 +901,32 @@ $("f-reset").addEventListener("click", () => {
 // box based on whether multiFilters[key] already has that value - the school/doctype/paper/
 // status portions of the URL have to land in multiFilters before that happens, not after.
 function readMultiFiltersFromUrl(params) {
-  for (const key of ["school", "doctype", "paper", "status"]) {
-    const raw = params.get(key);
-    if (!raw) continue;
-    for (const v of raw.split(",").filter(Boolean)) multiFilters[key].add(v);
-  }
+  const raw_sc = params.get("sc");
+  if (raw_sc) for (const v of raw_sc.split(",").filter(Boolean)) multiFilters.school.add(v);
+  const raw_dt = params.get("dt");
+  if (raw_dt) for (const v of raw_dt.split(",").filter(Boolean)) multiFilters.doctype.add(decodeValue(DOCTYPE_CODES_REV, v));
+  const raw_pp = params.get("pp");
+  if (raw_pp) for (const v of raw_pp.split(",").filter(Boolean)) multiFilters.paper.add(v);
+  const raw_st = params.get("st");
+  if (raw_st) for (const v of raw_st.split(",").filter(Boolean)) multiFilters.status.add(decodeValue(STATUS_CODES_REV, v));
 }
 
 // Runs after the controls exist (the subject <select>'s options, the year inputs) - a <select>
 // silently ignores .value assignments that don't match an existing <option>.
 function applyRemainingFiltersFromUrl(params) {
   if (params.has("q")) $("f-search").value = params.get("q");
-  if (params.has("subject")) $("f-subject").value = params.get("subject");
-  if (params.has("year_min")) {
-    yearMin = Number(params.get("year_min"));
-    $("f-year-from").value = params.get("year_min");
+  if (params.has("s")) $("f-subject").value = decodeValue(SUBJECT_CODES_REV, params.get("s"));
+  if (params.has("y0")) {
+    yearMin = Number(params.get("y0"));
+    $("f-year-from").value = params.get("y0");
   }
-  if (params.has("year_max")) {
-    yearMax = Number(params.get("year_max"));
-    $("f-year-to").value = params.get("year_max");
+  if (params.has("y1")) {
+    yearMax = Number(params.get("y1"));
+    $("f-year-to").value = params.get("y1");
   }
   updateYearTrigger();
   const flaggedEl = document.getElementById("f-flagged");
-  if (flaggedEl && params.get("flagged") === "1") flaggedEl.checked = true;
+  if (flaggedEl && params.get("fl") === "1") flaggedEl.checked = true;
 }
 
 async function loadData() {
