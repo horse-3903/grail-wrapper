@@ -23,7 +23,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 API_KEY = os.environ.get("GEMINI_API_KEY")
-MODEL = "gemini-3.6-flash"
+# Google periodically retires pinned model versions, at which point this 404s - override with
+# GEMINI_MODEL=... (or edit the default below) rather than needing a code change to recover.
+MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.6-flash")
 API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent"
 
 BATCH_SIZE = 150
@@ -104,6 +106,14 @@ def tag_batch(entries: list[dict], retries: int = 4) -> list[dict] | None:
             print(f"    rate limited, backing off...", flush=True)
             time.sleep(25 * (attempt + 1))
             continue
+        if r.status_code == 404:
+            # a retired/renamed model 404s on every request identically - retrying just burns
+            # through attempts for nothing, and the same failure would repeat on every future
+            # batch too, so fail the whole run now with an actionable message instead of a
+            # raw 404 traceback (or worse, silently limping through with "could not parse").
+            sys.exit(f"Gemini model {MODEL!r} returned 404 - it may have been retired. "
+                      f"Set GEMINI_MODEL to a current model name (see "
+                      f"https://ai.google.dev/gemini-api/docs/models) and retry.")
         print(f"    HTTP {r.status_code}: {r.text[:200]}", flush=True)
         time.sleep(5 * (attempt + 1))
 

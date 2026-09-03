@@ -69,15 +69,16 @@ entries.
 ### Prerequisites
 
 - Python 3.10+
-- `pip install flask requests beautifulsoup4 python-dotenv`
 
 ### Installation
 
 ```bash
 git clone https://github.com/horse-3903/grail-wrapper.git
 cd grail-wrapper
-pip install flask requests beautifulsoup4 python-dotenv
+pip install -r requirements.txt
 ```
+
+For running the test suite too: `pip install -r requirements-dev.txt`.
 
 ### Run locally
 
@@ -89,6 +90,17 @@ Then open http://127.0.0.1:8765
 
 On Windows, `start_server.bat` starts the server and opens the browser automatically; it can be
 targeted by a desktop shortcut.
+
+### Running the tests
+
+`enrich.py`'s grouping/dedup logic (the trickiest part of this pipeline) has a `pytest` suite
+covering `base_of`/`role_of`/`find_paper_number`/`compute_group_id`, year resolution (including
+the em-dash-placeholder regression), and `merge_gdrive.py`'s gap-detection/dedup logic:
+
+```bash
+pip install -r requirements-dev.txt
+pytest
+```
 
 ### Re-scraping the index
 
@@ -194,8 +206,10 @@ grail-wrapper/
 │   ├── raw.json                  # scraped metadata, no enrichment
 │   ├── tagged.json                # raw.json + tags/year_resolved/display_name/group_id/inline_url
 │   ├── gdrive_tagged.json          # full tagged Drive catalog (scrape_gdrive.py output)
-│   ├── manual_groups.json          # manual group overrides applied by server.py (usually empty)
 │   └── backups/                     # timestamped pre-overwrite snapshots (gitignored)
+├── tests/                    # pytest suite for enrich.py, merge_gdrive.py, scrape.py
+├── requirements.txt          # runtime dependencies
+├── requirements-dev.txt      # runtime + pytest
 ├── .claude/agents/
 │   ├── note-tagger.md              # subagent: tags school/paper_info, flags inconsistencies
 │   └── answer-linker.md            # subagent: fuzzy-links question papers to answer booklets
@@ -233,5 +247,6 @@ Beyond the raw scraped fields (`name`, `category`, `subject`, `doc_type`, `note_
 | Variable | Default | Description |
 |---|---|---|
 | `GEMINI_API_KEY` | none | Only needed for `tag_with_gemini.py`. Free key from [aistudio.google.com/apikey](https://aistudio.google.com/apikey); put it in a local `.env` file (gitignored) or export it directly. |
+| `GEMINI_MODEL` | `gemini-3.6-flash` | Override if Google retires the pinned default model (`tag_with_gemini.py` fails fast with an actionable message on a 404 rather than a raw traceback). |
 
 The server port (`8765`) is set directly in `server.py`; no other environment variables are used.
