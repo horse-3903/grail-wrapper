@@ -117,7 +117,7 @@ def enrich(data: list[dict]) -> list[dict]:
     for e in data:
         m = YEAR_RE.search(e["name"])
         name_year = m.group(0) if m else None
-        field_year = e["year"] if e.get("year") and e["year"] != "-" else None
+        field_year = e["year"] if e.get("year") and e["year"] not in ("-", "—") else None
         if name_year:
             e["year_resolved"] = name_year
             e["year_source"] = "name"
