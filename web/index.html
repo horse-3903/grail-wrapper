@@ -207,7 +207,12 @@
   .col-headers > div.sortable.sort-active { color: var(--accent); }
   .col-headers > div.sortable .sort-arrow { margin-left: 3px; opacity: .8; }
   .results-scroll {
-    flex: 1; min-height: 0; overflow-y: auto; padding: 0 0 48px 0;
+    flex: 1; min-height: 0; overflow-y: auto; padding: 0 28px 48px 0;
+    /* .results has 28px of right padding for visual inset, which would otherwise push the
+       scrollbar in with it - cancel it with a matching negative margin (and reapply the same
+       28px as this element's own right padding) so the scrollbar rides the true right edge of
+       the page while the row content keeps its original inset. */
+    margin-right: -28px;
   }
 
   .row {
