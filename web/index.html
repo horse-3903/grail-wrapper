@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Holy Grail Mk 6 Index</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%235984EA' d='M5 2h14l-1.15 7.2a6 6 0 0 1-4.85 4.95V18h3v2H8v-2h3v-3.85A6 6 0 0 1 6.15 9.2L5 2z'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -125,6 +126,17 @@
     content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
     background: linear-gradient(90deg, var(--primary), var(--accent));
   }
+  /* On desktop this is a no-op wrapper - display: contents makes its children behave as
+     direct flex items of .filterbar, identical to before it existed. Only becomes a real
+     collapsible block at the mobile breakpoint below. */
+  .filterbar-collapsible { display: contents; }
+  .filter-toggle-btn {
+    display: none; align-items: center; gap: 6px; padding: 9px 14px; border-radius: var(--r-control);
+    border: 1px solid var(--border); background: var(--card-alt); color: var(--text-secondary);
+    font-size: 13.5px; font-weight: 500; font-family: var(--font-body); cursor: pointer;
+  }
+  .filter-toggle-btn .filter-toggle-caret { font-size: 9px; transition: transform .15s; }
+  .filter-toggle-btn[aria-expanded="true"] .filter-toggle-caret { transform: rotate(180deg); }
   .filter-group { display: flex; flex-direction: column; gap: 7px; }
   .filter-group.grow { flex: 1 1 220px; min-width: 180px; }
   .filter-group > label {
@@ -239,6 +251,7 @@
 
   .title-cell { display: flex; align-items: center; gap: 9px; min-width: 0; }
   .col-badges { display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: wrap; min-width: 0; }
+  .row-meta { display: contents; }
   .doc-link {
     text-decoration: none; color: var(--text-primary); font-size: 16px; font-weight: 500;
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
@@ -302,6 +315,44 @@
   ::-webkit-scrollbar { width: 10px; height: 10px; }
   ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
+
+  /* Covers phones and portrait tablets (iPad portrait is ~768px) as one tier: below this,
+     a multi-column data grid stops being usable at arm's length and touch-target sizing
+     matters more than density, so the table becomes a stack of cards and the filter bar
+     collapses behind a toggle instead of eating the first screenful on its own. */
+  @media (max-width: 820px) {
+    header { padding: 14px 16px; gap: 10px; }
+    header h1 { font-size: 19px; }
+
+    .site-footer { padding: 10px 16px; }
+
+    .filterbar { padding: 12px 16px; gap: 10px; }
+    .filter-group.grow { flex: 1 1 100%; }
+    .filter-toggle-btn { display: inline-flex; }
+    .filterbar-collapsible {
+      display: flex; flex-direction: column; gap: 12px; width: 100%;
+    }
+    .filterbar-collapsible[hidden] { display: none; }
+    .filterbar-collapsible .filter-group { width: 100%; }
+    .filterbar select, .filterbar .ms-trigger { width: 100%; min-width: 0; }
+    .reset-btn { margin-left: 0; width: 100%; text-align: center; }
+
+    .results { padding: 12px 14px 0; }
+    .results-scroll { padding: 0 14px 40px 0; margin-right: -14px; }
+    .col-headers { display: none; }
+
+    .row, .member-row {
+      grid-template-columns: 1fr; gap: 8px; padding: 14px;
+    }
+    .row > div:not(.title-cell), .member-row > div:not(.title-cell) { text-align: left; }
+    .col-badges { justify-content: flex-start; }
+    .row-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+    .actions { justify-content: flex-start; }
+    .actions a, .actions button { padding: 7px 14px; }
+
+    .row-indent { display: none; }
+    .member-row { border-left: 3px solid var(--primary); border-left-style: dashed; }
+  }
 </style>
 </head>
 <body>
@@ -323,6 +374,10 @@
       <label>Search</label>
       <input id="f-search" type="text" placeholder="e.g. RVHS prelim 2023">
     </div>
+    <button type="button" class="filter-toggle-btn" id="filter-toggle" aria-expanded="false" aria-controls="filterbar-collapsible">
+      Filters<span class="filter-toggle-caret">&#9662;</span>
+    </button>
+    <div class="filterbar-collapsible" id="filterbar-collapsible">
     <div class="filter-group">
       <label>Subject</label>
       <select id="f-subject"><option value="">All subjects</option></select>
@@ -393,6 +448,7 @@
       </div>
     </div>
     <button class="reset-btn" id="f-reset">Reset filters</button>
+    </div>
   </div>
 
   <div class="results">
@@ -800,12 +856,18 @@ function groupTitle(primary) {
   return (primary.display_name || "").replace(PAPER_NUM_RE, "").replace(/\s+/g, " ").trim();
 }
 
+// The wrapping .row-meta is display:contents on desktop (a no-op - its children behave as
+// direct grid items of .row/.member-row, one per column, identical to before it existed) and
+// becomes a real flex-wrap row of compact tags at the mobile breakpoint, where the grid
+// collapses to a single stacked column and these four would otherwise be four separate lines.
 function rowMetaHtml(e) {
   return `
-    <div>${e.school ? `<span class="tag school">${esc(e.school)}</span>` : `<span class="cell-muted">-</span>`}</div>
-    <div class="cell-muted">${esc(e.subject || "")}</div>
-    <div class="cell-muted">${esc(e.year_resolved || "-")}</div>
-    <div class="cell-muted">${esc(e.doc_type || "")}</div>`;
+    <div class="row-meta">
+      <div>${e.school ? `<span class="tag school">${esc(e.school)}</span>` : `<span class="cell-muted">-</span>`}</div>
+      <div class="cell-muted">${esc(e.subject || "")}</div>
+      <div class="cell-muted">${esc(e.year_resolved || "-")}</div>
+      <div class="cell-muted">${esc(e.doc_type || "")}</div>
+    </div>`;
 }
 
 function renderRows(groups) {
@@ -892,6 +954,19 @@ $("f-search").addEventListener("input", () => {
   searchDebounce = setTimeout(applyFilters, 100);
 });
 $("f-subject").addEventListener("input", applyFilters);
+
+// Mobile-only "Filters" toggle - collapsed by default below the 820px breakpoint (see CSS),
+// where the full filter bar would otherwise push the results below the fold on first load.
+// Above that breakpoint .filterbar-collapsible is display:contents (see CSS) and this button
+// is hidden, so [hidden] here has no visible effect on desktop either way.
+const filterToggleBtn = $("filter-toggle");
+const filterCollapsible = $("filterbar-collapsible");
+if (window.matchMedia("(max-width: 820px)").matches) filterCollapsible.hidden = true;
+filterToggleBtn.addEventListener("click", () => {
+  filterCollapsible.hidden = !filterCollapsible.hidden;
+  filterToggleBtn.setAttribute("aria-expanded", String(!filterCollapsible.hidden));
+});
+
 $("f-reset").addEventListener("click", () => {
   $("f-search").value = "";
   $("f-subject").value = "";
