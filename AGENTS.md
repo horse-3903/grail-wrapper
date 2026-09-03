@@ -170,6 +170,24 @@ standing rule to reapply blindly):
   the wrong subject in place. This is why H1 Economics now appears as a 6th subject in the UI
   even though it was never in `scrape.py`'s `DEFAULT_SUBJECTS`.
 
+Since then, a different flag category has been added deliberately and is meant to stay:
+**unresolvable ungrouped exam papers** (~445 entries, `flag_reason` starting with "Ungrouped
+exam paper:") - set when the ungrouped-exam-paper resolution pass (see the section above)
+couldn't confidently place an entry into any group, either because no year is determinable at
+all, or because it has a year but zero corroborating siblings anywhere in the dataset. Don't
+"resolve" these by force-grouping them - they're flagged precisely because there's no safe
+group to put them in; leave them flagged until either a sibling shows up in a later scrape/merge
+or a human confirms which sitting they belong to.
+
+**Gotcha**: `enrich.py`'s year-mismatch auto-clear (`if e.get("flagged") and "year" in reason and
+e["year_resolved"]: e["flagged"] = False`) matches on the bare substring `"year"` anywhere in
+`flag_reason`, not specifically a year-mismatch flag. A `flag_reason` for an unrelated issue that
+happens to contain the word "year" (e.g. mentioning "school/year/subject") gets silently
+auto-cleared the next time `enrich.py` runs, even though `year_resolved` being present isn't
+actually evidence the *underlying* problem was fixed. Learned this the hard way - 19 freshly-set
+flags vanished on the next `enrich.py` run. Avoid the word "year" in any new `flag_reason` you
+don't want auto-cleared, or tighten that check if you're touching this code anyway.
+
 ## Known data-quality patterns worth re-checking periodically
 
 Neither of these trips `flagged` - they're structurally invisible to the tagger's own
@@ -203,6 +221,23 @@ consistency check, so they need a dedicated sweep rather than just reviewing fla
   school/year/subject/topic that should have joined the same cluster but didn't (nothing looks
   for those automatically) - it happened for several 2024 H2 Chemistry Prelim groups.
 
+  As of the last cleanup pass, ~250 more of these were resolved by widening the match: for
+  orphans with *no* topic keyword at all (bare "P1"/"Answers", not even "Prelim"), assume
+  `topic = "Prelim"` (the overwhelming majority case for `doc_type == "Exam Papers"`) but **only**
+  when that assumption is corroborated - either an existing multi-member `...|Prelim` group
+  already exists for the same school+year+subject, or 2+ orphans share the same school+year+
+  subject and can corroborate each other. Never assume it for an isolated orphan with zero
+  corroborating siblings - those get `flagged: true` instead (see "Flags" below), not a guessed
+  group. What's left after that (~445 entries) genuinely can't be resolved algorithmically: most
+  have no determinable year at all (nothing in the name or the raw `year` field), a handful have
+  a year but no sibling anywhere in the dataset to group with.
+- **The raw `year` field's "no year" placeholder isn't always `"-"`.** It's sometimes an em dash
+  `"—"` instead of a hyphen - `enrich.py`'s year-resolution originally only excluded `"-"`, so
+  ~114 entries got a bogus `year_resolved: "—"` (a literal em-dash string treated as if it were a
+  real year, which then broke group matching for them since nothing else shared that "year").
+  Fixed by excluding both `"-"` and `"—"`; if grail.moe ever ships a third placeholder spelling,
+  same fix applies.
+
 ## UI: `static/index.html` and `web/index.html`
 
 Two near-identical single-file HTML/CSS/JS apps, **not build-generated from a shared source** -
@@ -213,9 +248,12 @@ edit both by hand, in the same way, every time. The only intentional differences
 | Served by | `server.py` (`GET /`) | any static host (Vercel/Netlify/GitHub Pages), `web/` as root |
 | Data source | `fetch("/api/notes")` | `fetch("./data.json")` |
 | PDF link helper | same `pdfUrl(e)` (`inline_url \|\| download_url`) | same |
+| "Only flagged" filter | present (`#f-flagged` checkbox) | **not present, deliberately** |
 
-When changing one, `grep` the other for the same selector/function name and apply the same edit.
-There is no shared JS module - it's copy-paste by design (no build step, no bundler).
+When changing one, `grep` the other for the same selector/function name and apply the same edit -
+**except** for anything marked local-only above (the flagged filter, the row editor further
+down): those are intentional divergences, not sync gaps, so don't "fix" `web/index.html` by
+copying them over.
 
 Key JS internals worth knowing before touching filtering/rendering:
 
