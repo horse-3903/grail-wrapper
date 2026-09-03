@@ -194,6 +194,10 @@
     background: var(--background); border-bottom: 1px solid var(--border);
   }
   .col-headers > div:first-child { text-align: left; }
+  .col-headers > div.sortable { cursor: pointer; user-select: none; }
+  .col-headers > div.sortable:hover { color: var(--text-secondary); }
+  .col-headers > div.sortable.sort-active { color: var(--accent); }
+  .col-headers > div.sortable .sort-arrow { margin-left: 3px; opacity: .8; }
   .results-scroll {
     flex: 1; min-height: 0; overflow-y: auto; padding: 0 0 48px 0;
     scrollbar-width: none; -ms-overflow-style: none;
@@ -372,17 +376,29 @@
         </div>
       </div>
     </div>
+    <div class="filter-group">
+      <label>Status</label>
+      <div class="ms" id="f-status-ms">
+        <button type="button" class="ms-trigger" id="f-status-trigger">All statuses<span class="ms-caret">&#9662;</span></button>
+        <div class="ms-panel" id="f-status-panel" hidden>
+          <div class="ms-options" id="f-status-options"></div>
+          <div class="ms-actions">
+            <button type="button" data-clear="status">Clear</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <button class="reset-btn" id="f-reset">Reset filters</button>
   </div>
 
   <div class="results">
     <div class="col-headers">
-      <div>Document</div>
-      <div>Status</div>
-      <div>School</div>
-      <div>Subject</div>
-      <div>Year</div>
-      <div>Type</div>
+      <div class="sortable" data-sort="document">Document<span class="sort-arrow"></span></div>
+      <div class="sortable" data-sort="status">Status<span class="sort-arrow"></span></div>
+      <div class="sortable" data-sort="school">School<span class="sort-arrow"></span></div>
+      <div class="sortable" data-sort="subject">Subject<span class="sort-arrow"></span></div>
+      <div class="sortable" data-sort="year">Year<span class="sort-arrow"></span></div>
+      <div class="sortable" data-sort="type">Type<span class="sort-arrow"></span></div>
       <div>Links</div>
     </div>
     <div class="results-scroll">
@@ -427,7 +443,8 @@ initTheme();
 // as Questions.
 function classifyRole(role) {
   const r = (role || "").trim().toLowerCase();
-  if (r.includes("answer") || r.includes("solution") || r.includes("mark scheme")) return "Answers";
+  if (r.includes("qp")) return "Questions"; // bundled docs like "QP + Guide" still contain the paper itself
+  if (r.includes("answer") || r.includes("solution") || r.includes("mark scheme") || r.includes("guide")) return "Answers";
   return "Questions";
 }
 
@@ -469,10 +486,10 @@ function populateSelect(id, values) {
 
 // School/document-type/paper accept multiple selected values (checkbox dropdowns); year
 // is a range with separate start/end inputs (either side may be left open-ended).
-const multiFilters = { school: new Set(), doctype: new Set(), paper: new Set() };
+const multiFilters = { school: new Set(), doctype: new Set(), paper: new Set(), status: new Set() };
 let yearMin = null, yearMax = null;
 
-const MULTI_LABELS = { school: "All schools", doctype: "All types", paper: "All papers" };
+const MULTI_LABELS = { school: "All schools", doctype: "All types", paper: "All papers", status: "All statuses" };
 
 function updateMultiTrigger(key) {
   const trigger = $(`f-${key}-trigger`);
@@ -525,7 +542,7 @@ function setupDropdown(key) {
 
 document.addEventListener("click", () => closeAllPanels(null));
 
-["school", "doctype", "paper"].forEach(setupDropdown);
+["school", "doctype", "paper", "status"].forEach(setupDropdown);
 document.querySelectorAll("[data-clear]").forEach(btn => {
   btn.addEventListener("click", () => {
     const key = btn.dataset.clear;
@@ -585,6 +602,7 @@ function getFilterState() {
     yearMin, yearMax,
     doctypes: multiFilters.doctype,
     papers: multiFilters.paper,
+    statuses: multiFilters.status,
   };
 }
 
@@ -603,8 +621,55 @@ function matchesFilters(e, f) {
   }
   if (f.doctypes.size && !f.doctypes.has(e.doc_type)) return false;
   if (f.papers.size && !f.papers.has(String(e.paper_number))) return false;
+  if (f.statuses.size && !f.statuses.has(classifyRole(e.paper_info_role || e.doc_type))) return false;
   return true;
 }
+
+// Column-header sorting: click once for ascending, again for descending, a third time
+// resets to the default (year desc, then name) - dir cycles 1 -> -1 -> 0.
+const SORT_KEYS = {
+  document: g => g.primary.display_name || "",
+  status: g => classifyRole(g.primary.paper_info_role || g.primary.doc_type),
+  school: g => g.primary.school || "",
+  subject: g => g.primary.subject || "",
+  year: g => Number(g.primary.year_resolved) || 0,
+  type: g => g.primary.doc_type || "",
+};
+let sortState = { key: null, dir: 0 };
+
+function sortGroups(list) {
+  if (sortState.key && sortState.dir) {
+    const keyFn = SORT_KEYS[sortState.key];
+    list.sort((a, b) => {
+      const av = keyFn(a), bv = keyFn(b);
+      const cmp = (typeof av === "number" && typeof bv === "number") ? av - bv : String(av).localeCompare(String(bv));
+      return sortState.dir * cmp;
+    });
+  } else {
+    list.sort((a, b) => (Number(b.primary.year_resolved) || 0) - (Number(a.primary.year_resolved) || 0)
+      || a.primary.display_name.localeCompare(b.primary.display_name));
+  }
+  return list;
+}
+
+document.querySelectorAll(".col-headers .sortable").forEach(header => {
+  const key = header.dataset.sort;
+  header.addEventListener("click", () => {
+    if (sortState.key !== key) {
+      sortState = { key, dir: 1 };
+    } else if (sortState.dir === 1) {
+      sortState.dir = -1;
+    } else {
+      sortState = { key: null, dir: 0 };
+    }
+    document.querySelectorAll(".col-headers .sortable").forEach(h => {
+      h.classList.toggle("sort-active", h === header && sortState.dir !== 0);
+      h.querySelector(".sort-arrow").textContent =
+        (h === header && sortState.dir === 1) ? "↑" : (h === header && sortState.dir === -1) ? "↓" : "";
+    });
+    applyFilters();
+  });
+});
 
 function applyFilters() {
   const f = getFilterState();
@@ -620,8 +685,7 @@ function applyFilters() {
       if (matchesFilters(g.primary, f)) visible.push(g);
     }
   }
-  visible.sort((a, b) => (Number(b.primary.year_resolved) || 0) - (Number(a.primary.year_resolved) || 0)
-    || a.primary.display_name.localeCompare(b.primary.display_name));
+  sortGroups(visible);
   renderRows(visible);
 }
 
@@ -775,7 +839,7 @@ $("f-subject").addEventListener("input", applyFilters);
 $("f-reset").addEventListener("click", () => {
   $("f-search").value = "";
   $("f-subject").value = "";
-  for (const key of ["school", "doctype", "paper"]) {
+  for (const key of ["school", "doctype", "paper", "status"]) {
     multiFilters[key].clear();
     $(`f-${key}-options`).querySelectorAll("input").forEach(i => i.checked = false);
     updateMultiTrigger(key);
@@ -797,6 +861,7 @@ async function loadData() {
   populateMultiSelect("school", uniq(data.map(d => d.school)));
   populateMultiSelect("doctype", uniq(data.map(d => d.doc_type)));
   populateMultiSelect("paper", uniq(data.map(d => d.paper_number)).sort((a,b) => a - b).map(n => String(n)));
+  populateMultiSelect("status", ["Questions", "Answers"]);
   applyFilters();
 }
 
