@@ -436,6 +436,9 @@
         </div>
       </div>
     </div>
+    <label class="checkbox-row">
+      <input type="checkbox" id="f-flagged"> Only flagged (needs review)
+    </label>
     <button class="reset-btn" id="f-reset">Reset filters</button>
   </div>
 
@@ -692,6 +695,7 @@ function getFilterState() {
     yearMin, yearMax,
     doctypes: multiFilters.doctype,
     papers: multiFilters.paper,
+    flaggedOnly: $("f-flagged").checked,
   };
 }
 
@@ -710,6 +714,7 @@ function matchesFilters(e, f) {
   }
   if (f.doctypes.size && !f.doctypes.has(e.doc_type)) return false;
   if (f.papers.size && !f.papers.has(String(e.paper_number))) return false;
+  if (f.flaggedOnly && !e.flagged) return false;
   return true;
 }
 
@@ -879,6 +884,7 @@ $("f-search").addEventListener("input", () => {
   searchDebounce = setTimeout(applyFilters, 100);
 });
 $("f-subject").addEventListener("input", applyFilters);
+$("f-flagged").addEventListener("input", applyFilters);
 $("f-reset").addEventListener("click", () => {
   $("f-search").value = "";
   $("f-subject").value = "";
@@ -891,6 +897,7 @@ $("f-reset").addEventListener("click", () => {
   $("f-year-to").value = "";
   yearMin = null; yearMax = null;
   updateYearTrigger();
+  $("f-flagged").checked = false;
   applyFilters();
 });
 
