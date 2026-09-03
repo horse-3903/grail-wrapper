@@ -68,7 +68,6 @@
     color: var(--text-primary); font-size: 15px; line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     display: flex; flex-direction: column; height: 100vh; overflow: hidden;
-    transition: background-color .15s, color .15s;
   }
   a { color: inherit; }
 
@@ -698,6 +697,7 @@ function renderRows(groups) {
       row.className = "row group-row";
       row.innerHTML = `
         <div class="title-cell">
+          ${groupSourceBadgeHtml(g.members)}
           <div class="member-title-wrap">
             <span class="group-title">${esc(groupTitle(g.primary))}</span>
             <span class="member-orig">${esc(g.primary.original_name)}</span>
@@ -705,7 +705,6 @@ function renderRows(groups) {
         </div>
         <div class="col-badges">
           <span class="role-badge exam-paper">Exam Paper</span>
-          ${groupSourceBadgeHtml(g.members)}
           ${groupFlagBadgeHtml(g.members)}
         </div>
         ${rowMetaHtml(g.primary)}
@@ -727,6 +726,7 @@ function renderRows(groups) {
           mrow.innerHTML = `
             <div class="title-cell">
               <span class="row-indent"></span>
+              ${sourceBadgeHtml(m)}
               <div class="member-title-wrap">
                 <a class="doc-link" href="${pdfUrl(m)}" target="_blank">${esc(m.display_name)}</a>
                 <span class="member-orig">${esc(m.original_name)}</span>
@@ -734,7 +734,6 @@ function renderRows(groups) {
             </div>
             <div class="col-badges">
               <span class="role-badge ${roleClass(m.paper_info_role)}">${esc(roleLabel(m))}</span>
-              ${sourceBadgeHtml(m)}
               ${flagBadgeHtml(m)}
             </div>
             ${rowMetaHtml(m)}
@@ -749,6 +748,7 @@ function renderRows(groups) {
       row.className = "row";
       row.innerHTML = `
         <div class="title-cell">
+          ${sourceBadgeHtml(e)}
           <div class="member-title-wrap">
             <a class="doc-link" href="${pdfUrl(e)}" target="_blank">${esc(e.display_name)}</a>
             <span class="member-orig">${esc(e.original_name)}</span>
@@ -756,7 +756,6 @@ function renderRows(groups) {
         </div>
         <div class="col-badges">
           <span class="role-badge ${roleClass(e.paper_info_role)}">${esc(roleLabel(e))}</span>
-          ${sourceBadgeHtml(e)}
           ${flagBadgeHtml(e)}
         </div>
         ${rowMetaHtml(e)}
