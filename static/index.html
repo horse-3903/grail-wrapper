@@ -405,6 +405,10 @@
      assumed to fit on one line, where auto-margin correctly reads as "pinned to that row's
      end"; below it, let it flow like every other control instead. */
   @media (max-width: 1300px) {
+    /* justify-content applies per wrapped line, not just to the container as a whole, so
+       this centers each individual row of filter controls rather than leaving them packed
+       against the left edge with empty space trailing on the right. */
+    .filterbar { justify-content: center; }
     .reset-btn { margin-left: 0; }
   }
 
