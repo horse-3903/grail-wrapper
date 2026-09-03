@@ -316,6 +316,17 @@
   ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
 
+  /* Laptop-width windows (a maximized 1280-1366px-wide laptop screen, or any browser window
+     resized to less than full desktop width) - still plenty of room for the full grid table,
+     but not enough for all filter controls on one line, so .filterbar wraps. reset-btn's
+     margin-left: auto (meant to pin it to the far right of one full-width row) then isolates
+     it with an ugly gap on whatever line it wraps to instead. Above this tier the bar is
+     assumed to fit on one line, where auto-margin correctly reads as "pinned to that row's
+     end"; below it, let it flow like every other control instead. */
+  @media (max-width: 1300px) {
+    .reset-btn { margin-left: 0; }
+  }
+
   /* Covers phones and portrait tablets (iPad portrait is ~768px) as one tier: below this,
      a multi-column data grid stops being usable at arm's length and touch-target sizing
      matters more than density, so the table becomes a stack of cards and the filter bar
