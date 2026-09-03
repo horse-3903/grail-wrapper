@@ -249,16 +249,17 @@
   }
   .flag-badge:hover::after { opacity: 1; visibility: visible; }
 
-  /* recolors with the theme via mask-image instead of embedding a fixed-color icon */
-  .drive-badge {
+  /* recolor with the theme via mask-image instead of embedding a fixed-color icon */
+  .source-badge {
     display: inline-block; width: 13px; height: 13px; flex-shrink: 0;
     background-color: var(--text-faint);
-    -webkit-mask-image: url('drive-icon.png'); mask-image: url('drive-icon.png');
     -webkit-mask-size: contain; mask-size: contain;
     -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
     -webkit-mask-position: center; mask-position: center;
     cursor: help;
   }
+  .source-badge.drive { -webkit-mask-image: url('drive-icon.png'); mask-image: url('drive-icon.png'); }
+  .source-badge.link { width: 14px; height: 14px; -webkit-mask-image: url('link-icon.png'); mask-image: url('link-icon.png'); }
 
   .actions { display: flex; gap: 6px; justify-content: center; }
   .actions a, .actions button {
@@ -644,9 +645,10 @@ function flagBadgeHtml(e) {
   return `<span class="flag-badge" data-tooltip="${esc(e.flag_reason || "Flagged for review")}">! review</span>`;
 }
 
-function driveBadgeHtml(e) {
-  if (e.source !== "drive") return "";
-  return `<span class="drive-badge" title="From Google Drive"></span>`;
+function sourceBadgeHtml(e) {
+  return e.source === "drive"
+    ? `<span class="source-badge drive" title="From Google Drive"></span>`
+    : `<span class="source-badge link" title="Direct link (grail.moe)"></span>`;
 }
 
 // Group headers are collapsed by default, so a flagged member inside would otherwise be invisible
@@ -659,11 +661,12 @@ function groupFlagBadgeHtml(members) {
   return `<span class="flag-badge" data-tooltip="${esc(tooltip)}">! ${flagged.length} flagged</span>`;
 }
 
-// Group headers are collapsed by default, so show the badge if any member came from Drive
-function groupDriveBadgeHtml(members) {
+// Group headers are collapsed by default, so show Drive if any member came from Drive,
+// otherwise the group is entirely direct grail.moe links.
+function groupSourceBadgeHtml(members) {
   return members.some(m => m.source === "drive")
-    ? `<span class="drive-badge" title="Includes files from Google Drive"></span>`
-    : "";
+    ? `<span class="source-badge drive" title="Includes files from Google Drive"></span>`
+    : `<span class="source-badge link" title="Direct link (grail.moe)"></span>`;
 }
 
 // A group's own title must never single out one paper number: for a known school, its
@@ -702,7 +705,7 @@ function renderRows(groups) {
         </div>
         <div class="col-badges">
           <span class="role-badge exam-paper">Exam Paper</span>
-          ${groupDriveBadgeHtml(g.members)}
+          ${groupSourceBadgeHtml(g.members)}
           ${groupFlagBadgeHtml(g.members)}
         </div>
         ${rowMetaHtml(g.primary)}
@@ -731,7 +734,7 @@ function renderRows(groups) {
             </div>
             <div class="col-badges">
               <span class="role-badge ${roleClass(m.paper_info_role)}">${esc(roleLabel(m))}</span>
-              ${driveBadgeHtml(m)}
+              ${sourceBadgeHtml(m)}
               ${flagBadgeHtml(m)}
             </div>
             ${rowMetaHtml(m)}
@@ -753,7 +756,7 @@ function renderRows(groups) {
         </div>
         <div class="col-badges">
           <span class="role-badge ${roleClass(e.paper_info_role)}">${esc(roleLabel(e))}</span>
-          ${driveBadgeHtml(e)}
+          ${sourceBadgeHtml(e)}
           ${flagBadgeHtml(e)}
         </div>
         ${rowMetaHtml(e)}
