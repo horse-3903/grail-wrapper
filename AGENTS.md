@@ -228,15 +228,38 @@ consistency check, so they need a dedicated sweep rather than just reviewing fla
   already exists for the same school+year+subject, or 2+ orphans share the same school+year+
   subject and can corroborate each other. Never assume it for an isolated orphan with zero
   corroborating siblings - those get `flagged: true` instead (see "Flags" below), not a guessed
-  group. What's left after that (~445 entries) genuinely can't be resolved algorithmically: most
-  have no determinable year at all (nothing in the name or the raw `year` field), a handful have
-  a year but no sibling anywhere in the dataset to group with.
+  group. What's left after that (~445 entries at the time) genuinely couldn't be resolved from
+  the name/field alone: most had no determinable year, a handful had a year but no sibling.
 - **The raw `year` field's "no year" placeholder isn't always `"-"`.** It's sometimes an em dash
   `"—"` instead of a hyphen - `enrich.py`'s year-resolution originally only excluded `"-"`, so
   ~114 entries got a bogus `year_resolved: "—"` (a literal em-dash string treated as if it were a
   real year, which then broke group matching for them since nothing else shared that "year").
   Fixed by excluding both `"-"` and `"—"`; if grail.moe ever ships a third placeholder spelling,
   same fix applies.
+- **Recovering a year from the PDF content itself, for the "no year anywhere" leftovers**: most
+  exam paper PDFs have embedded text (not scanned images) and state the year plainly on a cover
+  page - `pypdf`'s `PdfReader(...).pages[i].extract_text()` recovers it for ~70-90% of these with
+  zero AI/vision cost, just a script (a 424-entry test batch: 293 resolved this way, ~1s/file with
+  12 concurrent downloads). **The trap**: a naive "take the most frequent 4-digit year on the
+  page" approach is fooled by Case Study Question papers, which quote real news articles - e.g.
+  "Adapted from The Financial Times, 19 May 2015" inside a CSQ extract, or "Germany took in 1.1
+  million migrants in year 2015" in essay-question prose. Neither is the exam year. Only trust a
+  year found within ~80 characters of a strong institutional signal - "PRELIMINARY EXAM",
+  "PROMOTION EXAM", a copyright line (`© <School> <year>`), or a syllabus-code pattern like
+  `9732/02` - and require that signal near the SPECIFIC year candidate being considered, not just
+  present anywhere on the page. Verified on real samples: this correctly picked "10 September
+  2008" (the actual exam date, next to the syllabus code) over "1997"/"1978" (article content) in
+  the same document. Applying a recovered year must go through `name` (prepend it if
+  `YEAR_RE` doesn't already match `name`), never write `year_resolved` directly - see the next
+  point.
+- **`year_resolved` has no protection mechanism at all** - unlike `group_id`'s `manual|`/`linked|`
+  prefixes, `enrich.py` step 2 *unconditionally* recomputes `year_resolved` from `name`/`year`
+  every run. Setting `year_resolved` directly (e.g. after recovering it from a PDF) gets silently
+  wiped the very next time anyone runs `python enrich.py`, because nothing about that write
+  persists into the fields step 2 actually reads. Same fix as the Drive tagger uses: embed the
+  year into `name` (prepend it) if `YEAR_RE` doesn't already match there, then let `enrich.py`
+  pick it up naturally so it survives future runs. Caught this by re-running `enrich.py` and
+  watching 293 freshly-set `year_resolved` values silently disappear.
 
 ## UI: `static/index.html` and `web/index.html`
 
