@@ -754,6 +754,11 @@ function sortGroups(list) {
     const keyFn = SORT_KEYS[sortState.key];
     list.sort((a, b) => {
       const av = keyFn(a), bv = keyFn(b);
+      const aBlank = av === "" || av == null, bBlank = bv === "" || bv == null;
+      if (aBlank || bBlank) {
+        if (aBlank && bBlank) return 0;
+        return aBlank ? 1 : -1; // blanks always last, regardless of sort direction
+      }
       const cmp = (typeof av === "number" && typeof bv === "number") ? av - bv : String(av).localeCompare(String(bv));
       return sortState.dir * cmp;
     });
