@@ -246,6 +246,10 @@
     color: var(--text-secondary); font-family: var(--font-mono); font-size: 11px;
     font-weight: 600; white-space: nowrap; pointer-events: none;
   }
+  /* Positioned directly on the track (not inside a thumb) at the midpoint between the two
+     thumbs, matching the individual bubbles' height - shown instead of them when the thumbs
+     are close enough together that two separate labels would overlap (see renderYearSlider). */
+  .year-slider-bubble-combined { bottom: calc(50% + 13px); }
   /* The slider's fixed overall span (earliest/latest year in the dataset) - constant,
      unlike the bubbles above which track the current selection. */
   .year-slider-domain {
@@ -499,6 +503,7 @@
               <div class="year-slider-thumb" id="year-slider-thumb-max" tabindex="0" role="slider" aria-label="Maximum year">
                 <span class="year-slider-bubble" id="year-slider-thumb-max-bubble"></span>
               </div>
+              <span class="year-slider-bubble year-slider-bubble-combined" id="year-slider-combined-bubble" hidden></span>
             </div>
             <div class="year-slider-domain">
               <span id="year-slider-domain-min"></span>
@@ -766,19 +771,39 @@ function yearPercentToValue(percent) {
   return Math.round(yearDomainMin + (percent / 100) * (yearDomainMax - yearDomainMin));
 }
 
+// Below this gap (in percent of track width), two separate value labels would overlap -
+// merge them into one "min–max" label centered between the thumbs instead of showing both.
+const YEAR_BUBBLE_COLLISION_PCT = 16;
+
 function renderYearSlider() {
   const pMin = yearValueToPercent(thumbMinValue);
   const pMax = yearValueToPercent(thumbMaxValue);
   $("year-slider-thumb-min").style.left = `${pMin}%`;
   $("year-slider-thumb-max").style.left = `${pMax}%`;
-  $("year-slider-thumb-min-bubble").textContent = thumbMinValue;
-  $("year-slider-thumb-max-bubble").textContent = thumbMaxValue;
   const lo = Math.min(pMin, pMax);
   const hi = Math.max(pMin, pMax);
   $("year-slider-range").style.left = `${lo}%`;
   $("year-slider-range").style.width = `${hi - lo}%`;
   $("year-slider-domain-min").textContent = yearDomainMin;
   $("year-slider-domain-max").textContent = yearDomainMax;
+
+  const minBubble = $("year-slider-thumb-min-bubble");
+  const maxBubble = $("year-slider-thumb-max-bubble");
+  const combinedBubble = $("year-slider-combined-bubble");
+  if (hi - lo < YEAR_BUBBLE_COLLISION_PCT) {
+    minBubble.hidden = true;
+    maxBubble.hidden = true;
+    combinedBubble.hidden = false;
+    combinedBubble.style.left = `${(pMin + pMax) / 2}%`;
+    combinedBubble.textContent = thumbMinValue === thumbMaxValue
+      ? `${thumbMinValue}` : `${Math.min(thumbMinValue, thumbMaxValue)}–${Math.max(thumbMinValue, thumbMaxValue)}`;
+  } else {
+    minBubble.hidden = false;
+    maxBubble.hidden = false;
+    combinedBubble.hidden = true;
+    minBubble.textContent = thumbMinValue;
+    maxBubble.textContent = thumbMaxValue;
+  }
 }
 
 // Snaps the slider's internal per-thumb state back to yearMin/yearMax - called whenever the
@@ -949,11 +974,7 @@ function setupDropdown(key) {
       } else if (ev.key === "ArrowUp") {
         ev.preventDefault();
         setActiveMsOption(key, (msActiveIndex[key] ?? 0) - 1);
-      } else if (ev.key === "Enter" || ev.key === " ") {
-        // Space selects the active option too, same as Enter - this does mean a literal
-        // space can't be typed into these particular search boxes, but the tradeoff favors
-        // fast keyboard selection here since most values narrow to a match well before a
-        // second word would be needed.
+      } else if (ev.key === "Enter") {
         ev.preventDefault();
         const visible = getVisibleMsOptions(key);
         const idx = msActiveIndex[key];
