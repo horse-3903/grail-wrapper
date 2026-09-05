@@ -13957,7 +13957,7 @@
   "original_name": "RVHS 23 J2 H2 MA CT Std Soln",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RVHS|2023|H2 Mathematics|CT",
+  "group_id": "single|11209",
   "display_name": "RVHS 2023 H2 Math CT Solutions",
   "inline_url": "https://document.grail.moe/6a3914d290ca430f966cd0a91d396cd0.pdf"
  },
@@ -14061,7 +14061,7 @@
   "original_name": "RVHS 2022 JC1 H2 MA CT Soln w Comments",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RVHS|2022|H2 Mathematics|CT",
+  "group_id": "single|11205",
   "display_name": "RVHS 2022 H2 Math CT Solutions",
   "inline_url": "https://document.grail.moe/013740578dda493b87131a428fd7cfd4.pdf"
  },
@@ -16791,7 +16791,7 @@
   "original_name": "RI 2023 MATH CT SOLN",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RI|2023|H2 Mathematics|CT",
+  "group_id": "single|9304",
   "display_name": "RI 2023 H2 Math CT Solutions",
   "inline_url": "https://document.grail.moe/4db77f5e6ce349ccb74e4d53b3f6786e.pdf"
  },
@@ -16869,7 +16869,7 @@
   "original_name": "RI 2023 MATH CT QP",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RI|2023|H2 Mathematics|CT",
+  "group_id": "single|9306",
   "display_name": "RI 2023 H2 Math CT QP",
   "inline_url": "https://document.grail.moe/3b5d99fc638141be8b0ee187b33ef6bb.pdf"
  },
@@ -18195,7 +18195,7 @@
   "original_name": "VJC 2023 H2 MATH CT QP",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "VJC|2023|H2 Mathematics|CT",
+  "group_id": "single|9366",
   "display_name": "VJC 2023 H2 Math CT QP",
   "inline_url": "https://document.grail.moe/07b4d217e4cc4bbc83de189c5659c000.pdf"
  },
@@ -18221,7 +18221,7 @@
   "original_name": "VJC 2023 H2 MATH CT SOLUTIONS",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "VJC|2023|H2 Mathematics|CT",
+  "group_id": "single|9367",
   "display_name": "VJC 2023 H2 Math CT Solutions",
   "inline_url": "https://document.grail.moe/33a13df87e4e453fba60561ee04aa4ca.pdf"
  },
@@ -29661,7 +29661,7 @@
   "original_name": "RI 2023 Y5 Phy T3 CT Sect B Soln",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RI|2023|H2 Physics|Section B",
+  "group_id": "single|22518",
   "display_name": "RI 2023 H2 Phy Section B Answers",
   "inline_url": "https://document.grail.moe/c13c18af941d4e57bf4c8a1f708d063a.pdf"
  },
@@ -30363,7 +30363,7 @@
   "original_name": "RI 2021 Y5 H2 Physics CT Sect A QP",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RI|2021|H2 Physics|Section A",
+  "group_id": "single|20651",
   "display_name": "RI 2021 H2 Phy Section A",
   "inline_url": "https://document.grail.moe/2fd5970dceb84527be29f09d58d68d5e.pdf"
  },
@@ -32495,7 +32495,7 @@
   "original_name": "2021 RI Yr 5 CT Sect A QP",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RI|2021|H2 Physics|Section A",
+  "group_id": "single|22528",
   "display_name": "RI 2021 H2 Phy Section A",
   "inline_url": "https://document.grail.moe/a221649855684012b2ff18ee7844a0ab.pdf"
  },
@@ -32521,7 +32521,7 @@
   "original_name": "2021 RI Yr 5 CT Sect A Soln",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RI|2021|H2 Physics|CT Sect A",
+  "group_id": "single|22527",
   "display_name": "RI 2021 H2 Phy CT Sect A Solutions",
   "inline_url": "https://document.grail.moe/c12424f3f0de41ae93eaea981420fbf5.pdf"
  },
@@ -32547,7 +32547,7 @@
   "original_name": "2021 RI Yr CT Sect B QP",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RI|2021|H2 Physics|CT Sect B",
+  "group_id": "single|22526",
   "display_name": "RI 2021 H2 Phy CT Sect B QP",
   "inline_url": "https://document.grail.moe/6a53d0a10c6d4e4095c13c00f7be73ba.pdf"
  },
@@ -32573,7 +32573,7 @@
   "original_name": "2021 RI Yr CT Sect B Soln",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RI|2021|H2 Physics|CT Sect B",
+  "group_id": "single|22525",
   "display_name": "RI 2021 H2 Phy CT Sect B Solutions",
   "inline_url": "https://document.grail.moe/5c05d48ed0d34adca59e1651aa8c0758.pdf"
  },
@@ -32599,7 +32599,7 @@
   "original_name": "2022 RI Yr 5 CT Sect A QP",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RI|2022|H2 Physics|CT Sect A",
+  "group_id": "single|22524",
   "display_name": "RI 2022 H2 Phy CT Sect A QP",
   "inline_url": "https://document.grail.moe/e284072d14b5400dac3db2e8413134a3.pdf"
  },
@@ -32625,7 +32625,7 @@
   "original_name": "2022 RI Yr 5 CT Sect A Soln",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RI|2022|H2 Physics|CT Sect A",
+  "group_id": "single|22523",
   "display_name": "RI 2022 H2 Phy CT Sect A Solutions",
   "inline_url": "https://document.grail.moe/ecdcaa788cd04570ac4f0dfebec731b0.pdf"
  },
@@ -32651,7 +32651,7 @@
   "original_name": "2022 RI Yr 5 CT Sect B QP",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RI|2022|H2 Physics|CT Sect B",
+  "group_id": "single|22522",
   "display_name": "RI 2022 H2 Phy CT Sect B QP",
   "inline_url": "https://document.grail.moe/536817d461ca4059a24d3a08ce2bcf41.pdf"
  },
@@ -32677,7 +32677,7 @@
   "original_name": "2022 RI Yr 5 CT Sect B Soln",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RI|2022|H2 Physics|CT Sect B",
+  "group_id": "single|22521",
   "display_name": "RI 2022 H2 Phy CT Sect B Solutions",
   "inline_url": "https://document.grail.moe/aec1ef87d0ea4fc7afc87cd38957927c.pdf"
  },
@@ -32703,7 +32703,7 @@
   "original_name": "RI 2023 Y5 Phy T3 CT Sect A QP",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RI|2023|H2 Physics|CT Sect A",
+  "group_id": "single|22520",
   "display_name": "RI 2023 H2 Phy CT Sect A QP",
   "inline_url": "https://document.grail.moe/75ce97a833ad47c28c80b18397ca711a.pdf"
  },
@@ -32729,7 +32729,7 @@
   "original_name": "RI 2023 Y5 Phy T3 CT Sect B QP",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RI|2023|H2 Physics|CT Sect B",
+  "group_id": "single|22519",
   "display_name": "RI 2023 H2 Phy CT Sect B QP",
   "inline_url": "https://document.grail.moe/25a7f145d54c4af49b64ce408e3d8c1a.pdf"
  },
@@ -32781,7 +32781,7 @@
   "original_name": "2021 RI Promo Sect A QP",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RI|2021|H2 Physics|Promo CT Sect A",
+  "group_id": "RI|2021|H2 Physics|Promo",
   "display_name": "RI 2021 H2 Phy Promo CT Sect A QP",
   "inline_url": "https://document.grail.moe/20d411a5e4874ddd8e4b487730744eff.pdf"
  },
@@ -32807,7 +32807,7 @@
   "original_name": "2021 RI Promo Sect A Soln",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RI|2021|H2 Physics|Promo CT Sect A",
+  "group_id": "RI|2021|H2 Physics|Promo",
   "display_name": "RI 2021 H2 Phy Promo CT Sect A Solutions",
   "inline_url": "https://document.grail.moe/28deb6cd8b2e4be59f7c5b81463edae2.pdf"
  },
@@ -32833,7 +32833,7 @@
   "original_name": "2021 RI Promo Sect B QP",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RI|2021|H2 Physics|Promo CT Sect B",
+  "group_id": "RI|2021|H2 Physics|Promo",
   "display_name": "RI 2021 H2 Phy Promo CT Sect B QP",
   "inline_url": "https://document.grail.moe/ad7734f4537943518bbf2df81eb21f1b.pdf"
  },
@@ -32859,7 +32859,7 @@
   "original_name": "2021 RI Promo Sect BC Soln",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RI|2021|H2 Physics|Promo CT Sect B",
+  "group_id": "RI|2021|H2 Physics|Promo",
   "display_name": "RI 2021 H2 Phy Promo CT Sect B Solutions",
   "inline_url": "https://document.grail.moe/288593db1ba143678d728b913e826618.pdf"
  },
@@ -32885,7 +32885,7 @@
   "original_name": "2021 RI Promo Sect C QP",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RI|2021|H2 Physics|Promo CT Sect C",
+  "group_id": "RI|2021|H2 Physics|Promo",
   "display_name": "RI 2021 H2 Phy Promo CT Sect C QP",
   "inline_url": "https://document.grail.moe/2aec0ec4ca8d40069b4a00abb913c929.pdf"
  },
@@ -32911,7 +32911,7 @@
   "original_name": "2022 RI Promo Sect A QP",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RI|2022|H2 Physics|Promo CT Sect A",
+  "group_id": "RI|2022|H2 Physics|Promo",
   "display_name": "RI 2022 H2 Phy Promo CT Sect A QP",
   "inline_url": "https://document.grail.moe/96a3d522971c4195a32f5badb7fbd52d.pdf"
  },
@@ -32937,7 +32937,7 @@
   "original_name": "2022 RI Promo Sect ABC Soln",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RI|2022|H2 Physics|Promo CT Sect A",
+  "group_id": "RI|2022|H2 Physics|Promo",
   "display_name": "RI 2022 H2 Phy Promo CT Sect A Solutions",
   "inline_url": "https://document.grail.moe/b1dfda588f434601b1367cb408e8d2a2.pdf"
  },
@@ -32963,7 +32963,7 @@
   "original_name": "2022 RI Promo Sect B QP",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RI|2022|H2 Physics|Promo CT Sect B",
+  "group_id": "RI|2022|H2 Physics|Promo",
   "display_name": "RI 2022 H2 Phy Promo CT Sect B QP",
   "inline_url": "https://document.grail.moe/9bec609113ee4e36a4824754936b65e9.pdf"
  },
@@ -32989,7 +32989,7 @@
   "original_name": "2022 RI Promo Sect C QP",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RI|2022|H2 Physics|Promo CT Sect C",
+  "group_id": "RI|2022|H2 Physics|Promo",
   "display_name": "RI 2022 H2 Phy Promo CT Sect C QP",
   "inline_url": "https://document.grail.moe/601b0b6cdb4d43019113dd850e67f59b.pdf"
  },
@@ -33405,7 +33405,7 @@
   "original_name": "RI  2021 Y5 H2 Physics CT Soln",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RI|2021|H2 Physics|CT",
+  "group_id": "single|20649",
   "display_name": "RI 2021 H2 Phy CT Solutions",
   "inline_url": "https://document.grail.moe/8832b9a9a23b488cbfaf3ad64d948c41.pdf"
  },
@@ -33431,7 +33431,7 @@
   "original_name": "RI 2020 Y5 H2 Physics TP Section A QP",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RI|2020|H2 Physics|CT TP Sect A",
+  "group_id": "RI|2020|H2 Physics|TP",
   "display_name": "RI 2020 H2 Phy CT TP Sect A QP",
   "inline_url": "https://document.grail.moe/3a853b76f2b6440aa40ffe64ed5334c9.pdf"
  },
@@ -33457,7 +33457,7 @@
   "original_name": "RI 2021 Y5 H2 Physics CT Sect B QP",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RI|2021|H2 Physics|CT Sect B",
+  "group_id": "single|20650",
   "display_name": "RI 2021 H2 Phy CT Sect B QP",
   "inline_url": "https://document.grail.moe/adb60ecabafb466c8cb3e7c38f20e360.pdf"
  },
@@ -33665,7 +33665,7 @@
   "original_name": "NJC_2025_H2_Physics_Prelim_P3SectionA_QP",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "NJC|2025|H2 Physics|Prelim CT",
+  "group_id": "NJC|2025|H2 Physics|Prelim",
   "display_name": "NJC 2025 H2 Phy Prelim CT P3 QP",
   "inline_url": "https://document.grail.moe/51379865965848c1bfb20850a1c96e59.pdf"
  },
@@ -33691,7 +33691,7 @@
   "original_name": "2025 RI H2 Physics Prelims P3 Section B Answers",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "RI|2025|H2 Physics|Prelim CT Sect B",
+  "group_id": "RI|2025|H2 Physics|Prelim",
   "display_name": "RI 2025 H2 Phy Prelim CT P3 Sect B Answers",
   "inline_url": "https://document.grail.moe/fbab7a30a3ff4c6483a56adfdb129fa0.pdf"
  },
@@ -33717,7 +33717,7 @@
   "original_name": "2025 RI H2 Physics Prelims P3 Section A Answers",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "RI|2025|H2 Physics|Prelim CT Sect A",
+  "group_id": "RI|2025|H2 Physics|Prelim",
   "display_name": "RI 2025 H2 Phy Prelim CT P3 Sect A Answers",
   "inline_url": "https://document.grail.moe/cadc13ebda6c42c4af8beee0719be71f.pdf"
  },
@@ -34913,7 +34913,7 @@
   "original_name": "RI 2021 Y6 H2 Phy T3 CT QP A (1)",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RI|2021|H2 Physics|CT",
+  "group_id": "single|17763",
   "display_name": "RI 2021 H2 Phy CT QP",
   "inline_url": "https://document.grail.moe/774c4a6031aa45509fec98ac7a9d68c5.pdf"
  },
@@ -34939,7 +34939,7 @@
   "original_name": "RI 2021 Y6 H2 Phy T3 CT QP B",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RI|2021|H2 Physics|CT",
+  "group_id": "single|17762",
   "display_name": "RI 2021 H2 Phy CT QP",
   "inline_url": "https://document.grail.moe/18aabc567ce94a72bbff5df2064caeb0.pdf"
  },
@@ -34965,7 +34965,7 @@
   "original_name": "RI 2021 Y6 H2 Phy T3 CT Soln",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RI|2021|H2 Physics|CT",
+  "group_id": "single|17761",
   "display_name": "RI 2021 H2 Phy CT Solutions",
   "inline_url": "https://document.grail.moe/4fde21b3276c43feb428f917c4f1393f.pdf"
  },
@@ -35615,7 +35615,7 @@
   "original_name": "2024 VJC H2 Prelim Practical P4 with Answers for students",
   "paper_number": 4,
   "paper_label": "Practical",
-  "group_id": "VJC|2024|H2 Physics|Prelim CT",
+  "group_id": "VJC|2024|H2 Physics|Prelim",
   "display_name": "VJC 2024 H2 Phy Prelim CT P4 Answers",
   "inline_url": "https://document.grail.moe/c1af817486c048d6a3b815e18d45a568.pdf"
  },
@@ -35641,7 +35641,7 @@
   "original_name": "2024 VJC H2 Prelim Practical P4 - final",
   "paper_number": 4,
   "paper_label": "Practical",
-  "group_id": "VJC|2024|H2 Physics|Prelim CT Final Exam",
+  "group_id": "VJC|2024|H2 Physics|Prelim Final Exam",
   "display_name": "VJC 2024 H2 Phy Prelim CT Final Exam P4",
   "inline_url": "https://document.grail.moe/0ccba0d121284ec1825446d3bd7f64eb.pdf"
  },
@@ -35953,7 +35953,7 @@
   "original_name": "2019 RI Prelims Paper 3 Sect B QP",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "RI|2019|H2 Physics|Prelim CT Sect B",
+  "group_id": "RI|2019|H2 Physics|Prelim",
   "display_name": "RI 2019 H2 Phy Prelim CT P3 Sect B QP",
   "inline_url": "https://document.grail.moe/abefcafa1bae42f39a36c87c42b7d6e4.pdf"
  },
@@ -37201,7 +37201,7 @@
   "original_name": "2022 RI Prelims H2 Phy Paper 3 Sect A QP",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "RI|2022|H2 Physics|Prelim CT Sect A",
+  "group_id": "RI|2022|H2 Physics|Prelim",
   "display_name": "RI 2022 H2 Phy Prelim CT P3 Sect A QP",
   "inline_url": "https://document.grail.moe/4e2a8404f5fd4bd0b2f855b1d944070f.pdf"
  },
@@ -37253,7 +37253,7 @@
   "original_name": "2022 RI Prelims H2 Phy Paper 3 Sect B QP",
   "paper_number": 3,
   "paper_label": null,
-  "group_id": "RI|2022|H2 Physics|Prelim CT Sect B",
+  "group_id": "RI|2022|H2 Physics|Prelim",
   "display_name": "RI 2022 H2 Phy Prelim CT P3 Sect B QP",
   "inline_url": "https://document.grail.moe/a9365a6d72e74854baf7194bdc63c762.pdf"
  },
@@ -43051,7 +43051,7 @@
   "original_name": "TMJC MYE 2024 Section A solutions",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "TMJC|2024|H2 Physics|MYE Section A",
+  "group_id": "TMJC|2024|H2 Physics|MYE",
   "display_name": "TMJC 2024 H2 Phy MYE Section A Solutions",
   "inline_url": "https://document.grail.moe/729727264b1b409cb1fa154c90d9f7f3.pdf"
  },
@@ -43077,7 +43077,7 @@
   "original_name": "TMJC MYE 2024 Section A questions",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "TMJC|2024|H2 Physics|MYE Section A",
+  "group_id": "TMJC|2024|H2 Physics|MYE",
   "display_name": "TMJC 2024 H2 Phy MYE Section A",
   "inline_url": "https://document.grail.moe/52a4f756a2c2447faf7b6657a7c680e1.pdf"
  },
@@ -43103,7 +43103,7 @@
   "original_name": "TMJC MYE 2024 Section B questions",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "TMJC|2024|H2 Physics|MYE Section B",
+  "group_id": "TMJC|2024|H2 Physics|MYE",
   "display_name": "TMJC 2024 H2 Phy MYE Section B",
   "inline_url": "https://document.grail.moe/6328054c7c1a44e8afdf73cc8ae8f50a.pdf"
  },
@@ -43129,7 +43129,7 @@
   "original_name": "TMJC MYE 2024 Section B solutions",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "TMJC|2024|H2 Physics|MYE Section B",
+  "group_id": "TMJC|2024|H2 Physics|MYE",
   "display_name": "TMJC 2024 H2 Phy MYE Section B Solutions",
   "inline_url": "https://document.grail.moe/0cda37cda485480d9ef9bf2a0c7b90e2.pdf"
  },
@@ -93049,7 +93049,7 @@
   "paper_info_role": "QP",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RI|2022|H2 Chemistry|Y6 CT",
+  "group_id": "RI|2022|H2 Chemistry|Y6",
   "display_name": "RI 2022 H2 Chemistry QP Y6 CT",
   "inline_url": "https://document.grail.moe/aefe0c0e8a244b53b8418193524e8284.pdf"
  },
@@ -97261,7 +97261,7 @@
   "paper_info_role": "Answers",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RI|2022|H2 Chemistry|Y6 CT",
+  "group_id": "RI|2022|H2 Chemistry|Y6",
   "display_name": "RI 2022 H2 Chemistry Answers Y6 CT",
   "inline_url": "https://document.grail.moe/c0105628e56c4d7e9ab98082773cfebd.pdf"
  },
@@ -110755,7 +110755,7 @@
   "paper_info_role": "Questions",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RI|2023|H2 Chemistry|CT",
+  "group_id": "single|17765",
   "display_name": "RI 2023 H2 Chemistry CT",
   "inline_url": "https://document.grail.moe/088220680ba94026a4377475db4c784b.pdf"
  },
@@ -112835,7 +112835,7 @@
   "paper_info_role": "Answers",
   "paper_number": null,
   "paper_label": null,
-  "group_id": "RI|2023|H2 Chemistry|CT",
+  "group_id": "single|17764",
   "display_name": "RI 2023 H2 Chemistry CT Answers",
   "inline_url": "https://document.grail.moe/a99881c331f549d6a83f36d6872a6c55.pdf"
  },

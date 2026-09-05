@@ -28,6 +28,12 @@ SUFFIX_RE = re.compile(
     r"\b(Answers?|Solutions?|Soln|Qn|Questions?|QP|Insert|Guide|Mark ?Scheme)\b", re.IGNORECASE
 )
 NUM_RE = re.compile(r"(?<![A-Za-z0-9])P(?:aper)?\.?\s*([1-4])(?![0-9])", re.IGNORECASE)
+# section splits (e.g. "Prelim CT P3 Sect A") distinguish which half of one paper an entry
+# covers, but shouldn't fragment the exam-set grouping - a P3 Sect A and Sect B QP still
+# belong in the same group as the sitting's P1/P2, so strip these (and the bare "CT" that
+# often rides along with them) only when computing the group topic, not paper_info_base/role.
+SECTION_RE = re.compile(r"\bSect(?:ion)?\.?\s*[A-Z]\b", re.IGNORECASE)
+CT_RE = re.compile(r"(?<![A-Za-z])CT(?![A-Za-z])")
 
 SUBJ_ABBR = {
     "H2 Mathematics": "H2 Math", "H2 Computing": "H2 Comp", "H2 Physics": "H2 Phy",
@@ -86,6 +92,7 @@ def compute_group_id(e: dict, base: str, n: int | None) -> str:
     override. Shared by enrich() and server.py's "split into its own group" action.
     """
     topic = re.sub(r"\s+", " ", NUM_RE.sub("", base)).strip()
+    topic = re.sub(r"\s+", " ", SECTION_RE.sub("", CT_RE.sub("", topic))).strip()
     if e["doc_type"] in GROUPABLE_TYPES and topic:
         if e.get("school"):
             key = topic
