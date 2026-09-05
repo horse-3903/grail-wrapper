@@ -1219,8 +1219,18 @@ function groupSourceBadgeHtml(members) {
 // under one topic - the primary member just happens to carry its own paper number in
 // display_name (e.g. "ACJC 2025 H2 Math Prelim P1"), which misrepresents the whole group.
 const PAPER_NUM_RE = /(?<![A-Za-z0-9])P(?:aper)?\.?\s*[1-4](?![0-9])/gi;
+// Same reasoning applies to section splits ("Sect A"/"Section B") and the "CT" that often
+// rides along with them (see enrich.py's SECTION_RE/CT_RE) - they identify one paper/half of
+// a paper, not the whole sitting, so they don't belong in the group's own title either.
+const SECTION_RE = /\bSect(?:ion)?\.?\s*[A-Z]\b/gi;
+const CT_RE = /(?<![A-Za-z])CT(?![A-Za-z])/g;
 function groupTitle(primary) {
-  return (primary.display_name || "").replace(PAPER_NUM_RE, "").replace(/\s+/g, " ").trim();
+  return (primary.display_name || "")
+    .replace(PAPER_NUM_RE, "")
+    .replace(SECTION_RE, "")
+    .replace(CT_RE, "")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 // The wrapping .row-meta is display:contents on desktop (a no-op - its children behave as
