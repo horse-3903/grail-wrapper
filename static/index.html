@@ -212,9 +212,9 @@
   .ms-actions button:hover { color: var(--primary); }
 
   .year-panel { min-width: 220px; }
-  /* shorter than the default .ms-options max-height (260px) - this list sits above the
-     original from/to range inputs, which still need to fit in the same panel underneath it */
-  .year-options { max-height: 130px; margin-bottom: 8px; }
+  /* ~2.5 rows tall on purpose - a partially-cut-off row hints there's more to scroll to,
+     without a long list of years dominating the panel above the slider/range inputs */
+  .year-options { max-height: 78px; margin-bottom: 8px; }
   .year-range-inputs { display: flex; align-items: center; gap: 8px; }
   .year-range-inputs input[type=text] {
     width: 0; flex: 1 1 0; padding: 8px 10px; border: 1px solid var(--border); border-radius: var(--r-control);
@@ -224,11 +224,7 @@
   .year-range-inputs input[type=text]:focus { border-color: var(--primary); }
   .year-range-sep { color: var(--text-faint); flex-shrink: 0; }
 
-  .year-slider-wrap { padding: 2px 6px 14px; }
-  .year-slider-values {
-    display: flex; justify-content: space-between; font-family: var(--font-mono);
-    font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;
-  }
+  .year-slider-wrap { padding: 22px 6px 6px; }
   .year-slider-track {
     position: relative; height: 4px; background: var(--border); border-radius: 2px; margin: 0 8px;
   }
@@ -240,6 +236,24 @@
   }
   .year-slider-thumb:active { cursor: grabbing; }
   .year-slider-thumb:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  /* Live value for this specific handle, floating above the circle so it's readable
+     regardless of where the two thumbs currently sit relative to each other. */
+  .year-slider-bubble {
+    position: absolute; bottom: calc(100% + 7px); left: 50%; transform: translateX(-50%);
+    background: var(--surface); color: #F2F4F8; font-family: var(--font-mono); font-size: 11px;
+    font-weight: 600; padding: 2px 6px; border-radius: var(--r-control); white-space: nowrap;
+    pointer-events: none;
+  }
+  .year-slider-bubble::after {
+    content: ""; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+    border: 4px solid transparent; border-top-color: var(--surface);
+  }
+  /* The slider's fixed overall span (earliest/latest year in the dataset) - constant,
+     unlike the bubbles above which track the current selection. */
+  .year-slider-domain {
+    display: flex; justify-content: space-between; margin: 10px 8px 0;
+    font-family: var(--font-mono); font-size: 11px; color: var(--text-faint);
+  }
 
   .results {
     flex: 1; min-height: 0; display: flex; flex-direction: column;
@@ -560,14 +574,18 @@
           <input type="text" class="ms-search" id="f-year-search" placeholder="Jump to a year...">
           <div class="ms-options year-options" id="f-year-options"></div>
           <div class="year-slider-wrap">
-            <div class="year-slider-values">
-              <span id="year-slider-min-label"></span>
-              <span id="year-slider-max-label"></span>
-            </div>
             <div class="year-slider-track" id="year-slider-track">
               <div class="year-slider-range" id="year-slider-range"></div>
-              <div class="year-slider-thumb" id="year-slider-thumb-min" tabindex="0" role="slider" aria-label="Minimum year"></div>
-              <div class="year-slider-thumb" id="year-slider-thumb-max" tabindex="0" role="slider" aria-label="Maximum year"></div>
+              <div class="year-slider-thumb" id="year-slider-thumb-min" tabindex="0" role="slider" aria-label="Minimum year">
+                <span class="year-slider-bubble" id="year-slider-thumb-min-bubble"></span>
+              </div>
+              <div class="year-slider-thumb" id="year-slider-thumb-max" tabindex="0" role="slider" aria-label="Maximum year">
+                <span class="year-slider-bubble" id="year-slider-thumb-max-bubble"></span>
+              </div>
+            </div>
+            <div class="year-slider-domain">
+              <span id="year-slider-domain-min"></span>
+              <span id="year-slider-domain-max"></span>
             </div>
           </div>
           <div class="year-range-inputs">
@@ -829,6 +847,7 @@ function populateYearOptions(values) {
     });
     optionsEl.appendChild(opt);
   }
+  syncYearThumbsFromRange();
   renderYearSlider();
 }
 
@@ -838,6 +857,13 @@ function populateYearOptions(values) {
 // dataset) are recomputed each populateYearOptions() call above since that always runs off
 // the same full YEAR_VALUES list.
 let yearDomainMin = 0, yearDomainMax = 1;
+
+// Each thumb tracks its own raw value independently, deliberately NOT clamped against the
+// other thumb - clamping "min can't pass max" is what made both thumbs unmovable once a
+// single year selection left them coincident (whichever direction would cross the other was
+// permanently blocked, on a thumb sitting exactly on top of its sibling). Letting them cross
+// freely and just taking min()/max() of the two on commit removes that dead end entirely.
+let thumbMinValue = 0, thumbMaxValue = 1;
 
 function yearValueToPercent(v) {
   if (yearDomainMax === yearDomainMin) return 0;
@@ -849,27 +875,40 @@ function yearPercentToValue(percent) {
 }
 
 function renderYearSlider() {
-  const lo = yearMin ?? yearDomainMin;
-  const hi = yearMax ?? yearDomainMax;
-  const pLo = yearValueToPercent(lo);
-  const pHi = yearValueToPercent(hi);
-  $("year-slider-thumb-min").style.left = `${pLo}%`;
-  $("year-slider-thumb-max").style.left = `${pHi}%`;
-  $("year-slider-range").style.left = `${pLo}%`;
-  $("year-slider-range").style.width = `${Math.max(0, pHi - pLo)}%`;
-  $("year-slider-min-label").textContent = lo;
-  $("year-slider-max-label").textContent = hi;
+  const pMin = yearValueToPercent(thumbMinValue);
+  const pMax = yearValueToPercent(thumbMaxValue);
+  $("year-slider-thumb-min").style.left = `${pMin}%`;
+  $("year-slider-thumb-max").style.left = `${pMax}%`;
+  $("year-slider-thumb-min-bubble").textContent = thumbMinValue;
+  $("year-slider-thumb-max-bubble").textContent = thumbMaxValue;
+  const lo = Math.min(pMin, pMax);
+  const hi = Math.max(pMin, pMax);
+  $("year-slider-range").style.left = `${lo}%`;
+  $("year-slider-range").style.width = `${hi - lo}%`;
+  $("year-slider-domain-min").textContent = yearDomainMin;
+  $("year-slider-domain-max").textContent = yearDomainMax;
+}
+
+// Snaps the slider's internal per-thumb state back to yearMin/yearMax - called whenever the
+// range changes from outside a drag (quick-list clicks, manual apply/clear/reset, URL
+// restore) via populateYearOptions(), and also right after a drag commits, so the two thumbs
+// "un-cross" back into their canonical min-on-left/max-on-right order once you let go.
+function syncYearThumbsFromRange() {
+  thumbMinValue = yearMin ?? yearDomainMin;
+  thumbMaxValue = yearMax ?? yearDomainMax;
 }
 
 function commitYearRange() {
-  $("f-year-from").value = yearMin ?? "";
-  $("f-year-to").value = yearMax ?? "";
+  yearMin = Math.min(thumbMinValue, thumbMaxValue);
+  yearMax = Math.max(thumbMinValue, thumbMaxValue);
+  $("f-year-from").value = yearMin;
+  $("f-year-to").value = yearMax;
   updateYearTrigger();
   populateYearOptions(YEAR_VALUES);
   applyFilters();
 }
 
-function setupYearSliderDrag(thumbId, isMin) {
+function setupYearSliderDrag(thumbId, isMinThumb) {
   const thumb = $(thumbId);
   const track = $("year-slider-track");
 
@@ -877,11 +916,7 @@ function setupYearSliderDrag(thumbId, isMin) {
     const rect = track.getBoundingClientRect();
     const percent = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
     const value = yearPercentToValue(percent);
-    if (isMin) {
-      yearMin = Math.min(value, yearMax ?? yearDomainMax);
-    } else {
-      yearMax = Math.max(value, yearMin ?? yearDomainMin);
-    }
+    if (isMinThumb) thumbMinValue = value; else thumbMaxValue = value;
     renderYearSlider();
   }
 
@@ -904,10 +939,9 @@ function setupYearSliderDrag(thumbId, isMin) {
     if (ev.key !== "ArrowLeft" && ev.key !== "ArrowRight") return;
     ev.preventDefault();
     const delta = ev.key === "ArrowRight" ? 1 : -1;
-    const current = isMin ? (yearMin ?? yearDomainMin) : (yearMax ?? yearDomainMax);
+    const current = isMinThumb ? thumbMinValue : thumbMaxValue;
     const next = Math.max(yearDomainMin, Math.min(yearDomainMax, current + delta));
-    if (isMin) yearMin = Math.min(next, yearMax ?? yearDomainMax);
-    else yearMax = Math.max(next, yearMin ?? yearDomainMin);
+    if (isMinThumb) thumbMinValue = next; else thumbMaxValue = next;
     renderYearSlider();
     commitYearRange();
   });
