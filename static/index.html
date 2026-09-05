@@ -1204,6 +1204,7 @@ const SORT_KEYS = {
   year: g => g.primary.year_resolved ? Number(g.primary.year_resolved) : null,
   type: g => g.primary.doc_type || "",
 };
+const STATUS_ORDER = { "Exam Paper": 0, "Questions": 1, "Answers": 2 };
 let sortState = { key: null, dir: 0 };
 
 function sortGroups(list) {
@@ -1221,6 +1222,7 @@ function sortGroups(list) {
     });
   } else {
     list.sort((a, b) => (Number(b.primary.year_resolved) || 0) - (Number(a.primary.year_resolved) || 0)
+      || (STATUS_ORDER[rowStatus(a)] ?? 99) - (STATUS_ORDER[rowStatus(b)] ?? 99)
       || a.primary.display_name.localeCompare(b.primary.display_name));
   }
   return list;
