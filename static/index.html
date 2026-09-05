@@ -224,6 +224,23 @@
   .year-range-inputs input[type=text]:focus { border-color: var(--primary); }
   .year-range-sep { color: var(--text-faint); flex-shrink: 0; }
 
+  .year-slider-wrap { padding: 2px 6px 14px; }
+  .year-slider-values {
+    display: flex; justify-content: space-between; font-family: var(--font-mono);
+    font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;
+  }
+  .year-slider-track {
+    position: relative; height: 4px; background: var(--border); border-radius: 2px; margin: 0 8px;
+  }
+  .year-slider-range { position: absolute; height: 4px; background: var(--primary); border-radius: 2px; }
+  .year-slider-thumb {
+    position: absolute; top: 50%; width: 16px; height: 16px; border-radius: 50%;
+    background: var(--primary); border: 2px solid var(--card); box-shadow: 0 1px 3px rgba(0,0,0,.3);
+    transform: translate(-50%, -50%); cursor: grab; touch-action: none;
+  }
+  .year-slider-thumb:active { cursor: grabbing; }
+  .year-slider-thumb:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
   .results {
     flex: 1; min-height: 0; display: flex; flex-direction: column;
     padding: 16px 28px 0;
@@ -542,6 +559,17 @@
         <div class="ms-panel year-panel" id="f-year-panel" hidden>
           <input type="text" class="ms-search" id="f-year-search" placeholder="Jump to a year...">
           <div class="ms-options year-options" id="f-year-options"></div>
+          <div class="year-slider-wrap">
+            <div class="year-slider-values">
+              <span id="year-slider-min-label"></span>
+              <span id="year-slider-max-label"></span>
+            </div>
+            <div class="year-slider-track" id="year-slider-track">
+              <div class="year-slider-range" id="year-slider-range"></div>
+              <div class="year-slider-thumb" id="year-slider-thumb-min" tabindex="0" role="slider" aria-label="Minimum year"></div>
+              <div class="year-slider-thumb" id="year-slider-thumb-max" tabindex="0" role="slider" aria-label="Maximum year"></div>
+            </div>
+          </div>
           <div class="year-range-inputs">
             <input type="text" id="f-year-from" placeholder="From" inputmode="numeric" maxlength="4">
             <span class="year-range-sep">&ndash;</span>
@@ -758,35 +786,138 @@ function populateSubjectOptions(values) {
   updateSubjectTrigger();
 }
 
-// Quick-jump list layered on top of the original from/to range inputs (kept as-is) - clicking
-// a year collapses the range to just that year, the same result typing it into both range
-// inputs and hitting Apply would give.
+// Quick-jump list layered on top of the original from/to range inputs (kept as-is) - multi-
+// select like the checkbox lists (ticking several years computes a span rather than jumping
+// to just one): yearMin/yearMax become the min/max of everything currently ticked. Manually
+// typing a range into the from/to boxes below doesn't touch selectedYears, so the two entry
+// paths stay simple - both just set yearMin/yearMax, they don't try to reconcile with the
+// other's notion of "what's selected".
 function populateYearOptions(values) {
   YEAR_VALUES = values;
+  if (values.length) {
+    yearDomainMax = Number(values[0]);
+    yearDomainMin = Number(values[values.length - 1]);
+  }
   const optionsEl = $("f-year-options");
   optionsEl.innerHTML = "";
   for (const v of values) {
     const opt = document.createElement("div");
-    const isSelected = yearMin != null && yearMin === yearMax && yearMin === Number(v);
-    opt.className = "ms-option" + (isSelected ? " selected" : "");
-    opt.textContent = v;
+    const isChecked = selectedYears.has(v);
+    opt.className = "ms-option" + (isChecked ? " selected" : "");
+    const check = document.createElement("span");
+    check.className = "ms-check";
+    check.textContent = isChecked ? "✓" : "";
+    const label = document.createElement("span");
+    label.textContent = v;
+    opt.appendChild(check);
+    opt.appendChild(label);
     opt.addEventListener("click", () => {
-      yearMin = yearMax = Number(v);
-      $("f-year-from").value = v;
-      $("f-year-to").value = v;
+      const nowChecked = !selectedYears.has(v);
+      if (nowChecked) selectedYears.add(v); else selectedYears.delete(v);
+      if (selectedYears.size) {
+        const nums = [...selectedYears].map(Number);
+        yearMin = Math.min(...nums);
+        yearMax = Math.max(...nums);
+      } else {
+        yearMin = null; yearMax = null;
+      }
+      $("f-year-from").value = yearMin ?? "";
+      $("f-year-to").value = yearMax ?? "";
       updateYearTrigger();
-      $("f-year-panel").hidden = true;
       populateYearOptions(values);
       applyFilters();
     });
     optionsEl.appendChild(opt);
   }
+  renderYearSlider();
+}
+
+// Draggable dual-thumb range slider mirroring yearMin/yearMax - a visual, coarse-grained
+// alternative to typing exact numbers into the from/to boxes below, which stay the precise
+// entry method for an exact year. yearDomainMin/Max (the earliest/latest year anywhere in the
+// dataset) are recomputed each populateYearOptions() call above since that always runs off
+// the same full YEAR_VALUES list.
+let yearDomainMin = 0, yearDomainMax = 1;
+
+function yearValueToPercent(v) {
+  if (yearDomainMax === yearDomainMin) return 0;
+  return ((v - yearDomainMin) / (yearDomainMax - yearDomainMin)) * 100;
+}
+
+function yearPercentToValue(percent) {
+  return Math.round(yearDomainMin + (percent / 100) * (yearDomainMax - yearDomainMin));
+}
+
+function renderYearSlider() {
+  const lo = yearMin ?? yearDomainMin;
+  const hi = yearMax ?? yearDomainMax;
+  const pLo = yearValueToPercent(lo);
+  const pHi = yearValueToPercent(hi);
+  $("year-slider-thumb-min").style.left = `${pLo}%`;
+  $("year-slider-thumb-max").style.left = `${pHi}%`;
+  $("year-slider-range").style.left = `${pLo}%`;
+  $("year-slider-range").style.width = `${Math.max(0, pHi - pLo)}%`;
+  $("year-slider-min-label").textContent = lo;
+  $("year-slider-max-label").textContent = hi;
+}
+
+function commitYearRange() {
+  $("f-year-from").value = yearMin ?? "";
+  $("f-year-to").value = yearMax ?? "";
+  updateYearTrigger();
+  populateYearOptions(YEAR_VALUES);
+  applyFilters();
+}
+
+function setupYearSliderDrag(thumbId, isMin) {
+  const thumb = $(thumbId);
+  const track = $("year-slider-track");
+
+  function moveTo(clientX) {
+    const rect = track.getBoundingClientRect();
+    const percent = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
+    const value = yearPercentToValue(percent);
+    if (isMin) {
+      yearMin = Math.min(value, yearMax ?? yearDomainMax);
+    } else {
+      yearMax = Math.max(value, yearMin ?? yearDomainMin);
+    }
+    renderYearSlider();
+  }
+
+  thumb.addEventListener("pointerdown", (ev) => {
+    ev.preventDefault();
+    thumb.setPointerCapture(ev.pointerId);
+    moveTo(ev.clientX);
+    const onMove = (mv) => moveTo(mv.clientX);
+    const onUp = () => {
+      thumb.removeEventListener("pointermove", onMove);
+      thumb.removeEventListener("pointerup", onUp);
+      commitYearRange();
+    };
+    thumb.addEventListener("pointermove", onMove);
+    thumb.addEventListener("pointerup", onUp);
+  });
+
+  // Arrow-key nudging for keyboard users, matching the slider's role="slider" semantics
+  thumb.addEventListener("keydown", (ev) => {
+    if (ev.key !== "ArrowLeft" && ev.key !== "ArrowRight") return;
+    ev.preventDefault();
+    const delta = ev.key === "ArrowRight" ? 1 : -1;
+    const current = isMin ? (yearMin ?? yearDomainMin) : (yearMax ?? yearDomainMax);
+    const next = Math.max(yearDomainMin, Math.min(yearDomainMax, current + delta));
+    if (isMin) yearMin = Math.min(next, yearMax ?? yearDomainMax);
+    else yearMax = Math.max(next, yearMin ?? yearDomainMin);
+    renderYearSlider();
+    commitYearRange();
+  });
 }
 
 // School/document-type/paper accept multiple selected values (checkbox dropdowns); year
 // is a range with separate start/end inputs (either side may be left open-ended).
 const multiFilters = { school: new Set(), doctype: new Set(), paper: new Set(), status: new Set() };
 let yearMin = null, yearMax = null;
+let selectedYears = new Set();
 // Subject is single-select (unlike the checkbox multi-selects above), so it's just a scalar -
 // SUBJECT_VALUES is kept around so the clear button and reset can re-render the option list.
 let selectedSubject = "";
@@ -970,6 +1101,8 @@ function applyYearInput() {
 }
 
 setupDropdown("year");
+setupYearSliderDrag("year-slider-thumb-min", true);
+setupYearSliderDrag("year-slider-thumb-max", false);
 $("f-year-apply").addEventListener("click", applyYearInput);
 ["f-year-from", "f-year-to"].forEach(id => {
   $(id).addEventListener("keydown", (ev) => {
@@ -980,6 +1113,7 @@ $("f-year-clear").addEventListener("click", () => {
   $("f-year-from").value = "";
   $("f-year-to").value = "";
   yearMin = null; yearMax = null;
+  selectedYears.clear();
   updateYearTrigger();
   populateYearOptions(YEAR_VALUES);
   applyFilters();
@@ -1330,6 +1464,7 @@ $("f-reset").addEventListener("click", () => {
   $("f-year-from").value = "";
   $("f-year-to").value = "";
   yearMin = null; yearMax = null;
+  selectedYears.clear();
   updateYearTrigger();
   populateYearOptions(YEAR_VALUES);
   $("f-flagged").checked = false;
