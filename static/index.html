@@ -226,7 +226,14 @@
   .year-range-inputs input[type=text]:focus { border-color: var(--primary); }
   .year-range-sep { color: var(--text-faint); flex-shrink: 0; }
 
-  .year-slider-wrap { padding: 22px 6px 6px; }
+  .year-slider-wrap { padding: 4px 6px 6px; }
+  /* One static label for the current selection, centered above the track - doesn't track
+     either thumb's position, so it never moves and can't overlap itself the way two
+     per-thumb labels could when the handles got close together. */
+  .year-slider-selected {
+    text-align: center; font-family: var(--font-mono); font-size: 13px; font-weight: 700;
+    color: var(--primary); margin-bottom: 10px;
+  }
   .year-slider-track {
     position: relative; height: 4px; background: var(--border); border-radius: 2px; margin: 0 8px;
   }
@@ -238,20 +245,8 @@
   }
   .year-slider-thumb:active { cursor: grabbing; }
   .year-slider-thumb:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-  /* Live value for this specific handle, floating above the circle so it's readable
-     regardless of where the two thumbs currently sit relative to each other - plain text,
-     not a tooltip-styled bubble. */
-  .year-slider-bubble {
-    position: absolute; bottom: calc(100% + 5px); left: 50%; transform: translateX(-50%);
-    color: var(--text-secondary); font-family: var(--font-mono); font-size: 11px;
-    font-weight: 600; white-space: nowrap; pointer-events: none;
-  }
-  /* Positioned directly on the track (not inside a thumb) at the midpoint between the two
-     thumbs, matching the individual bubbles' height - shown instead of them when the thumbs
-     are close enough together that two separate labels would overlap (see renderYearSlider). */
-  .year-slider-bubble-combined { bottom: calc(50% + 13px); }
   /* The slider's fixed overall span (earliest/latest year in the dataset) - constant,
-     unlike the bubbles above which track the current selection. */
+     unlike .year-slider-selected above which tracks the current selection. */
   .year-slider-domain {
     display: flex; justify-content: space-between; margin: 10px 8px 0;
     font-family: var(--font-mono); font-size: 11px; color: var(--text-faint);
@@ -576,15 +571,11 @@
           <input type="text" class="ms-search" id="f-year-search" placeholder="Jump to a year...">
           <div class="ms-options year-options" id="f-year-options"></div>
           <div class="year-slider-wrap">
+            <div class="year-slider-selected" id="year-slider-selected"></div>
             <div class="year-slider-track" id="year-slider-track">
               <div class="year-slider-range" id="year-slider-range"></div>
-              <div class="year-slider-thumb" id="year-slider-thumb-min" tabindex="0" role="slider" aria-label="Minimum year">
-                <span class="year-slider-bubble" id="year-slider-thumb-min-bubble"></span>
-              </div>
-              <div class="year-slider-thumb" id="year-slider-thumb-max" tabindex="0" role="slider" aria-label="Maximum year">
-                <span class="year-slider-bubble" id="year-slider-thumb-max-bubble"></span>
-              </div>
-              <span class="year-slider-bubble year-slider-bubble-combined" id="year-slider-combined-bubble" hidden></span>
+              <div class="year-slider-thumb" id="year-slider-thumb-min" tabindex="0" role="slider" aria-label="Minimum year"></div>
+              <div class="year-slider-thumb" id="year-slider-thumb-max" tabindex="0" role="slider" aria-label="Maximum year"></div>
             </div>
             <div class="year-slider-domain">
               <span id="year-slider-domain-min"></span>
@@ -643,7 +634,7 @@
       </div>
     </div>
     <label class="checkbox-row">
-      <input type="checkbox" id="f-flagged"> Only flagged (needs review)
+      <input type="checkbox" id="f-flagged"> Flagged
     </label>
     <button class="reset-btn" id="f-reset">Reset filters</button>
     </div>
@@ -877,10 +868,6 @@ function yearPercentToValue(percent) {
   return Math.round(yearDomainMin + (percent / 100) * (yearDomainMax - yearDomainMin));
 }
 
-// Below this gap (in percent of track width), two separate value labels would overlap -
-// merge them into one "min–max" label centered between the thumbs instead of showing both.
-const YEAR_BUBBLE_COLLISION_PCT = 16;
-
 function renderYearSlider() {
   const pMin = yearValueToPercent(thumbMinValue);
   const pMax = yearValueToPercent(thumbMaxValue);
@@ -893,23 +880,11 @@ function renderYearSlider() {
   $("year-slider-domain-min").textContent = yearDomainMin;
   $("year-slider-domain-max").textContent = yearDomainMax;
 
-  const minBubble = $("year-slider-thumb-min-bubble");
-  const maxBubble = $("year-slider-thumb-max-bubble");
-  const combinedBubble = $("year-slider-combined-bubble");
-  if (hi - lo < YEAR_BUBBLE_COLLISION_PCT) {
-    minBubble.hidden = true;
-    maxBubble.hidden = true;
-    combinedBubble.hidden = false;
-    combinedBubble.style.left = `${(pMin + pMax) / 2}%`;
-    combinedBubble.textContent = thumbMinValue === thumbMaxValue
-      ? `${thumbMinValue}` : `${Math.min(thumbMinValue, thumbMaxValue)}–${Math.max(thumbMinValue, thumbMaxValue)}`;
-  } else {
-    minBubble.hidden = false;
-    maxBubble.hidden = false;
-    combinedBubble.hidden = true;
-    minBubble.textContent = thumbMinValue;
-    maxBubble.textContent = thumbMaxValue;
-  }
+  // One static label for the whole selection, centered above the track and independent of
+  // either thumb's position - never moves, so it can't overlap itself.
+  const lowValue = Math.min(thumbMinValue, thumbMaxValue);
+  const highValue = Math.max(thumbMinValue, thumbMaxValue);
+  $("year-slider-selected").textContent = lowValue === highValue ? `${lowValue}` : `${lowValue}–${highValue}`;
 }
 
 // Snaps the slider's internal per-thumb state back to yearMin/yearMax - called whenever the
