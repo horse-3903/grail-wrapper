@@ -190,10 +190,17 @@
     text-transform: none; letter-spacing: normal; color: var(--text-primary);
   }
   .ms-option:hover { background: var(--card-alt); }
-  .ms-option input { accent-color: var(--primary); cursor: pointer; }
-  /* single-click select options (Subject, and the year quick-jump list) - not a checkbox, so
-     the current selection is shown by highlighting the option itself instead */
+  .ms-check {
+    display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+    width: 14px; height: 14px; color: var(--primary); font-weight: 700; font-size: 12px;
+  }
+  /* Selection state (persists until toggled off again) - a tick for the checkbox-style lists
+     (school/doctype/paper/status), a highlighted row for the single-select ones (subject, the
+     year quick-jump list) that have no separate tick mark of their own. */
   .ms-option.selected { background: var(--tag-school-bg); color: var(--primary); font-weight: 600; }
+  /* Keyboard-cursor state from arrow-key navigation in the search box above - independent of
+     .selected (which option is chosen) so both can apply to the same option at once. */
+  .ms-option.active { background: var(--card-alt); box-shadow: inset 2px 0 0 var(--primary); }
   .ms-actions {
     display: flex; justify-content: space-between; gap: 8px; padding: 8px 4px 2px;
     border-top: 1px solid var(--border); margin-top: 6px;
@@ -673,21 +680,25 @@ function populateMultiSelect(key, values) {
   const optionsEl = $(`f-${key}-options`);
   optionsEl.innerHTML = "";
   for (const v of values) {
-    const label = document.createElement("label");
-    label.className = "ms-option";
-    const input = document.createElement("input");
-    input.type = "checkbox"; input.value = v;
-    input.checked = multiFilters[key].has(v);
-    input.addEventListener("change", () => {
-      if (input.checked) multiFilters[key].add(v); else multiFilters[key].delete(v);
+    const opt = document.createElement("div");
+    const isChecked = multiFilters[key].has(v);
+    opt.className = "ms-option" + (isChecked ? " selected" : "");
+    const check = document.createElement("span");
+    check.className = "ms-check";
+    check.textContent = isChecked ? "✓" : "";
+    const label = document.createElement("span");
+    label.textContent = v;
+    opt.appendChild(check);
+    opt.appendChild(label);
+    opt.addEventListener("click", () => {
+      const nowChecked = !multiFilters[key].has(v);
+      if (nowChecked) multiFilters[key].add(v); else multiFilters[key].delete(v);
+      opt.classList.toggle("selected", nowChecked);
+      check.textContent = nowChecked ? "✓" : "";
       updateMultiTrigger(key);
       applyFilters();
     });
-    const span = document.createElement("span");
-    span.textContent = v;
-    label.appendChild(input);
-    label.appendChild(span);
-    optionsEl.appendChild(label);
+    optionsEl.appendChild(opt);
   }
   updateMultiTrigger(key);
 }
@@ -719,6 +730,29 @@ function filterMsOptions(key) {
   } else if (empty) {
     empty.remove();
   }
+  setActiveMsOption(key, 0);
+}
+
+// Tracks which currently-visible option the search box's arrow keys have moved a highlight
+// to, per panel - independent of .selected (what's actually chosen), so typing/arrowing
+// doesn't change the filter until Enter (or a click) commits it.
+const msActiveIndex = {};
+
+function getVisibleMsOptions(key) {
+  return [...$(`f-${key}-options`).querySelectorAll(".ms-option")].filter(o => o.style.display !== "none");
+}
+
+function setActiveMsOption(key, index) {
+  const visible = getVisibleMsOptions(key);
+  visible.forEach(o => o.classList.remove("active"));
+  if (!visible.length) {
+    msActiveIndex[key] = -1;
+    return;
+  }
+  const clamped = Math.max(0, Math.min(index, visible.length - 1));
+  visible[clamped].classList.add("active");
+  visible[clamped].scrollIntoView({ block: "nearest" });
+  msActiveIndex[key] = clamped;
 }
 
 function closeAllPanels(except) {
@@ -743,7 +777,23 @@ function setupDropdown(key) {
     }
   });
   panel.addEventListener("click", (ev) => ev.stopPropagation());
-  if (search) search.addEventListener("input", () => filterMsOptions(key));
+  if (search) {
+    search.addEventListener("input", () => filterMsOptions(key));
+    search.addEventListener("keydown", (ev) => {
+      if (ev.key === "ArrowDown") {
+        ev.preventDefault();
+        setActiveMsOption(key, (msActiveIndex[key] ?? -1) + 1);
+      } else if (ev.key === "ArrowUp") {
+        ev.preventDefault();
+        setActiveMsOption(key, (msActiveIndex[key] ?? 0) - 1);
+      } else if (ev.key === "Enter") {
+        ev.preventDefault();
+        const visible = getVisibleMsOptions(key);
+        const idx = msActiveIndex[key];
+        if (idx != null && idx >= 0 && visible[idx]) visible[idx].click();
+      }
+    });
+  }
 }
 
 document.addEventListener("click", () => closeAllPanels(null));
@@ -760,7 +810,10 @@ document.querySelectorAll("[data-clear]").forEach(btn => {
       return;
     }
     multiFilters[key].clear();
-    $(`f-${key}-options`).querySelectorAll("input").forEach(i => i.checked = false);
+    $(`f-${key}-options`).querySelectorAll(".ms-option").forEach(o => {
+      o.classList.remove("selected");
+      o.querySelector(".ms-check").textContent = "";
+    });
     updateMultiTrigger(key);
     applyFilters();
   });
@@ -1120,7 +1173,10 @@ $("f-reset").addEventListener("click", () => {
   populateSubjectOptions(SUBJECT_VALUES);
   for (const key of ["school", "doctype", "paper", "status"]) {
     multiFilters[key].clear();
-    $(`f-${key}-options`).querySelectorAll("input").forEach(i => i.checked = false);
+    $(`f-${key}-options`).querySelectorAll(".ms-option").forEach(o => {
+      o.classList.remove("selected");
+      o.querySelector(".ms-check").textContent = "";
+    });
     updateMultiTrigger(key);
   }
   $("f-year-from").value = "";
