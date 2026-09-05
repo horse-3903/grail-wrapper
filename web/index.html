@@ -174,7 +174,16 @@
     background: var(--card); border: 1px solid var(--border); border-radius: var(--r-control);
     box-shadow: 0 10px 28px rgba(17, 24, 39, 0.14); padding: 8px;
   }
+  .ms-search {
+    display: block; width: 100%; margin-bottom: 6px; padding: 7px 9px;
+    background: var(--card-alt); border: 1px solid var(--border); border-radius: var(--r-control);
+    color: var(--text-primary); font-size: 13px; font-family: var(--font-body); outline: none;
+  }
+  .ms-search:focus { border-color: var(--primary); }
   .ms-options { max-height: 260px; overflow-y: auto; }
+  .ms-options .ms-option-empty {
+    padding: 10px 8px; font-size: 13px; color: var(--text-faint); text-align: center;
+  }
   .ms-option {
     display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: var(--r-control);
     cursor: pointer; font-size: 13.5px; font-family: var(--font-body); font-weight: 400;
@@ -182,6 +191,9 @@
   }
   .ms-option:hover { background: var(--card-alt); }
   .ms-option input { accent-color: var(--primary); cursor: pointer; }
+  /* single-click select options (Subject, and the year quick-jump list) - not a checkbox, so
+     the current selection is shown by highlighting the option itself instead */
+  .ms-option.selected { background: var(--tag-school-bg); color: var(--primary); font-weight: 600; }
   .ms-actions {
     display: flex; justify-content: space-between; gap: 8px; padding: 8px 4px 2px;
     border-top: 1px solid var(--border); margin-top: 6px;
@@ -193,6 +205,9 @@
   .ms-actions button:hover { color: var(--primary); }
 
   .year-panel { min-width: 220px; }
+  /* shorter than the default .ms-options max-height (260px) - this list sits above the
+     original from/to range inputs, which still need to fit in the same panel underneath it */
+  .year-options { max-height: 130px; margin-bottom: 8px; }
   .year-range-inputs { display: flex; align-items: center; gap: 8px; }
   .year-range-inputs input[type=text] {
     width: 0; flex: 1 1 0; padding: 8px 10px; border: 1px solid var(--border); border-radius: var(--r-control);
@@ -402,13 +417,23 @@
     <div class="filterbar-collapsible" id="filterbar-collapsible">
     <div class="filter-group">
       <label>Subject</label>
-      <select id="f-subject"><option value="">All subjects</option></select>
+      <div class="ms" id="f-subject-ms">
+        <button type="button" class="ms-trigger" id="f-subject-trigger">All subjects<span class="ms-caret">&#9662;</span></button>
+        <div class="ms-panel" id="f-subject-panel" hidden>
+          <input type="text" class="ms-search" id="f-subject-search" placeholder="Search subjects...">
+          <div class="ms-options" id="f-subject-options"></div>
+          <div class="ms-actions">
+            <button type="button" data-clear="subject">Clear</button>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="filter-group">
       <label>School</label>
       <div class="ms" id="f-school-ms">
         <button type="button" class="ms-trigger" id="f-school-trigger">All schools<span class="ms-caret">&#9662;</span></button>
         <div class="ms-panel" id="f-school-panel" hidden>
+          <input type="text" class="ms-search" id="f-school-search" placeholder="Search schools...">
           <div class="ms-options" id="f-school-options"></div>
           <div class="ms-actions">
             <button type="button" data-clear="school">Clear</button>
@@ -421,6 +446,8 @@
       <div class="ms" id="f-year-ms">
         <button type="button" class="ms-trigger" id="f-year-trigger">All years<span class="ms-caret">&#9662;</span></button>
         <div class="ms-panel year-panel" id="f-year-panel" hidden>
+          <input type="text" class="ms-search" id="f-year-search" placeholder="Jump to a year...">
+          <div class="ms-options year-options" id="f-year-options"></div>
           <div class="year-range-inputs">
             <input type="text" id="f-year-from" placeholder="From" inputmode="numeric" maxlength="4">
             <span class="year-range-sep">&ndash;</span>
@@ -438,6 +465,7 @@
       <div class="ms" id="f-doctype-ms">
         <button type="button" class="ms-trigger" id="f-doctype-trigger">All types<span class="ms-caret">&#9662;</span></button>
         <div class="ms-panel" id="f-doctype-panel" hidden>
+          <input type="text" class="ms-search" id="f-doctype-search" placeholder="Search types...">
           <div class="ms-options" id="f-doctype-options"></div>
           <div class="ms-actions">
             <button type="button" data-clear="doctype">Clear</button>
@@ -450,6 +478,7 @@
       <div class="ms" id="f-paper-ms">
         <button type="button" class="ms-trigger" id="f-paper-trigger">All papers<span class="ms-caret">&#9662;</span></button>
         <div class="ms-panel" id="f-paper-panel" hidden>
+          <input type="text" class="ms-search" id="f-paper-search" placeholder="Search papers...">
           <div class="ms-options" id="f-paper-options"></div>
           <div class="ms-actions">
             <button type="button" data-clear="paper">Clear</button>
@@ -462,6 +491,7 @@
       <div class="ms" id="f-status-ms">
         <button type="button" class="ms-trigger" id="f-status-trigger">All statuses<span class="ms-caret">&#9662;</span></button>
         <div class="ms-panel" id="f-status-panel" hidden>
+          <input type="text" class="ms-search" id="f-status-search" placeholder="Search statuses...">
           <div class="ms-options" id="f-status-options"></div>
           <div class="ms-actions">
             <button type="button" data-clear="status">Clear</button>
@@ -560,22 +590,15 @@ function buildGroups(data) {
   return groups;
 }
 
-function populateSelect(id, values) {
-  const el = $(id);
-  const current = el.value;
-  while (el.options.length > 1) el.remove(1);  // keep the "All ..." placeholder
-  for (const v of values) {
-    const opt = document.createElement("option");
-    opt.value = v; opt.textContent = v;
-    el.appendChild(opt);
-  }
-  if ([...el.options].some(o => o.value === current)) el.value = current;
-}
-
 // School/document-type/paper accept multiple selected values (checkbox dropdowns); year
 // is a range with separate start/end inputs (either side may be left open-ended).
 const multiFilters = { school: new Set(), doctype: new Set(), paper: new Set(), status: new Set() };
 let yearMin = null, yearMax = null;
+// Subject is single-select (unlike the checkbox multi-selects above), so it's just a scalar -
+// SUBJECT_VALUES is kept around so the clear button and reset can re-render the option list.
+let selectedSubject = "";
+let SUBJECT_VALUES = [];
+let YEAR_VALUES = [];
 
 const MULTI_LABELS = { school: "All schools", doctype: "All types", paper: "All papers", status: "All statuses" };
 
@@ -585,6 +608,59 @@ function updateMultiTrigger(key) {
   const label = n === 0 ? MULTI_LABELS[key] : (n === 1 ? [...multiFilters[key]][0] : `${n} selected`);
   trigger.firstChild.textContent = label;
   trigger.classList.toggle("active", n > 0);
+}
+
+function updateSubjectTrigger() {
+  const trigger = $("f-subject-trigger");
+  trigger.firstChild.textContent = selectedSubject || "All subjects";
+  trigger.classList.toggle("active", !!selectedSubject);
+}
+
+// Single-select, unlike the checkbox lists below - clicking an option replaces the whole
+// selection and closes the panel immediately, same interaction as a native <select>.
+function populateSubjectOptions(values) {
+  SUBJECT_VALUES = values;
+  const optionsEl = $("f-subject-options");
+  optionsEl.innerHTML = "";
+  for (const v of values) {
+    const opt = document.createElement("div");
+    opt.className = "ms-option" + (v === selectedSubject ? " selected" : "");
+    opt.textContent = v;
+    opt.addEventListener("click", () => {
+      selectedSubject = v;
+      updateSubjectTrigger();
+      $("f-subject-panel").hidden = true;
+      populateSubjectOptions(values);
+      applyFilters();
+    });
+    optionsEl.appendChild(opt);
+  }
+  updateSubjectTrigger();
+}
+
+// Quick-jump list layered on top of the original from/to range inputs (kept as-is) - clicking
+// a year collapses the range to just that year, the same result typing it into both range
+// inputs and hitting Apply would give.
+function populateYearOptions(values) {
+  YEAR_VALUES = values;
+  const optionsEl = $("f-year-options");
+  optionsEl.innerHTML = "";
+  for (const v of values) {
+    const opt = document.createElement("div");
+    const isSelected = yearMin != null && yearMin === yearMax && yearMin === Number(v);
+    opt.className = "ms-option" + (isSelected ? " selected" : "");
+    opt.textContent = v;
+    opt.addEventListener("click", () => {
+      yearMin = yearMax = Number(v);
+      $("f-year-from").value = v;
+      $("f-year-to").value = v;
+      updateYearTrigger();
+      $("f-year-panel").hidden = true;
+      populateYearOptions(values);
+      applyFilters();
+    });
+    optionsEl.appendChild(opt);
+  }
 }
 
 function populateMultiSelect(key, values) {
@@ -610,6 +686,35 @@ function populateMultiSelect(key, values) {
   updateMultiTrigger(key);
 }
 
+// Shared by every .ms-panel that has a .ms-search box (school/doctype/paper/status's
+// checkbox lists, plus subject's and year's single-click option lists below) - filters the
+// already-rendered .ms-option elements by substring match rather than re-fetching/rebuilding
+// them, so it works the same regardless of what kind of option markup a given panel uses.
+function filterMsOptions(key) {
+  const searchEl = document.getElementById(`f-${key}-search`);
+  if (!searchEl) return;
+  const query = searchEl.value.trim().toLowerCase();
+  const optionsEl = $(`f-${key}-options`);
+  const labels = optionsEl.querySelectorAll(".ms-option");
+  let anyVisible = false;
+  labels.forEach(label => {
+    const match = label.textContent.toLowerCase().includes(query);
+    label.style.display = match ? "" : "none";
+    if (match) anyVisible = true;
+  });
+  let empty = optionsEl.querySelector(".ms-option-empty");
+  if (!anyVisible && labels.length) {
+    if (!empty) {
+      empty = document.createElement("div");
+      empty.className = "ms-option-empty";
+      empty.textContent = "No matches";
+      optionsEl.appendChild(empty);
+    }
+  } else if (empty) {
+    empty.remove();
+  }
+}
+
 function closeAllPanels(except) {
   document.querySelectorAll(".ms-panel").forEach(p => {
     if (p !== except) p.hidden = true;
@@ -619,21 +724,35 @@ function closeAllPanels(except) {
 function setupDropdown(key) {
   const trigger = $(`f-${key}-trigger`);
   const panel = $(`f-${key}-panel`);
+  const search = document.getElementById(`f-${key}-search`);
   trigger.addEventListener("click", (ev) => {
     ev.stopPropagation();
     const willOpen = panel.hidden;
     closeAllPanels(willOpen ? panel : null);
     panel.hidden = !willOpen;
+    if (willOpen && search) {
+      search.value = "";
+      filterMsOptions(key);
+      search.focus();
+    }
   });
   panel.addEventListener("click", (ev) => ev.stopPropagation());
+  if (search) search.addEventListener("input", () => filterMsOptions(key));
 }
 
 document.addEventListener("click", () => closeAllPanels(null));
 
-["school", "doctype", "paper", "status"].forEach(setupDropdown);
+["subject", "school", "doctype", "paper", "status"].forEach(setupDropdown);
 document.querySelectorAll("[data-clear]").forEach(btn => {
   btn.addEventListener("click", () => {
     const key = btn.dataset.clear;
+    if (key === "subject") {
+      selectedSubject = "";
+      updateSubjectTrigger();
+      populateSubjectOptions(SUBJECT_VALUES);
+      applyFilters();
+      return;
+    }
     multiFilters[key].clear();
     $(`f-${key}-options`).querySelectorAll("input").forEach(i => i.checked = false);
     updateMultiTrigger(key);
@@ -660,6 +779,7 @@ function applyYearInput() {
   yearMax = parseYearInput($("f-year-to").value);
   if (yearMin != null && yearMax != null && yearMin > yearMax) [yearMin, yearMax] = [yearMax, yearMin];
   updateYearTrigger();
+  populateYearOptions(YEAR_VALUES);
   applyFilters();
 }
 
@@ -675,6 +795,7 @@ $("f-year-clear").addEventListener("click", () => {
   $("f-year-to").value = "";
   yearMin = null; yearMax = null;
   updateYearTrigger();
+  populateYearOptions(YEAR_VALUES);
   applyFilters();
 });
 
@@ -685,7 +806,7 @@ function getFilterState() {
   const search = $("f-search").value.trim().toLowerCase();
   return {
     searchWords: search ? search.split(/\s+/).filter(Boolean) : [],
-    subject: $("f-subject").value,
+    subject: selectedSubject,
     schools: multiFilters.school,
     yearMin, yearMax,
     doctypes: multiFilters.doctype,
@@ -801,8 +922,7 @@ function updateUrlFromFilters() {
   const params = new URLSearchParams();
   const search = $("f-search").value.trim();
   if (search) params.set("q", search);
-  const subject = $("f-subject").value;
-  if (subject) params.set("s", encodeValue(SUBJECT_CODES, subject));
+  if (selectedSubject) params.set("s", encodeValue(SUBJECT_CODES, selectedSubject));
   if (multiFilters.school.size) params.set("sc", [...multiFilters.school].join(","));
   if (multiFilters.doctype.size)
     params.set("dt", [...multiFilters.doctype].map(v => encodeValue(DOCTYPE_CODES, v)).join(","));
@@ -975,8 +1095,6 @@ $("f-search").addEventListener("input", () => {
   clearTimeout(searchDebounce);
   searchDebounce = setTimeout(applyFilters, 100);
 });
-$("f-subject").addEventListener("input", applyFilters);
-
 // Mobile-only "Filters" toggle. Collapsed-by-default is a plain CSS default below the 820px
 // breakpoint (.filterbar-collapsible has no .open class in the initial HTML) - not something
 // this script has to establish itself, so there's no window where a script that hasn't run
@@ -991,7 +1109,9 @@ filterToggleBtn.addEventListener("click", () => {
 
 $("f-reset").addEventListener("click", () => {
   $("f-search").value = "";
-  $("f-subject").value = "";
+  selectedSubject = "";
+  updateSubjectTrigger();
+  populateSubjectOptions(SUBJECT_VALUES);
   for (const key of ["school", "doctype", "paper", "status"]) {
     multiFilters[key].clear();
     $(`f-${key}-options`).querySelectorAll("input").forEach(i => i.checked = false);
@@ -1001,13 +1121,17 @@ $("f-reset").addEventListener("click", () => {
   $("f-year-to").value = "";
   yearMin = null; yearMax = null;
   updateYearTrigger();
+  populateYearOptions(YEAR_VALUES);
   applyFilters();
 });
 
-// Runs before the multi-select checkboxes are built, since populateMultiSelect() checks a
-// box based on whether multiFilters[key] already has that value - the school/doctype/paper/
-// status portions of the URL have to land in multiFilters before that happens, not after.
+// Runs before the option lists are built, since populateMultiSelect()/populateSubjectOptions()/
+// populateYearOptions() decide checked/highlighted state from this data at render time - the
+// URL has to land here before that happens, not after.
 function readMultiFiltersFromUrl(params) {
+  if (params.has("s")) selectedSubject = decodeValue(SUBJECT_CODES_REV, params.get("s"));
+  if (params.has("y0")) yearMin = Number(params.get("y0"));
+  if (params.has("y1")) yearMax = Number(params.get("y1"));
   const raw_sc = params.get("sc");
   if (raw_sc) for (const v of raw_sc.split(",").filter(Boolean)) multiFilters.school.add(v);
   const raw_dt = params.get("dt");
@@ -1018,19 +1142,12 @@ function readMultiFiltersFromUrl(params) {
   if (raw_st) for (const v of raw_st.split(",").filter(Boolean)) multiFilters.status.add(decodeValue(STATUS_CODES_REV, v));
 }
 
-// Runs after the controls exist (the subject <select>'s options, the year inputs) - a <select>
-// silently ignores .value assignments that don't match an existing <option>.
+// Runs after the controls exist (the year range text inputs) - reflects the y0/y1 already
+// applied to yearMin/yearMax in readMultiFiltersFromUrl() into the visible from/to boxes.
 function applyRemainingFiltersFromUrl(params) {
   if (params.has("q")) $("f-search").value = params.get("q");
-  if (params.has("s")) $("f-subject").value = decodeValue(SUBJECT_CODES_REV, params.get("s"));
-  if (params.has("y0")) {
-    yearMin = Number(params.get("y0"));
-    $("f-year-from").value = params.get("y0");
-  }
-  if (params.has("y1")) {
-    yearMax = Number(params.get("y1"));
-    $("f-year-to").value = params.get("y1");
-  }
+  if (params.has("y0")) $("f-year-from").value = params.get("y0");
+  if (params.has("y1")) $("f-year-to").value = params.get("y1");
   updateYearTrigger();
   const flaggedEl = document.getElementById("f-flagged");
   if (flaggedEl && params.get("fl") === "1") flaggedEl.checked = true;
@@ -1075,11 +1192,12 @@ async function loadData() {
   const urlParams = new URLSearchParams(location.search);
   readMultiFiltersFromUrl(urlParams);
 
-  populateSelect("f-subject", uniq(data.map(d => d.subject)));
+  populateSubjectOptions(uniq(data.map(d => d.subject)));
   populateMultiSelect("school", uniq(data.map(d => d.school)));
   populateMultiSelect("doctype", uniq(data.map(d => d.doc_type)));
   populateMultiSelect("paper", uniq(data.map(d => d.paper_number)).sort((a,b) => a - b).map(n => String(n)));
   populateMultiSelect("status", ["Exam Paper", "Questions", "Answers"]);
+  populateYearOptions(uniq(data.map(d => d.year_resolved)).sort((a, b) => b - a));
 
   applyRemainingFiltersFromUrl(urlParams);
   applyFilters();
