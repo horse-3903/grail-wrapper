@@ -358,7 +358,13 @@
 
     .filterbar { padding: 12px 16px; gap: 10px; }
     .filter-group.grow { flex: 1 1 100%; }
-    .filter-toggle-btn { display: inline-flex; }
+    /* Plain text, no button chrome - the tappable area is the full row under the search bar
+       rather than a small pill, so it reads as "the next section of the filter bar" instead
+       of a separate control floating on its own. */
+    .filter-toggle-btn {
+      display: flex; width: 100%; justify-content: center; padding: 10px 14px;
+      border: none; border-radius: 0; background: none;
+    }
     /* Collapsed is the plain default here - no .open class, no JS needed to establish it -
        so there's no window for a mistimed script to leave it visibly expanded on load. JS
        only ever adds/removes .open; the CSS alone decides what "no .open" looks like. Laid
