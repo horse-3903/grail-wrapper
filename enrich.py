@@ -33,6 +33,7 @@ NUM_RE = re.compile(r"(?<![A-Za-z0-9])P(?:aper)?\.?\s*([1-4])(?![0-9])", re.IGNO
 # belong in the same group as the sitting's P1/P2, so strip these (and the bare "CT" that
 # often rides along with them) only when computing the group topic, not paper_info_base/role.
 SECTION_RE = re.compile(r"\bSect(?:ion)?\.?\s*[A-Z]\b", re.IGNORECASE)
+SECTION_DETECT_RE = re.compile(r"\bSect(?:ion)?\.?\s*([A-Z])\b", re.IGNORECASE)
 CT_RE = re.compile(r"(?<![A-Za-z])CT(?![A-Za-z])")
 
 SUBJ_ABBR = {
@@ -119,6 +120,18 @@ def enrich(data: list[dict]) -> list[dict]:
         if ALREADY_SIGNALS_RE.search(current):
             continue
         e["paper_info"] = (current + " Answers").strip()
+
+    # 1b. keep an explicit section letter (e.g. "Section A", "Sect B") in paper_info even when
+    # the tagger missed it - otherwise two section halves of the same paper (both "Prelim P3")
+    # are indistinguishable in the UI once compute_group_id merges them into one exam-set group.
+    for e in data:
+        m = SECTION_DETECT_RE.search(e["original_name"])
+        if not m:
+            continue
+        current = e.get("paper_info") or ""
+        if SECTION_DETECT_RE.search(current):
+            continue
+        e["paper_info"] = f"{current} Sect {m.group(1).upper()}".strip()
 
     # 2. year resolution: prefer the year in the name over grail.moe's upload-date field
     for e in data:

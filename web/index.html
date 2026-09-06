@@ -623,6 +623,12 @@ function isQuestionsRole(role) {
   return classifyRole(role) === "Questions";
 }
 
+const SECTION_LETTER_RE = /\bSect(?:ion)?\.?\s*([A-Z])\b/i;
+function sectionLetter(e) {
+  const m = SECTION_LETTER_RE.exec(e.paper_info_base || e.paper_info || "");
+  return m ? m[1].toUpperCase() : "";
+}
+
 function buildGroups(data) {
   const byId = new Map();
   for (const e of data) {
@@ -636,7 +642,8 @@ function buildGroups(data) {
     } else {
       const primary = members.find(m => isQuestionsRole(m.paper_info_role)) || members[0];
       members.sort((a, b) => (a.paper_number || 0) - (b.paper_number || 0)
-        || (isQuestionsRole(a.paper_info_role) === isQuestionsRole(b.paper_info_role) ? 0 : isQuestionsRole(a.paper_info_role) ? -1 : 1));
+        || (isQuestionsRole(a.paper_info_role) === isQuestionsRole(b.paper_info_role) ? 0 : isQuestionsRole(a.paper_info_role) ? -1 : 1)
+        || sectionLetter(a).localeCompare(sectionLetter(b)));
       groups.push({ isGroup: true, key: gid, primary, members });
     }
   }
