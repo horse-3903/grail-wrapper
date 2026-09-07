@@ -149,6 +149,7 @@
 
   .filterbar {
     flex-shrink: 0; display: flex; align-items: flex-end; gap: 10px; flex-wrap: wrap;
+    justify-content: space-between;
     padding: 16px 20px; background: var(--card);
     border-bottom: 1px solid var(--border); position: relative;
   }
@@ -168,7 +169,9 @@
   .filter-toggle-btn .filter-toggle-caret { font-size: 9px; transition: transform .15s; }
   .filter-toggle-btn[aria-expanded="true"] .filter-toggle-caret { transform: rotate(180deg); }
   .filter-group { display: flex; flex-direction: column; gap: 7px; }
-  .filter-group.grow { flex: 1 1 160px; min-width: 140px; }
+  /* Fixed width, not a flex-grow item despite the name (kept for the mobile override below,
+     which does still want it full-width) - sized to comfortably show the placeholder text. */
+  .filter-group.grow { flex: 0 0 220px; width: 220px; }
   .filter-group > label {
     display: block; font-family: var(--font-mono); font-size: 11px; color: var(--text-faint);
     text-transform: uppercase; letter-spacing: .04em; font-weight: 600;
@@ -184,7 +187,7 @@
   .checkbox-row { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--text-secondary); cursor: pointer; white-space: nowrap; padding: 9px 2px; }
   .checkbox-row input { accent-color: var(--primary); width: 15px; height: 15px; cursor: pointer; }
   .reset-btn {
-    margin-left: auto; padding: 9px 16px; border-radius: var(--r-control); border: 1px solid var(--border);
+    padding: 9px 16px; border-radius: var(--r-control); border: 1px solid var(--border);
     background: var(--card-alt); color: var(--text-secondary); font-size: 13px; font-weight: 500; cursor: pointer;
     font-family: var(--font-body); white-space: nowrap;
   }
@@ -195,8 +198,17 @@
     display: flex; align-items: center; justify-content: space-between; gap: 10px;
     padding: 9px 10px; background: var(--card-alt); border: 1px solid var(--border);
     color: var(--text-primary); border-radius: var(--r-control); font-size: 13.5px; outline: none;
-    font-family: var(--font-body); cursor: pointer; min-width: 118px; white-space: nowrap;
+    font-family: var(--font-body); cursor: pointer; white-space: nowrap;
   }
+  /* Fixed per-filter widths, each sized to that filter's own longest possible label, so
+     picking a value never reflows the bar. Status must fit "Prelim Exam Papers"/"Promo Exam
+     Papers"; Document type must fit "MYEs/CAs/Other Tests" (the longest doc_type). */
+  #f-subject-trigger { width: 160px; }
+  #f-school-trigger { width: 120px; }
+  #f-year-trigger { width: 120px; }
+  #f-status-trigger { width: 190px; }
+  #f-doctype-trigger { width: 210px; }
+  #f-paper-trigger { width: 110px; }
   .ms-trigger:hover, .ms-trigger.active { border-color: var(--primary); }
   .ms-trigger .ms-caret { font-size: 9px; color: var(--text-faint); }
   .ms-panel {
@@ -502,18 +514,17 @@
 
   /* Narrower windows (a smaller laptop screen, or any browser window resized well below full
      desktop width) - still plenty of room for the full grid table, but not enough for all 8
-     filter controls on one line, so .filterbar wraps. reset-btn's margin-left: auto (meant to
-     pin it to the far right of one full-width row) then isolates it with an ugly gap on
-     whatever line it wraps to instead. Above this tier the bar is assumed to fit on one line
-     (the filter controls were sized down specifically so a normal 1280px+ desktop/laptop width
-     stays one row), where auto-margin correctly reads as "pinned to that row's end"; below it,
-     let it flow like every other control instead. */
-  @media (max-width: 1160px) {
-    /* justify-content applies per wrapped line, not just to the container as a whole, so
-       this centers each individual row of filter controls rather than leaving them packed
-       against the left edge with empty space trailing on the right. */
+     filter controls on one line, so .filterbar wraps. .filterbar's default
+     justify-content: space-between spreads the controls across the bar's full width when
+     they all fit on one line; applied to a wrapped multi-line bar instead, the same rule
+     would stretch a half-empty last row out to the edges too, so this tier swaps it for
+     justify-content: center (applies per wrapped line, not the container as a whole) to
+     center each row's controls as a group instead. Each filter has a fixed width sized to
+     its own longest possible label (see .ms-trigger id rules above) rather than shrinking to
+     fit, so this threshold is set by summing those fixed widths - raise it to match if any of
+     them change. */
+  @media (max-width: 1460px) {
     .filterbar { justify-content: center; }
-    .reset-btn { margin-left: 0; }
   }
 
   /* Covers phones and portrait tablets (iPad portrait is ~768px) as one tier: below this,
