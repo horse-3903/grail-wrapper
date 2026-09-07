@@ -148,8 +148,8 @@
   .site-footer a:hover { color: var(--primary); text-decoration: underline; }
 
   .filterbar {
-    flex-shrink: 0; display: flex; align-items: flex-end; gap: 16px; flex-wrap: wrap;
-    padding: 16px 28px; background: var(--card);
+    flex-shrink: 0; display: flex; align-items: flex-end; gap: 10px; flex-wrap: wrap;
+    padding: 16px 20px; background: var(--card);
     border-bottom: 1px solid var(--border); position: relative;
   }
   .filterbar::before {
@@ -168,7 +168,7 @@
   .filter-toggle-btn .filter-toggle-caret { font-size: 9px; transition: transform .15s; }
   .filter-toggle-btn[aria-expanded="true"] .filter-toggle-caret { transform: rotate(180deg); }
   .filter-group { display: flex; flex-direction: column; gap: 7px; }
-  .filter-group.grow { flex: 1 1 220px; min-width: 180px; }
+  .filter-group.grow { flex: 1 1 160px; min-width: 140px; }
   .filter-group > label {
     display: block; font-family: var(--font-mono); font-size: 11px; color: var(--text-faint);
     text-transform: uppercase; letter-spacing: .04em; font-weight: 600;
@@ -195,7 +195,7 @@
     display: flex; align-items: center; justify-content: space-between; gap: 10px;
     padding: 9px 10px; background: var(--card-alt); border: 1px solid var(--border);
     color: var(--text-primary); border-radius: var(--r-control); font-size: 13.5px; outline: none;
-    font-family: var(--font-body); cursor: pointer; min-width: 150px; white-space: nowrap;
+    font-family: var(--font-body); cursor: pointer; min-width: 118px; white-space: nowrap;
   }
   .ms-trigger:hover, .ms-trigger.active { border-color: var(--primary); }
   .ms-trigger .ms-caret { font-size: 9px; color: var(--text-faint); }
@@ -419,14 +419,15 @@
 
   
 
-  /* Laptop-width windows (a maximized 1280-1366px-wide laptop screen, or any browser window
-     resized to less than full desktop width) - still plenty of room for the full grid table,
-     but not enough for all 8 filter controls on one line, so .filterbar wraps. reset-btn's
-     margin-left: auto (meant to pin it to the far right of one full-width row) then isolates
-     it with an ugly gap on whatever line it wraps to instead. Above this tier the bar is
-     assumed to fit on one line, where auto-margin correctly reads as "pinned to that row's
-     end"; below it, let it flow like every other control instead. */
-  @media (max-width: 1300px) {
+  /* Narrower windows (a smaller laptop screen, or any browser window resized well below full
+     desktop width) - still plenty of room for the full grid table, but not enough for all 8
+     filter controls on one line, so .filterbar wraps. reset-btn's margin-left: auto (meant to
+     pin it to the far right of one full-width row) then isolates it with an ugly gap on
+     whatever line it wraps to instead. Above this tier the bar is assumed to fit on one line
+     (the filter controls were sized down specifically so a normal 1280px+ desktop/laptop width
+     stays one row), where auto-margin correctly reads as "pinned to that row's end"; below it,
+     let it flow like every other control instead. */
+  @media (max-width: 1160px) {
     /* justify-content applies per wrapped line, not just to the container as a whole, so
        this centers each individual row of filter controls rather than leaving them packed
        against the left edge with empty space trailing on the right. */
