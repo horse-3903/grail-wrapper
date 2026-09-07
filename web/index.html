@@ -31,9 +31,24 @@
     --role-answers-border: #CDE9D9;
     --role-questions-border: #D3DEF8;
     --role-questions-bg: #EBF0FC;
-    --role-exam-color: #0E7CA8;
-    --role-exam-border: #A9D6E9;
-    --role-exam-bg: #E3F3FA;
+    --role-prelim-color: #0E7CA8;
+    --role-prelim-border: #A9D6E9;
+    --role-prelim-bg: #E3F3FA;
+    --role-promo-color: #B7791F;
+    --role-promo-border: #F0DBA6;
+    --role-promo-bg: #FDF3DC;
+    --role-jc1-color: #1E8A74;
+    --role-jc1-border: #A9E0D2;
+    --role-jc1-bg: #E1F5F0;
+    --role-jc2-color: #C2564A;
+    --role-jc2-border: #F2C6BE;
+    --role-jc2-bg: #FBEAE7;
+    --role-other-exam-color: #5B6472;
+    --role-other-exam-border: #D7DCE3;
+    --role-other-exam-bg: #EEF1F4;
+    --role-notes-color: #B23F82;
+    --role-notes-border: #F0C7DF;
+    --role-notes-bg: #FBEAF3;
     --font-body: "Hanken Grotesk", -apple-system, "Segoe UI", sans-serif;
     --font-mono: "JetBrains Mono", ui-monospace, monospace;
     --r-card: 4px;
@@ -59,9 +74,24 @@
     --role-answers-border: #1F4E36;
     --role-questions-border: #2A3B63;
     --role-questions-bg: #202A47;
-    --role-exam-color: #4FC3E0;
-    --role-exam-border: #1D4B5C;
-    --role-exam-bg: #17313C;
+    --role-prelim-color: #4FC3E0;
+    --role-prelim-border: #1D4B5C;
+    --role-prelim-bg: #17313C;
+    --role-promo-color: #E8B84B;
+    --role-promo-border: #5C4A1F;
+    --role-promo-bg: #3A2E14;
+    --role-jc1-color: #4FD9BB;
+    --role-jc1-border: #1B4A40;
+    --role-jc1-bg: #123A32;
+    --role-jc2-color: #E88A73;
+    --role-jc2-border: #5C2C22;
+    --role-jc2-bg: #3A1C16;
+    --role-other-exam-color: #9AA5B4;
+    --role-other-exam-border: #3A4250;
+    --role-other-exam-bg: #232833;
+    --role-notes-color: #E68AC0;
+    --role-notes-border: #5C2A47;
+    --role-notes-bg: #3A1D2D;
   }
   * { box-sizing: border-box; }
   html, body { height: 100%; }
@@ -198,6 +228,17 @@
      (school/doctype/paper/status), a highlighted row for the single-select ones (subject, the
      year quick-jump list) that have no separate tick mark of their own. */
   .ms-option.selected { background: var(--tag-school-bg); color: var(--primary); font-weight: 600; }
+  /* Status filter only: "Exam Papers" is a one-click select-all/deselect-all over its five
+     term children (Promo/Prelim/JC1/JC2/Other Exam Papers), not a real status value of its own -
+     the indent visually groups the children under it. */
+  .ms-option.ms-parent { font-weight: 600; }
+  .ms-option.ms-child { padding-left: 26px; }
+  .ms-group-caret {
+    padding: 4px; font-size: 9px; color: var(--text-faint); flex-shrink: 0;
+    transition: transform .15s;
+  }
+  .ms-group-caret.expanded { transform: rotate(90deg); }
+  .ms-group-caret:hover { color: var(--primary); }
   /* Keyboard-cursor state from arrow-key navigation in the search box above - independent of
      .selected (which option is chosen) so both can apply to the same option at once. */
   .ms-option.active { background: var(--card-alt); box-shadow: inset 2px 0 0 var(--primary); }
@@ -319,6 +360,8 @@
   .tag.school { background: var(--tag-school-bg); color: var(--primary); border-color: transparent; }
   .cell-muted { color: var(--text-secondary); font-size: 13px; }
 
+  
+
   /* recolor with the theme via mask-image instead of embedding a fixed-color icon */
   .source-badge {
     display: inline-block; width: 13px; height: 13px; flex-shrink: 0;
@@ -356,9 +399,17 @@
     border-radius: var(--r-control); background: var(--card); color: var(--text-secondary);
     border: 1px solid var(--border); width: fit-content; white-space: nowrap;
   }
+  /* Every status badge below gets its own distinct color - never reuse one across statuses,
+     even ones that can't appear on screen together. Check the existing hues before adding
+     a new status color. */
   .role-badge.answers { color: var(--answers); border-color: var(--role-answers-border); background: var(--answers-soft); }
   .role-badge.questions { color: var(--accent); border-color: var(--role-questions-border); background: var(--role-questions-bg); }
-  .role-badge.exam-paper { color: var(--role-exam-color); border-color: var(--role-exam-border); background: var(--role-exam-bg); }
+  .role-badge.prelim { color: var(--role-prelim-color); border-color: var(--role-prelim-border); background: var(--role-prelim-bg); }
+  .role-badge.promo { color: var(--role-promo-color); border-color: var(--role-promo-border); background: var(--role-promo-bg); }
+  .role-badge.jc1 { color: var(--role-jc1-color); border-color: var(--role-jc1-border); background: var(--role-jc1-bg); }
+  .role-badge.jc2 { color: var(--role-jc2-color); border-color: var(--role-jc2-border); background: var(--role-jc2-bg); }
+  .role-badge.other-exam { color: var(--role-other-exam-color); border-color: var(--role-other-exam-border); background: var(--role-other-exam-bg); }
+  .role-badge.notes { color: var(--role-notes-color); border-color: var(--role-notes-border); background: var(--role-notes-bg); }
 
   .empty { color: var(--text-faint); padding: 64px 20px; text-align: center; font-size: 14.5px; }
 
@@ -366,9 +417,11 @@
   ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
 
+  
+
   /* Laptop-width windows (a maximized 1280-1366px-wide laptop screen, or any browser window
      resized to less than full desktop width) - still plenty of room for the full grid table,
-     but not enough for all filter controls on one line, so .filterbar wraps. reset-btn's
+     but not enough for all 8 filter controls on one line, so .filterbar wraps. reset-btn's
      margin-left: auto (meant to pin it to the far right of one full-width row) then isolates
      it with an ugly gap on whatever line it wraps to instead. Above this tier the bar is
      assumed to fit on one line, where auto-margin correctly reads as "pinned to that row's
@@ -514,6 +567,19 @@
       </div>
     </div>
     <div class="filter-group">
+      <label>Status</label>
+      <div class="ms" id="f-status-ms">
+        <button type="button" class="ms-trigger" id="f-status-trigger">All statuses<span class="ms-caret">&#9662;</span></button>
+        <div class="ms-panel" id="f-status-panel" hidden>
+          <input type="text" class="ms-search" id="f-status-search" placeholder="Search statuses...">
+          <div class="ms-options" id="f-status-options"></div>
+          <div class="ms-actions">
+            <button type="button" data-clear="status">Clear</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="filter-group">
       <label>Document type</label>
       <div class="ms" id="f-doctype-ms">
         <button type="button" class="ms-trigger" id="f-doctype-trigger">All types<span class="ms-caret">&#9662;</span></button>
@@ -539,19 +605,7 @@
         </div>
       </div>
     </div>
-    <div class="filter-group">
-      <label>Status</label>
-      <div class="ms" id="f-status-ms">
-        <button type="button" class="ms-trigger" id="f-status-trigger">All statuses<span class="ms-caret">&#9662;</span></button>
-        <div class="ms-panel" id="f-status-panel" hidden>
-          <input type="text" class="ms-search" id="f-status-search" placeholder="Search statuses...">
-          <div class="ms-options" id="f-status-options"></div>
-          <div class="ms-actions">
-            <button type="button" data-clear="status">Clear</button>
-          </div>
-        </div>
-      </div>
-    </div>
+    
     <button class="reset-btn" id="f-reset">Reset filters</button>
     </div>
   </div>
@@ -576,8 +630,10 @@
 <footer class="site-footer">
   Sources: <a href="https://grail.moe" target="_blank">grail.moe</a> &middot;
   <a href="https://drive.google.com/drive/u/1/folders/1gC6GQLgcuoHzwDXtEGzTwvzCz0YsYuwg" target="_blank">Holy Grail Mk 6 Google Drive</a>
-  &nbsp;&middot;&nbsp; Built by horse-3903
+  &nbsp;&middot;&nbsp; Built by <a href="https://horse-3903.github.io" target="_blank">horse-3903</a>
 </footer>
+
+
 
 <script>
 let DATA = [];
@@ -623,6 +679,34 @@ function isQuestionsRole(role) {
   return classifyRole(role) === "Questions";
 }
 
+// Questions/Answers/Exam Paper classification applies to any doc_type that's actually made up
+// of exam-style papers (MYEs/CAs/User Mock Papers included, not just "Exam Papers" itself) -
+// a "Notes/Practices" entry's status is just its doc_type, not a Questions/Answers guess.
+// TYS Answers is the one non-role-based exception: it's already unambiguously answers.
+const ROLE_BASED_TYPES = new Set(["Exam Papers", "MYEs/CAs/Other Tests", "User Mock Papers"]);
+function entryStatus(e) {
+  if (ROLE_BASED_TYPES.has(e.doc_type)) return classifyRole(e.paper_info_role || e.doc_type);
+  if (e.doc_type === "TYS Answers") return "Answers";
+  return e.doc_type || "";
+}
+
+// Which sitting an exam-set group belongs to - JC1/Year 5's Promo, JC2/Year 6's Prelim, or a
+// same-level "Exam Papers" bucket for tests without their own term (CT, MYE, Block Test, ...).
+// Only promotes to JC1/JC2 Exam Papers on an explicit level mention - "CT" or "MYE" alone
+// doesn't say which year it's from, so those fall to "Other Exam Papers" rather than guessing.
+const PROMO_RE = /\bPromo(?:tion)?\b/i;
+const PRELIM_RE = /\bPrelim(?:s|inary)?\b/i;
+const JC1_RE = /\bJC ?1\b|\bY(?:ear)? ?5\b/i;
+const JC2_RE = /\bJC ?2\b|\bY(?:ear)? ?6\b/i;
+function examTerm(e) {
+  const text = `${e.paper_info || ""} ${e.original_name || ""}`;
+  if (PROMO_RE.test(text)) return "Promo Exam Papers";
+  if (PRELIM_RE.test(text)) return "Prelim Exam Papers";
+  if (JC1_RE.test(text)) return "JC1 Exam Papers";
+  if (JC2_RE.test(text)) return "JC2 Exam Papers";
+  return "Other Exam Papers";
+}
+
 const SECTION_LETTER_RE = /\bSect(?:ion)?\.?\s*([A-Z])\b/i;
 function sectionLetter(e) {
   const m = SECTION_LETTER_RE.exec(e.paper_info_base || e.paper_info || "");
@@ -648,27 +732,6 @@ function buildGroups(data) {
     }
   }
   return groups;
-}
-
-// School/document-type/paper accept multiple selected values (checkbox dropdowns); year
-// is a range with separate start/end inputs (either side may be left open-ended).
-const multiFilters = { school: new Set(), doctype: new Set(), paper: new Set(), status: new Set() };
-let yearMin = null, yearMax = null;
-let selectedYears = new Set();
-// Subject is single-select (unlike the checkbox multi-selects above), so it's just a scalar -
-// SUBJECT_VALUES is kept around so the clear button and reset can re-render the option list.
-let selectedSubject = "";
-let SUBJECT_VALUES = [];
-let YEAR_VALUES = [];
-
-const MULTI_LABELS = { school: "All schools", doctype: "All types", paper: "All papers", status: "All statuses" };
-
-function updateMultiTrigger(key) {
-  const trigger = $(`f-${key}-trigger`);
-  const n = multiFilters[key].size;
-  const label = n === 0 ? MULTI_LABELS[key] : (n === 1 ? [...multiFilters[key]][0] : `${n} selected`);
-  trigger.firstChild.textContent = label;
-  trigger.classList.toggle("active", n > 0);
 }
 
 function updateSubjectTrigger() {
@@ -846,6 +909,27 @@ function setupYearSliderDrag(thumbId, isMinThumb) {
   });
 }
 
+// School/document-type/paper accept multiple selected values (checkbox dropdowns); year
+// is a range with separate start/end inputs (either side may be left open-ended).
+const multiFilters = { school: new Set(), doctype: new Set(), paper: new Set(), status: new Set() };
+let yearMin = null, yearMax = null;
+let selectedYears = new Set();
+// Subject is single-select (unlike the checkbox multi-selects above), so it's just a scalar -
+// SUBJECT_VALUES is kept around so the clear button and reset can re-render the option list.
+let selectedSubject = "";
+let SUBJECT_VALUES = [];
+let YEAR_VALUES = [];
+
+const MULTI_LABELS = { school: "All schools", doctype: "All types", paper: "All papers", status: "All statuses" };
+
+function updateMultiTrigger(key) {
+  const trigger = $(`f-${key}-trigger`);
+  const n = multiFilters[key].size;
+  const label = n === 0 ? MULTI_LABELS[key] : (n === 1 ? [...multiFilters[key]][0] : `${n} selected`);
+  trigger.firstChild.textContent = label;
+  trigger.classList.toggle("active", n > 0);
+}
+
 function populateMultiSelect(key, values) {
   const optionsEl = $(`f-${key}-options`);
   optionsEl.innerHTML = "";
@@ -870,6 +954,91 @@ function populateMultiSelect(key, values) {
     });
     optionsEl.appendChild(opt);
   }
+  updateMultiTrigger(key);
+}
+
+// Status only: groups the five exam-term statuses (Promo/Prelim/JC1/JC2/Other Exam Papers)
+// under a one-click "Exam Papers" parent checkbox - checking it selects all five, unchecking
+// clears all five, and it re-syncs to reflect the children's own state whenever any of them
+// is toggled individually. The parent isn't a real status value; it never touches
+// multiFilters.status itself, only the five it stands in for.
+const EXAM_TERM_STATUSES = [
+  "Promo Exam Papers", "Prelim Exam Papers", "JC1 Exam Papers", "JC2 Exam Papers", "Other Exam Papers",
+];
+let examPapersExpanded = true;
+function populateStatusOptions(values) {
+  const key = "status";
+  const optionsEl = $(`f-${key}-options`);
+  optionsEl.innerHTML = "";
+  const examTerms = EXAM_TERM_STATUSES.filter(v => values.includes(v));
+  const rest = values.filter(v => !examTerms.includes(v));
+  let parentOpt, parentCheck;
+
+  function addOption(v, isChild) {
+    const opt = document.createElement("div");
+    const isChecked = multiFilters[key].has(v);
+    opt.className = "ms-option" + (isChecked ? " selected" : "") + (isChild ? " ms-child" : "");
+    const check = document.createElement("span");
+    check.className = "ms-check";
+    check.textContent = isChecked ? "✓" : "";
+    const label = document.createElement("span");
+    label.textContent = v;
+    opt.appendChild(check);
+    opt.appendChild(label);
+    opt.addEventListener("click", () => {
+      const nowChecked = !multiFilters[key].has(v);
+      if (nowChecked) multiFilters[key].add(v); else multiFilters[key].delete(v);
+      opt.classList.toggle("selected", nowChecked);
+      check.textContent = nowChecked ? "✓" : "";
+      syncExamPapersParent();
+      updateMultiTrigger(key);
+      applyFilters();
+    });
+    optionsEl.appendChild(opt);
+  }
+
+  function syncExamPapersParent() {
+    if (!parentOpt) return;
+    const allSelected = examTerms.length > 0 && examTerms.every(v => multiFilters[key].has(v));
+    parentOpt.classList.toggle("selected", allSelected);
+    parentCheck.textContent = allSelected ? "✓" : "";
+  }
+
+  if (examTerms.length) {
+    parentOpt = document.createElement("div");
+    parentCheck = document.createElement("span");
+    parentCheck.className = "ms-check";
+    const label = document.createElement("span");
+    label.textContent = "Exam Papers";
+    const caret = document.createElement("span");
+    caret.className = "ms-group-caret" + (examPapersExpanded ? " expanded" : "");
+    caret.textContent = "▶";
+    parentOpt.appendChild(parentCheck);
+    parentOpt.appendChild(caret);
+    parentOpt.appendChild(label);
+    parentOpt.className = "ms-option ms-parent";
+    parentOpt.addEventListener("click", () => {
+      const shouldSelectAll = !examTerms.every(v => multiFilters[key].has(v));
+      for (const v of examTerms) {
+        if (shouldSelectAll) multiFilters[key].add(v); else multiFilters[key].delete(v);
+      }
+      populateStatusOptions(values);
+      updateMultiTrigger(key);
+      applyFilters();
+    });
+    // The caret only expands/collapses the child list - stopPropagation keeps that click from
+    // also bubbling to the parent row's own click handler, which would otherwise select/
+    // deselect all five terms at the same time.
+    caret.addEventListener("click", (ev) => {
+      ev.stopPropagation();
+      examPapersExpanded = !examPapersExpanded;
+      populateStatusOptions(values);
+    });
+    optionsEl.appendChild(parentOpt);
+    syncExamPapersParent();
+    if (examPapersExpanded) for (const v of examTerms) addOption(v, true);
+  }
+  for (const v of rest) addOption(v, false);
   updateMultiTrigger(key);
 }
 
@@ -967,6 +1136,9 @@ function setupDropdown(key) {
 }
 
 document.addEventListener("click", () => closeAllPanels(null));
+document.addEventListener("keydown", (ev) => {
+  if (ev.key === "Escape") closeAllPanels(null);
+});
 
 ["subject", "school", "doctype", "paper", "status"].forEach(setupDropdown);
 document.querySelectorAll("[data-clear]").forEach(btn => {
@@ -1044,6 +1216,7 @@ function getFilterState() {
     doctypes: multiFilters.doctype,
     papers: multiFilters.paper,
     statuses: multiFilters.status,
+    
   };
 }
 
@@ -1062,16 +1235,18 @@ function matchesFilters(e, f) {
   }
   if (f.doctypes.size && !f.doctypes.has(e.doc_type)) return false;
   if (f.papers.size && !f.papers.has(String(e.paper_number))) return false;
+  
   return true;
 }
 
 // Column-header sorting: click once for ascending, again for descending, a third time
 // resets to the default (year desc, then name) - dir cycles 1 -> -1 -> 0.
-// Matches what the Status column actually shows: a group row always renders "Exam Paper"
-// (see renderRows) regardless of its primary member's own role, so filtering/sorting by the
-// primary's classifyRole() instead of this scattered visually-identical "Exam Paper" rows.
+// Matches what the Status column actually shows: a group row renders its exam term (Promo/
+// Prelim/JC1/JC2/Other Exam Papers) regardless of its primary member's own role, so
+// filtering/sorting by the primary's classifyRole() instead of this scattered visually-identical
+// term badge would disagree with what's actually on screen.
 function rowStatus(g) {
-  return g.isGroup ? "Exam Paper" : classifyRole(g.primary.paper_info_role || g.primary.doc_type);
+  return g.isGroup && ROLE_BASED_TYPES.has(g.primary.doc_type) ? examTerm(g.primary) : entryStatus(g.primary);
 }
 
 const SORT_KEYS = {
@@ -1082,7 +1257,10 @@ const SORT_KEYS = {
   year: g => g.primary.year_resolved ? Number(g.primary.year_resolved) : null,
   type: g => g.primary.doc_type || "",
 };
-const STATUS_ORDER = { "Exam Paper": 0, "Questions": 1, "Answers": 2 };
+const STATUS_ORDER = {
+  "Promo Exam Papers": 0, "Prelim Exam Papers": 1, "JC1 Exam Papers": 2, "JC2 Exam Papers": 3,
+  "Other Exam Papers": 4, "Questions": 5, "Answers": 6,
+};
 let sortState = { key: null, dir: 0 };
 
 function sortGroups(list) {
@@ -1139,7 +1317,10 @@ const DOCTYPE_CODES = {
   "Exam Papers": "ep", "MYEs/CAs/Other Tests": "mye", "Notes/Practices": "np",
   "TYS Answers": "tys", "User Mock Papers": "ump",
 };
-const STATUS_CODES = { "Exam Paper": "e", "Questions": "q", "Answers": "a" };
+const STATUS_CODES = {
+  "Promo Exam Papers": "pm", "Prelim Exam Papers": "pl", "JC1 Exam Papers": "j1",
+  "JC2 Exam Papers": "j2", "Other Exam Papers": "ot", "Questions": "q", "Answers": "a",
+};
 
 const invert = (map) => Object.fromEntries(Object.entries(map).map(([k, v]) => [v, k]));
 const SUBJECT_CODES_REV = invert(SUBJECT_CODES);
@@ -1188,32 +1369,37 @@ function applyFilters() {
     }
   }
   // Status is a row-level concept (what the Status column shows), not a per-member one -
-  // applied after grouping so a multi-member "Exam Paper" row is judged as a whole.
+  // applied after grouping so a multi-member exam-set row is judged as a whole.
   const withStatus = f.statuses.size ? visible.filter(g => f.statuses.has(rowStatus(g))) : visible;
   sortGroups(withStatus);
   renderRows(withStatus);
   updateUrlFromFilters();
 }
 
-function roleClass(role) {
-  return classifyRole(role) === "Answers" ? "answers" : "questions";
+const STATUS_BADGE_CLASSES = {
+  "Promo Exam Papers": "promo", "Prelim Exam Papers": "prelim", "JC1 Exam Papers": "jc1",
+  "JC2 Exam Papers": "jc2", "Other Exam Papers": "other-exam",
+  "Questions": "questions", "Answers": "answers", "Notes/Practices": "notes",
+};
+function statusBadgeClass(status) {
+  return STATUS_BADGE_CLASSES[status] || "";
 }
 
-function roleLabel(m) {
-  return classifyRole(m.paper_info_role || m.doc_type);
-}
-
-// inline_url (document.grail.moe) opens the PDF in-tab; download_url (api.grail.moe)
-// forces a download via an S3 Content-Disposition:attachment header, so prefer inline_url
+// inline_url (document.grail.moe) is a stable direct link and opens in-tab; download_url
+// (api.grail.moe) forces a download via an S3 Content-Disposition:attachment header
 function pdfUrl(e) {
   return e.inline_url || e.download_url;
 }
+
+
 
 function sourceBadgeHtml(e) {
   return e.source === "drive"
     ? `<span class="source-badge drive" title="From Google Drive"></span>`
     : `<span class="source-badge link" title="Direct link (grail.moe)"></span>`;
 }
+
+
 
 // Group headers are collapsed by default, so show Drive if any member came from Drive,
 // otherwise the group is entirely direct grail.moe links.
@@ -1275,7 +1461,8 @@ function renderRows(groups) {
           </div>
         </div>
         <div class="col-badges">
-          <span class="role-badge exam-paper">Exam Paper</span>
+          <span class="role-badge ${statusBadgeClass(rowStatus(g))}">${esc(rowStatus(g))}</span>
+          
         </div>
         ${rowMetaHtml(g.primary)}
         <div class="actions">
@@ -1303,7 +1490,8 @@ function renderRows(groups) {
               </div>
             </div>
             <div class="col-badges">
-              <span class="role-badge ${roleClass(m.paper_info_role)}">${esc(roleLabel(m))}</span>
+              <span class="role-badge ${statusBadgeClass(entryStatus(m))}">${esc(entryStatus(m))}</span>
+              
             </div>
             ${rowMetaHtml(m)}
             <div class="actions"><a href="${m.note_url}" target="_blank">Source</a></div>`;
@@ -1324,7 +1512,8 @@ function renderRows(groups) {
           </div>
         </div>
         <div class="col-badges">
-          <span class="role-badge ${roleClass(e.paper_info_role)}">${esc(roleLabel(e))}</span>
+          <span class="role-badge ${statusBadgeClass(entryStatus(e))}">${esc(entryStatus(e))}</span>
+          
         </div>
         ${rowMetaHtml(e)}
         <div class="actions"><a href="${e.note_url}" target="_blank">Source</a></div>`;
@@ -1339,6 +1528,8 @@ $("f-search").addEventListener("input", () => {
   clearTimeout(searchDebounce);
   searchDebounce = setTimeout(applyFilters, 100);
 });
+
+
 // Mobile-only "Filters" toggle. Collapsed-by-default is a plain CSS default below the 820px
 // breakpoint (.filterbar-collapsible has no .open class in the initial HTML) - not something
 // this script has to establish itself, so there's no window where a script that hasn't run
@@ -1350,7 +1541,6 @@ filterToggleBtn.addEventListener("click", () => {
   const open = filterCollapsible.classList.toggle("open");
   filterToggleBtn.setAttribute("aria-expanded", String(open));
 });
-
 $("f-reset").addEventListener("click", () => {
   $("f-search").value = "";
   selectedSubject = "";
@@ -1370,8 +1560,11 @@ $("f-reset").addEventListener("click", () => {
   selectedYears.clear();
   updateYearTrigger();
   populateYearOptions(YEAR_VALUES);
+  
   applyFilters();
 });
+
+
 
 // Runs before the option lists are built, since populateMultiSelect()/populateSubjectOptions()/
 // populateYearOptions() decide checked/highlighted state from this data at render time - the
@@ -1444,7 +1637,7 @@ async function loadData() {
   populateMultiSelect("school", uniq(data.map(d => d.school)));
   populateMultiSelect("doctype", uniq(data.map(d => d.doc_type)));
   populateMultiSelect("paper", uniq(data.map(d => d.paper_number)).sort((a,b) => a - b).map(n => String(n)));
-  populateMultiSelect("status", ["Exam Paper", "Questions", "Answers"]);
+  populateStatusOptions(uniq(GROUPS.map(rowStatus)));
   populateYearOptions(uniq(data.map(d => d.year_resolved)).sort((a, b) => b - a));
 
   applyRemainingFiltersFromUrl(urlParams);

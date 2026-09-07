@@ -265,23 +265,36 @@ consistency check, so they need a dedicated sweep rather than just reviewing fla
 
 ## UI: `static/index.html` and `web/index.html`
 
-Two near-identical single-file HTML/CSS/JS apps, **not build-generated from a shared source** -
-edit both by hand, in the same way, every time. The only intentional differences:
+**`static/index.html` is the single source of truth. `web/index.html` is generated from it by
+`build_web.py` - never hand-edit `web/index.html` directly, your changes will be overwritten the
+next time someone runs the build.** After any change to `static/index.html`, run:
+
+```bash
+python build_web.py
+```
+
+The two apps are otherwise near-identical single-file HTML/CSS/JS - same filtering/rendering
+code, same styling. The only intentional differences:
 
 | | `static/index.html` | `web/index.html` |
 |---|---|---|
 | Served by | `server.py` (`GET /`) | any static host (Vercel/Netlify/GitHub Pages), `web/` as root |
-| Data source | `fetch("/api/notes")` | `fetch("./data.json")` |
+| Data source | `fetch("/api/notes")` | `fetch("./data.json")` (rewritten by the build) |
 | PDF link helper | same `pdfUrl(e)` (`inline_url \|\| download_url`) | same |
 | "Only flagged" filter | present (`#f-flagged` checkbox) | **not present, deliberately** |
 | Flag badges (`! review` / `! N flagged`) | present (`flagBadgeHtml`/`groupFlagBadgeHtml`) | **not present, deliberately** |
+| Row editor (Edit button + modal) | present | **not present, deliberately** |
 
-When changing one, `grep` the other for the same selector/function name and apply the same edit -
-**except** for anything marked local-only above (the flagged filter, the flag badges, the row
-editor further down): those are intentional divergences, not sync gaps, so don't "fix"
-`web/index.html` by copying them over. Flags are an internal curation aid for whoever is running
-the local server to fix data quality issues - public visitors to the static build have no way to
-act on a flag, so surfacing it there is just noise, not useful signal.
+The intentional differences are marked directly in `static/index.html` with
+`WEB:OMIT-START ... WEB:OMIT-END` comments - `build_web.py` strips everything between each pair
+before writing `web/index.html`, using whichever comment syntax is valid at that point (CSS
+`/* */`, JS `//`, or HTML `<!-- -->`, including inside a JS template literal that renders to
+HTML - browsers render an HTML comment there as an invisible comment node, which is harmless).
+When adding a new local-server-only feature (another curation aid like flags, another modal,
+etc.), wrap it in a marker pair rather than adding a manual `web/index.html` exception - that's
+what keeps this a one-file edit instead of two. Flags/the row editor are an internal curation aid
+for whoever is running the local server to fix data quality issues - public visitors to the
+static build have no way to act on them, so surfacing them there would just be noise.
 
 Key JS internals worth knowing before touching filtering/rendering:
 
@@ -380,7 +393,9 @@ regroup things). Instead:
 
 **This feature is `static/index.html` + `server.py` only.** `web/index.html` is a static build
 with nowhere to persist a PATCH/POST, so it deliberately does not get the Edit button or modal -
-only mirror the dark-mode CSS/JS changes there, not the editor.
+the editor's HTML/CSS/JS is wrapped in `WEB:OMIT-START`/`WEB:OMIT-END` markers (see the UI section
+above) so `build_web.py` strips it out automatically; don't hand-copy dark-mode or other changes
+into `web/index.html` yourself, just re-run the build.
 
 ## Environment quirks (this machine)
 
