@@ -128,14 +128,24 @@
   a { color: inherit; }
 
   header {
-    flex-shrink: 0;
+    flex-shrink: 0; position: relative;
     padding: 20px 32px; border-bottom: 1px solid var(--border); background: var(--card);
     display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap;
+  }
+  header::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
   }
   header h1 {
     font-size: 26px; font-weight: 600; margin: 0; letter-spacing: -0.01em;
   }
-  .header-subtitle { font-size: 13.5px; color: var(--text-faint); }
+  .site-nav { display: flex; gap: 4px; }
+  .site-nav a {
+    padding: 6px 14px; font-size: 16px; font-weight: 500;
+    color: var(--text-secondary); text-decoration: none; transition: color .12s;
+  }
+  .site-nav a:hover { color: var(--text-primary); }
+  .site-nav a.active { color: var(--text-primary); font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
   .theme-toggle {
     margin-left: auto; background: none; border: none; padding: 0; cursor: pointer;
     display: inline-flex; align-items: center; flex-shrink: 0;
@@ -177,10 +187,6 @@
     justify-content: space-between;
     padding: 16px 20px; background: var(--card);
     border-bottom: 1px solid var(--border); position: relative;
-  }
-  .filterbar::before {
-    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-    background: linear-gradient(90deg, var(--primary), var(--accent));
   }
   /* On desktop this is a no-op wrapper - display: contents makes its children behave as
      direct flex items of .filterbar, identical to before it existed. Only becomes a real
@@ -527,7 +533,10 @@
 
 <header>
   <h1>Holy Grail Mk 6 Index</h1>
-  <span class="header-subtitle">Grail Wrapper - a faster index for Holy Grail (grail.moe) exam papers</span>
+  <nav class="site-nav">
+    <a href="index.html" class="active">Library</a>
+    <a href="reference.html">Reference</a>
+  </nav>
   <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to dark mode" aria-pressed="false">
     <span class="toggle-track">
       <span class="toggle-sun"></span>

@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reference Materials - Holy Grail Mk 6 Index</title>
+<meta name="description" content="Formula sheets and quick-reference guides (H2 Mathematics, H2 Physics, H2 Computing, H2 Chemistry) to go with the Holy Grail Mk 6 Index grail exam papers library.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://grail-wrapper.vercel.app/reference.html">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%235984EA' d='M5 2h14l-1.15 7.2a6 6 0 0 1-4.85 4.95V18h3v2H8v-2h3v-3.85A6 6 0 0 1 6.15 9.2L5 2z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #A268CF;
+    --accent: #5984EA;
+    --background: #F1EFF7;
+    --card: #FFFFFF;
+    --card-alt: #F7F5FB;
+    --text-primary: #111827;
+    --text-secondary: #4B5563;
+    --text-faint: #5F6779;
+    --border: #E5E7EB;
+    --tag-school-bg: #F1EAFA;
+    --font-body: "Hanken Grotesk", -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+    --r-card: 4px;
+    --r-control: 3px;
+    --r-pill: 9999px;
+  }
+  :root[data-theme="dark"] {
+    --background: #14121F;
+    --card: #1D1A30;
+    --card-alt: #262239;
+    --text-primary: #EDEAF7;
+    --text-secondary: #B3AEC9;
+    --text-faint: #8983A3;
+    --border: #34304A;
+    --tag-school-bg: #362C4D;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0; font-family: var(--font-body); background: var(--background);
+    color: var(--text-primary); font-size: 15px; line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    display: flex; flex-direction: column; height: 100vh; overflow: hidden;
+  }
+  a { color: inherit; }
+
+  header {
+    flex-shrink: 0; position: relative;
+    padding: 20px 32px; border-bottom: 1px solid var(--border); background: var(--card);
+    display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap;
+  }
+  header::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+  }
+  header h1 { font-size: 26px; font-weight: 600; margin: 0; letter-spacing: -0.01em; }
+  .site-nav { display: flex; gap: 4px; }
+  .site-nav a {
+    padding: 6px 14px; font-size: 16px; font-weight: 500;
+    color: var(--text-secondary); text-decoration: none; transition: color .12s;
+  }
+  .site-nav a:hover { color: var(--text-primary); }
+  .site-nav a.active { color: var(--text-primary); font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
+  .theme-toggle {
+    margin-left: auto; background: none; border: none; padding: 0; cursor: pointer;
+    display: inline-flex; align-items: center; flex-shrink: 0;
+  }
+  .toggle-track {
+    position: relative; width: 56px; height: 28px; border-radius: var(--r-pill);
+    background: #2B2A33; padding: 3px; box-sizing: border-box;
+  }
+  .toggle-knob {
+    position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; border-radius: 50%;
+    background: #fff; transition: transform .2s ease; z-index: 2;
+  }
+  :root[data-theme="dark"] .toggle-knob { transform: translateX(28px); }
+  .toggle-moon {
+    position: absolute; top: 50%; right: 9px; width: 13px; height: 13px; border-radius: 50%;
+    background: #fff; transform: translateY(-50%); z-index: 1;
+  }
+  .toggle-moon::after {
+    content: ""; position: absolute; top: -2px; left: -5px; width: 13px; height: 13px;
+    border-radius: 50%; background: #2B2A33;
+  }
+  .toggle-sun {
+    position: absolute; top: 50%; left: 9px; width: 14px; height: 14px;
+    transform: translateY(-50%); z-index: 1; background: #fff;
+    clip-path: polygon(50% 0%, 61% 25%, 88% 12%, 76% 38%, 100% 50%, 76% 62%, 88% 88%, 61% 75%,
+      50% 100%, 39% 75%, 12% 88%, 24% 62%, 0% 50%, 24% 38%, 12% 12%, 39% 25%);
+  }
+
+  .reference-main { flex: 1; min-height: 0; overflow-y: auto; padding: 28px 32px 48px; }
+  .reference-main h2 { font-size: 22px; font-weight: 600; margin: 0 0 20px; letter-spacing: -0.01em; }
+  .reference-list { display: flex; flex-direction: column; gap: 12px; }
+  .reference-card {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 24px 28px; border-radius: var(--r-card); background: var(--card);
+    border: 1px solid var(--border); box-shadow: 0 1px 2px rgba(17, 24, 39, 0.03);
+    text-decoration: none; color: inherit; cursor: pointer;
+    transition: border-color .12s, box-shadow .12s;
+  }
+  /* Hover keeps the row's normal background and thickens the border via box-shadow (which
+     doesn't affect layout, unlike border-width) rather than filling with color. The border
+     color matches the row's own subject tag color, not a fixed accent - see the subject tag
+     color rules below. */
+  .reference-card.subject-math:hover { border-color: #5B5FD6; box-shadow: 0 0 0 1px #5B5FD6; }
+  .reference-card.subject-physics:hover { border-color: #7C8B22; box-shadow: 0 0 0 1px #7C8B22; }
+  .reference-card.subject-computing:hover { border-color: #C23B5C; box-shadow: 0 0 0 1px #C23B5C; }
+  .reference-card.subject-chemistry:hover { border-color: #3B6FA6; box-shadow: 0 0 0 1px #3B6FA6; }
+  :root[data-theme="dark"] .reference-card.subject-math:hover { border-color: #9A9DF0; box-shadow: 0 0 0 1px #9A9DF0; }
+  :root[data-theme="dark"] .reference-card.subject-physics:hover { border-color: #C3D065; box-shadow: 0 0 0 1px #C3D065; }
+  :root[data-theme="dark"] .reference-card.subject-computing:hover { border-color: #E87FA0; box-shadow: 0 0 0 1px #E87FA0; }
+  :root[data-theme="dark"] .reference-card.subject-chemistry:hover { border-color: #7FB0E0; box-shadow: 0 0 0 1px #7FB0E0; }
+  .reference-card-title { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+  .reference-card-name { color: var(--text-primary); font-size: 19px; font-weight: 600; }
+  .reference-card-desc { font-size: 14px; color: var(--text-faint); }
+  .tag {
+    display: inline-block; padding: 4px 12px; border-radius: var(--r-control); font-family: var(--font-mono);
+    font-size: 13px; font-weight: 600; white-space: nowrap; flex-shrink: 0;
+  }
+  /* Every subject tag gets its own distinct color - never reuse one across subjects (see the
+     equivalent rule for status badges in index.html). */
+  .tag.subject-math { background: #E8E8FB; color: #5B5FD6; }
+  .tag.subject-physics { background: #F1F4DC; color: #7C8B22; }
+  .tag.subject-computing { background: #FBE8ED; color: #C23B5C; }
+  .tag.subject-chemistry { background: #E3EDF6; color: #3B6FA6; }
+  :root[data-theme="dark"] .tag.subject-math { background: #26264A; color: #9A9DF0; }
+  :root[data-theme="dark"] .tag.subject-physics { background: #333A16; color: #C3D065; }
+  :root[data-theme="dark"] .tag.subject-computing { background: #3D1F29; color: #E87FA0; }
+  :root[data-theme="dark"] .tag.subject-chemistry { background: #1B2E3F; color: #7FB0E0; }
+
+  .site-footer {
+    flex-shrink: 0; padding: 10px 32px; text-align: center; font-size: 12px;
+    color: var(--text-faint); background: var(--card); border-top: 1px solid var(--border);
+  }
+  .site-footer a { color: var(--text-secondary); text-decoration: none; }
+  .site-footer a:hover { color: var(--primary); text-decoration: underline; }
+
+  @media (max-width: 820px) {
+    header { padding: 14px 16px; gap: 10px; }
+    .reference-main { padding: 18px 16px 40px; }
+    .site-footer { padding: 10px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Holy Grail Mk 6 Index</h1>
+  <nav class="site-nav">
+    <a href="index.html">Library</a>
+    <a href="reference.html" class="active">Reference</a>
+  </nav>
+  <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to dark mode" aria-pressed="false">
+    <span class="toggle-track">
+      <span class="toggle-sun"></span>
+      <span class="toggle-knob"></span>
+      <span class="toggle-moon"></span>
+    </span>
+  </button>
+</header>
+
+<main class="reference-main">
+  <h2>Reference Materials</h2>
+  <div class="reference-list">
+    <a class="reference-card subject-math" href="reference/h2-math-formula-list-mf27-2025.pdf" target="_blank">
+      <div class="reference-card-title">
+        <span class="reference-card-name">H2 Mathematics Formula List (MF27)</span>
+        <span class="reference-card-desc">SEAB's official List of Formulae &amp; Statistical Tables</span>
+      </div>
+      <span class="tag subject-math">H2 Mathematics</span>
+    </a>
+    <a class="reference-card subject-physics" href="reference/h2-physics-formula-sheet.pdf" target="_blank">
+      <div class="reference-card-title">
+        <span class="reference-card-name">H2 Physics Formula Sheet</span>
+        <span class="reference-card-desc">Quick-reference formula sheet</span>
+      </div>
+      <span class="tag subject-physics">H2 Physics</span>
+    </a>
+    <a class="reference-card subject-computing" href="reference/h2-computing-quick-reference-guide.pdf" target="_blank">
+      <div class="reference-card-title">
+        <span class="reference-card-name">H2 Computing Exam Quick Reference Guide</span>
+        <span class="reference-card-desc">Quick-reference guide for the exam</span>
+      </div>
+      <span class="tag subject-computing">H2 Computing</span>
+    </a>
+    <a class="reference-card subject-chemistry" href="reference/h2-chemistry-data-booklet.pdf" target="_blank">
+      <div class="reference-card-title">
+        <span class="reference-card-name">H2 Chemistry Data Booklet</span>
+        <span class="reference-card-desc">SEAB's official Chemistry Data Booklet</span>
+      </div>
+      <span class="tag subject-chemistry">H2 Chemistry</span>
+    </a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  Sources: <a href="https://grail.moe" target="_blank">grail.moe</a> &middot;
+  <a href="https://drive.google.com/drive/u/1/folders/1gC6GQLgcuoHzwDXtEGzTwvzCz0YsYuwg" target="_blank">Holy Grail Mk 6 Google Drive</a>
+  &nbsp;&middot;&nbsp; Built by <a href="https://horse-3903.github.io" target="_blank">horse-3903</a>
+</footer>
+
+<script>
+const THEME_KEY = "grail-theme";
+function applyTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  const btn = document.getElementById("theme-toggle");
+  btn.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
+  btn.setAttribute("aria-label", theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
+}
+function initTheme() {
+  let stored = null;
+  try { stored = localStorage.getItem(THEME_KEY); } catch { /* private mode etc */ }
+  const theme = stored || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  applyTheme(theme);
+}
+document.getElementById("theme-toggle").addEventListener("click", () => {
+  const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+  try { localStorage.setItem(THEME_KEY, next); } catch { /* private mode etc */ }
+  applyTheme(next);
+});
+initTheme();
+</script>
+</body>
+</html>
