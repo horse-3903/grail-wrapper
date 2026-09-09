@@ -4,28 +4,34 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Holy Grail Mk 6 Index - Grail Wrapper for Grail Exam Papers</title>
-<meta name="description" content="Grail Wrapper is a faster, better-organized index of the Holy Grail (grail.moe) exam paper library for Singapore JC 'A' Levels. Search grail exam papers - prelims, promos, TYS, and more - by school, subject, and year in seconds.">
-<meta name="keywords" content="holy grail, grail, grail exam papers, grail wrapper, grail moe, grail.moe, holy grail exam papers, holy grail library, grail library, JC exam papers, A level exam papers, H2 exam papers, prelim papers, promo papers, TYS papers">
+<meta name="description" content="Grail Wrapper: a fast index for the Holy Grail Mk 6 (Holy Grail 6) - grail.moe's Singapore exam papers library. Search Holy Grail exam papers and grail exam papers by school, subject, and year.">
+<meta name="keywords" content="holy grail, grail, holy grail 6, holy grail mk 6, grail exam papers, holy grail exam papers, singapore exam papers, grail wrapper, grail moe, grail.moe, holy grail library, grail library, JC exam papers, A level exam papers, H2 exam papers, prelim papers, promo papers, TYS papers">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://grail-wrapper.vercel.app/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Holy Grail Mk 6 Index">
 <meta property="og:title" content="Holy Grail Mk 6 Index - Grail Wrapper for Grail Exam Papers">
-<meta property="og:description" content="A faster, better-organized index of the Holy Grail (grail.moe) exam paper library for Singapore JC 'A' Levels - search grail exam papers by school, subject, and year.">
+<meta property="og:description" content="Grail Wrapper: a fast index for the Holy Grail Mk 6 (Holy Grail 6) - grail.moe's Singapore exam papers library. Search Holy Grail exam papers and grail exam papers by school, subject, and year.">
 <meta property="og:url" content="https://grail-wrapper.vercel.app/">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Holy Grail Mk 6 Index - Grail Wrapper for Grail Exam Papers">
-<meta name="twitter:description" content="A faster, better-organized index of the Holy Grail (grail.moe) exam paper library for Singapore JC 'A' Levels - search grail exam papers by school, subject, and year.">
+<meta name="twitter:description" content="Grail Wrapper: a fast index for the Holy Grail Mk 6 (Holy Grail 6) - grail.moe's Singapore exam papers library. Search Holy Grail exam papers and grail exam papers by school, subject, and year.">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "name": "Holy Grail Mk 6 Index",
-  "alternateName": ["Grail Wrapper", "Grail Exam Papers", "Holy Grail Exam Papers", "Grail Index"],
+  "alternateName": ["Holy Grail 6", "Holy Grail Mk 6", "Grail Wrapper", "Grail Exam Papers", "Holy Grail Exam Papers", "Grail Index"],
   "url": "https://grail-wrapper.vercel.app/",
-  "description": "A faster, better-organized index of the Holy Grail (grail.moe) exam paper library for Singapore JC 'A' Levels.",
+  "description": "Grail Wrapper: a fast index for the Holy Grail Mk 6 (Holy Grail 6) - grail.moe's Singapore exam papers library. Search Holy Grail exam papers and grail exam papers by school, subject, and year.",
+  "keywords": "holy grail, grail, holy grail 6, holy grail mk 6, grail exam papers, holy grail exam papers, singapore exam papers, grail wrapper",
   "applicationCategory": "EducationApplication",
-  "operatingSystem": "Any"
+  "operatingSystem": "Any",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://grail-wrapper.vercel.app/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
 }
 </script>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%235984EA' d='M5 2h14l-1.15 7.2a6 6 0 0 1-4.85 4.95V18h3v2H8v-2h3v-3.85A6 6 0 0 1 6.15 9.2L5 2z'/%3E%3C/svg%3E">
@@ -180,6 +186,16 @@
     color: var(--text-faint); background: var(--card); border-top: 1px solid var(--border);
   }
   .site-footer a { color: var(--text-secondary); text-decoration: none; }
+  /* Genuine on-page descriptive text (not just meta tags) for search engines to draw a
+     snippet from - the filter bar's own text was otherwise the most prominent visible
+     content, which made for a useless auto-generated search result snippet. Visually hidden
+     (the standard sr-only technique, same one screen readers rely on) rather than
+     display:none/visibility:hidden, which search engines give little to no weight - this
+     keeps it out of the compact app layout without hiding it from crawlers or assistive tech. */
+  .footer-blurb {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+  }
   .site-footer a:hover { color: var(--primary); text-decoration: underline; }
 
   .filterbar {
@@ -760,6 +776,11 @@
 </div>
 
 <footer class="site-footer">
+  <div class="footer-blurb">
+    Grail Wrapper is a fast index for the Holy Grail Mk 6 (Holy Grail 6) - grail.moe's Singapore
+    exam papers library. Search Holy Grail exam papers and grail exam papers by school, subject,
+    and year.
+  </div>
   Sources: <a href="https://grail.moe" target="_blank">grail.moe</a> &middot;
   <a href="https://drive.google.com/drive/u/1/folders/1gC6GQLgcuoHzwDXtEGzTwvzCz0YsYuwg" target="_blank">Holy Grail Mk 6 Google Drive</a>
   &nbsp;&middot;&nbsp; Built by <a href="https://horse-3903.github.io" target="_blank">horse-3903</a>
