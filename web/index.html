@@ -433,7 +433,7 @@
   .source-badge.drive { -webkit-mask-image: url('drive-icon.png'); mask-image: url('drive-icon.png'); }
   .source-badge.link { width: 14px; height: 14px; -webkit-mask-image: url('link-icon.png'); mask-image: url('link-icon.png'); }
 
-  .actions { display: flex; gap: 6px; justify-content: center; }
+  .actions { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
   .actions a, .actions button {
     font-size: 11px; font-family: var(--font-mono); padding: 5px 10px; border-radius: var(--r-control);
     border: 1px solid var(--border); background: var(--card-alt); color: var(--text-secondary);
@@ -1459,6 +1459,24 @@ function pdfUrl(e) {
   return e.inline_url || e.download_url;
 }
 
+// Only the subjects with an actual reference/*.pdf get a Reference link on their rows - a
+// button that opens to nothing for Economics/GP would just be broken UI, not a placeholder.
+const REFERENCE_PDF_BY_SUBJECT = {
+  "H2 Mathematics": "reference/h2-math-formula-list-mf27-2025.pdf",
+  "H2 Physics": "reference/h2-physics-formula-sheet.pdf",
+  "H2 Computing": "reference/h2-computing-quick-reference-guide.pdf",
+  "H2 Chemistry": "reference/h2-chemistry-data-booklet.pdf",
+};
+function referencePdfUrl(e) {
+  return REFERENCE_PDF_BY_SUBJECT[e.subject] || null;
+}
+function referenceLinkHtml(e, stopPropagation) {
+  const url = referencePdfUrl(e);
+  if (!url) return "";
+  const onclick = stopPropagation ? ` onclick="event.stopPropagation()"` : "";
+  return `<a href="${url}" target="_blank"${onclick}>Reference</a>`;
+}
+
 
 
 function sourceBadgeHtml(e) {
@@ -1535,6 +1553,7 @@ function renderRows(groups) {
         ${rowMetaHtml(g.primary)}
         <div class="actions">
           <a href="${g.primary.note_url}" target="_blank" onclick="event.stopPropagation()">Source</a>
+          ${referenceLinkHtml(g.primary, true)}
         </div>`;
       row.addEventListener("click", () => {
         if (openGroups.has(g.key)) openGroups.delete(g.key); else openGroups.add(g.key);
@@ -1562,7 +1581,7 @@ function renderRows(groups) {
               
             </div>
             ${rowMetaHtml(m)}
-            <div class="actions"><a href="${m.note_url}" target="_blank">Source</a></div>`;
+            <div class="actions"><a href="${m.note_url}" target="_blank">Source</a>${referenceLinkHtml(m, false)}</div>`;
           membersWrap.appendChild(mrow);
         }
         frag.appendChild(membersWrap);
@@ -1584,7 +1603,7 @@ function renderRows(groups) {
           
         </div>
         ${rowMetaHtml(e)}
-        <div class="actions"><a href="${e.note_url}" target="_blank">Source</a></div>`;
+        <div class="actions"><a href="${e.note_url}" target="_blank">Source</a>${referenceLinkHtml(e, false)}</div>`;
       frag.appendChild(row);
     }
   }
