@@ -18,7 +18,17 @@ BACKUP_DIR = ROOT / "data" / "backups"
 
 # Grouping is handled by the dedicated merge/ungroup endpoints below, not this generic PATCH -
 # a raw group_id text field is neither easy to discover nor safe to hand-edit (see api_merge_note).
-EDITABLE_NOTE_FIELDS = {"school", "paper_info", "subject", "doc_type", "year_resolved", "paper_number"}
+EDITABLE_NOTE_FIELDS = {
+    "school", "paper_info", "subject", "doc_type", "year_resolved", "paper_number",
+    "status_override", "review_note",
+}
+
+# Fields the automated pipeline (enrich.py's school-sweep/year-resolution, the note-tagger
+# subagent) also writes - editing one of these through the modal looks identical to the pipeline
+# having inferred it correctly, unless something marks it. status_override/review_note don't need
+# tracking here: they're new fields nothing but this endpoint ever writes, so a non-null value is
+# itself unambiguous proof of a manual edit.
+TRACKED_NOTE_FIELDS = {"school", "paper_info", "subject", "doc_type", "year_resolved", "paper_number"}
 
 app = Flask(__name__, static_folder="static", static_url_path="")
 
@@ -100,11 +110,18 @@ def api_update_note(note_id):
     for key, value in updates.items():
         if key == "paper_number":
             try:
-                entry[key] = int(value) if value not in (None, "") else None
+                new_value = int(value) if value not in (None, "") else None
             except (TypeError, ValueError):
                 return jsonify({"error": "paper_number must be a number"}), 400
         else:
-            entry[key] = value or None
+            new_value = value or None
+
+        if key in TRACKED_NOTE_FIELDS and entry.get(key) != new_value:
+            edited = entry.setdefault("manually_edited", [])
+            if key not in edited:
+                edited.append(key)
+
+        entry[key] = new_value
 
     base = base_of(entry.get("paper_info"))
     entry["paper_info_base"] = base

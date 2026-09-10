@@ -1,8 +1,8 @@
 """Deterministic enrichment pass over data/tagged.json: year resolution, school-regex
 sweep, standardized naming, paper-number/label extraction, and exam-set grouping.
 
-Safe to re-run any time after scrape.py / tag_with_gemini.py / the note-tagger subagent
-change school/paper_info/year - this recomputes every derived field from scratch, except
+Safe to re-run any time after scrape.py / the note-tagger subagent change school/paper_info/year -
+this recomputes every derived field from scratch, except
 group_id for entries already merged by the answer-linker subagent ("linked|..." groups),
 which are left untouched since that grouping came from fuzzy human-style judgment this
 script can't reproduce.

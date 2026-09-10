@@ -13,17 +13,21 @@ fast local single-page UI titled **Holy Grail Mk 6 Index**.
 
 Originally scoped to 5 subjects (H2 Mathematics, H2 Computing, H2 Physics, H2 Economics, H1
 General Paper), later joined by H2 Chemistry - that scope lives in `scrape.py`'s
-`DEFAULT_SUBJECTS`, overridable per-run via `--subject`. `data/tagged.json` also contains two
-subjects that aren't in `DEFAULT_SUBJECTS` at all, **H1 Economics** and **H1 Chemistry**: entries
-that were scraped under the H2 Economics/H2 Chemistry grail.moe categories but whose filenames
-turned out to be H1-level content (caught by the tagger's flagging, then relabeled - see "Flags"
-below). Both are permanent, deliberate exceptions, not bugs - don't "fix" them by deleting the
-entries or coercing their subject back to the H2 category they were scraped under.
+`DEFAULT_SUBJECTS`, overridable per-run via `--subject`. **H1 Economics and H1 Chemistry are
+deliberately out of scope** - a JC1/H1 exam paper is a different subject/syllabus from the H2
+equivalents this project actually indexes, not just an easier version. 63 entries with these
+subjects (scraped under the H2 Economics/H2 Chemistry grail.moe categories, but whose filenames
+were clearly H1-level content, caught by the tagger's subject-mismatch flag) were removed in
+September 2026 - a prior cleanup pass had relabeled rather than removed them, which was later
+judged the wrong call. If the tagger flags this subject-mismatch pattern again on a future
+rescrape (grail.moe's own per-upload categorization occasionally puts an H1 file under the H2
+category), resolve it by **deleting the entry**, not relabeling its subject to H1 Chemistry/H1
+Economics or coercing it back to H2 - see "Flags" below.
 
 ## Pipeline (run in this order)
 
 ```
-scrape.py  ->  tag_with_gemini.py (or note-tagger subagent)  ->  enrich.py  ->  answer-linker subagent (optional)  ->  fetch_inline_urls.py
+scrape.py  ->  note-tagger subagent  ->  enrich.py  ->  answer-linker subagent (optional)  ->  fetch_inline_urls.py
 ```
 
 1. **`scrape.py`** - hits `grail.moe/library` listing pages (server-rendered Next.js, paginated
@@ -32,16 +36,13 @@ scrape.py  ->  tag_with_gemini.py (or note-tagger subagent)  ->  enrich.py  ->  
    (`api.grail.moe/note/download/{id}`, a redirect to a short-lived presigned S3 URL with
    `Content-Disposition: attachment` - this forces a download, do not use it as the primary link).
 2. **Tagging** - fills `school` and `paper_info` from the freeform `name` field, plus
-   `flagged`/`flag_reason` for names that look inconsistent with the structured fields. Two
-   interchangeable ways to do this:
-   - `tag_with_gemini.py` - unattended, calls the Gemini API (`gemini-3.6-flash`; if you see a
-     404 telling you a model was retired, that's the fix - bump `MODEL` to whatever the error
-     message names). Needs `GEMINI_API_KEY` in `.env` (gitignored) or the environment.
-   - The `note-tagger` Claude Code subagent (`.claude/agents/note-tagger.md`) - dispatch
-     manually in batches of ~200-250 entries per invocation; only works inside an interactive
-     Claude Code session, can't be scripted/automated the way the Gemini path can.
-   Both write the same shape: `{id, school, paper_info, flagged, flag_reason}` merged back into
-   the entries.
+   `flagged`/`flag_reason` for names that look inconsistent with the structured fields, via the
+   `note-tagger` Claude Code subagent (`.claude/agents/note-tagger.md`) - dispatch manually in
+   batches of ~200-250 entries per invocation (run multiple in parallel for a large batch); only
+   works inside an interactive Claude Code session. Writes `{id, school, paper_info, flagged,
+   flag_reason}` merged back into the entries. (A Gemini-API-based tagger existed here
+   previously; it's been removed - this project does not use Gemini or any non-Claude model for
+   tagging.)
 3. **`enrich.py`** - the deterministic pass. Recomputes, for every entry:
    - `year_resolved`/`year_source` - prefers a year parsed out of the *name* over grail.moe's
      `year` field, because that field tracks upload date, not exam year.
@@ -67,11 +68,10 @@ scrape.py  ->  tag_with_gemini.py (or note-tagger subagent)  ->  enrich.py  ->  
    detail page only, not the listing pages scrape.py reads. Idempotent - only fetches entries
    missing `inline_url`.
 
-All four scripts that touch `data/tagged.json` (`tag_with_gemini.py`, `enrich.py`,
-`fetch_inline_urls.py`, and any ad-hoc script) should back up the file to `data/backups/`
-(timestamped, gitignored) before overwriting - `tag_with_gemini.py` and `enrich.py` already do
-this by default (`--no-backup` to skip). **Always back up before a bulk rewrite of tagged.json** -
-this repo has already lost enrichment work once from skipping that.
+Every script that touches `data/tagged.json` (`enrich.py`, `fetch_inline_urls.py`, and any ad-hoc
+script) should back up the file to `data/backups/` (timestamped, gitignored) before overwriting -
+`enrich.py` already does this by default (`--no-backup` to skip). **Always back up before a bulk
+rewrite of tagged.json** - this repo has already lost enrichment work once from skipping that.
 
 After any pipeline run: `cp data/tagged.json web/data.json` to keep the static build's bundled
 snapshot in sync.
@@ -83,12 +83,9 @@ This has been done once already (H2 Chemistry), as a template for doing it again
 1. `python scrape.py --subject "<Subject>" --out data/raw_<subject>.json` - scrape into its own
    file first, not straight into `data/raw.json`, so you can sanity-check id overlap before
    merging (`{e['id'] for e in existing} & {e['id'] for e in new}` should be empty).
-2. Tag it - `tag_with_gemini.py --in ... --out ...` if the free-tier quota has room (it's small:
-   the exact error is `RESOURCE_EXHAUSTED` / `generate_content_free_tier_requests`, and once hit
-   it does not clear within a retry-loop's timeframe), otherwise split the raw file into
-   ~200-entry chunks and dispatch that many `note-tagger` subagents in parallel (one per chunk,
-   each given an input/output path) - both paths write the same `{id, school, paper_info,
-   flagged, flag_reason}` shape, so either is a drop-in source for the merge step.
+2. Tag it - split the raw file into ~200-250-entry chunks and dispatch that many `note-tagger`
+   subagents in parallel (one per chunk, each given an input/output path); each writes the
+   `{id, school, paper_info, flagged, flag_reason}` shape needed by the merge step.
 3. Merge the tagged chunks back into the raw-scrape file by `id`, then append the new entries to
    both `data/tagged.json` (the working file) **and** `data/raw.json` (the tracked literal-scrape
    record - use the grail.moe category subject there, e.g. `"H2 Chemistry"`, even for entries
@@ -167,10 +164,12 @@ standing rule to reapply blindly):
 - **doc_type mismatch** (grail.moe's own site category says "Exam Papers" but the name is
   clearly a tutorial/worksheet/notes set) - reclassified `doc_type` to `Notes/Practices` to match
   the actual content, since the site's per-upload categorization isn't authoritative.
-- **Subject mismatch** (39 entries scraped under the H2 Economics grail.moe category, named
-  `*_H1_ECON_*`) - relabeled `subject` to `"H1 Economics"` rather than deleting them or leaving
-  the wrong subject in place. This is why H1 Economics now appears as a 6th subject in the UI
-  even though it was never in `scrape.py`'s `DEFAULT_SUBJECTS`.
+- **Subject mismatch, H1-level content scraped under an H2 category** (`*_H1_ECON_*`/`*H1_CHEM*`
+  filenames under the H2 Economics/H2 Chemistry categories) - **delete the entry**; H1 Economics
+  and H1 Chemistry are out of scope for this project (see the top of this file). An earlier
+  cleanup pass instead relabeled `subject` to `"H1 Economics"`/`"H1 Chemistry"` and kept the
+  entries - that was reversed in September 2026 (63 entries removed) after being judged the wrong
+  call; don't reintroduce it.
 
 Since then, a different flag category has been added deliberately and is meant to stay:
 **unresolvable ungrouped exam papers** (~445 entries, `flag_reason` starting with "Ungrouped
@@ -242,7 +241,15 @@ consistency check, so they need a dedicated sweep rather than just reviewing fla
   exam paper PDFs have embedded text (not scanned images) and state the year plainly on a cover
   page - `pypdf`'s `PdfReader(...).pages[i].extract_text()` recovers it for ~70-90% of these with
   zero AI/vision cost, just a script (a 424-entry test batch: 293 resolved this way, ~1s/file with
-  12 concurrent downloads). **The trap**: a naive "take the most frequent 4-digit year on the
+  12 concurrent downloads) - `recover_years.py` is that script, kept committed since this is a
+  periodic recheck, not a one-off (`python recover_years.py <in.json> <out.json>` where `in.json`
+  is `[{id, url}, ...]`; it only reports recovered years to `out.json`, applying them to
+  `name`/re-running `enrich.py` is a separate manual step - see the next point on why). A second
+  batch (42 entries, September 2026) recovered 0/42: some had literally no year anywhere in the
+  extracted text (cover page stripped/missing), others only had CSQ-article decoy years - the
+  script correctly declined to guess on either, which is the intended behavior, not a bug to
+  "fix" by loosening the signal requirement. **The trap**: a naive "take the most frequent 4-digit
+  year on the
   page" approach is fooled by Case Study Question papers, which quote real news articles - e.g.
   "Adapted from The Financial Times, 19 May 2015" inside a CSQ extract, or "Germany took in 1.1
   million migrants in year 2015" in essay-question prose. Neither is the exam year. Only trust a
@@ -359,8 +366,14 @@ don't replace this with an `<img>` tag, since that would bake in a fixed color. 
 on ungrouped rows - not on collapsed group headers, since a group can have multiple members and
 editing "the group" would be ambiguous) that opens a modal covering two different things:
 
-**Metadata** (School, Paper Info, Subject, Document Type, Year, Paper Number) - edited as plain
-text fields, saved via the modal's Save button, which sends `PATCH /api/note/<id>`. That handler:
+**Metadata** (School, Paper Info, Subject, Document Type, Year, Paper Number, plus two fields with
+no automatic computation of their own - **Status** (`status_override`), a dropdown that takes
+precedence over the UI's computed status badge for that row when set, see `entryStatus()`/
+`rowStatus()` in `static/index.html`; and **Comment** (`review_note`), free text for notes from
+manually inspecting an entry - e.g. a year confirmed by opening the PDF, which sitting it belongs
+to - meant as a breadcrumb for a future enrichment pass, not surfaced anywhere in the UI beyond
+the edit modal itself) - edited as plain text fields, saved via the modal's Save button, which
+sends `PATCH /api/note/<id>`. That handler:
 
 1. **Backs up `data/tagged.json` to `data/backups/`** before writing (same `backup_tagged()`
    pattern the CLI scripts use - every write path into this file backs up first, no exceptions).
@@ -369,6 +382,20 @@ text fields, saved via the modal's Save button, which sends `PATCH /api/note/<id
    `base_of()`/`role_of()`/`SUBJECT_PAPER_LABELS`/`SUBJ_ABBR` helpers - it does **not** re-run
    `enrich.py`'s year-resolution, school-sweep, or auto-grouping logic on the whole dataset, so
    editing one row can't have side effects on unrelated entries.
+3. **Marks which pipeline-owned fields were hand-edited.** School/Paper Info/Subject/Document
+   Type/Year/Paper Number are the same fields `enrich.py`'s school-sweep/year-resolution and the
+   note-tagger subagent also write, so editing one through the modal would otherwise be
+   indistinguishable from the pipeline having inferred it correctly. Whenever a `PATCH` actually
+   changes one of those fields' values (a no-op edit back to the same value doesn't count), its
+   name gets appended to a `manually_edited` array on the entry (`server.py`'s
+   `TRACKED_NOTE_FIELDS`/`api_update_note`) - append-only, nothing currently removes a name from
+   it. `status_override`/`review_note` don't need this: they're new fields nothing but this
+   endpoint ever writes, so a non-null value is already unambiguous proof of a manual edit.
+   **Nothing reads `manually_edited` yet** - `enrich.py` still unconditionally overwrites
+   `year_resolved` every run regardless of it (see the `year_resolved` protection gotcha further
+   down), and the school-sweep only skips entries where `school` is already truthy, not
+   specifically ones in this list. Consult it before trusting either script's output over a
+   human's if you're touching that code.
 
 **Grouping** - not a raw `group_id` text field (too easy to typo, and typing an unprefixed
 string that happens to collide with an existing computed key would silently and confusingly
@@ -403,8 +430,6 @@ into `web/index.html` yourself, just re-run the build.
   `python` (aliases to the real 3.10 install) for all one-off scripts and pipeline runs.
 - Bash heredocs (`python3 << 'EOF' ... EOF`) have been unreliable in this environment (silent
   non-zero exits with no output) - write a `.py` file and run `python path/to/file.py` instead.
-- `.env` (gitignored) holds `GEMINI_API_KEY`. Never commit it; `git check-ignore -v .env` should
-  confirm it's ignored if you're ever unsure.
 
 ## Conventions specific to this repo
 
@@ -414,7 +439,7 @@ into `web/index.html` yourself, just re-run the build.
   `CLAUDE.md` for the full house style - it applies here like everywhere else).
 - Never bulk-download PDFs. The whole point of `inline_url`/`download_url` is linking to
   grail.moe's own hosting on demand; this repo does not mirror file contents.
-- Prefer editing `enrich.py`/`tag_with_gemini.py`/`fetch_inline_urls.py` over one-off inline
+- Prefer editing `enrich.py`/`fetch_inline_urls.py` over one-off inline
   Python for anything that might need to be re-run later - the throwaway-heredoc approach is how
   this repo previously lost enrichment work (overwrote `tagged.json` with an intermediate stage,
   no backup taken first).

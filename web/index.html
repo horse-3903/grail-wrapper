@@ -753,6 +753,7 @@ function isQuestionsRole(role) {
 // TYS Answers is the one non-role-based exception: it's already unambiguously answers.
 const ROLE_BASED_TYPES = new Set(["Exam Papers", "MYEs/CAs/Other Tests", "User Mock Papers"]);
 function entryStatus(e) {
+  if (e.status_override) return e.status_override;
   if (ROLE_BASED_TYPES.has(e.doc_type)) return classifyRole(e.paper_info_role || e.doc_type);
   if (e.doc_type === "TYS Answers") return "Answers";
   return e.doc_type || "";
@@ -1314,6 +1315,7 @@ function matchesFilters(e, f) {
 // filtering/sorting by the primary's classifyRole() instead of this scattered visually-identical
 // term badge would disagree with what's actually on screen.
 function rowStatus(g) {
+  if (g.primary.status_override) return g.primary.status_override;
   return g.isGroup && ROLE_BASED_TYPES.has(g.primary.doc_type) ? examTerm(g.primary) : entryStatus(g.primary);
 }
 
@@ -1377,9 +1379,8 @@ document.querySelectorAll(".col-headers .sortable").forEach(header => {
 // value on encode/decode if it's ever missing from the map (e.g. a new doc_type/subject added
 // to the data before this list is updated), so nothing breaks - the URL is just less compact.
 const SUBJECT_CODES = {
-  "H1 Chemistry": "h1ch", "H1 Economics": "h1ec", "H1 General Paper": "gp",
-  "H2 Chemistry": "h2ch", "H2 Computing": "h2co", "H2 Economics": "h2ec",
-  "H2 Mathematics": "h2ma", "H2 Physics": "h2ph",
+  "H1 General Paper": "gp", "H2 Chemistry": "h2ch", "H2 Computing": "h2co",
+  "H2 Economics": "h2ec", "H2 Mathematics": "h2ma", "H2 Physics": "h2ph",
 };
 const DOCTYPE_CODES = {
   "Exam Papers": "ep", "MYEs/CAs/Other Tests": "mye", "Notes/Practices": "np",

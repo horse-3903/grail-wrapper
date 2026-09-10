@@ -1,5 +1,6 @@
 """Catalog and tag documents from the public "Holy Grail Mark 6" Google Drive, for the 6
-subjects this project scopes to. Two things this does differently from scrape.py/tag_with_gemini.py:
+subjects this project scopes to. Two things this does differently from scrape.py/the note-tagger
+subagent:
 
 1. No API key/auth needed - it scrapes the AF_initDataCallback JSON blob Google Drive's own
    unauthenticated folder-listing page embeds in its HTML (the same data the web UI itself

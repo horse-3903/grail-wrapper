@@ -19,8 +19,8 @@ A local, faster, organized index for the grail.moe 'A' Level exam paper library
 **grail-wrapper** is a local wrapper around the [grail.moe](https://grail.moe/library) exam
 paper library, presented as a UI titled **Holy Grail Mk 6 Index**. Instead of clicking through
 hundreds of paginated listing pages, it scrapes the library's metadata once, enriches it with
-Claude subagents and the Gemini API (school, paper info, review flags, answer-booklet links),
-and serves a fast local search UI where every title opens the PDF directly. The core question
+Claude subagents (school, paper info, review flags, answer-booklet links), and serves a fast
+local search UI where every title opens the PDF directly. The core question
 it answers: can a messy, freeform-named crowd-uploaded document library be turned into a clean,
 browsable, correctly-grouped index without manually touching every one of its thousands of
 entries.
@@ -34,9 +34,9 @@ entries.
   to just that year)
 - **Direct PDF links** - every title links straight to grail.moe's stable static PDF URL, opening
   inline in a new tab instead of forcing a download, with no bulk upfront download
-- **Automatic tagging** - Claude Haiku subagents or the free Gemini API extract school and paper
-  info from freeform filenames and flag entries whose name looks inconsistent with the site's
-  structured fields, for a human (or another agent pass) to resolve
+- **Automatic tagging** - Claude Haiku subagents extract school and paper info from freeform
+  filenames and flag entries whose name looks inconsistent with the site's structured fields,
+  for a human (or another agent pass) to resolve
 - **Exam-set grouping** - question papers and their answer booklets are grouped into one
   expandable row per exam sitting (badged "Exam Paper"), with question papers always listed
   before their answers, instead of scattered disconnected entries
@@ -120,16 +120,10 @@ PDF link (fetching every note's detail page, since that link isn't on the listin
 python fetch_inline_urls.py
 ```
 
-It's safe to re-run; it only fetches entries missing `inline_url`. School/paper-info tagging can
-run unattended too, via the free Gemini API instead of a manual Claude Code subagent session
-(get a free key at [aistudio.google.com/apikey](https://aistudio.google.com/apikey), put it in a
-local `.env` as `GEMINI_API_KEY=...`):
-
-```bash
-python tag_with_gemini.py                 # tags entries in data/tagged.json missing school/paper_info
-python tag_with_gemini.py --force          # re-tags everything (e.g. after a prompt change)
-python tag_with_gemini.py --include-flagged # also re-tags entries currently flagged for review
-```
+It's safe to re-run; it only fetches entries missing `inline_url`. School/paper-info tagging is
+done by dispatching the `note-tagger` Claude Code subagent (`.claude/agents/note-tagger.md`) in
+batches of ~200-250 entries, inside an interactive Claude Code session - see `AGENTS.md` for the
+full pipeline.
 
 Once tags are in place, `enrich.py` deterministically recomputes every derived field - resolved
 year, standardized `display_name`, paper number/label, and exam-set `group_id` - from the raw
@@ -187,7 +181,7 @@ than editing `web/index.html` directly.
 grail-wrapper/
 ├── scrape.py                # metadata scraper -> data/raw.json, CLI-configurable
 ├── fetch_inline_urls.py     # fills in each note's stable document.grail.moe PDF URL
-├── tag_with_gemini.py       # unattended Gemini-based school/paper_info tagging
+├── recover_years.py          # recovers a missing year from a PDF's own cover-page text
 ├── enrich.py                 # deterministic year/naming/paper-number/grouping pass
 ├── scrape_gdrive.py           # crawls + rule-tags the public Drive source -> data/gdrive_tagged.json
 ├── merge_gdrive.py             # merges Drive entries not already covered into data/tagged.json
@@ -245,9 +239,4 @@ Beyond the raw scraped fields (`name`, `category`, `subject`, `doc_type`, `note_
 
 ## Environment Variables
 
-| Variable | Default | Description |
-|---|---|---|
-| `GEMINI_API_KEY` | none | Only needed for `tag_with_gemini.py`. Free key from [aistudio.google.com/apikey](https://aistudio.google.com/apikey); put it in a local `.env` file (gitignored) or export it directly. |
-| `GEMINI_MODEL` | `gemini-3.6-flash` | Override if Google retires the pinned default model (`tag_with_gemini.py` fails fast with an actionable message on a 404 rather than a raw traceback). |
-
-The server port (`8765`) is set directly in `server.py`; no other environment variables are used.
+None. The server port (`8765`) is set directly in `server.py`.
