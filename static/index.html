@@ -451,12 +451,15 @@
   .source-badge.link { width: 14px; height: 14px; -webkit-mask-image: url('link-icon.png'); mask-image: url('link-icon.png'); }
 
   .actions { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
-  .actions a, .actions button {
-    font-size: 11px; font-family: var(--font-mono); padding: 5px 10px; border-radius: var(--r-control);
-    border: 1px solid var(--border); background: var(--card-alt); color: var(--text-secondary);
-    text-decoration: none; font-weight: 600; cursor: pointer;
+  .icon-btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 30px; height: 30px; border-radius: var(--r-control);
+    border: none; background: none; color: var(--text-secondary);
+    text-decoration: none; cursor: pointer; flex-shrink: 0;
+    transition: color .12s;
   }
-  .actions a:hover, .actions button:hover { border-color: var(--accent); color: var(--accent); }
+  .icon-btn svg { width: 16px; height: 16px; fill: currentColor; }
+  .icon-btn:hover { color: var(--accent); }
 
   .members { padding: 0 0 4px 0; margin-top: -2px; }
   .member-row {
@@ -620,7 +623,8 @@
     .col-badges { justify-content: flex-start; }
     .row-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
     .actions { justify-content: flex-start; }
-    .actions a, .actions button { padding: 7px 14px; }
+    .icon-btn { width: 36px; height: 36px; }
+    .icon-btn svg { width: 18px; height: 18px; }
 
     .row-indent { display: none; }
     .member-row { border-left: 3px solid var(--primary); border-left-style: dashed; }
@@ -1612,6 +1616,29 @@ function pdfUrl(e) {
   return e.inline_url || e.download_url;
 }
 
+// Single-path icons (viewBox 0 0 24 24, filled via currentColor) for the icon-only actions
+// row - kept as raw markup strings rather than <img>/mask-image like the source badges, since
+// these need to inherit .icon-btn's hover color via `fill: currentColor`, not a fixed mask tint.
+const ICONS = {
+  source: '<svg viewBox="0 0 24 24"><path d="M14 3h7v7h-2V6.41l-9.3 9.3-1.41-1.42 9.29-9.29H14V3zM5 5h6v2H7v10h10v-4h2v6H5V5z"/></svg>',
+  reference: '<svg viewBox="0 0 24 24"><path fill-rule="evenodd" d="M6 2h9l5 5v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm8 1.5V8h4.5L14 3.5zM8 12.25h8v1.5H8v-1.5zm0 3.5h8v1.5H8v-1.5zm0-7h5v1.5H8v-1.5z"/></svg>',
+  download: '<svg viewBox="0 0 24 24"><path d="M11 3h2v9.17l3.59-3.58L18 10l-6 6-6-6 1.41-1.41L11 12.17V3zM5 19h14v2H5z"/></svg>',
+  edit: '<svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>',
+};
+
+// title/aria-label carry the text a plain icon can't - `stopPropagation` is only needed on a
+// group header's own row (the whole row is itself a click-to-expand target).
+function iconLinkHtml(url, iconKey, label, stopPropagation, extraAttrs) {
+  const onclick = stopPropagation ? ` onclick="event.stopPropagation()"` : "";
+  return `<a class="icon-btn" href="${url}" target="_blank" title="${label}" aria-label="${label}"${onclick}${extraAttrs || ""}>${ICONS[iconKey]}</a>`;
+}
+function sourceLinkHtml(e, stopPropagation) {
+  return iconLinkHtml(e.note_url, "source", "Source", stopPropagation);
+}
+function downloadLinkHtml(e, stopPropagation) {
+  return iconLinkHtml(e.download_url, "download", "Download", stopPropagation);
+}
+
 // Only the subjects with an actual reference/*.pdf get a Reference link on their rows - a
 // button that opens to nothing for Economics/GP would just be broken UI, not a placeholder.
 const REFERENCE_PDF_BY_SUBJECT = {
@@ -1625,9 +1652,7 @@ function referencePdfUrl(e) {
 }
 function referenceLinkHtml(e, stopPropagation) {
   const url = referencePdfUrl(e);
-  if (!url) return "";
-  const onclick = stopPropagation ? ` onclick="event.stopPropagation()"` : "";
-  return `<a href="${url}" target="_blank"${onclick}>Reference</a>`;
+  return url ? iconLinkHtml(url, "reference", "Reference", stopPropagation) : "";
 }
 
 // WEB:OMIT-START - local-server-only feature, see AGENTS.md
@@ -1720,8 +1745,9 @@ function renderRows(groups) {
         </div>
         ${rowMetaHtml(g.primary)}
         <div class="actions">
-          <a href="${g.primary.note_url}" target="_blank" onclick="event.stopPropagation()">Source</a>
+          ${sourceLinkHtml(g.primary, true)}
           ${referenceLinkHtml(g.primary, true)}
+          ${downloadLinkHtml(g.primary, true)}
         </div>`;
       row.addEventListener("click", () => {
         if (openGroups.has(g.key)) openGroups.delete(g.key); else openGroups.add(g.key);
@@ -1749,7 +1775,7 @@ function renderRows(groups) {
               <!-- WEB:OMIT-START -->${flagBadgeHtml(m)}<!-- WEB:OMIT-END -->
             </div>
             ${rowMetaHtml(m)}
-            <div class="actions"><a href="${m.note_url}" target="_blank">Source</a>${referenceLinkHtml(m, false)}<!-- WEB:OMIT-START --><button type="button" class="edit-btn" data-id="${esc(m.id)}">Edit</button><!-- WEB:OMIT-END --></div>`;
+            <div class="actions">${sourceLinkHtml(m, false)}${referenceLinkHtml(m, false)}${downloadLinkHtml(m, false)}<!-- WEB:OMIT-START --><button type="button" class="icon-btn edit-btn" data-id="${esc(m.id)}" title="Edit" aria-label="Edit">${ICONS.edit}</button><!-- WEB:OMIT-END --></div>`;
           membersWrap.appendChild(mrow);
         }
         frag.appendChild(membersWrap);
@@ -1771,7 +1797,7 @@ function renderRows(groups) {
           <!-- WEB:OMIT-START -->${flagBadgeHtml(e)}<!-- WEB:OMIT-END -->
         </div>
         ${rowMetaHtml(e)}
-        <div class="actions"><a href="${e.note_url}" target="_blank">Source</a>${referenceLinkHtml(e, false)}<!-- WEB:OMIT-START --><button type="button" class="edit-btn" data-id="${esc(e.id)}">Edit</button><!-- WEB:OMIT-END --></div>`;
+        <div class="actions">${sourceLinkHtml(e, false)}${referenceLinkHtml(e, false)}${downloadLinkHtml(e, false)}<!-- WEB:OMIT-START --><button type="button" class="icon-btn edit-btn" data-id="${esc(e.id)}" title="Edit" aria-label="Edit">${ICONS.edit}</button><!-- WEB:OMIT-END --></div>`;
       frag.appendChild(row);
     }
   }
