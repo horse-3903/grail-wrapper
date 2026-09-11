@@ -339,6 +339,10 @@ Key JS internals worth knowing before touching filtering/rendering:
   layout (header + filter bar + internally-scrolling results).
 - **Do not verify UI changes with a browser tool** - lint with impeccable and reason about the
   code instead. This is an explicit standing preference, not a one-off.
+- **Never start `server.py` yourself** (`python server.py`, `start_server.bat`, etc.) - not even
+  to verify a change works, not even before pushing. If the user wants it running, they'll start
+  it themselves. This reverses an earlier pattern in this project's history where an agent did
+  start it before pushing; that's no longer wanted, full stop.
 
 ### Dark mode
 

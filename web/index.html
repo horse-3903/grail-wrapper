@@ -37,7 +37,13 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%235984EA' d='M5 2h14l-1.15 7.2a6 6 0 0 1-4.85 4.95V18h3v2H8v-2h3v-3.85A6 6 0 0 1 6.15 9.2L5 2z'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- Loaded non-blocking (the media="print" swapped to "all" on load trick) - a synchronous
+     third-party stylesheet here would both delay first render and be a single point of
+     failure if fonts.googleapis.com is slow/down. The body font-family's system-font fallback
+     stack means the page is fully readable before this resolves either way. -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet"></noscript>
 <style>
   :root {
     --primary: #A268CF;
@@ -61,16 +67,19 @@
     --role-answers-border: #CDE9D9;
     --role-questions-border: #D3DEF8;
     --role-questions-bg: #EBF0FC;
-    --role-prelim-color: #0E7CA8;
+    --role-answers-color: #297C4F;
+    --role-questions-color: #2C62E4;
+    --tag-color: #8E48C5;
+    --role-prelim-color: #0D749E;
     --role-prelim-border: #A9D6E9;
     --role-prelim-bg: #E3F3FA;
-    --role-promo-color: #B7791F;
+    --role-promo-color: #966419;
     --role-promo-border: #F0DBA6;
     --role-promo-bg: #FDF3DC;
-    --role-jc1-color: #1E8A74;
+    --role-jc1-color: #1B7A66;
     --role-jc1-border: #A9E0D2;
     --role-jc1-bg: #E1F5F0;
-    --role-jc2-color: #C2564A;
+    --role-jc2-color: #B3483C;
     --role-jc2-border: #F2C6BE;
     --role-jc2-bg: #FBEAE7;
     --role-other-exam-color: #5B6472;
@@ -104,6 +113,9 @@
     --role-answers-border: #1F4E36;
     --role-questions-border: #2A3B63;
     --role-questions-bg: #202A47;
+    --role-answers-color: #39AD6E;
+    --role-questions-color: #6A91EC;
+    --tag-color: #B588D9;
     --role-prelim-color: #4FC3E0;
     --role-prelim-border: #1D4B5C;
     --role-prelim-bg: #17313C;
@@ -185,7 +197,7 @@
     flex-shrink: 0; padding: 10px 32px; text-align: center; font-size: 12px;
     color: var(--text-faint); background: var(--card); border-top: 1px solid var(--border);
   }
-  .site-footer a { color: var(--text-secondary); text-decoration: none; }
+  .site-footer a { color: var(--text-secondary); text-decoration: underline; }
   /* Genuine on-page descriptive text (not just meta tags) for search engines to draw a
      snippet from - the filter bar's own text was otherwise the most prominent visible
      content, which made for a useless auto-generated search result snippet. Visually hidden
@@ -416,7 +428,7 @@
     font-size: 11px; background: var(--card-alt); color: var(--text-secondary); border: 1px solid var(--border);
     font-weight: 600;
   }
-  .tag.school { background: var(--tag-school-bg); color: var(--primary); border-color: transparent; }
+  .tag.school { background: var(--tag-school-bg); color: var(--tag-color); border-color: transparent; }
   .cell-muted { color: var(--text-secondary); font-size: 13px; }
 
   
@@ -464,8 +476,8 @@
   /* Every status badge below gets its own distinct color - never reuse one across statuses,
      even ones that can't appear on screen together. Check the existing hues before adding
      a new status color. */
-  .role-badge.answers { color: var(--answers); border-color: var(--role-answers-border); background: var(--answers-soft); }
-  .role-badge.questions { color: var(--accent); border-color: var(--role-questions-border); background: var(--role-questions-bg); }
+  .role-badge.answers { color: var(--role-answers-color); border-color: var(--role-answers-border); background: var(--answers-soft); }
+  .role-badge.questions { color: var(--role-questions-color); border-color: var(--role-questions-border); background: var(--role-questions-bg); }
   .role-badge.prelim { color: var(--role-prelim-color); border-color: var(--role-prelim-border); background: var(--role-prelim-bg); }
   .role-badge.promo { color: var(--role-promo-color); border-color: var(--role-promo-border); background: var(--role-promo-bg); }
   .role-badge.jc1 { color: var(--role-jc1-color); border-color: var(--role-jc1-border); background: var(--role-jc1-bg); }
@@ -572,7 +584,7 @@
 <div class="layout">
   <div class="filterbar">
     <div class="filter-group grow">
-      <label>Search</label>
+      <label for="f-search">Search</label>
       <input id="f-search" type="text" placeholder="e.g. RVHS prelim 2023">
     </div>
     <button type="button" class="filter-toggle-btn" id="filter-toggle" aria-expanded="false" aria-controls="filterbar-collapsible">
@@ -580,9 +592,9 @@
     </button>
     <div class="filterbar-collapsible" id="filterbar-collapsible">
     <div class="filter-group">
-      <label>Subject</label>
+      <label for="f-subject-trigger">Subject</label>
       <div class="ms" id="f-subject-ms">
-        <button type="button" class="ms-trigger" id="f-subject-trigger">All subjects<span class="ms-caret">&#9662;</span></button>
+        <button type="button" class="ms-trigger" id="f-subject-trigger" aria-haspopup="listbox" aria-expanded="false">All subjects<span class="ms-caret">&#9662;</span></button>
         <div class="ms-panel" id="f-subject-panel" hidden>
           <input type="text" class="ms-search" id="f-subject-search" placeholder="Search subjects...">
           <div class="ms-options" id="f-subject-options"></div>
@@ -593,9 +605,9 @@
       </div>
     </div>
     <div class="filter-group">
-      <label>School</label>
+      <label for="f-school-trigger">School</label>
       <div class="ms" id="f-school-ms">
-        <button type="button" class="ms-trigger" id="f-school-trigger">All schools<span class="ms-caret">&#9662;</span></button>
+        <button type="button" class="ms-trigger" id="f-school-trigger" aria-haspopup="listbox" aria-expanded="false">All schools<span class="ms-caret">&#9662;</span></button>
         <div class="ms-panel" id="f-school-panel" hidden>
           <input type="text" class="ms-search" id="f-school-search" placeholder="Search schools...">
           <div class="ms-options" id="f-school-options"></div>
@@ -606,9 +618,9 @@
       </div>
     </div>
     <div class="filter-group">
-      <label>Year</label>
+      <label for="f-year-trigger">Year</label>
       <div class="ms" id="f-year-ms">
-        <button type="button" class="ms-trigger" id="f-year-trigger">All years<span class="ms-caret">&#9662;</span></button>
+        <button type="button" class="ms-trigger" id="f-year-trigger" aria-haspopup="listbox" aria-expanded="false">All years<span class="ms-caret">&#9662;</span></button>
         <div class="ms-panel year-panel" id="f-year-panel" hidden>
           <input type="text" class="ms-search" id="f-year-search" placeholder="Jump to a year...">
           <div class="ms-options year-options" id="f-year-options"></div>
@@ -637,9 +649,9 @@
       </div>
     </div>
     <div class="filter-group">
-      <label>Status</label>
+      <label for="f-status-trigger">Status</label>
       <div class="ms" id="f-status-ms">
-        <button type="button" class="ms-trigger" id="f-status-trigger">All statuses<span class="ms-caret">&#9662;</span></button>
+        <button type="button" class="ms-trigger" id="f-status-trigger" aria-haspopup="listbox" aria-expanded="false">All statuses<span class="ms-caret">&#9662;</span></button>
         <div class="ms-panel" id="f-status-panel" hidden>
           <input type="text" class="ms-search" id="f-status-search" placeholder="Search statuses...">
           <div class="ms-options" id="f-status-options"></div>
@@ -650,9 +662,9 @@
       </div>
     </div>
     <div class="filter-group">
-      <label>Document type</label>
+      <label for="f-doctype-trigger">Document type</label>
       <div class="ms" id="f-doctype-ms">
-        <button type="button" class="ms-trigger" id="f-doctype-trigger">All types<span class="ms-caret">&#9662;</span></button>
+        <button type="button" class="ms-trigger" id="f-doctype-trigger" aria-haspopup="listbox" aria-expanded="false">All types<span class="ms-caret">&#9662;</span></button>
         <div class="ms-panel" id="f-doctype-panel" hidden>
           <input type="text" class="ms-search" id="f-doctype-search" placeholder="Search types...">
           <div class="ms-options" id="f-doctype-options"></div>
@@ -663,9 +675,9 @@
       </div>
     </div>
     <div class="filter-group">
-      <label>Paper</label>
+      <label for="f-paper-trigger">Paper</label>
       <div class="ms" id="f-paper-ms">
-        <button type="button" class="ms-trigger" id="f-paper-trigger">All papers<span class="ms-caret">&#9662;</span></button>
+        <button type="button" class="ms-trigger" id="f-paper-trigger" aria-haspopup="listbox" aria-expanded="false">All papers<span class="ms-caret">&#9662;</span></button>
         <div class="ms-panel" id="f-paper-panel" hidden>
           <input type="text" class="ms-search" id="f-paper-search" placeholder="Search papers...">
           <div class="ms-options" id="f-paper-options"></div>
@@ -1172,7 +1184,10 @@ function setActiveMsOption(key, index) {
 
 function closeAllPanels(except) {
   document.querySelectorAll(".ms-panel").forEach(p => {
-    if (p !== except) p.hidden = true;
+    if (p === except) return;
+    p.hidden = true;
+    const trigger = document.getElementById(p.id.replace(/-panel$/, "-trigger"));
+    if (trigger) trigger.setAttribute("aria-expanded", "false");
   });
 }
 
@@ -1185,6 +1200,7 @@ function setupDropdown(key) {
     const willOpen = panel.hidden;
     closeAllPanels(willOpen ? panel : null);
     panel.hidden = !willOpen;
+    trigger.setAttribute("aria-expanded", String(willOpen));
     if (willOpen && search) {
       search.value = "";
       filterMsOptions(key);
