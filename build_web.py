@@ -28,14 +28,25 @@ OMIT_RE = re.compile(
     re.DOTALL,
 )
 
+# Cloudflare Web Analytics - public-site-only (every page gets it), so local dev traffic on
+# static/ + server.py doesn't get tracked. static/*.html carries a <!-- WEB:ANALYTICS --> marker
+# in <head> instead of the real snippet for exactly that reason.
+CLOUDFLARE_BEACON = (
+    '<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" '
+    'data-cf-beacon=\'{"token": "2c6f6ce7cbc0429ba5923450053e1f8b"}\'></script>'
+)
+
 # Per-page substitutions, applied after that page's omit blocks are stripped - things that
 # differ only because those blocks are gone (a narrower actions column with no Edit button) or
-# because this build has no server to fetch from. A page with none (e.g. reference.html) just
-# doesn't get an entry here.
+# because this build has no server to fetch from.
 SUBSTITUTIONS = {
     "index.html": [
         ('fetch("/api/notes")', 'fetch("./data.json")'),
         ("2.05fr 0.7fr 0.55fr 0.75fr 0.4fr 0.9fr 0.75fr", "2.3fr 0.7fr 0.55fr 0.75fr 0.4fr 0.9fr 0.5fr"),
+        ("<!-- WEB:ANALYTICS -->", CLOUDFLARE_BEACON),
+    ],
+    "reference.html": [
+        ("<!-- WEB:ANALYTICS -->", CLOUDFLARE_BEACON),
     ],
 }
 
