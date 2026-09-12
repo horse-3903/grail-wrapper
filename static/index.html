@@ -1654,8 +1654,18 @@ function iconLinkHtml(url, iconKey, label, stopPropagation, extraAttrs) {
 function sourceLinkHtml(e, stopPropagation) {
   return iconLinkHtml(e.note_url, "source", "Source", stopPropagation);
 }
+
+// Drive-sourced entries' download_url is a viewer page (drive.google.com/file/d/<id>/view,
+// same as note_url/inline_url for these) - not an actual download link. Rewrite it to Drive's
+// direct-download endpoint so the Download button behaves the same regardless of source;
+// grail.moe's own download_url already forces a download via S3, so it passes through as-is.
+const DRIVE_FILE_ID_RE = /drive\.google\.com\/file\/d\/([^/]+)/;
+function downloadUrl(e) {
+  const m = DRIVE_FILE_ID_RE.exec(e.download_url || "");
+  return m ? `https://drive.google.com/uc?export=download&id=${m[1]}` : e.download_url;
+}
 function downloadLinkHtml(e, stopPropagation) {
-  return iconLinkHtml(e.download_url, "download", "Download", stopPropagation);
+  return iconLinkHtml(downloadUrl(e), "download", "Download", stopPropagation);
 }
 
 // Only the subjects with an actual reference/*.pdf get a Reference link on their rows - a
