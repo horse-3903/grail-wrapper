@@ -231,6 +231,21 @@ consistency check, so they need a dedicated sweep rather than just reviewing fla
   corroborating siblings - those get `flagged: true` instead (see "Flags" below), not a guessed
   group. What's left after that (~445 entries at the time) genuinely couldn't be resolved from
   the name/field alone: most had no determinable year, a handful had a year but no sibling.
+- **A combined "Questions & Answers" file splinters into its own group.** `SUFFIX_RE` used to
+  strip `Questions` and `Answers` as two independent word matches, leaving a stray `&`/`and` in
+  `paper_info_base` that didn't match the plain `P1`/`P2`/... siblings' base - fixed by stripping
+  the whole `Questions & Answers` (either order, `&` or `and`) as one unit before `SUFFIX_RE` runs
+  (`QA_JOIN_RE` in `enrich.py`). Re-run `enrich.py` after any future school/paper_info fix to a
+  combined-file entry so this doesn't regress.
+- **Section-letter formats `enrich.py` doesn't recognize still split a group.** `SECTION_DETECT_RE`
+  only catches an explicit `Sect`/`Section` word before the letter ("Sect A", "Section B") - a
+  paper number with the letter glued directly on, like `P3A`/`P3B` (no "Sect" word at all), isn't
+  detected, so the tagger either drops the letter entirely (indistinguishable duplicate "P3 QP"
+  rows, as happened at HCI 2023 H2 Physics - `10437`/`10438`, still unresolved) or `enrich.py`'s
+  `NUM_RE` eats the digit and leaves the bare letter stuck to the topic word as if it were a whole
+  extra word ("Prelim P3A" -> topic "Prelim A", its own group - happened at MI 2024 H2 Physics,
+  fixed by manually retagging both siblings to explicit "Sect A"/"Sect B"). Worth a dedicated sweep
+  for `P[1-4][A-Z]\b` in `original_name` the same way the school-substring sweep works.
 - **The raw `year` field's "no year" placeholder isn't always `"-"`.** It's sometimes an em dash
   `"—"` instead of a hyphen - `enrich.py`'s year-resolution originally only excluded `"-"`, so
   ~114 entries got a bogus `year_resolved: "—"` (a literal em-dash string treated as if it were a

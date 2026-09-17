@@ -27,6 +27,13 @@ SCHOOL_RE = re.compile(r"(?<![A-Za-z])(" + "|".join(KNOWN_SCHOOLS) + r")(?![A-Za
 SUFFIX_RE = re.compile(
     r"\b(Answers?|Solutions?|Soln|Qn|Questions?|QP|Insert|Guide|Mark ?Scheme)\b", re.IGNORECASE
 )
+# strip "Questions & Answers"/"Questions and Answers" (either order) as one unit before
+# SUFFIX_RE runs - otherwise the two words get stripped separately and leave a stray "&"/"and"
+# in paper_info_base, splitting a combined Q+A file into its own group instead of joining the
+# P1/P2/... siblings it belongs with.
+QA_JOIN_RE = re.compile(
+    r"\b(?:Questions?\s*(?:&|and)\s*Answers?|Answers?\s*(?:&|and)\s*Questions?)\b", re.IGNORECASE
+)
 NUM_RE = re.compile(r"(?<![A-Za-z0-9])P(?:aper)?\.?\s*([1-4])(?![0-9])", re.IGNORECASE)
 # section splits (e.g. "Prelim CT P3 Sect A") distinguish which half of one paper an entry
 # covers, but shouldn't fragment the exam-set grouping - a P3 Sect A and Sect B QP still
@@ -65,7 +72,8 @@ ALREADY_SIGNALS_RE = re.compile(r"answer|solution|\bms\b|mark\s*scheme", re.IGNO
 def base_of(paper_info: str) -> str:
     if not paper_info:
         return ""
-    return re.sub(r"\s+", " ", SUFFIX_RE.sub("", paper_info)).strip()
+    stripped = SUFFIX_RE.sub("", QA_JOIN_RE.sub("", paper_info))
+    return re.sub(r"\s+", " ", stripped).strip()
 
 
 def role_of(paper_info: str, base: str) -> str:
