@@ -42,7 +42,7 @@ CLOUDFLARE_BEACON = (
 SUBSTITUTIONS = {
     "index.html": [
         ('fetch("/api/notes")', 'fetch("./data.json")'),
-        ("2.05fr 0.7fr 0.55fr 0.75fr 0.4fr 0.9fr 0.75fr", "2.3fr 0.7fr 0.55fr 0.75fr 0.4fr 0.9fr 0.5fr"),
+        ("2.05fr 0.7fr 0.55fr 0.75fr 0.4fr 0.9fr 0.65fr 0.75fr", "2.3fr 0.7fr 0.55fr 0.75fr 0.4fr 0.9fr 0.65fr 0.5fr"),
         ("<!-- WEB:ANALYTICS -->", CLOUDFLARE_BEACON),
     ],
     "reference.html": [

@@ -370,7 +370,7 @@
   }
   .col-headers {
     flex-shrink: 0;
-    display: grid; grid-template-columns: 2.3fr 0.7fr 0.55fr 0.75fr 0.4fr 0.9fr 0.5fr;
+    display: grid; grid-template-columns: 2.3fr 0.7fr 0.55fr 0.75fr 0.4fr 0.9fr 0.65fr 0.5fr;
     gap: 12px; padding: 10px 16px; font-family: var(--font-mono); font-size: 10.5px; color: var(--text-faint);
     text-transform: uppercase; letter-spacing: .04em; font-weight: 600; text-align: center;
     background: var(--background); border-bottom: 1px solid var(--border);
@@ -400,7 +400,7 @@
   }
 
   .row {
-    display: grid; grid-template-columns: 2.3fr 0.7fr 0.55fr 0.75fr 0.4fr 0.9fr 0.5fr;
+    display: grid; grid-template-columns: 2.3fr 0.7fr 0.55fr 0.75fr 0.4fr 0.9fr 0.65fr 0.5fr;
     gap: 12px; align-items: center; padding: 13px 16px; border-radius: var(--r-card);
     margin: 6px 0; background: var(--card); border: 1px solid var(--border);
     box-shadow: 0 1px 2px rgba(17, 24, 39, 0.03);
@@ -458,7 +458,7 @@
 
   .members { padding: 0 0 4px 0; margin-top: -2px; }
   .member-row {
-    display: grid; grid-template-columns: 2.3fr 0.7fr 0.55fr 0.75fr 0.4fr 0.9fr 0.5fr;
+    display: grid; grid-template-columns: 2.3fr 0.7fr 0.55fr 0.75fr 0.4fr 0.9fr 0.65fr 0.5fr;
     gap: 12px; align-items: center; padding: 10px 16px; border-radius: var(--r-card);
     margin: 3px 0; background: var(--card-alt); border: 1px dashed var(--border);
   }
@@ -700,6 +700,7 @@
       <div class="sortable" data-sort="subject">Subject<span class="sort-arrow"></span></div>
       <div class="sortable" data-sort="year">Year<span class="sort-arrow"></span></div>
       <div class="sortable" data-sort="type">Type<span class="sort-arrow"></span></div>
+      <div class="sortable" data-sort="added">Added<span class="sort-arrow"></span></div>
       <div>Links</div>
     </div>
     <div class="results-scroll" id="results-scroll">
@@ -1349,6 +1350,26 @@ function rowStatus(g) {
   return g.isGroup && ROLE_BASED_TYPES.has(g.primary.doc_type) ? examTerm(g.primary) : entryStatus(g.primary);
 }
 
+const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+function addedTime(e) {
+  const m = /^(\d{1,2}) (\w+) (\d{4})$/.exec(e.uploaded_on || "");
+  const mi = m ? MONTHS.indexOf(m[2]) : -1;
+  return mi < 0 ? null : Date.UTC(+m[3], mi, +m[1]);
+}
+function latestAdded(members) {
+  let best = null;
+  for (const m of members) {
+    const t = addedTime(m);
+    if (t != null && (best == null || t > best)) best = t;
+  }
+  return best;
+}
+function addedLabel(t) {
+  if (t == null) return "-";
+  const d = new Date(t);
+  return `${d.getUTCDate()} ${MONTHS[d.getUTCMonth()].slice(0, 3)} ${d.getUTCFullYear()}`;
+}
+
 const SORT_KEYS = {
   document: g => g.primary.display_name || "",
   status: rowStatus,
@@ -1356,6 +1377,7 @@ const SORT_KEYS = {
   subject: g => g.primary.subject || "",
   year: g => g.primary.year_resolved ? Number(g.primary.year_resolved) : null,
   type: g => g.primary.doc_type || "",
+  added: g => latestAdded(g.members),
 };
 const STATUS_ORDER = {
   "Promo Exam Papers": 0, "Prelim Exam Papers": 1, "JC1 Exam Papers": 2, "JC2 Exam Papers": 3,
@@ -1580,13 +1602,14 @@ function groupTitle(primary) {
 // direct grid items of .row/.member-row, one per column, identical to before it existed) and
 // becomes a real flex-wrap row of compact tags at the mobile breakpoint, where the grid
 // collapses to a single stacked column and these four would otherwise be four separate lines.
-function rowMetaHtml(e) {
+function rowMetaHtml(e, added = addedTime(e)) {
   return `
     <div class="row-meta">
       <div>${e.school ? `<span class="tag school">${esc(e.school)}</span>` : `<span class="cell-muted">-</span>`}</div>
       <div class="cell-muted">${esc(e.subject || "")}</div>
       <div class="cell-muted">${esc(e.year_resolved || "-")}</div>
       <div class="cell-muted">${esc(e.doc_type || "")}</div>
+      <div class="cell-muted">${addedLabel(added)}</div>
     </div>`;
 }
 
@@ -1612,7 +1635,7 @@ function renderRows(groups) {
           <span class="role-badge ${statusBadgeClass(rowStatus(g))}">${esc(rowStatus(g))}</span>
           
         </div>
-        ${rowMetaHtml(g.primary)}
+        ${rowMetaHtml(g.primary, latestAdded(g.members))}
         <div class="actions">
           ${sourceLinkHtml(g.primary, true)}
           ${referenceLinkHtml(g.primary, true)}

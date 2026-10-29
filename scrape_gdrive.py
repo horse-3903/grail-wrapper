@@ -89,10 +89,14 @@ def list_folder(folder_id: str, retries: int = 3):
         if not names or names[-1] != n:
             names.append(n)
 
+    id_pos = [m.start() for m in re.finditer(r'\[null,"[\w-]{20,}"\],null,null,null,"[\w./-]+"', target)]
+    id_pos.append(len(target))
     items = []
     for i, (fid, mime) in enumerate(ids_mime):
         name = names[i] if i < len(names) else "(unknown)"
-        items.append({"id": fid, "name": name, "mimeType": mime, "isFolder": mime == FOLDER_MIME})
+        mod = re.search(r'\["Modified"\],\["([^"]+)"\]', target[id_pos[i]:id_pos[i + 1]])
+        items.append({"id": fid, "name": name, "mimeType": mime, "isFolder": mime == FOLDER_MIME,
+                      "modified": mod.group(1) if mod else None})
     return items
 
 
@@ -103,7 +107,7 @@ def walk(folder_id: str, path: list[str], out: list, delay: float = 0.35):
         return
     for item in items:
         entry = {"path": path + [item["name"]], "id": item["id"], "isFolder": item["isFolder"],
-                  "mimeType": item["mimeType"]}
+                  "mimeType": item["mimeType"], "modified": item["modified"]}
         out.append(entry)
         if item["isFolder"]:
             time.sleep(delay)
@@ -179,7 +183,7 @@ def tag_one(entry: dict, subject: str) -> dict:
         "doc_type": doc_type or "Exam Papers",
         "year": year,
         "uploaded_by": None,
-        "uploaded_on": None,
+        "uploaded_on": entry.get("modified"),
         "school": school,
         "paper_info": paper_info,
         "paper_info_base": base,
