@@ -100,6 +100,11 @@ def compute_group_id(e: dict, base: str, n: int | None) -> str:
     """The deterministic group_id an entry would get on its own, ignoring any manual/linked
     override. Shared by enrich() and server.py's "split into its own group" action.
     """
+    if e["doc_type"] == "TYS Answers" and e.get("year_resolved"):
+        # these are all solutions to the same national A-Level paper for a given year, so
+        # school/uploader differences don't make them different sittings - one group per
+        # school+year+subject regardless of topic wording or paper number
+        return f"{e.get('school') or '-'}|{e['year_resolved']}|{e['subject']}|TYS Answers"
     topic = re.sub(r"\s+", " ", NUM_RE.sub("", base)).strip()
     topic = re.sub(r"\s+", " ", SECTION_RE.sub("", CT_RE.sub("", topic))).strip()
     if e["doc_type"] in GROUPABLE_TYPES and topic:
